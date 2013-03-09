@@ -24,7 +24,7 @@ Docs are a work in progress. We welcome your [contributions](http://github.com/c
 For a look at our roadmap - go [here](docs/roadmap.html).
 -->
 
-ロードマップについては[こちら](docs/roadmap.hml)です。
+ロードマップについては[こちら](docs/roadmap.html)です。
 
 <!--
 ## [Using Cloud Foundry](docs/using/index.html)
