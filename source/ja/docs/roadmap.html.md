@@ -79,6 +79,7 @@ supporting the Cloud Foundry API 2.0
 -->
 
 Cloud Foundry API 2.0 をサポートします。
+
 * 組織とスペースによるセルフ管理のチーム機能を提供します
 * アプリケーションとサービスのチームコラボレーションサポートします
 * カスタムドメイン管理ができます
@@ -169,9 +170,9 @@ Cloud Foundry API 2.0 をサポートします。
 * Review and manage usage
 -->
 
-* Cloud Foundry向けウェブベースのユーザーインターフェース
-* ユーザー、アプリケーション、サービス、ドメインの管理
-* 利用状況のレビューと管理
+* Cloud Foundry向けウェブベースのユーザーインターフェースが提供されます
+* ユーザー、アプリケーション、サービス、ドメインの管理ができます
+* 利用状況のレビューと管理ができます
 
 <!--
 #### Updated [User Account and Authentication](https://github.com/cloudfoundry/uaa) Service (UAA)
