@@ -2,12 +2,12 @@
 title: BOSH
 ---
 
-Cloud Foundry BOSH is an open source tool chain for release engineering, deployment and lifecycle management of large scale distributed services. In this manual we describe the architecture, topology, configuration, and use of BOSH, as well as the structure and conventions used in packaging and deployment.
+Cloud Foundry BOSHは大規模分散サービスのリリースエンジニアリング、デプロイそしてライフサイクル管理を行うためのオープンソースツールです。このマニュアルではBOSHのアーキテクチャ、トポロジ、設定、使いかたについて解説を行うとともに、パッケージングおよびデプロイの構造と規約についても述べます。
 
-BOSH was originally developed in the context of the Cloud Foundry Application Platform as a Service, but the framework is general purpose and can be used to deploy other distributed services on top of Infrastructure as a Service (IaaS) products such as VMware vSphere, vCloud Director, Amazon Web Services EC2, or OpenStack.
+BOSHは当初Cloud Foundry PaaS用に開発されましたが、VMware vSphere、vCloud Director、Amazon Web Services EC2そしてOpenStackのようなIaaS製品上に分散サービスをデプロイするためのツールとして汎用的に使用することが可能です。
 
 * [Components](components/index.html)
-* [Local Setup](setup/index.html)
+* [ローカルセットアップ](setup/index.html)
 * [Reference](reference/index.html)
   * [Jobs](reference/jobs.html)
   * [Packages](reference/packages.html)

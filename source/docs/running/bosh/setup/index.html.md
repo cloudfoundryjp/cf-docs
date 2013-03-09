@@ -1,38 +1,38 @@
 ---
-title: Local Setup
+title: ローカルセットアップ
 ---
 
-BOSH CLI is a command line interface used to interact with MicroBOSH and BOSH. Before you can use MicroBOSH or BOSH you need to install BOSH Command Line Interface. The following steps install BOSH CLI. You can install on either a physical or Virtual Machine.
+BOSH CLIはMicroBOSHおよびBOSHを操作するためのコマンドラインインターフェース（CLI）です。MicroBOSHやBOSHを使う前には、BOSH CLIをあらかじめインストールしておく必要があります。このページではBOSH CLIのインストール方法を説明します。BOSH CLIは物理マシン、仮想マシンのどちらにでもインストール可能です。
 
-## Prerequistes ##
+## 必要なもの ##
 
-* Ruby and RubyGems must be installed before installing BOSH CLI. Refer to the [Installing Ruby](/docs/common/install_ruby.html) page for help with Ruby installation. 
-* A Git client must be installed in order to pull down the BOSH repository from GitHub. Refer to the [Installing Git](/docs/common/install_git.html) page for help with Git installation. 
+* BOSH CLIをインストールためには、あらかじめRubyとRubyGemsがをインストールされている必要があります。[Rubyのインストール](/docs/common/install_ruby.html)ページを参照してインストールを行ってください
+* BOSHをGithubから取得するために、Gitクライアントが必要です。[Gitのインストール](/docs/common/install_git.html)ページを参照してインストールを行ってください
 
-## Install Local BOSH ##
+## ローカルBOSHのインストール ##
 
-Install the BOSH CLI gem:
+BOSH CLIのgemをインストールします：
 
 <pre class="terminal">
 $ gem install bosh_cli
 </pre>
 
-If you are using the rbenv Ruby environment manager, refresh the list of gems that rbenv knows about: 
+もしRuby環境の管理にrbenvを使用している場合は、rehashを行ってrbenvにgemを認識させてください：
 
 <pre class="terminal">
 $ rbenv rehash
 </pre>
 
-## Install BOSH Releases ##
+## BOSHリリースのインストール ##
 
-Clone the BOSH and bosh-release repositories using git:
+Gitを使用してBOSHおよびbosh-releaseレポジトリをクローンします：
 
 <pre class="terminal">
 $ git clone git@github.com:cloudfoundry/bosh.git
 $ git clone git@github.com:cloudfoundry/bosh-release.git
 </pre>
 
-Get release 11 from a branch of bosh-release (we are using an old commit during transition to new release functionality):
+リリース11をbosh-releaseのブランチから取得します（このリリースは最新ではありませんが、新しリリースが機能するまで使用します）：
 
 <pre class="terminal">
 $ cd bosh-release
