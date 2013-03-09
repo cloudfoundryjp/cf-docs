@@ -238,4 +238,3 @@ Extensions, tools and services provided by the Cloud Foundry community and partn
 -->
 
 Cloud Foundry コミュニティとパートナーによって提供されている拡張、ツール、そしてサービス。
-Extensions, tools and services provided by the Cloud Foundry community and partners.
