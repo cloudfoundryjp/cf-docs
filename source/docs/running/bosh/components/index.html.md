@@ -1,10 +1,10 @@
 ---
-title: BOSH Components
+title: BOSH コンポーネント
 ---
 
 ![fig1](/images/fig1.png)
 
-- [Director](director.html)
+- [ディレクター](director.html)
 - [Messaging](messaging.html)
 - [Workers](workers.html)
 - [Health Monitor](health-monitor.html)

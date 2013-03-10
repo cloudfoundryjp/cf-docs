@@ -1,87 +1,91 @@
 ---
-title: Director
+title: ディレクター
 ---
 
-The Director is the core orchestrating component in BOSH which controls creation of VMs, deployment, and other life cycle events of software and services. Command and control is handed over to the the Director-Agent interaction after the CPI has created resources.
+ディレクターはBOSHがオーケストレーションを行う上でのコアコンポーネントです。仮想マシンの生成やデプロイ実行を初めとしたソフトウェアとサービスのライフサイクルイベントの制御を行います。CPIがリソースを生成した後の命令、制御はディレクターエージェントに引き渡されます。
 
+ディレクターには、前述したそれぞれのタスクを実行するためのサブコンポーネントが存在します。これらのサブコンポーネントはApiContollerから参照される次のクラスのインスタンスです。
 There are specific sub components to manage each of the tasks mentioned above. All these are instances of the following classes referenced from the ApiController.
 
 ![director-components](/images/director-components.png)
 
-### Deployment Manager ###
-Responsible for creating, updating and deleting the deployments which are specified in the deployment file.
+### デプロイメントマネージャー ###
+デプロイメントファイルで指定されたデプロイメントの生成、更新、削除を担います。
 
+ディレクターがデプロイメントマネージャからのアクセスのために公開しているエンドポイントとHTTPメソッドのタイプは以下の通りです。
 Endpoints and Http Method type exposed by the director which are used to access the deployment manager are described below.
 
-| URL 	| Http Method Type	| Description
+| URL 	| Http メソッドタイプ	| 概要
 | ----------------------------------------------------------------------	| ---------------------------	| ------------------
 | /deployments 	| POST	|
-| /deployments/:deployment/jobs/:job 	| PUT	| Change the state of a job in a deployment based on the parameter
-| /deployments/:deployment/jobs/:job/:index/logs 	| GET	| Get logs of a particular job in a deployment
-| /deployments/:name	| DELETE	| Delete a deployment
+| /deployments/:deployment/jobs/:job 	| PUT	| ジョブの状態をパラメータに基づいて変更する
+| /deployments/:deployment/jobs/:job/:index/logs 	| GET	| デプロイメントから指定したジョブのログを取得する
+| /deployments/:name	| DELETE	| デプロイを削除します
 
-### Instance Manager ###
-Instance Manager helps in managing VM Instances created using Bosh deployments.
+### インスタンスマネージャー ###
+インスタンスマネージャーはBOSHデプロイメントを使用して生成された仮想マシンインスタンスの管理を手助けします。
 
-Some of the functions it performs are 
-1. Helps in connecting to the VM instance using ssh through an Agent Client
-2. Finding an instance
-3. Fetching log from a particular instance
+インスタンスマネージャーが提供する機能は例えば以下のようなものです
+1. Agent Clientに対するSSHを用いてた想マシンインスタンスへの接続を手助けする
+2. 仮想マシンインスタンスを発見する
+3. 仮想マシンインスタンスからログを取得する
 
 
-Figure below describes the flow when a user tries to SSH into a VM using Bosh CLI
+次の図はユーザがBOSH CLIを用いて仮想マシンへのSSH接続を行う際のフローを示したものです。
 
 ![director-instance_manager_1](/images/director-instance_manager_1.png)
 
-### Problem Manager ###
-This component helps scan a deployment for problems and helps apply resolutions.
-It uses a model deployment_problem to keep info about the problem and has 1: many relationship with Deployment Model.
+### プロブレムマネージャー ###
+プロブレムマネージャーはデプロイメントの問題を発見したり対応の実行を行う際の手助けをします。
+プロブレムマネージャーは問題についての情報を保存するためのdeployment_problemモデルを持っており、Deploymentモデルと1:manyで結びつけられています。
 
 
-### Property Manager ###
-Properties are attributes specified for  jobs in the deployment file.
-Allows you to find properties associated with a deployment, update a particular property for a deployment. References the deployment Manager.
+### プロパティーマネージャー ###
+プロパティーはデプロイメントファイル中のジョブに設定された値です。
+プロパティマネージャーにより、デプロイメントに関連づけられたプロパティを見つけたり、特定のプロパティを更新したりすることができます。プロパティマネージャーはデプロイメントマネージャーを参照します。
 
 
-### Resource Manager ###
+### リソースマネージャー ###
+リソースマネージャーはブロブストアに保存されたリソースにアクセスするために使用されます。リソースマネージャーを通して実行される動作は、例えば以下のものが存在します。
 Used to get access to the resources stored in the BlobStore. Some of the actions performed through a resource manager are
 
-	1. Get a Resource using an Id
-	2. Delete a resource by giving an resource Id
-	3. Get the resource path from an Id
+	1. IDによるリソースの取得
+	2. IDにひもづけられたリソースの削除
+	3. IDによるリソースパスの取得
 
-### Release Manager ###
-Manages the creation and deletion of releases. Each release references a Release Manager and contains a Deployment Plan object as well as an array of templates.
+### リリースマネージャー ###
+リリースマネージャーはリリースの作成や削除を行います。それぞれのリリースはリリースマネージャーを参照しており、テンプレートの配列と共にデプロイメントプランオブジェクトを含んでいます。
 
-Director routes the request coming at the following endpoints to the release manager for managing the release lifecycle
+ディレクターは以下のエンドポイントへのリクエストをリリースライフサイクルを管理するリリースマネージャーにルーティングします。
 
-| URL 	| Http Method Type	| Response Body	| Description
+| URL 	| Http メソッドタイプ	| レスポンスボディ	| 概要
 | -------------	| ---------------------------	| ---------------------------------------------------------------------------------------------------------------------------	| ------------------------------------------------------
-| /releases	|        GET	| {"name"     => release.name,"versions" => versions, "in_use"   => versions_in_use}	| Get the list of all releases uploaded 
-| /releases 	|        POST	| 	| Create a release for the user specified.
+| /releases	|        GET	| {"name"     => release.name,"versions" => versions, "in_use"   => versions_in_use}	| アップロードされた全てのリリースのリストを取得する 
+| /releases 	|        POST	| 	| ユーザが指定したリリースを生成する
 
 
-#### Lifecycle of a Release ####
-Figure below shows the interaction between various components of a Director when a release is created/ updated or deleted.
+#### リリースのライフサイクル ####
+次の図はリリースが生成、更新、削除される際にディレクターの各コンポーネントが行うインタラクションを示します。
 
 ![release-lifecycle](/images/director-release-manager.png)
 
 
-### Stemcell Manager ###
-Stemcell Manager manages the Stem cells. It is responsible for creating, deleting or finding a stemcell.
+### Stemcellマネージャー ###
+StemcellマネージャーはStemcellの生成、削除、および発見を行います。
 
 ![director-stemcell-manager](/images/director-stemcell-manager.png)
 
-Table below shows the endpoints exposed by the director for managing the Stemcells lifecycle
+以下の表はStemcellのライフサイクルを管理するためにディレクターが提供するエンドポイントです。
 
-|     URL 	| Http Method Type	| Response Body	| Description
+|     URL 	| Http メソッドタイプ	| レスポンスボディ	| 概要
 | -----------------	| ---------------------------	| ---------------------------------------------------------------------------------------------------------------------------	| -------------------------
-| /stemcells	|        GET	| { "name" => stemcell.name, "version" => stemcell.version, "cid"     => stemcell.cid}	| Json specifying the stemcell  name, version and cid of the stem cell.
-| /stemcells 	|        POST	| 	| Stemcell binary file
-| /stemcells	|       DELETE	| 	| Delete the specified stemcell
+| /stemcells	|        GET	| { "name" => stemcell.name, "version" => stemcell.version, "cid"     => stemcell.cid}	| Stemcellの名前、バージョンおよびcidを含むJSONデータを取得
+| /stemcells 	|        POST	| 	| Stemcellバイナリファイル
+| /stemcells	|       DELETE	| 	| 指定したStemellの削除
 
 
-### Task Manager ###
+### タスクマネージャー ###
+
 Task Manager is responsible for managing the tasks which are created and are being run the Job Runner
 
 ![director-task-manager](/images/director-task-manager.png)
@@ -96,29 +100,30 @@ Following Http Endpoints are exposed by the Director to get information about a 
 | /task/:id	|       DELETE	| 	| Delete the task specified by a particular Id
 	
 
-### User Manager ###
+### ユーザーマネージャー ###
+ディレクターのデータベースに保存されているユーザを管理します。ユーザーマネージャーで実行される主な機能は以下の通りです。
 Manages the users stored in the Director’s database. Main functions performed by the User Manager are
 
-	1. Create a User
-	2. Delete a User
-	3. Authenticate a User
-	4. Get a User
-	5. Update a User
+	1. ユーザの生成
+	2. ユーザの削除
+	3. ユーザの認証
+	4. ユーザの取得
+	5. ユーザの更新
 
 
-User Management is delegated by the director to the User Manager with the following URLs
+ユーザ管理機能は以下のURLにアクセスすることでディレクターからユーザーマネージャーにデリゲートされます。
 
-|     URL 	| Http Method Type	| Http Request Body	| Description
+|     URL 	| Http メソッドタイプ	| Http レスポンスボディ	| 概要
 | -----------------	| ---------------------------	| ------------	| -------------------------
-| /users	|        POST	| 	| Create a User	
-| /users/:username 	|        PUT	| 	| Update a User
-| /users/:username	|       DELETE	| 	| Delete a User
+| /users	|        POST	| 	| ユーザを作成する	
+| /users/:username 	|        PUT	| 	| ユーザを更新する
+| /users/:username	|       DELETE	| 	| ユーザを削除する
 
 
-### VM State Manager ###
-Helps fetch the VM State by creating a task which runs the Hob : VmState 
+### VMステートマネージャ ###
+VmStateジョブを実行するタスクを生成することで、VMの状態取得を手助けします。
 
-The vm state is fetched by creating a GET request on the `/deployments/:name/vms` endpoint in the Director. `name` is the name of the deployment.
+VMの状態はGETリクエストをディレクターの`/deployments/:name/vms` に送信することで取得することが可能です。`name``はデプロイメントの名前を指定します。
 
 ![director-vm-state-manager](/images/director-vm-state-manager.png)
 

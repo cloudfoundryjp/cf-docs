@@ -6,7 +6,7 @@ Cloud Foundry BOSHは大規模分散サービスのリリースエンジニア�
 
 BOSHは当初Cloud Foundry PaaS用に開発されましたが、VMware vSphere、vCloud Director、Amazon Web Services EC2そしてOpenStackのようなIaaS製品上に分散サービスをデプロイするためのツールとして汎用的に使用することが可能です。
 
-* [Components](components/index.html)
+* [コンポーネント](components/index.html)
 * [ローカルセットアップ](setup/index.html)
 * [Reference](reference/index.html)
   * [Jobs](reference/jobs.html)
