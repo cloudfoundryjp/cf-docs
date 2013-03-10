@@ -4,9 +4,7 @@ title: Cloud Foundryの使い方
 
 Cloud Foundry は Open PaaSであり、開発フレームワークとアプリケーションサービスを提供します。Cloud Foundry は、素早く簡単にアプリケーションのビルド、テスト、デプロイ、スケールが出来ます。
 
-このセクションでは、開発者がアプリケーションをCloud Foundryにデプロイする方法を説明します。
-もし、Cloud Foundryに興味を持ち、それを配備、管理したくなった場合には、次のドキュメントを参照してください。
- [Running Cloud Foundry](/docs/running/index.html) 
+このセクションでは、開発者がアプリケーションをCloud Foundryにデプロイする方法を説明します。もし、Cloud Foundryに興味を持ち、それを配備、管理したくなった場合には、次のドキュメントを参照してください。[Running Cloud Foundry](/docs/running/index.html) 
 
 * [Application Architecture Considerations](app-arch/index.html)
 
