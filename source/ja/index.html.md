@@ -83,7 +83,7 @@ Cloud Foundryにアプリケーションをデプロイする開発者向けの�
 
   * [vmc](docs/using/managing-apps/vmc/index.html)
 
-  * [組織とスペース](managing-apps/orgs-and-spaces.html)
+  * [組織とスペース](docs/using/managing-apps/orgs-and-spaces.html)
 
   * [IDE統合](docs/using/managing-apps/ide/index.html)
 
