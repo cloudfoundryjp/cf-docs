@@ -36,7 +36,10 @@ The following example illustrates creating a tunnel to a MySQL database and then
 -->
 以下のサンプルは、MySQLデータベースへのトンネルを作成し、mysqldumpを利用してデータベースのバックアップを説明します。ただし、中身は空です。
 
+<!--
 Create a service instance with vmc;
+-->
+vmcコマンドを利用してサービスインスタンスを作成します
 
 <pre class="terminal">
 $ vmc create-service
