@@ -5,3 +5,4 @@ gem "middleman-livereload"
 gem "redcarpet", "~>2.2.2"
 
 gem 'middleman-syntax'
+gem 'middleman-gh-pages'
