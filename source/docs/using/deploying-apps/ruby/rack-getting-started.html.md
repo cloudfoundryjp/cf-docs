@@ -1,31 +1,30 @@
 ---
-title: Rack, Getting Started
+title: Rackについて、はじめに
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>はじめに ##
 
-Cloud Foundry supports any Rack based application framework. Work through this guide to create a sample application and deploy it to Cloud Foundry.
+Cloud FoundryはRackにもとづいたフレームワークをサポートしています。本ガイドに従ってアプリケーションのサンプルを作り、Cloud
+Foundryへデプロイしてみてください。
 
-## <a id='prerequisites'></a>Prerequisites ##
+## <a id='prerequisites'></a>前提 ##
 
-To complete this quickstart guide, you need to fulfill the following prerequisites;
+以下の前提を満たす必要があります;
 
-* A Cloud Foundry account, you can sign up [here](https://my.cloudfoundry.com/signup)
+* Cloud Foundryのアカウント。
+  右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup
 * [Ruby](http://www.ruby-lang.org/en/)
 * [Bundler](http://gembundler.com/)
-* The [CF](../../managing-apps/) command line tool
+* The [CF](../../managing-apps/) コマンド・ライン・ツール
 
-## <a id='sample-project'></a>Creating a Sample Project ##
+## <a id='sample-project'></a>サンプル・プロジェクトの作成 ##
 
-Create a folder for your Rack application and create a basic application structure.
+フォルダを作り、Rackアプリケーションの基本構造を用意します。
 
-<pre class="terminal">
-$ mkdir my_rack_app
-$ cd my_rack_app
-$ touch hello_world.rb config.ru
-</pre>
+<pre class="terminal"> $ mkdir my_rack_app $ cd my_rack_app $ touch
+hello_world.rb config.ru </pre>
 
-Initialise both files as follows;
+二つのファイルを以下のように初期化します;
 
 hello_world.rb
 
@@ -44,44 +43,30 @@ require './hello_world'
 run HelloWorld.new
 ~~~
 
-You should be able to run the application locally by using Rackup;
+Rackupを使い、ローカルでアプリケーションを動かせる必要があります;
 
-<pre class="terminal">
-$ rackup
->> Thin web server (v1.4.1 codename Chromeo)
->> Maximum connections set to 1024
->> Listening on 0.0.0.0:9292, CTRL+C to stop
-</pre>
+<pre class="terminal"> $ rackup >> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024 >> Listening on 0.0.0.0:9292, CTRL+C to
+stop </pre>
 
-View your application at [http://localhost:9292](http://localhost:9292)
+あなたのアプリケーションを[http://localhost:9292](http://localhost:9292)で見てみます。
 
 ## <a id='deploying'></a>Deploying Your Application ##
 
-Push the application with CF;
+CFコマンドでアプリケーションをプッシュします;
 
-<pre class="terminal">
-$ cf push
+<pre class="terminal"> $ cf push
 
 Name> rack-test
 
 Instances> 1
 
-1: 64M
-2: 128M
-3: 256M
-4: 512M
-5: 1G
-6: 2G
-7: 4G
-8: 8G
-9: 16G
-Memory Limit> 128M
+1: 64M 2: 128M 3: 256M 4: 512M 5: 1G 6: 2G 7: 4G 8: 8G 9: 16G Memory Limit>
+128M
 
 Creating rack-test... OK
 
-1: rack-test.cloudfoundry.com
-2: none
-URL> rack-test.cloudfoundry.com
+1: rack-test.cloudfoundry.com 2: none URL> rack-test.cloudfoundry.com
 
 Updating rack-test... OK
 
@@ -91,13 +76,11 @@ Bind other services to application?> n
 
 Save configuration?> n
 
-Uploading rack-test... OK
-Starting rack-test... OK
-Checking rack-test... OK
+Uploading rack-test... OK Starting rack-test... OK Checking rack-test... OK
 </pre>
 
-Once this is deployed, you should be able to view the application on Cloud Foundry at the URL you chose during the push.
+アプリケーションをデプロイすると、プッシュした時に指定したURLでアクセスできます。
 
 ## <a id='next-steps'></a>Next steps - Binding a service ##
 
-Binding and using a service with Ruby is covered [here](./ruby-service-bindings.html)
+Rails 3とサービスの接続と利用については右のページを参照してください。 [here](./ruby-service-bindings.html)

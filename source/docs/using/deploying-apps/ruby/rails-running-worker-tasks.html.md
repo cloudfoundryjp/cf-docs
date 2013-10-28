@@ -1,50 +1,49 @@
 ---
-title: Rails 3, Running Worker Tasks
+title: Rails 3, ワーカー・タスクを実行する
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-Often when developing a Rails 3 application, you may want delay certain tasks so as not to consume resource that could be used for servicing requests from your user.
+Often when developing a Rails
+3アプリケーションを開発する際、資源を節約してユーザからのリクエストに使えるようにいくつかのタスクを遅らせたいことがよくあります。
 
-This quick guide will show you how to create and deploy an example Rails application that will make use of a worker library to defer a task, this task will then be executed by a separate application. The guide will also show you how you can scale the resource available to the worker application.
+本ガイドはワーカー・ライブラリを用いたRailsアプリケーションの例の作り方とデプロイの方法を示します。ワーカー・ライブラリで遅延されたタスクは別のアプリケーションとして実行されます。また、ワーカー・アプリケーションのリソースのスケールのさせ方も示します。
 
-## <a id='worker-libs'></a> Choosing a worker task library ##
+## <a id='worker-libs'></a>ワーカー・タスク・ライブラリの選択 ##
 
-The first task, is to decide which worker task library to use. Here is a summary of the three main libraries available for Ruby / Rails;
+最初の作業として、どのワーカー・ライブラリを使うか決めます。Ruby / Railsの主要なライブラリの概要を示します;
 
 ### [Delayed::Job](https://github.com/collectiveidea/delayed_job) ###
 
-"A direct extraction from [Shopify](http://www.shopify.com/) where the job table is responsible for a multitude of core tasks."
+"[Shopify](http://www.shopify.com/)自身のライブラリで、ジョブ・テーブルで複数のコア・タスクを管理します。"
 
 ### [Resque](https://github.com/defunkt/resque) ###
 
-"A Redis-backed library for creating background jobs, placing those jobs on multiple queues, and processing them later."
+"Redisベースのライブラリで、バックグラウンド・ジョブを作り、複数のキューへ格納し、後で実行します。"
 
 ### [Sidekiq](https://github.com/mperham/sidekiq) ###
 
-"Uses threads to handle many messages at the same time in the same process. It does not require Rails but will integrate tightly with Rails 3 to make background message processing dead simple." This library is also Redis-backed and is actually somewhat compatible with Resque messaging.
+「一つのプロセスで多くのメッセージを同時にスレッドを使います。Railsは必須ではありませんが、Rails
+3と密に統合することによりバックグラウンドでのメッセージ処理をとても簡単にします」 このライブラリは
+Redis-backedであり、おおむねResque messagingと互換性があります。
 
-There are a lot more too, see https://www.ruby-toolbox.com/categories/Background_Jobs for more!
+他にもたくさんありますので、 https://www.ruby-toolbox.com/categories/Background_Jobs
+をご参照ください!
 
-## <a id='example-app'></a> Creating an example application ##
+## <a id='example-app'></a> サンプル・アプリケーションの作成 ##
 
-For the purposes of the example application, we will use Sidekiq, setup is pretty straight forward and it's a very performant solution.
+アプリケーションの例としてSidekiqを使います。セットアップはわかりやすく、性能もすぐれています。
 
-First, create a Rails application with an arbitrary model called things;
+最初に、モデルthingsを持つRailsアプリケーションを作ります。;
 
-<pre class="terminal">
-$ rails create rails-sidekiq
-$ cd rails-sidekiq
-$ rails g model Thing title:string description:string
-</pre>
+<pre class="terminal"> $ rails create rails-sidekiq $ cd rails-sidekiq $
+rails g model Thing title:string description:string </pre>
 
-Add sidekiq and uuidtools to the Gemfile, it's going to end up looking like this;
+Gemfileにsidekiqとuuidtoolsを追加します。以下のようになります。;
 
-~~~ruby
-source 'https://rubygems.org'
+~~~ruby source 'https://rubygems.org'
 
-gem 'rails', '3.2.9'
-gem 'mysql2'
+gem 'rails', '3.2.9' gem 'mysql2'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
@@ -52,25 +51,17 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
-gem 'sidekiq'
-gem 'uuidtools'
-~~~
+gem 'jquery-rails' gem 'sidekiq' gem 'uuidtools' ~~~
 
 Install the bundle;
 
-<pre class="terminal">
-$ bundle install
-</pre>
+<pre class="terminal"> $ bundle install </pre>
 
-Create a worker (in app/workers) for sidekiq to carry out it's tasks;
+sidekiqのためのワーカーをapp/workers内に作ります;
 
-<pre class="terminal">
-$ touch app/workers/thing_worker.rb
-</pre>
+<pre class="terminal"> $ touch app/workers/thing_worker.rb </pre>
 
-~~~ruby
-class ThingWorker
+~~~ruby class ThingWorker
 
   include Sidekiq::Worker
 
@@ -84,19 +75,16 @@ class ThingWorker
 
   end
 
-end
-~~~
+end ~~~
 
-This worker will create n number of things, where n is the value passed to the worker.
+This worker will create n number of things, where n is the value passed to
+the worker.
 
 Create a controller for 'things';
 
-<pre class="terminal">
-$ rails g controller Thing
-</pre>
+<pre class="terminal"> $ rails g controller Thing </pre>
 
-~~~ruby
-class ThingController < ApplicationController
+~~~ruby class ThingController < ApplicationController
 
   def new
     ThingWorker.perform_async(2)
@@ -107,23 +95,18 @@ class ThingController < ApplicationController
     @things = Thing.all
   end
 
-end
-~~~
+end ~~~
 
 Add a view to inspect our collection of things;
 
-<pre class="terminal">
-$ mkdir app/views/things
-$ touch app/views/things/index.html.erb
-</pre>
+<pre class="terminal"> $ mkdir app/views/things $ touch
+app/views/things/index.html.erb </pre>
 
-~~~html
-<%= @things.inspect %>
-~~~
+~~~html <%= @things.inspect %> ~~~
 
 ## <a id='deploy'></a>Deploying once, deploying twice... ##
 
-This application needs to be deployed twice for it to work, once as a Rails web application and once as a standalone Ruby application. The easiest way to do this is to keep separate CF manifests for each application type;
+このアプリケーションは2回デプロイする必要があります。1回はRailsアプリケーションのため、もう1回はRubyアプリケーションのためです。もっとも簡単な方法は、別々のcfマニフェストとして扱うことです;
 
 Web Manifest (save this as web-manifest.yml);
 
@@ -172,29 +155,25 @@ applications:
       tier: free
 ~~~
 
-The url 'sidekiq.cloudfoundry.com' will probably be taken, change it in web-manifest.yml first.
-Push the application with both manifest files;
+'sidekiq.cloudfoundry.com'というURLが使われるでしょう。変更はweb-manifest.ymlで。両方のマニフェストについて、アプリケーションをプッシュします;
 
-<pre class="terminal">
-$ cf push -m web-manifest.yml
-$ cf push -m worker-manifest.yml
-</pre>
+<pre class="terminal"> $ cf push -m web-manifest.yml $ cf push -m
+worker-manifest.yml </pre>
 
-CF will likely ask for a URL for the worker application, select option 2 - "none".
+CFがワーカーのためのURLをきいてくるはずですが、option 2 - "none"を選びます。
 
 ## <a id='test'></a>Testing the application ##
 
-Test the application by visiting the new action on the thing controller at the assigned url, in this example, the URL would have been http://sidekiq.cloudfoundry.com/thing/new
+該当URLのthings controllerのnewアクションを実行します。この例では、URLは
+http://sidekiq.cloudfoundry.com/thing/new になります。
 
-This will create a new sidekiq job which will be queued in Redis and then picked up by the worker application, the browser is then redirected to /thing which will show the collection of 'things'. The likelihood is that the task will be completed by Sidekiq before the browser has even redirected!
+新しいsidekiqジョブが作られ、Redisの待ち行列に入れられます。次に、ワーカー・アプリケーションに取り上げられ、ブラウザが/thingにリダイレクトされ、'things'コレクションが表示されます。ブラウザがリダイレクトされる前に、Sidekiqがタスクを終える可能性があります!
 
 ## <a id='test'></a>Scale your workers ##
 
-The nice thing about this approach is it makes scaling your Sidekiq workers trivial, pending available resource.
+このアプローチの良い点は、リソースを使わないでおき、Sidekiqワーカーのスケーリングがあまり問題にならなくなることです。
 
-Change the number of workers to two;
+ワーカーの数を2に変更します;
 
-<pre class="terminal">
-$ cf scale sidekiq-worker --instances 2
-</pre>
+<pre class="terminal"> $ cf scale sidekiq-worker --instances 2 </pre>
 

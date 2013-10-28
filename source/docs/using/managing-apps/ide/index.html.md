@@ -1,10 +1,11 @@
 ---
-title: IDE Integration
----
+IDEへの統合
 
-Cloud Foundry support is included in several IDEs, as alternatives to the [CF](/docs/using/managing-apps/cf/index.html) command-line tool. 
+Cloud Foundryは、[CF](/docs/using/managing-apps/cf/index.html)
+コマンドだけではなく、いくつかのIDEもサポートしています。
 
-> **The STS and IntelliJ plugins for Cloud Foundry will be updated in the coming weeks to support Cloud Foundry v2, including support for organizations, spaces, and custom buildpacks.**
+> ** GradlとMaven用プラグインは数週以内に更新されます。Cloud Foundry v2のサポートのためです。organizations,
+spaces, custom buildpacksも含まれます **
 
 * [Spring Tool Suite](./sts.html)
 

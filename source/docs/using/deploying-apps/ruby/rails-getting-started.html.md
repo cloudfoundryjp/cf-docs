@@ -2,45 +2,41 @@
 title: Rails 3, Getting Started
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-Cloud Foundry has comprehensive support for Rails 3, including legacy versions. Work through this guide to create a sample application and deploy it to Cloud Foundry.
+Cloud FoundryはRails 3をサポートしています。古いヴァージョンも含みます。本ガイドに従ってアプリケーションのサンプルを作り、Cloud
+Foundryへデプロイしてみてください。
 
-## <a id='prerequisites'></a>Prerequisites ##
+## <a id='prerequisites'></a>前提 ##
 
-To complete this quickstart guide, you need to fulfill the following prerequisites;
+以下の前提を満たす必要があります;
 
-* A Cloud Foundry account, you can sign up [here](https://my.cloudfoundry.com/signup)
+* Cloud Foundryのアカウント。
+  右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup
 * [Ruby](http://www.ruby-lang.org/en/)
 * [Rails](http://rubyonrails.org/)
 * [Bundler](http://gembundler.com/)
-* The [CF](../../managing-apps/) command line tool
-* A basic understanding of how to create and run Rails applications
+* The [CF](../../managing-apps/) コマンド・ライン・ツール
+* Railsの作り方と実行方法の基本的な知識
 
-## <a id='sample-project'></a>Creating a Sample Project ##
+## <a id='sample-project'></a>サンプル・プロジェクトの作成 ##
 
-Create a sample rails application and move in to the created folder.
+lRailsnoアプリケーションのサンプルを作成し、作成した時のフォルダで実行します。
 
-<pre class="terminal">
-$ rails new sample_rails
-$ cd sample_rails
-</pre>
+<pre class="terminal"> $ rails new sample_rails $ cd sample_rails </pre>
 
-Create a scaffold for an example model, let's use the one from the Rails scaffold [tutorial](http://guides.rubyonrails.org/getting_started.html#getting-up-and-running-quickly-with-scaffolding) and run the migration.
+例のモデルのscaffoldを作ります。次の二つのどちらかを使ってみましょう。Rails scaffold
+[tutorial](http://guides.rubyonrails.org/getting_started.html#getting-up-and-running-quickly-with-scaffolding)
+migrationを実行します。
 
-<pre class="terminal">
-$ rails generate scaffold Post name:string title:string content:text
-$ rake db:migrate
-</pre>
+<pre class="terminal"> $ rails generate scaffold Post name:string
+title:string content:text $ rake db:migrate </pre>
 
-Remove index.html from the public folder.
+publicフォルダからindex.htmlを削除します。
 
-<pre class="terminal">
-$ rm public/index.html
-$ vi config/routes.rb
-</pre>
+<pre class="terminal"> $ rm public/index.html $ vi config/routes.rb </pre>
 
-Also, change the default root for the application to point to the new controller, so it looks like
+アプリケーションのrootが新しいcontrollerを差すよう変更します。以下の通りにしてください。
 
 ~~~ruby
 SampleRails::Application.routes.draw do
@@ -51,66 +47,45 @@ end
 
 Run the example and make sure you can add and remove posts.
 
-<pre class="terminal">
-$ rails s
-</pre>
+<pre class="terminal"> $ rails s </pre>
 
 ## <a id='assets'></a>Assets, Precompile or Not? ##
 
-Cloud Foundry provides support for the Rails asset pipeline. This means that if you don't choose to precompile assets before deployment to Cloud Foundry, precompilation will occur when the application is staged.
-To precompile asssets before deployment use the following command;
+Cloud FoundryはRails asset pipelineをサポートしています。Cloud
+Foundryへプッシュする前にプリコンパイルされたアセットを用意しなければ、ステージされる時に用意されるということです。アセットをプリコンパイルするために、以下のコマンドを実行してください;
 
-<pre class="terminal">
-rake assets:precompile
-</pre>
+<pre class="terminal"> rake assets:precompile </pre>
 
-Doing this before deployment ensures that staging the application will take less time as the precomplilation task will not need to take place on Cloud Foundry.
+これにより、ステージされるたびにプリコンパイルが実行されなくなり、速度が向上することになります。
 
-One potential problem can occur during application initialization. The precompile rake task will run a complete re-initialization of the Rails application. This might trigger some of the initialization procedures and require service connections and environment checks that are unavailable during staging. You can turn this off by adding a configuration option in application.rb:
+アプリケーションの初期化の際、潜在的な危険が一つあります。プリコンパイルされたrakeタスクはRailsアプリケーションの再初期化を実行します。これは、サービスへの接続や環境のチェックなどステージングの段階では使えないものを必要とすることがあります。application.rb内のオプションで再初期化されないようにできます:
 
-~~~ruby
-config.assets.initialize_on_precompile = false
-~~~
+~~~ruby config.assets.initialize_on_precompile = false ~~~
 
-If the assets:precompile task fails, Cloud Foundry makes use of live compilation mode, this is the alternative to asset precompilation. In this mode, assets are compiled when they are loaded for the first time. This can be enabled by adding a setting to application.rb that forces the live compilation process.
+assets:precompileが失敗すると、Cloud
+Foundryはライブ・コンピレーションを有効にします。これはプレコンパイルの代替手段になります。このモードでは、最初にロードされる時にコンパイルされます。application.rb内で設定を追加してライブ・コンパイレーションを有効にできます。
 
-~~~ruby
-Rails.application.config.assets.compile = true
-~~~
+~~~ruby Rails.application.config.assets.compile = true ~~~
 
 ## <a id='deploying'></a>Deploying Your Application ##
 
-With CF installed, target your desired Cloud Foundry instance and login
+インストール済みのCFコマンドで、適切なCloud Foundryをターゲットとして指定し、ログインしてください。
 
-<pre class="terminal">
-$ cf target api.cloudfoundry.com
-Setting target to https://api.cloudfoundry.com... OK
+<pre class="terminal"> $ cf target api.cloudfoundry.com Setting target to
+https://api.cloudfoundry.com... OK
 
-$ cf login
-</pre>
+$ cf login </pre>
 
-Deploy the application by using the "push" command and follow the prompts;
+"push"コマンドでアプリケーションをデプロイします;
 
-<pre class="terminal">
-$ cf push rails-3-test
-Instances> 1
+<pre class="terminal"> $ cf push rails-3-test Instances> 1
 
-1: 64M
-2: 128M
-3: 256M
-4: 512M
-5: 1G
-6: 2G
-7: 4G
-8: 8G
-9: 16G
-Memory Limit> 256M
+1: 64M 2: 128M 3: 256M 4: 512M 5: 1G 6: 2G 7: 4G 8: 8G 9: 16G Memory Limit>
+256M
 
 Creating rails-3-test... OK
 
-1: rails-3-test.cloudfoundry.com
-2: none
-URL> rails-3-test.cloudfoundry.com
+1: rails-3-test.cloudfoundry.com 2: none URL> rails-3-test.cloudfoundry.com
 
 Updating rails-3-test... OK
 
@@ -120,13 +95,11 @@ Bind other services to application?> n
 
 Save configuration?> n
 
-Uploading rails-3-test... OK
-Starting rails-3-test... OK
-Checking rails-3-test... OK
-</pre>
+Uploading rails-3-test... OK Starting rails-3-test... OK Checking
+rails-3-test... OK </pre>
 
-At this point, the application should be available to view at the URL specified when performing the push.
+アプリケーションをデプロイすると、プッシュした時に指定したURLでアクセスできます。
 
 ## <a id='next-steps'></a>Next steps - Binding a service ##
 
-Binding and using a service with Rails 3 is covered [here](./ruby-service-bindings.html)
+Rails 3とサービスの接続と利用については右のページを参照してください。 [here](./ruby-service-bindings.html)

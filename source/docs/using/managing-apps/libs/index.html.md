@@ -1,22 +1,28 @@
 ---
-title: API and Libraries
+title: APIとライブラリ
 ---
 
 ### REST API ###
 
-Cloud Foundry's Cloud Controller component implements a REST API for querying and managing a Cloud Foundry environment. The full REST API is documented in the [reference section](/docs/reference/cc-api.html) of this site.
+Cloud Controllerコンポーネントは、Cloud Foundry環境を管理するREST APIの実装です。REST
+APIのドキュメントは[reference section](/docs/reference/cc-api.html)にあります。
 
-There are libraries available that provide language-specific bindings to the Cloud Controller REST API.
+Cloud ControllerのREST APIへ接続する言語ごとのライブラリが利用可能です。
 
 ### Java client library (vcap-java-client) ###
 
-The vcap-java-client library provides a Java API for interacting with a Cloud Foundry instance. This library is used by the [Cloud Foundry Maven plugin](../build-tools/maven.html), the [Cloud Foundry Gradle plugin](../build-tools/gradle.html), the [Cloud Foundry STS integration](../ide/sts.html), and other Java-based tools. 
+vcap-java-clientライブラリは、Cloud Foundryインスタンスと連携するJava
+APIを提供します。このライブラリは以下のものでも使われているます。[Cloud Foundry Maven
+plugin](../build-tools/maven.html)、 [Cloud Foundry Gradle
+plugin](../build-tools/gradle.html)、[Cloud Foundry STS
+integration](../ide/sts.html)、および他のJavaベースのツール。
 
-For information about using this library, see the [Java Cloud Foundry Library](./java-client.html) page.
+このライブラリの使用法については[Java Cloud Foundry Library](./java-client.html)をご覧ください。
 
 ### Ruby gem (cfoundry) ###
 
-CFoundry is the same library that is used to provide [cf](/docs/using/managing-apps/cf/index.html) with its interface to a Cloud Foundry instance. See the [RubyDoc](http://rubydoc.info/gems/cfoundry) page for a full API breakdown. 
+CFoundryは[cf](/docs/using/managing-apps/cf/index.html)コマンドと同じライブラリです。詳細については、[RubyDoc](http://rubydoc.info/gems/cfoundry)をご覧ください。
 
-For an introduction to using this library to manage applications on Cloud Foundry see the [CFoundry Ruby Gem](./ruby-cfoundry.html) page.
+Cloud Foundry上のアプリケーションの管理については、[CFoundry Ruby
+Gem](./ruby-cfoundry.html)ページをご覧ください。
 

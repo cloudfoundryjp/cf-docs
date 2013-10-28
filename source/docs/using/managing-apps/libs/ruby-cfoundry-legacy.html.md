@@ -1,34 +1,29 @@
 ---
-title: Using the CFoundry Ruby Gem to manage applications (Classic / Legacy Cloud Foundry)
+title: CFoundry Ruby Gemでアプリケーションを管理する (旧版のCloud Foundry)
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-This is a guide to using the CFoundry Ruby Gem to manage an account on a Cloud Foundry instance.
+本ガイドはCFoundry Ruby GemでCloud Foundryインスタンスのアカウントを管理するやり方を説明します。
 
-## <a id='connecting'></a>Connecting to Cloud Foundry ##
+## <a id='connecting'></a>Cloud Foundryへの接続 ##
 
-First of all make sure you have included the cfoundry gem as part of your application, add it the Gemfile if your are using bundler;
+まず、cfoundry gemがアプリケーションに含まれていることを確認してください。bundlerを使っている場合は、Gemfileに記述します;
 
 ~~~ruby
 
-source 'https://rubygems.org'
-gem 'cfoundry'
+source 'https://rubygems.org' gem 'cfoundry'
 
 ~~~
 
-The first step to using cfoundry is creating a Client instance and logging in;
+cfoundryの最初のステップは、クライアントのインスタンスを作りログインすることです。;
 
-~~~ruby
-require 'cfoundry'
+~~~ruby require 'cfoundry'
 
-endpoint = 'http://api.cloudfoundry.com'
-username = 'my_cf_user'
-password = 'my_cf_password'
+endpoint = 'http://api.cloudfoundry.com' username = 'my_cf_user' password =
+'my_cf_password'
 
-client = CFoundry::Client.new endpoint
-client.login username, password
-~~~
+client = CFoundry::Client.new endpoint client.login username, password ~~~
 
 Test the connection by listing the available services;
 
@@ -38,32 +33,33 @@ client.services.collect { |x| x.description }
 
 ~~~
 
-## <a id='persist-authentication'></a>Persisting Authentication (Using cf tokens) ##
+## <a id='persist-authentication'></a>Persisting Authentication (Using cf
+tokens) ##
 
-A far safer way of creating a cfoundry client object without potentially exposing your credentials in source code is to login using cf and then use the generated auth token to login in. The auth tokens are stored by cf in ~/.cf/tokens.yml. The following snippet of ruby code shows how to open this file, select the right auth token and then use it to log in to Cloud Foundry.
+あなたの資格情報をばらすことなくcfoundryクライアントのオブジェクトを作る安全な方法は、cfでログインして生成されたauthトークンを使うことです。authトークンはcfによって~/.cf/tokens.ymlに保存されます。以下のrubyコードの断片は、このファイルを開き、適切なauthトークンを選択し、それを使ってCloud
+Foundryへログインします。
 
 ~~~ruby
 
-require 'cfoundry'
-require 'yaml'
+require 'cfoundry' require 'yaml'
 
-home = ENV['HOME']
-endpoint = 'https://api.cloudfoundry.com'
+home = ENV['HOME'] endpoint = 'https://api.cloudfoundry.com'
 
-config = YAML.load File.read("#{home}/.cf/tokens.yml")
-token = CFoundry::AuthToken.from_hash config[endpoint]
+config = YAML.load File.read("#{home}/.cf/tokens.yml")  token =
+CFoundry::AuthToken.from_hash config[endpoint]
 
 client = CFoundry::Client.new endpoint, token
 
 ~~~
 
-Once the client object is created, it can be used in the same fashion as before.
+クライアントのオブジェクトができれば、以前と同様のやり方で扱えます。
 
 ## <a id='services'></a>Services ##
 
-The Client class contains four service methods; services, service_instances, service_instance_by_name and service_instance.
+クライアントのクラスは四つのサービスを含んでいます; services, service_instances,
+service_instance_by_name, service_instanceの四つです。
 
-The first method, 'services', returns a hash of all the available services on the targeted Cloud Foundry instance;
+一番目のメソッド'services'は、使用可能なすべてのサービスのハッシュを返します。;
 
 ~~~ruby
 pp client.services
@@ -91,7 +87,7 @@ pp client.services
   @version="2.0">]
 ~~~
 
-The 'service_instances' method returns the actual service instances currently provisioned on that account;
+'service_instances'は実際に割り当てられているサービスのインスタンスを返します;
 
 ~~~ruby
 pp client.service_instances
@@ -107,41 +103,36 @@ pp client.service_instances
 
 The 'service\_instance\_by_name' method returns a named service instance;
 
-~~~ruby
-client.service_instance_by_name 'mysql-7327e'
-=> #<CFoundry::V1::ServiceInstance 'mysql-7327e'>
-~~~
+~~~ruby client.service_instance_by_name 'mysql-7327e' =>
+#<CFoundry::V1::ServiceInstance 'mysql-7327e'> ~~~
 
-To create a service instance use the service_instance method;
+サービスのインスタンスを作るには、service_instanceメソッドを使用します;
 
-~~~ruby
-service = client.service_instance 'my_new_service'
-service.vendor = 'redis' # <- this is the label property of the service
-service.version = '2.6' # <- if there are multiple versions of the same service, specify the one required
-service.tier = 'free'
-service.create!
+~~~ruby service = client.service_instance 'my_new_service' service.vendor =
+'redis' # <- this is the label property of the service service.version =
+'2.6' # <- if there are multiple versions of the same service, specify the
+one required service.tier = 'free' service.create!
 
-# if the create was succesful, it should return true.
-~~~
-## <a id='runtimes-and-frameworks'></a>Runtimes and Frameworks ##
+# if the create was succesful, it should return true.  ~~~ ## <a
+id='runtimes-and-frameworks'></a>Runtimes and Frameworks ##
 
-Both runtimes and frameworks have a collection that can be used to reference them both;
+ランタイムとフレームワークは、その両方を参照するのに使えるコレクションを持っています;
 
 ~~~ruby
 
-client.frameworks.collect { |x| x.name }
-=> ["rails3", "rack", "java_web", "play", "spring", "node", "standalone", "lift", "sinatra", "grails"]
+client.frameworks.collect { |x| x.name } => ["rails3", "rack", "java_web",
+"play", "spring", "node", "standalone", "lift", "sinatra", "grails"]
 
-client.runtimes.collect { |x| x.name }
-=> ["java", "java7", "node", "node06", "node08", "ruby18", "ruby19"]
+client.runtimes.collect { |x| x.name } => ["java", "java7", "node",
+"node06", "node08", "ruby18", "ruby19"]
 
 ~~~
 
-## <a id='applications'></a>Applications ##
+## <a id='applications'></a>アプリケーション ##
 
-The Client class contains three application methods; apps, app and app_by_name
+Clientクラスは三つのアプリケーション・メソッドを持っています; apps, app, app_by_nameの三つです
 
-The 'apps' method returns a list of all the deployed applications;
+'apps'メソッドはデプロイしたアプリケーションの一覧を返します;
 
 ~~~ruby
 
@@ -154,29 +145,27 @@ pp client.apps
 
 ~~~
 
-The 'app\_by\_name' method finds an application by it's name;
+'app\_by\_name'メソッドは、名前を指定してアプリケーションを検索します;
 
-~~~ruby
-client.app_by_name 'sidekiq'
-=> #<CFoundry::V1::App 'sidekiq'>
-~~~
+~~~ruby client.app_by_name 'sidekiq' => #<CFoundry::V1::App 'sidekiq'> ~~~
 
-To create an application user the app method;
+アプリケーションのユーザを作るには、app methodメソッドを使います;
 
 ~~~ ruby
 
-app = client.app 'my_new_app'
-app.instances = 1 # <- set the number of instances you want
-app.memory = 256 # <- set the allocated amount of memory
-app.services = [service] # <- set the services bound to the appliation as an array of references to service_instance objects (optional)
-app.framework_name = 'standalone' # <- the name of the framework
-app.command = 'bundle exec ./app.rb' # <- an optional command to start the application (if standalone)
-app.runtime_name = 'ruby19' # <- the name of the runtime
+app = client.app 'my_new_app' app.instances = 1 # <- set the number of
+instances you want app.memory = 256 # <- set the allocated amount of memory
+app.services = [service] # <- set the services bound to the appliation as an
+array of references to service_instance objects (optional)
+app.framework_name = 'standalone' # <- the name of the framework app.command
+= 'bundle exec ./app.rb' # <- an optional command to start the application
+(if standalone)  app.runtime_name = 'ruby19' # <- the name of the runtime
 app.create!
 
 ~~~
 
-This only creates an application 'stub', as of yet there is no actual code uploaded to Cloud Foundry nor is the application started. To give the application something to run and depending on the runtime and framework archive the source, byte code or binary in to a zip file. Upload the zipfile to the application but using the upload command;
+'stub'というアプリケーションが作られるだけで、実際のコードがCloud
+Foundryへアップロードされるわでも起動されるわけでもありません。アプリケーションへ実際に実行するするものを提供するために、ソース、バイト・コード、バイナリなどの適切なもの(ランタイムやフレームワークに依存します)をzipファイルへアーカイブしてください。uploadコマンドを使ってzipファイルをアップロードしてください;
 
 ~~~ruby
 
@@ -194,4 +183,4 @@ app.upload 'app.zip'
 
 ~~~
 
-Now the application has been uploaded to Cloud Foundry, all that is left is to start the application
+アプリケーションはCloud Foundryへアップロードされ、残るは起動のみです。

@@ -1,18 +1,20 @@
 ---
-title: Java Cloud Foundry Client
+title: Java Cloud Foundryクライアント
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-This is a guide to using the Java Cloud Foundry client library to manage an account on a Cloud Foundry instance.
+Cloud Foundryインスタンス上のアカウントを管理するJava Cloud Foundryクライアントの使い方を説明します。
 
-## <a id='getting'></a>Getting the Library ##
+## <a id='getting'></a>ライブラリの入手 ##
 
-The Java Cloud Foundry library is available in the Spring Framework milestone repository. The library can be added as a dependency to Maven or Gradle project using the following information. 
+Java Cloud Foundryライブラリは、Spring Framework
+milestoneリポジトリから入手できます。以下のような情報があれば、MavenまたはGradleプロジェクトへの従属としてこのライブラリを追加できます。
 
 ### <a id='maven'></a>Maven ###
 
-To use the Java client in a Maven project, you first need to add the Spring Framework milestone repository to your `pom.xml` file. Add the repository in a `<repository>` section like this: 
+MavenプロジェクトでJavaクライアントを使うには、まず`pom.xml`ファイルへSpring Framework
+milestoneリポジトリを追加します。`<repository>`セクションへ、以下のように追加してください:
 
 ~~~xml
   <repositories>
@@ -24,7 +26,7 @@ To use the Java client in a Maven project, you first need to add the Spring Fram
   </repositories>
 ~~~
 
-After adding the repository, the dependency can be added to your `pom.xml` as follows:
+リポジトリを`pom.xml`へ追加した後、依存関係を以下のように追加します:
 
 ~~~xml
   <dependencies>
@@ -38,7 +40,8 @@ After adding the repository, the dependency can be added to your `pom.xml` as fo
 
 ### <a id='gradle'></a>Gradle ###
 
-To use the Java client in a Gradle project, add the Spring Framework milestone repository to your `build.gradle` file, along with the dependency, like this: 
+GradleプロジェクトでJavaクライアントを使うには、次のようにSpring Framework
+milestoneリポジトリを`build.gradle`ファイルへ追加してください。:
 
 ~~~groovy
 repositories {
@@ -53,18 +56,18 @@ dependencies {
 
 ## <a id='sample'></a>Sample Code ##
 
-The following is a very simple sample application that connects to a Cloud Foundry instance, logs in, and displays some information about the Cloud Foundry account. When running the program, provide the Cloud Foundry target (i.e. http://api.run.pivotal.io) along with a valid user name and password as command-line parameters. 
+以下はとてもシンプリなサンプル・アプリケーションです。これはCloud
+Foundryインスタンスへ接続し、ログインし、アカウントに関する情報を表示します。このプログラムを実行する時は、適切なターゲット(i.e.
+http://api.run.pivotal.io)とユーザ名とパスワードをコマンド・ラインのパラメータとして与えてください。
 
-~~~java 
-package org.cloudfoundry.sample;
+~~~java package org.cloudfoundry.sample;
 
-import org.cloudfoundry.client.lib.CloudCredentials;
-import org.cloudfoundry.client.lib.CloudFoundryClient;
-import org.cloudfoundry.client.lib.domain.CloudApplication;
-import org.cloudfoundry.client.lib.domain.CloudService;
+import org.cloudfoundry.client.lib.CloudCredentials; import
+org.cloudfoundry.client.lib.CloudFoundryClient; import
+org.cloudfoundry.client.lib.domain.CloudApplication; import
+org.cloudfoundry.client.lib.domain.CloudService;
 
-import java.net.URI;
-import java.net.URL;
+import java.net.URI; import java.net.URL;
 
 public class JavaSample {
     public static void main(String[] args) {
@@ -104,6 +107,10 @@ public class JavaSample {
 }
 ~~~
 
-For more details on the Java API, view the [source on GitHub](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib). The [domain package](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib/src/main/java/org/cloudfoundry/client/lib/domain) shows the objects that can be queried and inspected.  
+Java APIの詳細については[source on
+GitHub](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib)をご覧ください。[domain
+package](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib/src/main/java/org/cloudfoundry/client/lib/domain)が読み書きできるオブジェクトを示しています。
 
-The source for the [Cloud Foundry Maven plugin](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-maven-plugin) is also a good example of using the Java client library. 
+[Cloud Foundry Maven
+plugin](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-maven-plugin)のソースがJava
+client libraryの使い方のサンプルにもなっています。

@@ -1,18 +1,23 @@
 ---
-title: Lift - Service Bindings
+title: Lift - サービスのバインド
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-This guide shows how to adapt the standard example lift application to use a bound service on Cloud Foundry.
+本ガイドは、liftアプリケーションをCloud Foundryのサービスへ接続する方法を説明します。
 
 ## <a id='auto'></a>Auto-reconfiguration ##
 
-By default, Cloud Foundry will detect service connections in a Lift application and configure them to use the credentials provided in the Cloud Foundry environment. Auto-reconfiguration will only happen if there is a single service of any of the supported types - relational database (MySQL or Postgres), MongoDB, Redis, or RabbitMQ. If you application has more than one service of those types, or you want more control over the configuration, you can manually configure the service connections as described in following section.
+デフォルトでは、Cloud FoundryはLiftアプリケーションの中のサービスへの接続を検出し、Cloud
+Foundry環境が提供する資格情報を使って設定します。オート・リコンフィギュレーションは、各タイプごとに一つのサービスだけが使われている場合にのみ適用されます
+- rリレーショナル・データベース(MySQL or Postgres), MongoDB, Redis,
+RabbitMQ各タイプごとで二つ以上のサービスを使っているか、よりきめ細かい制御をしたいならば、自分で設定することもできます。やり方については後述します。
 
 ## <a id='manual'></a>Manual Configuration ##
 
-To manually configure the database connection using a bound service in Scala, a few more dependencies need to be added to the project. First, add the `spring-core` and `cloudfoundry-runtime` dependencies, as shown in the following Maven `pom.xml` example. **For Cloud Foundry v2 support, the version of `cloudfoundry-runtime` must be at least `0.8.4`**:
+Scalaでデータベース接続の手動設定をしたい場合、プロジェクトへもう少し追加する必要があります。まず、`spring-core`と`cloudfoundry-runtime`をMavenの`pom.xml`
+へ追加します。**Cloud Foundry
+v2をサポートするには、`cloudfoundry-runtime`のヴァージョンは`0.8.4`以上にしてください**:
 
 ~~~xml
   <dependency>
@@ -28,7 +33,7 @@ To manually configure the database connection using a bound service in Scala, a 
   </dependency>
 ~~~
 
-You will also need to add the Spring milestones repository to the project configuration, as in this Maven example: 
+Spring milestonesリポジトリも追加が必要になるでしょう:
 
 ~~~xml
   <repository>
@@ -38,7 +43,9 @@ You will also need to add the Spring milestones repository to the project config
   </repository>
 ~~~
 
-Now set the Connection Manager in `./src/main/scala/bootstrap/liftweb/Boot.scala`. Import the following namespaces first:
+Now set the Connection Manager in
+`./src/main/scala/bootstrap/liftweb/Boot.scala`. Import the following
+namespaces first:
 
 ~~~scala
   import org.cloudfoundry.runtime.env._
@@ -46,7 +53,7 @@ Now set the Connection Manager in `./src/main/scala/bootstrap/liftweb/Boot.scala
   import scala.collection.JavaConversions._
 ~~~
 
-Then replace the existing code at the start of the boot method with the following. This will use the `cloudfoundry-runtime` library to find the correct service using the set name at the start of the code and then create and set the connection manager for the project.
+次にブート・メソッドのはじめの部分のコードを以下のように置き換えます。この例では、`cloudfoundry-runtime`ライブラリを使ってコードの先頭部にある名前に対応するサービスを見つけ、コネクション・マネージャーを作成し、セットします。
 
 ~~~scala
   val serviceName = "lift-db"

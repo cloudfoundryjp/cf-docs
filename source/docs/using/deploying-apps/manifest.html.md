@@ -1,17 +1,18 @@
 ---
-title: Application Manifests
+title: アプリケーションのマニフェスト
 ---
-An application manifest defines a set of application deployment settings, such as the name of an application, the number of instances to deploy, the maximum memory available to an instance, the services it uses, and so on. The default name for a manifest is `manifest.yml`.
 
-## <a id='purpose'></a>Purpose of Manifest File ##
+マニフェストはアプリケーションのデプロイの設定を定義します。例として、アプリケーションの名前、インスタンスの数、一つのインスタンスが使えるメモリ量の上限、使用するサービスなどが挙げられます。マニフェストの名前のデフォルトはmanifest.ymlです。
 
-
-The purpose of a manifest is to automate application deployment --- it allows you to provide deployment settings in a file rather than at the command line.  Any deployment option that you can supply at the command line when you run `cf push` can be specified in a manifest. Some deployment options (those for which `cf push` does not prompt) can *only* be specified in the manifest.   
+## <a id='purpose'></a>マニフェスト・ファイルの目的 ##
 
 
-## <a id='sample'></a>A Simple Sample Manifest ##
+マニフェストの目的は、アプリケーションのデプロイを自動化することです - デプロイの設定をファイルに書くことができ、コマンド・ラインで指定しなくて済みます。cf pushコマンドで指定できるオプションは、すべてマニフェストで定義できます。cf pushコマンドが入力を求めないような設定もマニフェストに書くことができます。   
 
-The sample manifest shown below specifies deployment setting for a Node.js application named “nodetestdh01”.  When the application is pushed using this manifest, two instances will be created.  The application URL will be `crn.csapps.io`.
+
+## <a id='sample'></a>マニフェストの簡単な例 ##
+
+以下のマニフェストの例は、"nodetestdh01"という名前のNode.jsアプリケーションのデプロイの設定を定義しています。このマニフェストを使ってアプリケーションをプッシュすると、二つのインスタンスが作られます。アプリケーションのURLはcrn.csapps.ioになります。
 
 ~~~
 applications:
@@ -24,64 +25,67 @@ applications:
  path: .
 ~~~
 
-Manifests are written in YAML. For information about YAML, see www.yaml.org.
+マニフェストはYAML形式で記述されます。YAMLについては、www.yaml.orgをご参照ください。
 
-## <a id='push-and-manifest'></a>cf Push and the Manifest ##
+## <a id='push-and-manifest'></a>cfのプッシュとマニフェスト ##
 
-When you push an application, cf looks for a file named `manifest.yml`. The push command looks for the manifest in the current working directory, and if it is not found there, in directories above the application root in the directory structure. If the manifest file name is not `manifest.yml` you should specify its name with the `--manifest` (`-m)` option, for example:
+アプリケーションがプッシュされた時、cfはmanifest.ymlというファイルを探します。プッシュ・コマンドはカレント・ディレクトリ内でマニフェストを見つけようとします。見つからなければ、アプリケーションのルート上のディレクトリ内を探します。マニフェストのファイル名がmanifest.ymlでなければ、--manifest
+(-m)オプションでファイル名を指定します。以下がその例です:
 
-<pre class="terminal">
-cf push -m prod-manifest.yml 
-</pre>  
+<pre class="terminal"> cf push -m prod-manifest.yml </pre>
 
-**Note:**  cf does not look for a manifest under these circumstances:
+注意:cfコマンドは以下の場合はマニフェストを探しません:
 
-* If you use the `--interactive` option with `cf push`, cf does not look for a manifest, instead, it prompts you for deployment options.
-* If you use the `--no-manifest` option with `cf push`, if a manifest exists, it is ignored.
+* cf pushコマンドで--interactiveオプションを使った場合、cfコマンドはマニフェストを探さず、デプロイの設定の入力を求めます。
+* cf pushコマンドの--no-manifestオプションを使った場合、マニフェストが存在しても無視されます。
 
-The first time you push an application, assuming a manifest is found, cf uses the deployment settings the file contains.
+初めてあるアプリケーションをプッシュする場合、マニフェストが存在すればcfコマンドはその内容をデプロイの設定として使用します。
 
-If cf does *not* find a manifest, it prompts you interactively for required deployment options. Once you have supplied the required inputs, cf asks if you want to save the deployment settings to a manifest, as described in the following section.
+マニフェストが見つけられない場合、cfコマンドは必要なデプロイの設定の入力を求めます。以下のセクションで記述するように、必要な項目が入力されると、cfコマンドはマニフェストとして保存するかたずねます。
 
-When you *re-deploy* an application, `cf push` does *not* apply the settings in an existing manifest. Instead, the most recently configured deployment options are applied. For example, if, after initially pushing an application with a manifest that specified “instances: 1”, you use `cf scale` to increase the number of instances to 2, the next time you push the application, 2 instances will be created. You must use the `--reset` option to cause the settings in the manifest to be applied. 
-
-
-## <a id='create'></a>How to Create a Manifest ##
-
-There are two ways to create a manifest:
-
-* Automatically --  When you push an application for the first time (without a manifest) you can supply deployment options as command arguments, or in response to interactive prompts.  cf asks if you want to save the deployment settings to a manifest. If you respond “yes”, the deployment options you selected are saved in the root directory of the application director `manifest.yml`. 
-
-* Manually -- You can create a text file with desired deployment options. Save the manifest in the root of your project directory structure, or in a directory above the root in the directory structure. 
+あるアプリケーションの2回目以降のデプロイでは、cf
+pushコマンドはマニフェスト内の設定を反映しません。その代わりに、直近の設定を使用します。例えば、マニフェスト内でinstances:
+1”と指定されていて、プッシュ後にcf
+scaleコマンドでインスタンス数を2にした場合、次にアプリケーションをプッシュするとインスタンス数は2になります。マニフェスト内の設定を反映させるには、--resetオプションを使う必要があります。
 
 
-## <a id='manual'></a>What Must be Manually Defined in a Manifest ##
+## <a id='create'></a>マニフェストの作り方 ##
 
-There are some deployment options that can only be defined in the manifest. For example:
+マニフェストを作る方法は二通りあります:
 
-* Ruby symbols -- If you want to use Ruby symbols in a manifest you must manually define them in the the manifest.  See [Use Symbols in a Manifest](#symbols).
+* 自動で作成 -
+  あるアプリケーションを初めてプッシュする時(マニフェストがないとして)、自動的に作成できます。コマンドのオプションか対話型の入力で指定します。cfコマンドが設定をマニフェストとして保存するか聞いてきます。“yes”と答えると、アプリケーションのルート・ディレクトリにmanifest.ymlというファイル名で設定が保存されます。
 
-* Environment variables -- If you want to define an environment variable, you must edit the manifest file. See [Set Environment Variable in a Manifest](#vars).  
+* 手動で作成 – テキスト・ファイルに設定を書き込んで作成します。マニフェストをプロジェクトのルート・ディレクトリまたはルートに置きます。
 
-* Multi-application manifests -- If you want to deploy multiple applications with a single push command, you must manually edit the manifest file to define the deployment options for each of the applications. In a multi-application manifest, you can define the dependency relationships among the applications.  See [Define a Multi-App Manifest with Dependencies](#multi-app).
 
-* Inheritance -- If you want the settings in one manifest to be included in another, you must specify that in its manifest, as described in [Multiple Manifests and Inheritance](#inheritance).
+## <a id='manual'></a>マニフェスト内の必須項目 ##
 
-* Application stack --- If you want to specify a particular stack, you must add the `stack` attribute to the manifest.
+いくつかの設定項目はマニフェストでのみ指定できます。例:
 
-## <a id='specify-service'></a>Specify Services in a Manifest ##
+* Rubyのシンボル –
+  Rubyのシンボルを使いたい場合、マニフェスト内で定義する必要があります。[マニフェスト内でのシンボル](#symbols)をご参照ください。
 
-To specify service instances to be created and bound to an application at deployment, add lines like these to the manifest:
+* 環境変数 – 環境変数を使いたいなら、マニフェスト内で定義する必要があります。[マニフェスト内での環境変数](#vars)をご参照ください
 
-<tt>
-services:<br>
-&nbsp;&nbsp;&nbsp;<i>service-instance-name:</i><br>
+* 複数のアプリケーション向けのマニフェスト –
+  一回のプッシュ・コマンドで複数のアプリケーションをデプロイしたい場合、マニフェスト・ファイルを編集して個々のアプリケーションの設定を定義する必要があります。複数のアプリケーション向けのマニフェストでは、アプリケーションの依存関係を定義することができます。[依存関係のある複数のアプリケーションのマニフェスト](#multi-app).
+
+* 継承 –
+  マニフェストの継承に記述されているように、あるマニフェストの内容を別のマニフェストに含めたい場合、その旨マニフェスト内で定義する必要があります。
+
+* アプリケーション・スタック — アプリケーション・スタックを定義したい場合、stack属性を書き加える必要があります。
+
+## <a id='specify-service'></a>マニフェストでのサービスの指定 ##
+
+アプリケーションのデプロイ時にサービスのインスタンスを作成してバインドしたい場合、以下のような行をマニフェスト内に書き加える必要があります:
+
+<tt> services:<br> &nbsp;&nbsp;&nbsp;<i>service-instance-name:</i><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;type: <i>service-type</i><br>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;provider: <i>service-provider</i><br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plan: <i>service-plan</i><br>
-</tt>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;plan: <i>service-plan</i><br> </tt>
 
-The following sample manifest specifies two services.
+以下の例では二つのサービスを定義しています。
 
 ~~~
 applications:
@@ -102,60 +106,54 @@ applications:
       plan: sandbox
 ~~~
 
-## <a id='var'></a>Set Environment Variable in a Manifest ##
+## <a id='var'></a>マニフェスト内での環境変数 ##
 
-To define an environment variable that your application uses, add lines like these to the manifest:
+環境変数を定義するには、以下のような行をマニフェストへ書き加える必要があります:
 
-<tt>
-env:<br>
-&nbsp;&nbsp;&nbsp;<i>var_name: var_value</i><br>
-</tt> 
+<tt> env:<br> &nbsp;&nbsp;&nbsp;<i>var_name: var_value</i><br> </tt>
 
-For example:
+例:
 
-<tt>
-env:<br>
-&nbsp;&nbsp;&nbsp;greeting: hello<br>
-</tt>
+<tt> env:<br> &nbsp;&nbsp;&nbsp;greeting: hello<br> </tt>
 
-See the example "base-manifest" in [Not-So-Simple Sample Manifests](#not-simple).
+マニフェストの[あまり簡単ではない例](#not-simple)の“base-manifest”を参照してください。
 
 
-## <a id='symbols'></a>Use Symbols in a Manifest ##
+## <a id='symbols'></a>マニフェスト内でのシンボル ##
 
-`manifest.yml` supports the following symbols. (A symbol is a Ruby object, the name of an object that is reolved later.)
+`manifest.yml`は以下のシンボルをサポートしています。(シンボルとはRubyのオブジェクトで、オブジェクトの名前は後で解決されます)
 
-* `target-base` -- The base URL of your target. For example, if your target is “api.mycloud.com”, the value of target-base is “mycloud.com”. `target-base` is useful if you want to create a manifest for an application that can be pushed to multiple Cloud Foundry instances.   
+* target-base –
+  あなたのターゲットのURLのベースです。例えば、“api.mycloud.com”がターゲットだとして、“mycloud.com”がベースとなります。複数のCloud
+  Foundryへプッシュされるアプリケーションのマニフェストにとってtarget-baseは有用です。
 
-* `random-word` -- A random string of characters, useful for ensuring uniqueness of a URL.
+* random-word – URLがユニークであることを保証するためのランダムな文字列です。
 
-Otherwise, symbol resolution simulates lexical scoping --- you can define arbitrary properties, which can be overridden by child manifests (described above in [Multiple Manifests and Inheritance](#multi-app)) or in a nested hash.
+あるいは、シンボルの解決は語句のスコープをシミュレートします —
+属性を停止し、子マニフェストで上書きするか、ネストしたハッシュで解決することができます。 (上の複数のマニフェストの継承でも説明されています)
 
-## <a id='inheritance'></a>Multiple Manifests and Inheritance ##
+## <a id='inheritance'></a>複数のマニフェストと継承 ##
 
-A manifest document can inherit properties from a parent manifest by including this line: 
+マニフェストは以下の行で親から設定を継承することができます:
 
-~~~
-inherit: path/to/parent.yml
-~~~
+~~~ inherit: path/to/parent.yml ~~~
 
-This pulls the content of the parent manifest into the child manifest, deep-merging the properties defined in the child manifest with those defined in the parent. Symbols (discussed above in [Use Symbols in a Manifest](#symbols)) are resolved after the merge has taken place, so properties defined in the child manifest can be used in properties set in the parent manifest. This allows you to provide basic information, such as service binding information, in a “base” manifest, which can be extended by a child manifest. For example:
+これにより、親マニフェストの内容が子マニフェストへ引きつがれ、設定がマージされます。シンボル(上のマニフェスト内でのシンボルで言及されている)はマージの後に解決され、子マニフェストで定義された属性は親マニフェストの属性の集合の中でのみ使うことができます。これにより、サービスのバインド情報のような基本的な情報を元となるマニフェストで定義し、子マニフェストで拡張することが可能になります。例:
 
-* You can create various child manifests for different deployment modes (for example, debug, local, and public) that extend the settings in a base parent manifest.
+* 種々のデプロイのために複数の子マニフェストを作り、それぞれ元になるマニフェストを拡張することができます。(例えば、例、デバッグ、ローカル、パブリックなど)
 
-* You can package a basic configuration with an application, and a user can extend the configuration with a child manifest with additional properties, or with property settings that override those in the parent. 
+* 元になるマニフェストを用意し、利用者が子マニフェストで設定を追加したり上書きすることができます。
 
-## <a id='multi-app'></a>Define a Multi-App Manifest with Dependencies ##
+## <a id='multi-app'></a>依存関係のある複数のアプリの定義 ##
 
-Manifests enable deployment of multiple applications through a single push command. For example, consider two independent but related applications, a publisher and a subscriber. The subscriber should start before the publisher, so it is available to receive messages as soon as the publisher starts.  If you define these two applications within the same project, you can create a multi-application manifest document, in which you can then specify the dependency.  For example, you can structure the project like this:
+マニフェストのより、一回のプッシュ・コマンドで複数のアプリケーションをデプロイすることができます。例えば、独立してはいるが関連があるアプリケーション、発行者と購読者を考えてみましょう。購読者は発行者の前に起動すべきです。これにより、発行者がメッセージを送信しだい、それを受信することができます。この二つのアプリケーションを同じプロジェクトで定義すれば、複数のアプリケーション向けのマニフェストを作り、その中で依存関係を記述することができます。例えば、以下のように書けます:
 
-~~~
-./big-app
-./big-app/publisher
-./big-app/subscriber
-~~~
+~~~ ./big-app ./big-app/publisher ./big-app/subscriber ~~~
 
-The manifest below defines two applications, “publisher” and “subscriber”, that use a single Redis service.  Because  the “publisher” application depends on the “subscriber” application, when you do `cf push` from the "big-app" directory, “subscriber” will be started before “publisher”.
+The manifest below defines two applications, “publisher” and “subscriber”,
+that use a single Redis service.  Because the “publisher” application
+depends on the “subscriber” application, when you do `cf push` from the
+"big-app" directory, “subscriber” will be started before “publisher”.
 
 ~~~
 applications: 
@@ -188,22 +186,25 @@ applications:
 
 
 
-## <a id='not-simple'></a>Not-So-Simple Sample Manifests ##
-This section contains two manifests that illustrate a variety of manifest features.  
+## <a id='not-simple'></a>あまり簡単ではないマニフェストの例 ##
+このセクションはマニフェストのいろいろな機能を示す二つのマニフェストを含んでいます。
 
 **Notes:**
 
-* The first line of a manifest contains three dashes (`---`).
+* 最初の行はダッシュ(---)からなります。
 
-* Settings that apply to all applications in a manifest are declared before the first application block. Examples of such cross-application settings include the environment variables and the services defined in "base-manifest.yml".
+* すべてのアプリケーションに共通の設定は、最初のアプリケーションのブロックの前に書きます。環境変数やサービスなどのアプリケーション共通の設定の例は“base-manifest.yml”に示されています。
 
-* Both manifests are multi-application manifests. 
+* どちらのマニフェストも複数のアプリケーション向けのマニフェストの例です。
 
-* The first attribute for an application, `name`, is preceded by a dash (“-”).
+* 最初のアプリケーションごとの設定nameの前にダッシュ(“-”)を書きます。
 
-* "production-manifest.yml" inherits the setting in "base-manifest.yml"; all of the settings in "base-manifest.yml" will be applied to the applications defined in "production-manifest.yml". For example, the environment variables defined in "base-manifest.yml" are available to the applications defined in "production-manifest.yml".
+* “production-manifest.yml”は“base-manifest.yml”の設定を受けついでいます;
+  “base-manifest.yml”内のすべての設定が
+  “production-manifest.yml”内で定義されたアプリケーションそれぞれに適用されます。例えば、“base-manifest.yml”内で定義された環境変数は、
+  “production-manifest.yml”内で定義されたすべてのアプリケーションで有効です。
 
-* Comment lines begin with “#”.
+* “#”ではじまる行はコメントです。
 
 
 ### production-manifest.yml ###
@@ -267,27 +268,27 @@ applications:
 
 ~~~
 
-## <a id='attributes'></a>Supported Manifest Attributes ##
+## <a id='attributes'></a>サポートされるアトリビュート ##
 
 
-|Attribute|Description |Required?|Example |
+|アトリビュート|説明 |必須?|例 |
 | --------- | --------- | --------- |--------- |
-|inherit |Use to specify another manifest that the current manifest extends.| n| inherit: base-manifest.yml|
-|properties |Use to specify one or more property: value pairs.  |n |properties: <br>&nbsp;&nbsp;app-host: ${name}  |
-|env | Use to define one or more environment variables used by the application.| n | env:  <br>&nbsp;&nbsp;RAILS_ENV: ${rails-env}|
-|name  |Name of application.  | y | See the examples in [Not-So-Simple Sample Manifests](#not-simple).  |
-|buildpack  |Use to specify the URL of an external or custom buildpack  | n |  |
-|command  |Command to use to start the application  |n  |command: bundle exec rake server:start_command  |
-|domain  |Domain for the application. |  |  |
-|host  | Host for the application. |  |  |
-|instances  |Number of instances of application to run. |y, defaults to 1<br> if not specified.  |instances: 2  |
-|mem  |Maximum memory application can use.  |y, defaults to 256M<br> if not specified. |mem: 64M |
-|disk  |Maxium disk space application can use.  |  |disk:1G  |
-|path  |Path, relative to current working directory, to the application to push.  | y  | path: . |
+|inherit |他のマニフェストを使う場合、そのマニフェストを指定します| n| inherit: base-manifest.yml|
+|properties |プロパティと値のペアを指定します|n |properties: <br>&nbsp;&nbsp;app-host: ${name}  |
+|env | アプリケーションが使う環境変数を指定します| n | env:  <br>&nbsp;&nbsp;RAILS_ENV: ${rails-env}|
+|name  |アプリケーションの名| y | [単純ではないマニフェストの例](#not-simple)の例をご覧ください。|
+|buildpack  |外部または独自のビルドパックのURLを指定します  | n |  |
+|command  |アプリケーションを起動するコマンド  |n  |command: bundle exec rake server:start_command  |
+|domain  |アプリケーションのドメイン|  |  |
+|host  | アプリケーションのホスト|  |  |
+|instances  |アプリケーションのインスタンスの数|y, defaults to 1<br> 指定されない場合|instances: 2  |
+|mem  |アプリケーションが使えるメモリ量の上限|y, defaults to 256M<br> 指定されない場合|mem: 64M |
+|disk  |アプリケーションが使えるディスク容量の上限|  |disk:1G  |
+|path  |ワーキング・ディレクトリからプッシュするアプリケーションへの相対パス| y  | path: . |
 |stack  |  |n  |  |
-|depends-on  |Path, relative to current working directory, of another application upon which the application depends.    |n  |  |
-|*Service_Name* |Name of a service instance to be created and bound to the application |y | See "base-manifest.xml" for example. |
-|type |Service type. |y |See "base-manifest.xml" for example.|
-|provider|Service provider |y |See "base-manifest.xml" for example. |
-|plan |Plan under which the service is obtained. |y |See "base-manifest.xml" for example. |
+|depends-on  |カレント・ディレクトリから依存する別アプリケーションへの相対パス|n  |  |
+|*Service_Name* |作成されアプリケーションへバインドされるサービスのインスタンスの名前 |y | "base-manifest.xml"の例をご覧ください|
+|type |サービスのタイプ|y |"base-manifest.xml"の例をご覧ください|
+|provider|サービスのプロヴァイダー |y |"base-manifest.xml"の例をご覧ください|
+|plan |サービスの属するプラン|y |"base-manifest.xml"の例をご覧ください|
 

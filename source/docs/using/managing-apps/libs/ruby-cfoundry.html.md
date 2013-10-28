@@ -2,33 +2,29 @@
 title: CFoundry Ruby Gem
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-This is a guide to using the CFoundry Ruby Gem to manage an account on a Cloud Foundry instance.
+本ガイドはCFoundry Ruby GemでCloud Foundryインスタンスのアカウントを管理するやり方を説明します。
 
-## <a id='connecting'></a>Connecting to Cloud Foundry ##
+## <a id='connecting'></a>Cloud Foundryへの接続 ##
 
-First of all, make sure to include the `cfoundry` gem as part of your application. Add it the application `Gemfile` if your are using Bundler;
+まず、`cfoundry`
+gemがアプリケーションに含まれていることを確認してください。Bundlerを使っている場合、`Gemfile`へアプリケーションを追加してください;
 
 ~~~ruby
 
-source 'https://rubygems.org'
-gem 'cfoundry'
+source 'https://rubygems.org' gem 'cfoundry'
 
 ~~~
 
-The first step to using cfoundry is creating a Client instance and logging in;
+cfoundryの最初のステップは、クライアントのインスタンスを作りログインすることです。;
 
-~~~ruby
-require 'cfoundry'
+~~~ruby require 'cfoundry'
 
-endpoint = 'http://api.cloudfoundry.com'
-username = 'my_cf_user'
-password = 'my_cf_password'
+endpoint = 'http://api.cloudfoundry.com' username = 'my_cf_user' password =
+'my_cf_password'
 
-client = CFoundry::Client.new endpoint
-client.login username, password
-~~~
+client = CFoundry::Client.new endpoint client.login username, password ~~~
 
 Test the connection by listing the available services;
 
@@ -38,61 +34,58 @@ client.services.collect { |x| x.description }
 
 ~~~
 
-## <a id='persist-authentication'></a>Persisting Authentication (Using cf tokens) ##
+## <a id='persist-authentication'></a>Persisting Authentication (Using cf
+tokens) ##
 
-A far safer way of creating a cfoundry client object without potentially exposing your credentials in source code is to login using cf and then use the generated auth token to login in. The auth tokens are stored by cf in ~/.cf/tokens.yml. The following snippet of ruby code shows how to open this file, select the right auth token and then use it to log in to Cloud Foundry.
+あなたの資格情報をばらすことなくcfoundryクライアントのオブジェクトを作る安全な方法は、cfでログインして生成されたauthトークンを使うことです。authトークンはcfによって~/.cf/tokens.ymlに保存されます。以下のrubyコードの断片は、このファイルを開き、適切なauthトークンを選択し、それを使ってCloud
+Foundryへログインします。
 
 ~~~ruby
 
-require 'cfoundry'
-require 'yaml'
+require 'cfoundry' require 'yaml'
 
-home = ENV['HOME']
-endpoint = 'https://api.cloudfoundry.com'
+home = ENV['HOME'] endpoint = 'https://api.cloudfoundry.com'
 
-config = YAML.load File.read("#{home}/.cf/tokens.yml")
-token = CFoundry::AuthToken.from_hash config[endpoint]
+config = YAML.load File.read("#{home}/.cf/tokens.yml")  token =
+CFoundry::AuthToken.from_hash config[endpoint]
 
 client = CFoundry::Client.new endpoint, token
 
 ~~~
 
-Once the client object is created, it can be used in the same fashion as before.
+クライアントのオブジェクトができれば、以前と同様のやり方で扱えます。
 
 ## <a id='organisations'></a>Organisations ##
 
-An account will always belong to at least one organization. Inspect the organizations using the client class;
+アカウントは一つ以上のオーガナイゼーションに属している必要がありますclientクラスを使って、オーガナイゼーションを確認します;
 
 ~~~ruby
 
->> client.organizations
-=> [#<CFoundry::V2::Organization '1e3ce9fb-50ac-4d2a-9506-f4d671c00f50'>, #<CFoundry::V2::Organization '77ab28ea-2b6e-4a7f-86c8-2c2df2714535'>]
+>> client.organizations => [#<CFoundry::V2::Organization
+'1e3ce9fb-50ac-4d2a-9506-f4d671c00f50'>, #<CFoundry::V2::Organization
+'77ab28ea-2b6e-4a7f-86c8-2c2df2714535'>]
 
 ~~~
 
-## <a id='spaces'></a>Spaces ##
+## <a id='spaces'></a>スペース ##
 
-Each organisation on Cloud Foundry can be separated in to spaces, we can easily inspect these via the client class;
+Cloud Foundry上のオーガナイゼーションは、複数のスペースへ分割することができます。clientクラスで簡単に確認できます;
 
 ~~~ruby
 
->> client.spaces.collect { |x| x.name }
-=> ["development", "staging", "production"]
+>> client.spaces.collect { |x| x.name } => ["development", "staging",
+"production"]
 
 ~~~
 
-Creating and deleting a space is also straight forward;
+スペースを作ったり削除したりするのも簡単です;
 
 ~~~ruby
 
-# create a space
-new_space = client.space
-new_space.name = 'New Space'
-new_space.organization = client.organizations.first
-new_space.create!
+# create a space new_space = client.space new_space.name = 'New Space'
+new_space.organization = client.organizations.first new_space.create!
 
-# then, delete it
-new_space.delete!
+# then, delete it new_space.delete!
 
 ~~~
 
@@ -100,29 +93,30 @@ There are several methods for retrieving a space;
 
 ~~~ruby
 
-# find space by name
-client.space_by_name 'development'
-=> #<CFoundry::V2::Space '07b7271f-bcfa-47df-aa9b-3911c60a0d65'>
+# find space by name client.space_by_name 'development' =>
+#<CFoundry::V2::Space '07b7271f-bcfa-47df-aa9b-3911c60a0d65'>
 
-client.methods.grep /space_by/
-=> [:spaces_by_name, :spaces_by_organization_guid, :spaces_by_developer_guid, :spaces_by_app_guid]
+client.methods.grep /space_by/ => [:spaces_by_name,
+:spaces_by_organization_guid, :spaces_by_developer_guid,
+:spaces_by_app_guid]
 
 ~~~
 
-## <a id='services'></a>Services, Service Instances and Service Plans ##
+## <a id='services'></a>サービス、インスタンス、サービスのプラン ##
 
-On Cloud Foundry each service has many service plans, depending on the instance, they will vary greatly. For the purposes of this document we will always use the first service plan for each service.
+Cloud
+Foundryではサービスはたくさんのサービス・プランを持っています。この文書では、それぞれのサービスの一番目のサービス・プランを使うことにします。
 
-The Client class contains four service methods; services, service_instances, service_instance_by_name and service_instance.
+クライアントのクラスは四つのサービスを含んでいます; services, service_instances,
+service_instance_by_name, service_instanceの四つです。
 
-The first method, 'services', returns a hash of all the available services on the targeted Cloud Foundry instance;
+一番目のメソッド'services'は、使用可能なすべてのサービスのハッシュを返します。;
 
-~~~ruby
-client.services.collect { |x| x.description }
-=> ["MySQL database", "MongoDB NoSQL database", "Redis key-value store", "RabbitMQ message queue", "PostgreSQL database (vFabric)"]
-~~~
+~~~ruby client.services.collect { |x| x.description } => ["MySQL database",
+"MongoDB NoSQL database", "Redis key-value store", "RabbitMQ message queue",
+"PostgreSQL database (vFabric)"] ~~~
 
-The 'service_instances' method returns the actual service instances currently provisioned on that account;
+'service_instances'は実際に割り当てられているサービスのインスタンスを返します;
 
 ~~~ruby
 pp client.service_instances
@@ -138,99 +132,95 @@ pp client.service_instances
 
 The 'service\_instance\_by_name' method returns a named service instance;
 
-~~~ruby
-client.service_instance_by_name 'mysql-7327e'
-=> #<CFoundry::V1::ServiceInstance 'mysql-7327e'>
-~~~
+~~~ruby client.service_instance_by_name 'mysql-7327e' =>
+#<CFoundry::V1::ServiceInstance 'mysql-7327e'> ~~~
 
-To create a service instance use the service_instance method;
+サービスのインスタンスを作るには、service_instanceメソッドを使用します;
 
 ~~~ruby
 
-service = client.services.select{ |x| x.label == 'redis' }.first # <- find the service we wish to deploy
-service_plan = client.service_plans_by_service_guid(service.guid).first # <- find the services first service plan
+service = client.services.select{ |x| x.label == 'redis' }.first # <- find
+the service we wish to deploy service_plan =
+client.service_plans_by_service_guid(service.guid).first # <- find the
+services first service plan
 
 service_instance = client.service_instance # <- prepare a new instance
 service_instance.name = 'my_new_redis_service' # <- give it a name
 
 service_instance.service_plan = service_plan # <- assign the plan
-service_instance.space = client.spaces.first # <- assign the space the service instance will belong to
+service_instance.space = client.spaces.first # <- assign the space the
+service instance will belong to
 
 service_instance.create! # <- send the request to create it
 
 # if the create was succesful, it should return true.
 
-~~~
-## <a id='runtimes-and-frameworks'></a>Runtimes and Frameworks ##
+~~~ ## <a id='runtimes-and-frameworks'></a>Runtimes and Frameworks ##
 
-Both runtimes and frameworks have a collection that can be used to reference them both;
-
-~~~ruby
-
-client.frameworks.collect { |x| x.name }
-=> ["play", "java_web", "buildpack", "lift", "rails3", "spring", "grails", "sinatra", "rack", "node", "standalone"]
-
-client.runtimes.collect { |x| x.name }
-=> ["java", "java7", "node", "node06", "node08", "ruby18", "ruby19"]
-
-
-~~~
-
-
-## <a id='applications'></a>Applications ##
-
-The Client class contains three application methods; apps, app and app_by_name
-
-The 'apps' method returns a list of all the deployed applications;
+ランタイムとフレームワークは、その両方を参照するのに使えるコレクションを持っています;
 
 ~~~ruby
 
-client.apps
-=> [#<CFoundry::V2::App '27edfb92-b0f4-47ad-acd6-cb911eb88096'>]
+client.frameworks.collect { |x| x.name } => ["play", "java_web",
+"buildpack", "lift", "rails3", "spring", "grails", "sinatra", "rack",
+"node", "standalone"]
+
+client.runtimes.collect { |x| x.name } => ["java", "java7", "node",
+"node06", "node08", "ruby18", "ruby19"]
+
 
 ~~~
 
-The 'app\_by\_name' method finds an application by it's name;
+
+## <a id='applications'></a>アプリケーション ##
+
+Clientクラスは三つのアプリケーション・メソッドを持っています; apps, app, app_by_nameの三つです
+
+'apps'メソッドはデプロイしたアプリケーションの一覧を返します;
 
 ~~~ruby
-client.apps_by_name "node_app"
-=> [#<CFoundry::V2::App '27edfb92-b0f4-47ad-acd6-cb911eb88096'>]
+
+client.apps => [#<CFoundry::V2::App '27edfb92-b0f4-47ad-acd6-cb911eb88096'>]
+
 ~~~
 
-To create an application user the app method;
+'app\_by\_name'メソッドは、名前を指定してアプリケーションを検索します;
+
+~~~ruby client.apps_by_name "node_app" => [#<CFoundry::V2::App
+'27edfb92-b0f4-47ad-acd6-cb911eb88096'>] ~~~
+
+アプリケーションのユーザを作るには、app methodメソッドを使います;
 
 ~~~ ruby
 
-app = client.app
-app.name = 'my_new_app'
-app.total_instances = 2 # <- set the number of instances you want
-app.memory = 512 # <- set the allocated amount of memory
-app.production = true # <- should the application run in production mode
-app.framework = client.frameworks.select{ |x| x.name == 'rails3' }.first # <- set the framework
-app.runtime = client.runtimes.select{ |x| x.name == 'ruby19' }.first # <- set the runtime
+app = client.app app.name = 'my_new_app' app.total_instances = 2 # <- set
+the number of instances you want app.memory = 512 # <- set the allocated
+amount of memory app.production = true # <- should the application run in
+production mode app.framework = client.frameworks.select{ |x| x.name ==
+'rails3' }.first # <- set the framework app.runtime =
+client.runtimes.select{ |x| x.name == 'ruby19' }.first # <- set the runtime
 app.space = client.spaces.first # <- assign the application to a space
 
 app.create!
 
-# we may also want to bind a service too
-app.bind client.service_instance_by_name('my_new_redis_service')
+# we may also want to bind a service too app.bind
+client.service_instance_by_name('my_new_redis_service')
 
 ~~~
 
-In order for the application to be accessible via http it has to be assigned a route on a domain;
+httpでアプリケーションへアクセスできるよう、ドメイン上のルートが割り当てられている必要があります;
 
-~~~ruby
-route = client.route
-route.domain = client.domains.first # <- pick the first / default route
-route.space = space # <- assign the route to a space
-route.host = 'my-rails-app' # <- this is the part of the url that is prepended to the domain
-route.create!
+~~~ruby route = client.route route.domain = client.domains.first # <- pick
+the first / default route route.space = space # <- assign the route to a
+space route.host = 'my-rails-app' # <- this is the part of the url that is
+prepended to the domain route.create!
 
 app.add_route route # <- add the route to the domain
 
 ~~~
 
-This only creates an application 'stub', as of yet there is no actual code uploaded to Cloud Foundry nor is the application started. To give the application something to run and depending on the runtime and framework archive the source, byte code or binary in to a zip file. Upload the zipfile to the application but using the upload command;
+'stub'というアプリケーションが作られるだけで、実際のコードがCloud
+Foundryへアップロードされるわでも起動されるわけでもありません。アプリケーションへ実際に実行するするものを提供するために、ソース、バイト・コード、バイナリなどの適切なもの(ランタイムやフレームワークに依存します)をzipファイルへアーカイブしてください。uploadコマンドを使ってzipファイルをアップロードしてください;
 
 ~~~ruby
 
@@ -248,13 +238,13 @@ app.upload 'app.zip'
 
 ~~~
 
-Now the application has been uploaded to Cloud Foundry, all that is left is to start the application
+アプリケーションはCloud Foundryへアップロードされ、残るは起動のみです。
 
-~~~ruby
-app.start!
-~~~~
+~~~ruby app.start! ~~~~
 
-The call to start is asynchronous, if true and a block is passed to the method then the block gets called with a URL. The url is the location of a real time log that can be requested via HTTP. CFoundry::Client has a method named stream_url which will transfer chunked data from the server;
+startの呼び出しは非同期で、ブロックが渡された場合はURLをともなってそのブロックが呼び出されます。urlはログの置き場所で、HTTPでリクエストすることができます。CFoundry::Client
+has a method named stream_url which will transfer chunked data from the
+server;
 
 ~~~ruby
 
@@ -278,50 +268,49 @@ end
 
 ~~~
 
-## <a id='env-vars'></a>Environment Variables ##
+## <a id='env-vars'></a>環境変数 ##
 
-Modifying an applications environment variable is trivial;
+環境変数の変更は簡単です;
 
 ~~~ruby
 
 app = client.apps.first
 
 app.env['my_env_var'] = 'env_value' # <- set the environment variable
-app.update! # <- commit the change to the application
-=> true
+app.update! # <- commit the change to the application => true
 
-app.env['my_env_var'] # <- retrieve the variable
-=> "env_value"
+app.env['my_env_var'] # <- retrieve the variable => "env_value"
 
 ~~~
 
 ## <a id='domains'></a>Domains ##
 
-Domains are the base on which routes are created. The default domain for a Cloud Foundry instance is the domain the Cloud Foundry instance is actually on.
+ドメインはルートの元になっています。Cloud Foundryのドメインのデフォルトは、Cloud
+Foundryインスタンスが実行されているドメインです。
 
-To create a new domain use the 'domain' method on the client class;
+新しいドメインを作るには、クライアントのクラスの'domain'メソッドを使います。;
 
 ~~~ruby
 
-domain = client.domain
-domain.name = 'mydomain.com' # <- the name of the domain
-domain.wildcard = true
-domain.owning_organization = client.organizations.first # <- set the owning organisation
-domain.create! # <- commit
+domain = client.domain domain.name = 'mydomain.com' # <- the name of the
+domain domain.wildcard = true domain.owning_organization =
+client.organizations.first # <- set the owning organisation domain.create! #
+<- commit
 
 ~~~
 
-To retrieve already existing domains;
+すでに存在しているドメインを取り出すには;
 
 ~~~ruby
 
-client.domains # <- all domains
-=> [#<CFoundry::V2::Domain '665b1cf3-e736-42cb-b7fe-bae8362fc30d'>]
+client.domains # <- all domains => [#<CFoundry::V2::Domain
+'665b1cf3-e736-42cb-b7fe-bae8362fc30d'>]
 
-client.domains_by_owning_organization_guid client.organizations.first # <- domains belonging to an organization
-=> [#<CFoundry::V2::Domain '665b1cf3-e736-42cb-b7fe-bae8362fc30d'>]
+client.domains_by_owning_organization_guid client.organizations.first # <-
+domains belonging to an organization => [#<CFoundry::V2::Domain
+'665b1cf3-e736-42cb-b7fe-bae8362fc30d'>]
 
-client.domains_by_space_guid client.spaces.first # <- domains assigned to a space
-=> [#<CFoundry::V2::Domain '665b1cf3-e736-42cb-b7fe-bae8362fc30d'>]
+client.domains_by_space_guid client.spaces.first # <- domains assigned to a
+space => [#<CFoundry::V2::Domain '665b1cf3-e736-42cb-b7fe-bae8362fc30d'>]
 
 ~~~

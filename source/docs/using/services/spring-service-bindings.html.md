@@ -1,33 +1,45 @@
 ---
-title: Spring - Service Bindings
+title: Spring - サービスのバインド
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-Cloud Foundry provides extensive support for connecting a Spring application to services such as MySQL, Postgres, MongoDB, Redis, and RabbitMQ. In many cases, Cloud Foundry can automatically configure a Spring application without any code changes. For more advanced cases, you can control service connection parameters yourself. 
+Cloud Foundryは、SpringアプリケーションからMySQL, Postgres, MongoDB, Redis,
+RabbitMQなどのサービスへの接続をサポートしています。多くの場合、Cloud
+Foundryはコードを変更することなく自動的にSpringアプリケーションを設定することができます。それ以外の場合、接続パラメーターを自分で制御することもできます。
 
 ## <a id='auto'></a>Auto-Reconfiguration ##
 
-If your Spring application requires services (such as a database or messaging system), you might be able to deploy your application to Cloud Foundry without changing any code. In this case, Cloud Foundry automatically re-configures the relevant bean definitions to bind them to cloud services. 
+SpSpringアプリケーションがサービス(データベースやメッセージング・システムなどの)を使っている場合、コードに手を加えることなくCloud
+Foundryへデプロイできます。こういったケースで、Cloud Foundryは自動的にサービスへの接続を再設定します。
 
-Cloud Foundry auto-reconfigures applications only if the following items are true for your application:
+Cloud Foundryは以下の条件が成り立つ場合に自動再設定を行ないます:
 
-* Only one service instance of a given service type is bound to the application. In this context, MySQL and Postgres are considered the same service type (relational database), so if both a MySQL and a Postgres service are bound to the application, auto-reconfiguration will not occur.
-* Only one bean of a matching type is in the Spring application context. For example, you can have only one bean of type `javax.sql.DataSource`.
+* サービスごとに、ただ一つのインスタンスだけが使われている。この文脈では、MySQLとPostgresは一つのサービスの種類(リレーショナル・データベース)と見なされます。MySQLとPostgresサービスの両方がバインドされている場合、自動再設定は行われません。
+* Springアプリケーションのcontextの中で、サービスのタイプごとにただ一つのbeanが存在する。たとえば、`javax.sql.DataSource`のbeanが一つだけある。
 
-With auto-reconfiguration, Cloud Foundry creates the database or connection factory bean itself, using its own values for properties such as host, port, username and so on. For example, if you have a single `javax.sql.DataSource` bean in your application context that Cloud Foundry reconfigures and binds to its own database service, Cloud Foundry doesn’t use the username, password and driver URL you originally specified. Rather, it uses its own internal values. This is transparent to the application, which really only cares about having a relational database to which it can write data but doesn’t really care what the specific properties are that created the database. Also note that if you have customized the configuration of a service (such as the pool size or connection properties), Cloud Foundry auto-reconfiguration ignores the customizations.
+自動再設定の場合、Cloud Foundryがデータベースまたは接続のfactory beanを作成します。この時、Cloud
+Foundryが持っているホスト、ポート、ユーザ名などのプロパティを使用します。たとえば、`javax.sql.DataSource`のbeanが一つだけある場合、Cloud
+Foundryは自分のデータベース・サービスと接続し、元々指定されていたユーザ名、パスワード、URLは使用しません。Cloud
+Foundryは自分が持っている値を使います。これはアプリケーションからは透過的です。アプリケーションはデータを読み書きできれば十分で、プロパティなどは気にしないからです。また、独自の設定(たとえば、接続のプールの大きさなど)をしていてもCloud
+Foundryの自動再設定はそれを無視します。
 
-For more information on auto-reconfiguration of specific services types, see the [Service-specific Details](#services) section.
+サービスのタイプごとの自動再設定の詳細については、[Service-specific Details](#services)セクションをご覧ください。
 
 ### <a id='optout'></a>Opting out of Auto-Reconfiguration ###
 
-Sometimes you may not want Cloud Foundry to auto-reconfigure your Spring application. To opt out of auto-reconfiguration, use the [`<cloud:>` namespace](#namespace) elements in your Spring application context file to explicitly create a bean that represents a service. This makes auto-reconfiguration unnecessary. 
+Cloud Foundryの自動再設定が望ましくない場合があります。自動再設定をさせないためには、Spring application context
+file内の[`<cloud:>`
+namespace](#namespace)エレメントを使って、サービスを示すbeanを明示的に作成してください。これにより自動再設定が使われなくなります。
 
 ## <a id='manual'></a>Manual Configuration ##
 
-If your Spring application cannot take advantage of Cloud Foundry’s auto-reconfiguration feature, or you want more control over the configuration, the additional steps you must take are very simple. 
+SpringアプリケーションがCloud Fouundryの自動再設定を使えない、あるいはきめ細かく制御したいなどの場合、やるべきことは単純です。
 
-To use any of the manual configuration techniques, you need to include the `cloudfoundry-runtime` library in your list of application dependencies. Update your application build file (e.g. Maven `pom.xml` file or Gradle `build.gradle` file) to include a dependency on the `org.cloudfoundry.cloudfoundry-runtime` artifact. For example, if you use Maven to build your application, the following `pom.xml` snippet shows how to add this dependency. **For Cloud Foundry v2 support, the version of this library must be at least `0.8.4`**:
+手動設定の場合、`cloudfoundry-runtime`ライブラリを依存関係の中に含めます。ビルド・ファイル(e.g. Maven
+`pom.xml`ファイル、またはGradle `build.gradle`
+ファイル)を`org.cloudfoundry.cloudfoundry-runtime`が含まれるように更新します。例として、アプリケーションをビルドするのにMavenを使っているとして、以下の`pom.xml`の一部が**Cloud
+Foundry v2サポートが必要なら、このライブラリのヴァージョンは`0.8.4`以上である必要があります**:
 
 ~~~xml
 <dependencies>
@@ -41,7 +53,8 @@ To use any of the manual configuration techniques, you need to include the `clou
 </dependencies>
 ~~~ 
 
-You will also need to update your application build file to include the Spring Framework Milestone repository. The following `pom.xml` snippet shows how to do this for Maven:
+また、アプリケーションがSpring Framework
+Milestoneリポジトリを含むよう更新する必要があります。以下の`pom.xml`の一部は、Mavenでのやり方を示しています:
 
 ~~~xml
 <repositories>
@@ -60,13 +73,16 @@ You will also need to update your application build file to include the Spring F
 
 ### <a id='namespace'></a>XML Configuration ###
 
-The `<cloud:>` namespace can be used in Spring XML application context configuration files to manually configure services. This allows multiple services of the same type to be used in a Spring application. The `<cloud:>` namespace elements provide defaults for most common configurations.
+手動でサービスを設定するために、 Spring XML application context
+configurationファイルで`<cloud:>`名前空間を使うことができます。このやり方で、Springアプリケーションはあるタイプで複数のサービスを使うことができます。`<cloud:>`名前空間の要素は、一般的な設定のデフォルトを提供します。
 
-The basic steps to update your Spring application to use any of the Cloud Foundry services are as follows:
+Cloud Foundryを使うSpringアプリケーションを更新する基本的なステップは以下のようになります:
 
-* Add the `cloudfoundry-runtime` dependency to your application as described above.
+* 上にあるように、`cloudfoundry-runtime`への依存関係を追加します。
 
-* In your Spring application, update all application context files that will include the Cloud Foundry service declarations, such as a data source, by adding the `<cloud:>` namespace declaration and the location of the Cloud Foundry services schema, as shown in the following snippet:
+* Springアプリケーションで、すべてのapplication context filesをCloud Foundry
+  サービスの宣言(`<cloud:>`名前空間の宣言やCloud
+  Foundryサービス・スキーマの場所を追加によるデータ・ソースなど)を含むように更新してください。設定の一部を以下に示します:
 
 ~~~xml
 <beans xmlns="http://www.springframework.org/schema/beans"
@@ -82,49 +98,59 @@ The basic steps to update your Spring application to use any of the Cloud Foundr
 
     <!-- bean declarations -->
 
-</beans>
-~~~
+</beans> ~~~
 
-You can configure Cloud Foundry services in a Spring XML application context file by using the `<cloud:>` namespace along with the name of specific elements. 
+Cloud FoundryサービスをSpring XML application context
+fileで設定するには、`<cloud:>`名前空間とある要素の名前を使います。
 
-Cloud Foundry provides elements for each of the supported services: database (MySQL and Postgres), Redis, MongoDB, and RabbitMQ. See the [Service-specific Details](#services) section for details on the namespace elements for each of these services. The following namespace elements apply to all service types.
+Cloud Foundryはサポートするサービスの名前を提供します: データベース(MySQLやPostgres), Redis, MongoDB,
+RabbitMQなどです。各サービスの名前空間の詳細については、[Service-specific
+Details](#services)セクションをご覧ください。以下の名前空間の要素は、すべてのサービスにおいて有効です。
 
 #### Cloud Properties ####
 
-The `<cloud:properties>` element exposes basic information about the application and its bound services as properties. Your application can then consume these properties using the Spring property placeholder support.
+`<cloud:properties>`要素は、アプリケーションとバインドされたサービスの基本的な情報を表します。Spring property
+placeholder supportによって、アプリケーションはこれらのプロパティを使います。
 
-Note that if you are using Spring Framework 3.1 (or later), these properties are automatically available without having to include `<cloud:properties>` in your application context file.
+Spring Framework 3.1
+(またはそれ以降)を使っているなら、`<cloud:properties>`を含めることなく、自動的に使えるようになることに注意してください。
 
-The `<cloud:properties>` element has just a single attribute (`id`) which specifies the name of the `Properties` bean. Use this ID as a reference to `<context:property-placeholder>` which you can use to hold all the properties exposed by Cloud Foundry. You can then use these properties in other bean defintions.
+`<cloud:properties>`要素は一つのアトリビュート(`id`)だけを持ち、`Properties`
+beanの名前を示します。このIDを使って`<context:property-placeholder>`を参照します。これによりCloud
+Foundryによるすべてのプロパティを使うことができます。次に、これらのプロパティを他のbean defintionsで使えます。
 
-The following example shows how to use this element in a Spring application context file:
+Spring application context fileでのこの要素の使い方の例を以下に示します:
 
-~~~xml
-<cloud:properties id="cloudProperties" />
-~~~
+~~~xml <cloud:properties id="cloudProperties" /> ~~~
 
-See the following section for more information on using Spring property placeholders for cloud properties.
+Spring property placeholdersの使い方については、以下をご覧ください。
 
 ### <a id='javaconfig'></a>Java Configuration ###
 
-Java configuration can be used as an alternative to the `<cloud:>` namespace in XML. Methods of the `CloudEnvironment` class contained in the `cloudfoundry-runtime` library can be used to get information on services by name or by type, and to create connection objects of the appropriate type for each service. In order to use Java configuration, you must add the `cloudfoundry-runtime` library to your project as described [above](#manual).
+Java
+configurationはXMLでの`<cloud:>`名前空間の代わりに使えます。`cloudfoundry-runtime`ライブラリ内の`CloudEnvironment`クラスのメソッドは、サービスを名前かタイプで指定して情報を得るのに使えます。また、各サービスへの接続オブジェクトを作るのに使えます。Java
+configurationを使うために、`cloudfoundry-runtime`ライブラリをプロジェクトへ追加してください。詳しくは以下[above](#manual)をご覧ください。
 
-See the [Service-specific Details](#services) section below for details on using `CloudEnvironment` for each type of supported service.
+各サービスの`CloudEnvironment`の使い方については、以下の[Service-specific
+Details](#services)をご覧ください。
 
 ### <a id='properties'></a>Property Placeholders ###
 
-Cloud Foundry exposes a number of application and service properties directly into its deployed applications. The properties exposed by Cloud Foundry include basic information about the application, such as its name and the Cloud provider, and detailed connection information for all services currently bound to the application.
+Cloud Foundryはデプロイされたアプリケーションに対して、アプリケーションやサービスのプロパティを公開します。Cloud
+Foundryが公開するプロパティには、名前やクラウド・プロヴァイダーなどのアプリケーションの基本的な情報が含まれます。
+バインドされたサービスの詳細は接続情報も含まれます。
 
-Service properties generally take one of the following forms:
+サービスのプロパティは、一般的に以下の形式の一つを取ります:
 
 ~~~
     cloud.services.{service-name}.connection.{property}
     cloud.services.{service-name}.{property}
 ~~~
 
-where `{service-name}` refers to the name you gave the service when you bound it to your application at deploy time, and `{property}` is a field in the credentials section of the `VCAP_SERVICES` environment variable.
+ここで、`{service-name}`はデプロイ時にサービスへ与えた名前を示し、`{property}`は環境変数`VCAP_SERVICES`内の資格情報のフィールドを示します。
 
-For example, assume that you created a Postgres service called `my-postgres` and then bound it to your application. Assume also that this service exposes credentials in `VCAP_SERVICES` as discrete fields. Cloud Foundry exposes the following properties about this service:
+例として、`my-postgres`という名前のPostgresサービスを作り、アプリケーションへバインドしたとします。また、`VCAP_SERVICES`内の複数の資格情報を別々のフィールドとして公開しているとします。Cloud
+Foundryはこのサービスについて以下のプロパティを提供します:
 
 ~~~
     cloud.services.my-postgres.connection.hostname
@@ -136,7 +162,7 @@ For example, assume that you created a Postgres service called `my-postgres` and
     cloud.services.my-postgres.type
 ~~~
 
-If the service exposed the credentials as a single `uri` field, then the following properties would be set up: 
+サービスが`uri`フィールドとして資格情報を提供しているなら、以下のプロパティが設定されます:
 
 ~~~
     cloud.services.my-postgres.connection.uri
@@ -144,7 +170,10 @@ If the service exposed the credentials as a single `uri` field, then the followi
     cloud.services.my-postgres.type
 ~~~
 
-For convenience, if you have bound just one service of a given type to your application, Cloud Foundry creates an alias based on the service type instead of the service name. For example, if only one MySQL service is bound to an application, the properties will take the form `cloud.services.mysql.connection.{property}`. Cloud Foundry uses the following aliases in this case:
+楽ができるように、あるタイプにおいてただ一つのサービスだけがある場合、Cloud
+Foundryはサービスの名前ではなくタイプの名前を使って別名を定義します。たとえば、アプリケーションへバインドされたMySQLサービスが一つだけならば、プロパティは
+`cloud.services.mysql.connection.{property}`という形式になります。このケースでは、Cloud
+Foundryは以下の別名を使います:
 
 * `mysql`
 * `postgresql`
@@ -152,9 +181,12 @@ For convenience, if you have bound just one service of a given type to your appl
 * `redis`
 * `rabbitmq`
 
-A Spring application can take advantage of these Cloud Foundry properties using the property placeholder mechanism. For example, assume that you have bound a MySQL service called `spring-mysql` to your application. Your application requires a c3p0 connection pool instead of the connection pool provided by Cloud Foundry, but you want to use the same connection properties defined by Cloud Foundry for the MySQL service - in particular the username, password and JDBC URL. 
+A Springアプリケーションは、property placeholder mechanismを使って、Cloud
+Foundryプロパティを活用できます。たとえば、`spring-mysql`という名前のMySQLサービスがあるとします。アプリケーションは、Cloud
+Foundryが提供する接続ではなくc3p0 connection poolを必要とするが、Cloud
+FoundryがMySQLサービスに提供するのと同じプロパティを使いたいものとします。ユーザ名、パスワード、JDBC URLなどです。
 
-The following Spring XML application context snippet shows how you might implement this:
+以下のSpring XML application contextの断片がやり方を示しています:
 
 ~~~xml
 <beans profile="cloud">
@@ -168,26 +200,34 @@ The following Spring XML application context snippet shows how you might impleme
 </beans>
 ~~~
 
-The following table lists all the application properties that Cloud Foundry exposes to deployed applications. 
+下の表は、Cloud Foundryがデプロイされたアプリケーションへ提供するプロパティの一覧です。
 
 | Property               | Description                                                               |
 |------------------------|---------------------------------------------------------------------------|
 | cloud.application.name | The name provided when the application was pushed to CloudFoundry.        |
 | cloud.provider.url     | The URL of the cloud hosting the application, such as `cloudfoundry.com`. |
 
-The service properties that are exposed for each type of service are listed in the [Service-specific Details](#services) section. 
+各サービスごとの提供されるプロパティは[Service-specific Details](#services)セクションにあります。
 
 ### <a id='profiles'></a>Profiles ###
 
-Spring Framework versions 3.1 and above support bean definition profiles as a way to conditionalize the application configuration so that only specific bean definitions are activated when a certain condition is true. Setting up such profiles makes your application portable to many different environments so that you do not have to manually change the configuration when you deploy it to, for example, your local environment and then to Cloud Foundry. 
+Spring Framework versions 3.1またはそれ以降は、条件付のアプリケーションの設定という方法で、ean definition
+profilesをサポートしています。ある条件が成り立つ時にのみ、一つのbean
+definitionだけが有効になります。これらのプロパティを設定すると、アプリケーションは環境によっていちいち設定しなおす必要がなくなります。たとえば、あなたのローカル環境とCloud
+Foundryでそのまま使えることになります。
 
-See the [Spring Framework documentation](http://static.springsource.org/spring/docs/current/spring-framework-reference/html/new-in-3.1.html#new-in-3.1-bean-definition-profiles) for additional information about using Spring bean definition profiles.
+Spring bean definition profilesについて、詳しくは[Spring Framework
+documentation](http://static.springsource.org/spring/docs/current/spring-framework-reference/html/new-in-3.1.html#new-in-3.1-bean-definition-profiles)をご覧ください。
 
-When you deploy a Spring application to Cloud Foundry, Cloud Foundry automatically enables the `cloud` profile.
+SpringアプリケーションをCloud Foundryへデプロイする際、Cloud Foundry は自動的に`cloud`
+profileを有効にします。
 
 #### Profiles in Java Configration ####
 
-The `@Profile` annotation can be placed on `@Configuration` classes in a Spring application to set conditions under which configuration classes are invoked. By using the `default` and `cloud` profiles to determine whether the application is running on CloudFoundry or not, your Java configuration can support both local and cloud deployments using Java configuration classes like these: 
+どの設定が呼ばれるかの条件を決めるために、Springアプリケーションの`@Profile`
+annotationを`@Configuration`クラスに置くことができます`default`や`cloud`プロファイルは、Cloud
+Foundry上で実行されているかどうか知ることができ、Java configurationはローカルとcloud
+deploymentの両方をサポートできます。Java configuration classesは以下のようになります:
 
 ~~~java
 @Configuration
@@ -222,9 +262,14 @@ public class LocalDataSourceConfig {
 
 #### Profiles in XML Configration ####
 
-In XML configuration files, you group the configuration for a specific environment using the profile attribute of a nested `<beans>` element in the appropriate Spring application context file. You can create your own custom profiles, but the ones that are most relevant in the context of Cloud Foundry are the `default` and `cloud` profiles.
+適切なSpring application context
+file内のネストした`<beans>`要素のプロファイル・アトリビュートを使って、XML設定ファイルの中で特定の環境向けの設定をグループ化できます。独自のプロファイルを作れますが、Cloud
+Foundryにとってもっともだいじなものは`default`や`cloud`プロファイルです。
 
-You should group all usages of the `<cloud:>` namespace within the `cloud` profile block to allow the application to run outside of Cloud Foundry environments. You then use the `default` profile (or a custom profile) to group the non-Cloud Foundry configuration that will be used if you deploy your application to a non-Cloud Foundry environment.
+Cloud Foundry外の環境でアプリケーションが動作できるように、`cloud` profile block内の`<cloud:>`
+名前空間の使い方をグループ化すべきです。次に、`default`プロファイル(または独自のプロファイル)を、 Cloud Foundry以外のための設定
+that will be used if you deploy your application to a non-Cloud Foundry
+environment.
 
 ~~~xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -257,20 +302,24 @@ You should group all usages of the `<cloud:>` namespace within the `cloud` profi
     <cloud:mongo-db-factory id="mongoDbFactory" />
   </beans>
 
-</beans>
-~~~
+</beans> ~~~
 
-Note that the `<beans profile="value">` element is nested inside the standard root `<beans>` element. The MongoDB connection factory in the cloud profile uses the `<cloud:>` namespace, the connection factory configuration in the default profile uses the `<mongo:>` namespace. You can now deploy this application to the two different environments without making any manual changes to its configuration when you switch from one to the other.
+standard root `<beans>`要素内の`<beans
+profile="value">`要素はネストしていることに注意してください。cloud profile内ののMongoDB connection
+factoryは、`<cloud:>`名前空間を使います。default profile内のconnection factory
+configurationは、`<mongo:>`名前空間を使います。このアプリケーションは異なる二つの環境で動作し、片方からもう片方へ切り替える際、手動で変更する必要はありません。
 
 ## <a id='services'></a>Service-specific Details ##
 
-The following sections describe Spring auto-reconfiguration and manual configuration for the services supported by Cloud Foundry. 
+続くセクションではCloud Foundryがサポートするサービス向けのSpringの自動再設定と手動設定について説明します。
 
 ### <a id='rdbms'></a>MySQL and Postgres ###
 
 #### Auto-Reconfiguration ####
 
-Auto-reconfiguration occurs if Cloud Foundry detects a `javax.sql.DataSource` bean in the Spring application context. The following snippet of a Spring application context file shows an example of defining this type of bean which Cloud Foundry will detect and potentially auto-reconfigure:
+自動再設定、Cloud FoundryがSpring application context内の`javax.sql.DataSource`
+beanを検出した際に実行されます。以下のSpring application context
+fileの一部はこのタイプのbeanの定義の例を示しています。Cloud Foundryはこれを検知し、自動再設定を実行します:
 
 ~~~xml
 <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
@@ -281,13 +330,18 @@ Auto-reconfiguration occurs if Cloud Foundry detects a `javax.sql.DataSource` be
 </bean>
 ~~~ 
 
-The relational database that Cloud Foundry actually uses depends on the service instance you explicitly bind to your application when you deploy it: MySQL or Postgres. Cloud Foundry creates either a commons DBCP or Tomcat datasource depending on which datasource implementation it finds on the classpath.
+Cloud Foundryが実際に使うリレーショナル・データベースは、デプロイ時にバインドしたサービス・インスタンスに依存します:
+MySQLかPostgresです。Cloud Foundryは、classpath上で見つけたデータソースの実装に応じて、DBCPまたはTomcat
+datasourceを作ります。
 
-Cloud Foundry will internally generate values for the following properties: `driverClassName`, `url`, `username`, `password`, `validationQuery`.
+Cloud Foundryは内部的に以下の値を生成します。: `driverClassName`, `url`, `username`,
+`password`, `validationQuery`.
 
 #### Manual Configuration in Java ####
 
-To configure a database service in Java configuration, simply create a `@Configuration` class with a `@Bean` method to return a `javax.sql.DataSource` bean. The bean can be created by helper classes in the `cloudfoundry-runtime` library, as shown here: 
+Java
+configuration内でデータベース・サービスを定義するには、`@Configuration`クラスを作り、`@Bean`メソッドが`javax.sql.DataSource`
+beanを返すようにします。`cloudfoundry-runtime`ライブラリ内でヘルパー・クラスでこのbeanを作ることができます。以下に例を示します:
 
 ~~~java
 @Configuration
@@ -304,45 +358,57 @@ public class DataSourceConfig {
 
 #### Manual Configuration in XML ####
 
-The `<cloud:data-source>` element provides an easy way for you to configure a JDBC data source in your Spring application. Later, when you actually deploy the application, you bind a particular MySQL or Postgres service instance to it.
+`<cloud:data-source>`要素は、SpringアプリケーションでJDBCを設定する簡単な方法を提供します。この後、実際にアプリケーションをデプロイする際、MySQLかPostgresのインスタンスをバインドしてみます。
 
 ##### Basic Manual Configuration #####
 
-The following snippet of a Spring XML application context file shows a simple way to configure a JDBC data source that will be injected into a `org.springframework.jdbc.core.JdbcTemplate` bean:
+以下のSpring XML application context
+fileの一部は、`org.springframework.jdbc.core.JdbcTemplate`
+beanへのJDBCデータソースを設定する方法を示しています:
 
-~~~xml
-<cloud:data-source id="dataSource" />
+~~~xml <cloud:data-source id="dataSource" />
 
 <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
   <property name="dataSource" ref="dataSource" />
 </bean>
 ~~~
 
-In the preceding example, note that no specific information about the datasource is supplied, such as the JDBC driver classname, the specific URL to access the database, or the database user. Instead, Cloud Foundry will provide these values at runtime, using appropriate information from the specific type of database service instance you bind to your application.
+こちらの例では、データソースに関する個々の値を指定していないことに注意してください。JDBC
+driverのクラス名、データベースにアクセスするための具体的なURL、ユーザ名などです。その代わりに、Cloud
+Foundryは実行時にバインドしたデータベースのサービスのタイプから適切な情報を持ってきます。
 
-The following table lists the attributes of the `<cloud:data-source>` element:
+下の表は、`<cloud:data-source>`要素のアトリビュートの一覧です:
 
-| Attribute | Description | Type |
-|-----------|-------------|------|
-| id | The ID of this data source. The JdbcTemplate bean uses this ID when it references the data source. Default value is the name of the bound service instance. | String |
-| service-name | The name of the data source service. You specify this attribute only if you are binding multiple database services to your application and you want to specify which particular service instance binds to a particular Spring bean. The default value is the name of the bound service instance. | String |
+| Attribute | Description | Type | |-----------|-------------|------| | id |
+The ID of this data source. データソースを参照する際、JdbcTemplate
+beanはこのIDを使います。デフォルトの値はバインドされたサービスのインスタンスの名前です。| String | | service-name |
+The name of the data source service. 複数のデータベースのサービスがバインドされていて、どのSpring
+beanをどのサービへバインドしたいかを指定したい時にのみこのアトリビュートを指定します。デフォルトの値はバインドされたサービスのインスタンスの名前です。|
+String |
 
-With this configuration, Cloud Foundry uses the most common configuration options when it creates the data source at runtime. The next section describes how to override the defaults for these options. 
+この設定では、実行時にもっとも一般的な設定を使ってデータソースを作ります。次のセクションでは、デフォルトを上書きするやり方を説明します。
 
 ##### Advanced Manual Configuration #####
 
-You can specify configuration options for a JDBC data source using two child elements of `<cloud:data-source>`: `<cloud:connection>` and `<cloud:pool>`.
+`<cloud:data-source>`:
+`<cloud:connection>`と`<cloud:pool>`の二つの要素を使ってJDBCデータソースを設定することができます。
 
-The `<cloud:connection>` child element takes a single String attribute (`properties`) that you use to specify connection properties you want to send to the JDBC driver when establishing new database connections. The format of the string must be semi-colon separated name/value pairs (for example, "`property1=value;property2=value`").
+`<cloud:connection>`は、新しい接続が確立した時にJDBCドライバへ送りたいプロパティを格納した一つのString attribute
+(`properties`)を取ります。文字列のフォーマットは、セミコロンで区切られた名前と値の組になります。(たとえば、"`property1=value;property2=value`")
 
 The `<cloud:pool>` child element takes the following two attributes:
 
 | Attribute | Description | Type | Default |
-|-----------|-------------|------|---------|
-| pool-size | Specifies the size of the connection pool. Set the value to either the maximum number of connections in the pool, or a range of the minimum and maximum number of connections separated by a dash. | int | Default minimum is `0`. Default maximum is `8`. These are the same defaults as the Apache Commons Pool. |
-| max-wait-time | In the event that there are no available connections, this attribute specifies the maximum number of milliseconds that the connection pool waits for a connection to be returned before throwing an exception. Specify `-1` to indicate that the connection pool should wait forever. | int | Default value is `-1` (forever). |
+|-----------|-------------|------|---------| | pool-size | Specifies the
+size of the connection pool. 接続の最大数か、最小と最大数をハイフンでつないで範囲を指定してください。| int |
+Default minimum is `0`. Default maximum is `8`. これはApache Commons
+Poolのデフォルトと同様です。| | max-wait-time | In the event that there are no available
+connections, this attribute specifies the maximum number of milliseconds
+that the connection pool waits for a connection to be returned before
+throwing an exception. Specify `-1` to indicate that the connection pool
+should wait forever. | int | Default value is `-1` (forever). |
 
-The following example shows how to use these advanced data source configuration options:
+以下はadvanced data source configuration optionsの使い方の例です:
 
 ~~~xml
 <cloud:data-source id="mydatasource">
@@ -351,15 +417,20 @@ The following example shows how to use these advanced data source configuration 
 </cloud:data-source>
 ~~~
 
-In the preceding example, the JDBC driver is passed the property that specifies that it should use the UTF-8 character set. The minimum and maximum number of connections in the pool at any given time is 5 and 10, respectively. The maximum amount of time that the connection pool waits for a returned connection if there are none available is 2000 milliseconds (2 seconds), after which the JDBC connection pool throws an exception.
+上の例では、JDBCドライバにはUTF-8文字セットを指定するプロパティが渡されています。接続数の最小と最大は、それぞれ5と10です。接続の空きがない場合の待ち時間は2000ミリセカンド(2秒)で、その後は例外を投げます。
 
 ### <a id='mongodb'></a>MongoDB ###
 
 #### Auto-Reconfiguration ####
 
-You must use [Spring Data MongoDB](http://www.springsource.org/spring-data/mongodb) 1.0 M4 or later for auto-reconfiguration to work.
+自動再設定を使うには、[Spring Data
+MongoDB](http://www.springsource.org/spring-data/mongodb) 1.0
+M4またはそれ以降を使う必要があります。
 
-Auto-reconfiguration occurs if Cloud Foundry detects a `org.springframework.data.document.mongodb.MongoDbFactory` bean in the Spring application context. The following snippet of a Spring XML application context file shows an example of defining this type of bean which Cloud Foundry will detect and potentially auto-reconfigure:
+Cloud FoundryがSpring application
+context内に`org.springframework.data.document.mongodb.MongoDbFactory`
+beanを発見すると、自動再設定が実行されます。以下のSpring XML application contextファイルの一部は、Cloud
+Foundryが感知すると自動再設定がされるはずのbeanの例になっています:
 
 ~~~xml
 <mongo:db-factory
@@ -371,11 +442,13 @@ Auto-reconfiguration occurs if Cloud Foundry detects a `org.springframework.data
     password="test_pass"  />
 ~~~ 
 
-Cloud Foundry will create a `SimpleMongoDbFactory` with its own values for the following properties: `host`, `port`, `username`, `password`, `dbname`.
+Cloud Foundryは`SimpleMongoDbFactory`を作り、以下のプロパティの値をセットします: `host`, `port`,
+`username`, `password`, `dbname`.
 
 #### Manual Configuration in Java ####
 
-To configure a MongoDB service in Java configuration, simply create a `@Configuration` class with a `@Bean` method to return a `org.springframework.data.mongodb.MongoDbFactory` bean (from Spring Data MongoDB). The bean can be created by helper classes in the `cloudfoundry-runtime` library, as shown here: 
+Javaの設定内でMongoDBを設定するには、`org.springframework.data.mongodb.MongoDbFactory`
+beanを返す`@Bean`メソッドを持つ`@Configuration`クラスを作ってください。`cloudfoundry-runtime`ライブラリ内でヘルパー・クラスでこのbeanを作ることができます。以下に例を示します:
 
 ~~~java
 @Configuration
@@ -397,21 +470,24 @@ public class MongoConfig {
 
 #### Manual Configuration in XML ####
 
-The `<cloud:mongo-db-factory>` namespace provides a simple way for you to manually configure a MongoDB connection factory for your Spring application.
+`<cloud:mongo-db-factory>`名前空間を使って、SpringアプリケーションのためのMongoDB connection
+factoryを簡単に設定することができます。
 
 ##### Basic Manual Configuration #####
 
-The following snippet of a Spring XML appication context file shows a `MongoDbFactory` configuration that will be injected into a `org.springframework.data.mongodb.core.MongoTemplate` bean:
+以下のSpring XML appication context
+fileの一部は、`org.springframework.data.mongodb.core.MongoTemplate`
+beanで使われる`MongoDbFactory` 設定の例です:
 
-~~~xml
-<cloud:mongo-db-factory id="mongoDbFactory" />
+~~~xml <cloud:mongo-db-factory id="mongoDbFactory" />
 
 <bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
     <constructor-arg ref="mongoDbFactory"/>
 </bean>
 ~~~
 
-The following table lists the attributes of the `<cloud:mongo-db-factory>` element.
+The following table lists the attributes of the `<cloud:mongo-db-factory>`
+element.
 
 <table>
 <tbody>
@@ -422,24 +498,23 @@ The following table lists the attributes of the `<cloud:mongo-db-factory>` eleme
   </tr>
   <tr>
     <td>id</td>
-    <td>The ID of this MongoDB connection factory.  The MongoTemplate bean uses this ID when it references the connection factory. <br>Default value is the name of the bound service instance.</td>
+    <td>The ID of this MongoDB connection factory.  接続を参照する際、MongoTemplate beanはこのIDを使います。<br>デフォルトの値はバインドされたサービスのインスタンスの名前です。</td>
     <td>String</td>
   </tr>
   <tr>
   <td>service-name</td>
-    <td>The name of the MongoDB service. <br>You specify this attribute only if you are binding multiple MongoDB services to your application and you want to specify which particular service instance binds to a particular Spring bean.  The default value is the name of the bound service instance.</td>
+    <td>The name of the MongoDB service. <br>複数のMongoDBサービスがバインドされていて、どのSpring beanをどのサービス・インスタンスへバインドしたいかを指定したい時にのみこのアトリビュートを指定します。デフォルトの値はバインドされたサービスのインスタンスの名前です。
     <td>String</td>
   </tr>
   <tr>
     <td>write-concern</td>
-    <td>Controls the behavior of writes to the data store.  The values of this attribute correspond to the values of the `com.mongodb.WriteConcern` class.
-       <p>If you do not specify this attribute, then no `WriteConcern` is set for the database connections and all writes default to NORMAL.  </p>
-       <p>The possible values for this attribute are as follows:</p>
+    <td>Controls the behavior of writes to the data store.  このアトリビュートの値は、`com.mongodb.WriteConcern`クラスの値に対応します。       <p>このアトリビュートを指定しない場合、`WriteConcern`は設定されず、すべての書き込みのデフォルトはNORMALになります。</p>
+       <p>このアトリビュートが取り得る値は以下になります:</p>
        <ul>
-         <li><b>NONE</b>: No exceptions are raised, even for network issues.</li>
-         <li><b>NORMAL</b>: Exceptions are raised for network issues, but not server errors.</li>
-         <li><b>SAFE</b>: MongoDB service waits on a server before performing a write operation.  Exceptions are raised for both network and server errors.</li>
-         <li><b>FSYNC_SAVE</b>: MongoDB service waits for the server to flush the data to disk before performing a write operation.  Exceptions are raised for both network and server errors.</li>
+         <li><b>NONE</b>: 例外があがりません。</li>
+         <li><b>NORMAL</b>: ネットワークについては例外をあげますが、サーバーに関しては例外をあげません。</li>
+         <li><b>SAFE</b>: MongoDBサービスは書き込みの前にサーバーを待ちます。ネットワークとサーバーの両方について例外をあげます。</li>
+         <li><b>FSYNC_SAVE</b>: MongoDBサービスは書き込み操作の前に、サーバーがデータをディスクへ実際に出力するのを待ちます。ネットワークとサーバーの両方について例外をあげます。</li>
        </ul>
      </td>
      <td>String</td>
@@ -447,11 +522,13 @@ The following table lists the attributes of the `<cloud:mongo-db-factory>` eleme
 </tbody>
 </table>
 
-This configuration creates a simple MongoDB connection factory using default values for the options. The following section describes how to override the defaults for these options. 
+これは、デフォルトの値を使ってMongoDB connection
+factoryを作ります。以下のセクションでは、デフォルトを上書きするやり方を説明します。
 
 ##### Advanced Manual Configuration #####
 
-The connection factory created by the `<cloud:mong-db-factory>` namespace can be customized by specifying the optional `<cloud:mongo-options>` child element. The following example shows how to use the advanced MongoDB options:
+`<cloud:mong-db-factory>`名前空間によって作られたconnection
+factoryは、`<cloud:mongo-options>`要素を指定することによりカスタマイズできます。以下にMongoDBの拡張設定の例を示します:
 
 ~~~xml
 <cloud:mongo-db-factory id="mongoDbFactory" write-concern="FSYNC_SAFE">
@@ -459,22 +536,31 @@ The connection factory created by the `<cloud:mong-db-factory>` namespace can be
 </cloud:mongo-db-factory>
 ~~~
 
-In the preceding example, the maximum number of connections is set to 12 and the maximum amount of time that a thread waits for a connection is 1 second. The WriteConcern is also specified to be the safest possible (FSYNC_SAFE).
+上の例では、接続の数の最大値は12で、スレッドの待ち時間は1秒です。WriteConcernはいちばん安全な(FSYNC_SAFE)になっています。
 
 The `<cloud:mongo-options>` child element takes the following attributes:
 
 | Attribute | Description | Type | Default |
-|-----------|-------------|------|---------|
-| connections-per-host | Specifies the maximum number of connections allowed per host for the MongoDB instance. Those connections will be kept in a pool when idle. Once the pool is exhausted, any operation requiring a connection will block while waiting for an available connection. | int | 10 | 
-| max-wait-time | Specifies the maximum wait time (in milliseconds) that a thread waits for a connection to become available. | int | 120,000 (2 minutes) |
+|-----------|-------------|------|---------| | connections-per-host |
+Specifies the maximum number of connections allowed per host for the MongoDB
+instance.
+これらの接続は、アイドル時はプール内に保持されます。プールが使いつくされると、接続を必要とする操作は接続が使えるようになるまでブロックされます。|
+int | 10 | | max-wait-time | Specifies the maximum wait time (in
+milliseconds) that a thread waits for a connection to become available. |
+int | 120,000 (2 minutes) |
 
 ### <a id='redis'></a>Redis ###
 
 #### Auto-Reconfiguration ####
 
-You must be using [Spring Data Redis](http://www.springsource.org/spring-data/redis) 1.0 M4 or later for auto-reconfiguration to work.
+自動再設定を使うには、 [Spring Data
+Redis](http://www.springsource.org/spring-data/redis) 1.0
+M4またはそれ以降を使う必要があります。
 
-Auto-reconfiguration occurs if Cloud Foundry detects a `org.springframework.data.redis.connection.RedisConnectionFactory` bean in the Spring application context. The following snippet of a Spring XML application context file shows an example of defining this type of bean which Cloud Foundry will detect and potentially auto-reconfigure:
+自動再設定は、Cloud FoundryがSpring application
+context内の`org.springframework.data.redis.connection.RedisConnectionFactory`
+beanを検出した際に実行されます。以下のSpring XML application contextファイルの一部は、Cloud
+Foundryが感知すると自動再設定がされるはずのbeanの例になっています:
 
 ~~~xml
 <bean id="redis"
@@ -482,11 +568,14 @@ Auto-reconfiguration occurs if Cloud Foundry detects a `org.springframework.data
       p:hostName="localhost" p:port="6379"  />
 ~~~
 
-Cloud Foundry will create a `JedisConnectionFactory` with its own values for the following properties: `host`, `port`, `password`. This means that you must package the Jedis JAR in your application. Cloud Foundry does not currently support the JRedis and RJC implementations.
+Cloud Foundryは`JedisConnectionFactory`を作り、その時に以下のプロパティの値を使います: `host`,
+`port`, `password`. このことは、アプリケーション内でJedis JARパッケージ化する必要があることを意味します。Cloud
+Foundryは現時点ではJRedisとRJCの実装をサポートしていません。
 
 #### Manual Configuration in Java ####
 
-To configure a Redis service in Java configuration, simply create a `@Configuration` class with a `@Bean` method to return a `org.springframework.data.redis.connection.RedisConnectionFactory` bean (from Spring Data Redis). The bean can be created by helper classes in the `cloudfoundry-runtime` library, as shown here: 
+Javaの設定内でRedisサービスを設定するには、`org.springframework.data.redis.connection.RedisConnectionFactory`
+beanを返す`@Bean`メソッドを持つ`@Configuration`クラスを作ってください。`cloudfoundry-runtime`ライブラリ内でヘルパー・クラスでこのbeanを作ることができます。以下に例を示します:
 
 ~~~java
 @Configuration
@@ -508,21 +597,23 @@ public class RedisConfig {
 
 #### Manual Configuration in XML ####
 
-The `<cloud:redis-connection-factory>` provides a simple way for you to configure a Redis connection factory for a Spring application.
+The `<cloud:redis-connection-factory>` provides a simple way for you to
+configure a Redis connection factory for a Spring application.
 
 ##### Basic Manual Configuration #####
 
-The following snippet of a Spring XML application context file shows a `RedisConnectionFactory` configuration that will be injected into a `org.springframework.data.redis.core.StringRedisTemplate` bean:
+以下のSpring XML application context
+fileの一部は、`org.springframework.data.redis.core.StringRedisTemplate`
+beanでの`RedisConnectionFactory`設定の例です:
 
-~~~xml
-<cloud:redis-connection-factory id="redisConnectionFactory" />
+~~~xml <cloud:redis-connection-factory id="redisConnectionFactory" />
 
 <bean id="redisTemplate" class="org.springframework.data.redis.core.StringRedisTemplate">
   <property name="connection-factory" ref="redisConnectionFactory"/>
 </bean>
 ~~~
 
-The following table lists the attributes of the `<cloud:redis-connection-factory>` element:
+下の表は、`<cloud:redis-connection-factory>`要素のアトリビュートの一覧です:
 
 <table>
 <tbody>
@@ -533,24 +624,25 @@ The following table lists the attributes of the `<cloud:redis-connection-factory
 </tr>
 <tr>
   <td>id</td>
-  <td>The ID of this Redis connection factory.  The RedisTemplate bean uses this ID when it references the connection factory. <br>Default value is the name of the bound service instance.</td>
+  <td>The ID of this Redis connection factory.  接続を参照する際、RedisTemplate beanはこのIDを使います。<br>デフォルトの値はバインドされたサービスのインスタンスの名前です。</td>
   <td>String</td>
 </tr>
 <tr>
   <td>service-name</td>
-  <td>The name of the Redis service. <br>You specify this attribute only if you are binding multiple Redis services to your application and you want to specify which particular service instance binds to a particular Spring bean.  The default value is the name of the bound service instance.</td>
+  <td>The name of the Redis service. <br>複数のRedisサービスがバインドされていて、どのSpring beanをどのサービス・インスタンスへバインドしたいかを指定したい時にのみこのアトリビュートを指定します。デフォルトの値はバインドされたサービスのインスタンスの名前です。
   <td>String</td>
 </tr>
 </tbody> 
 </table>
 
-With this configuration, Cloud Foundry uses the most common configuration options when it creates the factory at runtime. The following section describes how to override the defaults for these options.
+この設定では、実行時にもっとも一般的な設定を使ってfactoryを作ります。以下のセクションでは、デフォルトを上書きするやり方を説明します。
 
 ##### Advanced Manual Configuration #####
 
-The connection factory created by the `<cloud:redis-connection-factory>` namespace can be customized by specifying the optional `<cloud:pool>` child element. 
+`<cloud:redis-connection-factory>`名前空間によって作られたconnection
+factoryは、`<cloud:pool>`要素を指定することによりカスタマイズできます。
 
-The following example shows how to use these advanced Redis configuration options:
+以下はadvanced Redis configuration optionsの使い方の例です:
 
 ~~~xml
 <cloud:redis-connection-factory id="myRedisConnectionFactory">
@@ -558,7 +650,7 @@ The following example shows how to use these advanced Redis configuration option
 </cloud:redis-connection-factory>
 ~~~
 
-In this example, the minimum and maximum number of connections in the pool at any given time is 5 and 10, respectively. The maximum amount of time that the connection pool waits for a returned connection if there are none available is 2000 milliseconds (2 seconds), after which the Redis connection pool throws an exception.
+これ例では、接続数の最小と最大は、それぞれ5と10です。接続の空きがない場合の待ち時間は2000ミリセカンド(2秒)で、その後は例外を投げます。
 
 The `<cloud:pool>` child element takes the following attributes:
 
@@ -572,13 +664,11 @@ The `<cloud:pool>` child element takes the following attributes:
 </tr>
 <tr>
   <td>pool-size</td>
-  <td>Specifies the size of the connection pool.  Set the value to either the maximum number of connections in the pool, or a range of the minimum and maximum number of connections separated by a dash.</td>
+  <td>Specifies the size of the connection pool.  接続の最大数か、最小と最大数をハイフンでつないで範囲を指定してください。
   <td>int</td>
-  <td>Default minimum is 0.  Default maximum is 8. These are the same defaults as the Apache Commons Pool.</td>
-</tr>
-<tr>
+  <td>Default minimum is 0.  Default maximum is 8. これはApache Commons Poolのデフォルトと同様です。
   <td>max-wait-time</td>
-  <td>In the event that there are no available connections, this attribute specifies the maximum number of milliseconds that the connection pool waits for a connection to be returned before throwing an exception. Specify `-1` to indicate that the connection pool should wait forever. </td>
+  <td>使える接続がない場合、このアトリビュートの値(ミリセカンド単位)の時間接続が使えるようになるのを待ち、その後例外を投げます。Specify `-1` to indicate that the connection pool should wait forever. </td>
   <td>int</td>
   <td>Default value is `-1` (forever).</td>
  </tr>
@@ -589,9 +679,16 @@ The `<cloud:pool>` child element takes the following attributes:
 
 #### Auto-Reconfiguration ####
 
-You must be using [Spring AMQP](http://www.springsource.org/spring-amqp) 1.0 or later for auto-reconfiguration to work. Spring AMQP provides publishing, multi-threaded consumer generation, and message conversion. It also facilitates management of AMQP resources while promoting dependency injection and declarative configuration.
+自動再設定を使うには、[Spring AMQP](http://www.springsource.org/spring-amqp)
+1.0またはそれ以降を使う必要があります。Spring AMQP provides publishing, multi-threaded
+consumer generation, and message conversion. It also facilitates management
+of AMQP resources while promoting dependency injection and declarative
+configuration.
 
-Auto-reconfiguration occurs if Cloud Foundry detects a `org.springframework.amqp.rabbit.connection.ConnectionFactory` bean in the Spring application context. The following snippet of a Spring application context file shows an example of defining this type of bean which Cloud Foundry will detect and potentially auto-reconfigure:
+自動再設定は、Cloud FoundryがSpring application
+context内の`org.springframework.amqp.rabbit.connection.ConnectionFactory`
+beanを検出した際に実行されます。以下のSpring application context
+fileの一部はこのタイプのbeanの定義の例を示しています。Cloud Foundryはこれを検知し、自動再設定を実行します:
 
 ~~~xml
 <rabbit:connection-factory
@@ -603,11 +700,18 @@ Auto-reconfiguration occurs if Cloud Foundry detects a `org.springframework.amqp
     virtual-host="virthost" />
 ~~~
 
-Cloud Foundry will create a `org.springframework.amqp.rabbit.connection.CachingConnectionFactory` with its own values for the following properties: `host`, `virtual-host`, `port`, `username`, `password`.
+Cloud
+Foundryは`org.springframework.amqp.rabbit.connection.CachingConnectionFactory`を作り、以下のプロパティの値を使います:
+`host`, `port`, `username`, `password`, `dbname`.: `host`, `virtual-host`,
+`port`, `username`, `password`.
 
 #### Manual Configuration in Java ####
 
-To configure a RabbitMQ service in Java configuration, simply create a `@Configuration` class with a `@Bean` method to return a `org.springframework.amqp.rabbit.connection.ConnectionFactory` bean (from the Spring AMQP library). The bean can be created by helper classes in the `cloudfoundry-runtime` library, as shown here: 
+To configure a RabbitMQ service in Java configuration, simply create a
+`@Configuration` class with a `@Bean` method to return a
+`org.springframework.amqp.rabbit.connection.ConnectionFactory` bean (from
+the Spring AMQP
+library). `cloudfoundry-runtime`ライブラリ内でヘルパー・クラスでこのbeanを作ることができます。以下に例を示します:
 
 ~~~java
 @Configuration
@@ -629,28 +733,31 @@ public class RabbitConfig {
 
 #### Manual Configuration in XML ####
 
-The `<cloud:rabbit-connection-factory>` provides a simple way for you to configure a RabbitMQ connection factory for a Spring application.
+`<cloud:rabbit-connection-factory>`は、SpringアプリケーションでRabbitMQ connection
+factoryを設定する簡単な方法を提供します。
 
 ##### Basic Manual Configuration #####
 
-The following snippet of a Spring XML application context file shows a RabbitConnectionFactory configuration that will be injected into a `rabbitTemplate` bean. The example also uses the `<rabbit:>` namespace to perform RabbitMQ-specific configurations, as explained after the example:
+以下のSpring XML appication context fileの一部は、`rabbitTemplate`
+beanで使われるRabbitConnectionFactory configuration 設定の例です:この例は、
+`<rabbit:>`名前空間を使ってRabbitMQ-specific configurationを行います。例の後に説明があります:
 
-~~~xml
-<!-- Obtain a connection to the RabbitMQ via cloudfoundry-runtime: -->
-<cloud:rabbit-connection-factory id="rabbitConnectionFactory" />
+~~~xml <!-- Obtain a connection to the RabbitMQ via cloudfoundry-runtime:
+--> <cloud:rabbit-connection-factory id="rabbitConnectionFactory" />
 
 <!-- Set up the AmqpTemplate/RabbitTemplate: -->
 <rabbit:template id="rabbitTemplate"
     connection-factory="rabbitConnectionFactory" />
 
-<!-- Request that queues, exchanges and bindings be automatically declared on the broker: -->
-<rabbit:admin connection-factory="rabbitConnectionFactory"/>
+<!-- Request that queues, exchanges and bindings be automatically declared
+on the broker: --> <rabbit:admin
+connection-factory="rabbitConnectionFactory"/>
 
-<!-- Declare the "messages" queue: -->
-<rabbit:queue name="messages" durable="true"/>
-~~~
+<!-- Declare the "messages" queue: --> <rabbit:queue name="messages"
+durable="true"/> ~~~
 
-The following table lists the attributes of the `<cloud:rabbit-connection-factory>` element:
+The following table lists the attributes of the
+`<cloud:rabbit-connection-factory>` element:
 
 <table>
 <tbody>
@@ -661,24 +768,26 @@ The following table lists the attributes of the `<cloud:rabbit-connection-factor
 </tr>
 <tr>
   <td>id</td>
-  <td>The ID of this RabbitMQ connection factory. The RabbitTemplate bean uses this ID when it references the connection factory. <br>Default value is the name of the bound service instance.</td>
+  <td>The ID of this RabbitMQ connection factory. 接続を参照する際、RabbitTemplate beanはこのIDを使います。<br>デフォルトの値はバインドされたサービスのインスタンスの名前です。</td>
   <td>String</td>
 </tr>
 <tr>
   <td>service-name</td>
-  <td>The name of the RabbitMQ service. <br>You specify this attribute only if you are binding multiple RabbitMQ services to your application and you want to specify which particular service instance binds to a particular Spring bean. The default value is the name of the bound service instance.</td>
+  <td>The name of the RabbitMQ service. <br>複数のRabbitMQサービスがバインドされていて、どのSpring beanをどのサービス・インスタンスへバインドしたいかを指定したい時にのみこのアトリビュートを指定します。デフォルトの値はバインドされたサービスのインスタンスの名前です。
   <td>String</td>
 </tr>
 </tbody>
 </table>
 
-This configuration creates a simple RabbitMQ connection factory using default values for the options. The following section describes how to override the defaults for these options. 
+これは、デフォルトの値を使ってRabbitMQ connection
+factoryを作ります。以下のセクションでは、デフォルトを上書きするやり方を説明します。
 
 ##### Advanced Manual Configuration #####
 
-The connection factory created by the `<cloud:rabbit-connection-factory>` namespace can be customized by specifying the optional `<cloud:rabbit-options>` child element. 
+`<cloud:rabbit-connection-factory>`名前空間によって作られたconnection
+factoryは、`<cloud:rabbit-options>`要素を指定することによりカスタマイズできます。
 
-The following example shows how to use these advanced RabbitMQ configuration options:
+以下はadvanced RabbitMQ configuration optionsの使い方の例です:
 
 ~~~xml
 <cloud:rabbit-connection-factory id="rabbitConnectionFactory" >
@@ -686,5 +795,6 @@ The following example shows how to use these advanced RabbitMQ configuration opt
 </cloud:rabbit-connection-factory>
 ~~~
 
-The `<cloud:rabbit-options>` child element defines one attribute called `channel-cache-size` which you can set to specify the size of the channel cache size. The default value is `1`.  In the preceding example, the channel cache size of the RabbitMQ connection factory is set to 10.
+`<cloud:rabbit-options>`要素は、`channel-cache-size`というアトリビュートを定義し、チャンネルのキャッシュ・サイズの大きさを指定します。デフォルトの値は1です。前の例では、RabbitMQ
+connection factoryのキャッシュ・サイズは10です。
 

@@ -1,40 +1,44 @@
 ---
-title: Binding a service
+title: サービスのバインド
 ---
 
-**Note:** The auto-configuration functionality described on this page is not yet supported in Cloud Foundry v2.
+**注意:** このページで述べるオート・コンフィギュレーションは、Cloud Foundry v2では未だサポートされていません。
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-This guide is for developers who wish to bind a data source to a Node.js application deployed and running on Cloud Foundry.
+本ガイドは、Cloud Foundry上で実行されるNode.jsアプリケーションの開発者向けです。
 
-## <a id='prerequisites'></a>Prerequisites ##
+## <a id='prerequisites'></a>前提 ##
 
-* A Cloud Foundry account, you can sign up [here](https://my.cloudfoundry.com/signup)
-* The [CF](../../managing-apps/) command line tool
-* [Node.js](http://www.nodejs.org) installed using the matching version of Node.js on your Cloud Foundry instance
-* [NPM](http://npmjs.org/) - Node Package Manager, to manage dependencies on your application
-* A sample application such as the one created in [this](./index.html) tutorial
+* Cloud Foundryのアカウント。
+  右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup
+* The [CF](../../managing-apps/) コマンド・ライン・ツール
+* [Node.js](http://www.nodejs.org) installed using the matching version of
+  Node.js on your Cloud Foundry instance
+* [NPM](http://npmjs.org/) - Node Package Manager, to manage dependencies on
+  your application
+* A sample application such as the one created in [this](./index.html)
+  tutorial
 
 ### <a id='creating'></a> Creating a service ##
 
-To create a service issue the following command with cf and answer the interactive prompts;
+サービスを作るには、以下のようにcfコマンドを実行し、対話的に質問に答えます;
 
-~~~bash
-$ cf create-service
-~~~
+~~~bash $ cf create-service ~~~
 
 ## <a id='autoconfig'></a>Auto Configuration ##
 
-When any of the service types mentioned below are bound to a Node.js application, configuration for that data source will be configured automatically by Cloud Foundry.
+以下のようなサービスがNode.jsアプリケーションにバインドされている時、Cloud Foundryが自動的に設定します。
 
 * Rabbit MQ via the '[ampq](https://github.com/postwait/node-amqp)' module
-* Mongo via the '[mongodb](http://mongodb.github.com/node-mongodb-native/)' and '[mongoose](http://mongoosejs.com/)' modules
+* Mongo via the '[mongodb](http://mongodb.github.com/node-mongodb-native/)'
+  and '[mongoose](http://mongoosejs.com/)' modules
 * MySQL via the '[mysql](https://github.com/felixge/node-mysql)' module
 * Postgres via the '[pg](https://github.com/brianc/node-postgres) module
 * Redis via the '[redis](https://github.com/mranney/node_redis)' module
 
-At the moment the application is set to listen to port 3000. To be able to deploy the application unmodified a dependency on the cf-autoconfig node module has to be added to the project. Make the following two modifications, add cf-autoconfig to package.json
+この時点でアプリケーションはポート3000で待ち受けます。アプリケーションに手を加えずにデプロイするために、プロジェクトへcf-autoconfig
+node モジュールを追加します。以下の二箇所を変更し、cf-autoconfigをpackage.jsonへ追加します。
 
 ~~~json
 
@@ -51,40 +55,34 @@ At the moment the application is set to listen to port 3000. To be able to deplo
 }
 ~~~
 
-and then require the library at the start of the application;
+アプリケーションの先頭でこのライブラリをrequireします;
 
-~~~javascript
-require("cf-autoconfig");
-var express = require("express");
+~~~javascript require("cf-autoconfig"); var express = require("express");
 var app = express();
 
 app.get('/', function(req, res) {
     res.send('Hello from Cloud Foundry');
 });
 
-app.listen(3000);
-~~~
+app.listen(3000); ~~~
 
-Deploy the application as normal and the port will automatically be assigned, along with any bound data connections. If you do not wish to use auto configuration then just change the app to look for the bound port using environment variables;
+通常通りアプリケーションをデプロイすると、ポートが自動的に割当てられ、接続が行なわれます。自動設定を使いたくなければ、環境変数から得たポートへ接続するようアプリを変更するだけです;
 
-~~~javascript
-var express = require("express");
-var app = express();
+~~~javascript var express = require("express"); var app = express();
 
 app.get('/', function(req, res) {
     res.send('Hello from Cloud Foundry');
 });
 
-app.listen(process.env.VCAP_APP_PORT || 3000);
-~~~
+app.listen(process.env.VCAP_APP_PORT || 3000); ~~~
 
 ## <a id='Connecting'></a> Connecting to a Service ##
 
-Let's add a function to the application called record_visit, this, for some examples, will record the visitors IP address and the date and for the others will simply demonstrate connectivity.
+アプリケーションにrecord_visitという関数を追加してみましょう。これは訪問者のIPアドレスと日付を記録する、接続のデモンストレーションです。
 
 ### <a id='module-support'></a> Adding support for the correct module ###
 
-Edit package.json and add the intended module to dependencies section, normally only one would be necessary but for brevity's sake we will add all of them.
+package.jsonを編集し、dependenciesセクションへ該当モジュールを追加します。通常、一つだけが必要ですが、念のためすべて追加することにします。
 
 ~~~json
 {
@@ -106,13 +104,11 @@ Edit package.json and add the intended module to dependencies section, normally 
 }
 ~~~
 
-Next, edit app.js as appropriate for the intended module, passing in blank connection details where normally we would pass in details such as host address, port, user name and password.
+次に、app.jsを編集し、接続の内容はブランクにしておきます。普段はホストのアドレスやポートやユーザ名とパスワードを書く部分です。
 
 ### <a id='mongodb'></a> Mongodb ##
 
-~~~javascript
-require("cf-autoconfig");
-var express = require("express");
+~~~javascript require("cf-autoconfig"); var express = require("express");
 var app = express();
 
 var record_visit = function(req, res){
@@ -132,14 +128,11 @@ app.get('/', function(req, res) {
   record_visit(req, res);
 });
 
-app.listen(3000);
-~~~~
+app.listen(3000); ~~~~
 
 ### <a id='redis'></a> Redis ##
 
-~~~javascript
-require("cf-autoconfig");
-var express = require("express");
+~~~javascript require("cf-autoconfig"); var express = require("express");
 var app = express();
 
 var record_visit = function(req, res){
@@ -158,15 +151,12 @@ app.get('/', function(req, res) {
   res.send('Hello from Cloud Foundry');
 });
 
-app.listen(3000);
-~~~~
+app.listen(3000); ~~~~
 
 
 ### <a id='mysql'></a> MySQL ##
 
-~~~javascript
-require("cf-autoconfig");
-var express = require("express");
+~~~javascript require("cf-autoconfig"); var express = require("express");
 var app = express();
 
 var record_visit = function(req, res){
@@ -193,14 +183,11 @@ app.get('/', function(req, res) {
   record_visit(req, res);
 });
 
-app.listen(3000);
-~~~~
+app.listen(3000); ~~~~
 
 ### <a id='rabbitmq'></a> Rabbit MQ ##
 
-~~~javascript
-require("cf-autoconfig");
-var express = require("express");
+~~~javascript require("cf-autoconfig"); var express = require("express");
 var app = express();
 
 var record_visit = function(req, res){
@@ -228,14 +215,12 @@ app.get('/', function(req, res) {
   record_visit(req, res);
 });
 
-app.listen(3000);
-~~~~
+app.listen(3000); ~~~~
 
 ### <a id='binding'></a> Binding a service ##
 
-To bind the service to the application, use the following cf command;
+サービスとアプリケーションをバインドするためには、以下のcfコマンドを実行してください;
 
-~~~bash
-$ cf bind-service --app [application name] --service [service name]
+~~~bash $ cf bind-service --app [application name] --service [service name]
 ~~~
 

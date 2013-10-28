@@ -1,64 +1,63 @@
 ---
-title: Deploying Ruby Apps (Rack, Rails, or Sinatra)
+title: Rubyアプリ(Rack, Rails, Sinatra)をデプロイする。
 ---
 
-This page will prepare you to deploy Rack, Rails, or Sinatra apps via the [getting started guide](../../../dotcom/getting-started.html).
+Rack, Rails, Sinatraアプリのデプロイの準備については、右のページをご欄ください。
+[入門](../../../dotcom/getting-started.html).
 
-## <a id='bundler'></a> Application bundling ##
+## <a id='bundler'></a>アプリケーションのバンドル ##
 
-You need to run <a href="http://gembundler.com/">Bundler</a> to create both a Gemfile and Gemfile.lock. These files must be in your application before you push to Cloud Foundry.
+GemfileとGemfile.lockを作るために<a
+href="http://gembundler.com/">Bundler</a>コマンドを実行してください。Cloud
+Foundryへプッシュする前にこの二つのファイルを用意してください。
 
-## <a id='config'></a> Rack config file ##
+## <a id='config'></a> Rackの設定ファイル ##
 
-For both **Rack** and **Sinatra** you need a `config.ru` file like the example below:
+**Rack** か **Sinatra** には、`config.ru`が必要です。例を示します:
 
-~~~ruby
-require './hello_world'
-run HelloWorld.new
-~~~
+~~~ruby require './hello_world' run HelloWorld.new ~~~
 
 ## <a id='precompile'></a> Asset precompilation ##
 
-Cloud Foundry provides support for the Rails asset pipeline. This means that if you don't choose to precompile assets before deployment to Cloud Foundry, precompilation will occur when the application is staged.
-To precompile asssets before deployment use the following command:
+Cloud FoundryはRails asset pipelineをサポートしています。Cloud
+Foundryへプッシュする前にプリコンパイルされたアセットを用意しなければ、ステージされる時に用意されるということです。デプロイの前にプレコンパイルするには、以下のコマンドを使ってください:
 
-<pre class="terminal">
-rake assets:precompile
-</pre>
+<pre class="terminal"> rake assets:precompile </pre>
 
-Doing this before deployment ensures that staging the application will take less time as the precomplilation task will not need to take place on Cloud Foundry.
+これにより、ステージされるたびにプリコンパイルが実行されなくなり、速度が向上することになります。
 
-One potential problem can occur during application initialization. The precompile rake task will run a complete re-initialization of the Rails application. This might trigger some of the initialization procedures and require service connections and environment checks that are unavailable during staging. You can turn this off by adding a configuration option in application.rb:
+アプリケーションの初期化の際、潜在的な危険が一つあります。プリコンパイルされたrakeタスクはRailsアプリケーションの再初期化を実行します。これは、サービスへの接続や環境のチェックなどステージングの段階では使えないものを必要とすることがあります。application.rb内のオプションで再初期化されないようにできます:
 
-~~~ruby
-config.assets.initialize_on_precompile = false
-~~~
+~~~ruby config.assets.initialize_on_precompile = false ~~~
 
-If the assets:precompile task fails, Cloud Foundry makes use of live compilation mode, this is the alternative to asset precompilation. In this mode, assets are compiled when they are loaded for the first time. This can be enabled by adding a setting to application.rb that forces the live compilation process.
+assets:precompileが失敗すると、Cloud
+Foundryはライブ・コンピレーションを有効にします。これはプレコンパイルの代替手段になります。このモードでは、最初にロードされる時にコンパイルされます。application.rb内で設定を追加してライブ・コンパイレーションを有効にできます。
 
-~~~ruby
-Rails.application.config.assets.compile = true
-~~~
+~~~ruby Rails.application.config.assets.compile = true ~~~
 
 ## <a id='workers'></a> Workers tasks ##
 
-Worker tasks are supported by Cloud Foundry. Follow this [Rails workers quick start](rails-running-worker-tasks.html) to understand how it works.
+Cloud Foundryはワーカー・プロセスをサポートしています。動作の仕組みについては右のページ[Rails workers quick
+start](rails-running-worker-tasks.html)をご参照ください。
 
-## <a id='console'></a> Rails console ##
+## <a id='console'></a> Railsコンソール ##
 
-Cloud Foundry v2 does not yet support Rails Console.
+Cloud Foundry v2ではRail Consoleは未サポートです。
 
-## <a id='services'></a> Binding to services ##
+## <a id='services'></a>サービスへのバインド #
 
-Refer to the [instructions for Ruby service bindings](../../services/ruby-service-bindings.html).
+[Rubyのサービスのバインドのやり方](../../services/ruby-service-bindings.html)をご覧ください
 
-## <a id='rake'></a> Running Rake tasks ##
+## <a id='rake'></a>Rakeタスクの実行 ##
 
-If the data service (such as a database) you are using with your application is available directly and supports connectivity when not running on Cloud Foundry, then you can run rake tasks locally (not on Cloud Foundry) and perform database migrations and other tasks outside of Cloud Foundry. See further below on how to access the contents of the `VCAP_SERVICES` environment variable that contains bound service connection information.
+あなたのアプリケーションが使っているデータベースなどのサービスがCloud
+Foundryで未サポートで、直接接続可能なら、rakeタスクをローカルで(Cloud Foundry上ではなく)実行し database
+migration
+することができます。他のタスクも実行できます。サービスへの接続情報を保持している環境変数`VCAP_SERVICES`の内容へアクセスする方法については、以下をご覧ください。
 
-Alternatively, to run a rake task on Cloud Foundry, you can use the start command in your manifest.yml.
+あるいは、manifest.yml内の起動コマンドを使ってCloud Foundry上でrakeタスクを実行できます。
 
-You will be asked if you want to save your configuration the first time you deploy. This will save a `manifest.yml` in your application with the settings you entered during the initial push. Edit the `manifest.yml` file and create a start command as follows:
+最初にデプロイする時、設定を保存するかきかれます。これにより、最初のプッシュの時に入力した設定がアプリケーション内の`manifest.yml`へ格納されます。`manifest.yml`を編集し、以下のように起動コマンドを記述してください:
 
 ~~~yaml
 ---
@@ -68,37 +67,26 @@ applications:
 ... the rest of your settings  ...
 ~~~
 
-**Important** Your first migration can only run against an application with one instance. After running the migration, you can scale the application using the `cf scale` command. You could run subsequent migrations using a script that checks for a unique instance number using the JSON formatted environment variable `VCAP_APPLICATION` - which includes an `instance_id` value.
+**重要** 最初のマイグレーションは、一つのアプリケーションのインスタンスに対して一度だけ実行できます。マイグレーションの実行後、`cf scale`コマンドでアプリケーションをスケールできます。`VCAP_APPLICATION`環境変数(`instance_id`を含んでいる)内のユニークなインスタンス・ナンバー(JSON形式)を参照するスクリプトを使って、さらにマイグレーションを実行することができます。
 
-`VCAP_APPLICATION` works the same way as `VCAP_SERVICES`, which you can read about [here](../../services/environment-variable.html).
+`VCAP_APPLICATION`は`VCAP_SERVICES`と同様に働きます。`VCAP_SERVICES`については[here](../../services/environment-variable.html)をご覧ください。
 
-To look at the contents of `VCAP_APPLICATION`, dump it in a Ruby app running in Cloud Foundry via:
+Cloud Foundry上のRubyアプリで`VCAP_APPLICATION`の内容を見るには以下を使います:
 
 `ENV['VCAP_APPLICATION']`
 
-You can also retrieve environment variables logged in the `env.log` with the `cf log APPNAME` command:
+`cf log APPNAME`コマンドで`env.log`の内容を取り出すこともできます。
 
-~~~
-Reading logs/env.log... OK
-TMPDIR=/home/vcap/tmp
-VCAP_APP_PORT=61169
-VCAP_CONSOLE_IP=0.0.0.0
-USER=vcap
-VCAP_APPLICATION={"application_users":[],"instance_id":"d05ee6e8198d8b8deb51b3a5dcd0f228","instance_index":0,"application_version":"0699019d-51f4-409e-b588-ef6669596c6f","application_name":"railsnew","application_uris":["railsnew.cfapps.io"],"started_at":"2013-06-14 01:46:34 +0000","started_at_timestamp":1371174394,"host":"0.0.0.0","port":61169,"limits":{"mem":256,"disk":1024,"fds":16384},"version":"0699019d-51f4-409e-b588-ef6669596c6f","name":"railsnew","uris":["railsnew.cfapps.io"],"users":[],"start":"2013-06-14 01:46:34 +0000","state_timestamp":1371174394}
-RACK_ENV=production
+~~~ Reading logs/env.log... OK TMPDIR=/home/vcap/tmp VCAP_APP_PORT=61169
+VCAP_CONSOLE_IP=0.0.0.0 USER=vcap
+VCAP_APPLICATION={"application_users":[],"instance_id":"d05ee6e8198d8b8deb51b3a5dcd0f228","instance_index":0,"application_version":"0699019d-51f4-409e-b588-ef6669596c6f","application_name":"railsnew","application_uris":["railsnew.cfapps.io"],"started_at":"2013-06-14
+01:46:34
++0000","started_at_timestamp":1371174394,"host":"0.0.0.0","port":61169,"limits":{"mem":256,"disk":1024,"fds":16384},"version":"0699019d-51f4-409e-b588-ef6669596c6f","name":"railsnew","uris":["railsnew.cfapps.io"],"users":[],"start":"2013-06-14
+01:46:34 +0000","state_timestamp":1371174394} RACK_ENV=production
 PATH=/home/vcap/app/bin:/home/vcap/app/vendor/bundle/ruby/1.9.1/bin:/bin:/usr/bin:/bin:/usr/bin
-PWD=/home/vcap
-LANG=en_US.UTF-8
-VCAP_SERVICES={}
-HOME=/home/vcap/app
-SHLVL=2
-RAILS_ENV=production
-GEM_PATH=/home/vcap/app/vendor/bundle/ruby/1.9.1:
-PORT=61169
-VCAP_APP_HOST=0.0.0.0
-MEMORY_LIMIT=256m
-DATABASE_URL=
-VCAP_CONSOLE_PORT=61170
-_=/usr/bin/env
+PWD=/home/vcap LANG=en_US.UTF-8 VCAP_SERVICES={} HOME=/home/vcap/app SHLVL=2
+RAILS_ENV=production GEM_PATH=/home/vcap/app/vendor/bundle/ruby/1.9.1:
+PORT=61169 VCAP_APP_HOST=0.0.0.0 MEMORY_LIMIT=256m DATABASE_URL=
+VCAP_CONSOLE_PORT=61170 _=/usr/bin/env
 
 ~~~

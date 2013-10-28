@@ -1,20 +1,18 @@
 ---
-title: Managing Services
+title: サービスの管理
 ---
 
 ## <a id='viewing-services'></a> View Available Services ##
 
-After targeting and logging into Cloud Foundry using [cf](/docs/using/managing-apps/cf/index.html), you can view what services are available:
+After targeting and logging into
+[cf](/docs/using/managing-apps/cf/index.html)コマンドでCloud
+Foundryを指定し、ログインした後、利用可能なサービスを知ることができます:
 
-<pre class="terminal">
-$ cf info --services
-</pre>
+<pre class="terminal"> $ cf info --services </pre>
 
-This command displays a list of services that can be bound to your applications. The following is an example of those services on a private beta install of Cloud Foundry.
+このコマンドはアプリケーションから接続できるサービスの一覧を表示します。以下はCloud Foundryプライベートβでの例です。
 
-<pre class="terminal">
-$ cf info --services
-Getting services... OK
+<pre class="terminal"> $ cf info --services Getting services... OK
 
 service      version   provider        plans                        description                     
 mongodb      n/a       mongolab-dev    free, large, medium, small   Cloud hosted and managed MongoDB
@@ -25,77 +23,56 @@ rabbitmq     3.0       core            200                          RabbitMQ mes
 redis        2.6       core            200                          Redis key-value store            
 </pre>
 
-<i>Note: This is an example. These services may not be available on the Cloud Foundry service you target.</i>
+<i>Note: This is an example. 現在のCloud Foundryでは使えないサービスも含まれています。</i>
 
 ## <a id='create'></a>Create a Service ##
 
-Use these commands to create and bind a service to your app.
+サービスを作成し、バインドするには、以下のコマンドを使ってください。
 
-<pre class="terminal">
-$ cf create-service
-1: mongodb n/a, via mongolab-dev
-2: mongodb 2.2
-3: mysql 5.5
-4: postgresql 9.2
-5: rabbitmq 3.0
-6: redis 2.6
-7: redis n/a, via redistogo-dev
-8: smtp n/a, via sendgrid-dev
-What kind?> 3
+<pre class="terminal"> $ cf create-service 1: mongodb n/a, via mongolab-dev
+2: mongodb 2.2 3: mysql 5.5 4: postgresql 9.2 5: rabbitmq 3.0 6: redis 2.6
+7: redis n/a, via redistogo-dev 8: smtp n/a, via sendgrid-dev What kind?> 3
 
 Name?> mysql-a0a77
 
-1: 100: Shared service instance, 10MB storage, 2 connections
-2: 200: Dedicated server, shared VM, 256MB memory, 2.5GB storage, 30 connections
+1: 100: Shared service instance, 10MB storage, 2 connections 2: 200:
+Dedicated server, shared VM, 256MB memory, 2.5GB storage, 30 connections
 Which plan?> 2
 
-Creating service mysql-a0a77... OK
-</pre>
+Creating service mysql-a0a77... OK </pre>
 
 ## <a id='bind'></a>Bind a Service ##
 
-Binding a service to your application adds credentials for the service instance to the VCAP_SERVICES environment variable. In most cases these credentials are unique to the binding; another app bound to the same service instance would receive different credentials. You may need to restart your application for it to recognize the change. 
+サービスをアプリケーションへバインドすると、環境変数VCAP_SERVICESへ資格情報が追加されます。通常、この資格情報はユニークです;
+別のアプリが同じサービスへ接続しても、異なる資格情報を受け取ります。変更を反映するため、アプリケーションの再起動が必要な場合があります。
 
-How your app leverages the contents of environment variables may depend on the framework you employ. Refer to the [Deploying Apps](/docs/using/deploying-apps/index.html) section for more information.
+アプリが環境変数の内容にどのように関わるかは、使っているフレームワークに依存します。詳しくは、[Deploying
+Apps](/docs/using/deploying-apps/index.html) セクションをご覧ください。
 
-You can bind an existing service to an existing application as follows:
+既存のサービスをアプリケーションへバインドするには、以下のようにします:
 
-<pre class="terminal">
-$ cf bind-service
-1: my-app
-Which application?> 1
+<pre class="terminal"> $ cf bind-service 1: my-app Which application?> 1
 
-1: mysql-a0a77
-Which service?> 1
+1: mysql-a0a77 Which service?> 1
 
-Binding mysql-a0a77 to my-app... OK
-</pre>
+Binding mysql-a0a77 to my-app... OK </pre>
 
 ## <a id='unbind'></a>Unbind a Service ##
 
-Unbinding a service removes the credentials created for your application from the VCAP_SERVICES environment variable. You may need to restart your application for it to recognize the change. 
+サービスを切り離すと、環境変数VCAP_SERVICESから該当する資格情報が削除されます。変更を反映するため、アプリケーションの再起動が必要な場合があります。
 
-<pre class="terminal">
-$ cf unbind-service
-1: my-app
-Which application?> 1
+<pre class="terminal"> $ cf unbind-service 1: my-app Which application?> 1
 
-1: mysql-a0a77
-Which service?> 1
+1: mysql-a0a77 Which service?> 1
 
-Unbinding mysql-a0a77 from my-app... OK
-</pre>
+Unbinding mysql-a0a77 from my-app... OK </pre>
 
 ## <a id='delete'></a>Delete a Service ##
 
-Deleting a service unprovisions the service instance and deletes *all data* along with the service instance. 
+サービスを削除すると、サービスのインスタンスと*すべてのデータ* が削除されます。
 
-<pre class="terminal">
-$ cf delete-service
-1: mysql-a0a77
-Which service?> 1
+<pre class="terminal"> $ cf delete-service 1: mysql-a0a77 Which service?> 1
 
 Really delete mysql-a0a77?> y
 
-Deleting mysql-a0a77... OK
-</pre>
+Deleting mysql-a0a77... OK </pre>

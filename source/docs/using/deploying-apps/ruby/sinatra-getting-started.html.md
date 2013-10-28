@@ -2,35 +2,33 @@
 title: Sinatra, Getting Started
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-Cloud Foundry provides support for Sinatra applications. Work through this guide to create a sample application and deploy it to Cloud Foundry.
+Cloud FoundryはSinatraアプリケーションをサポートしています。本ガイドに従ってアプリケーションのサンプルを作り、Cloud
+Foundryへデプロイしてみてください。
 
-## <a id='prerequisites'></a>Prerequisites ##
+## <a id='prerequisites'></a>前提 ##
 
-To complete this quickstart guide, you need to fulfill the following prerequisites;
+以下の前提を満たす必要があります;
 
-* A Cloud Foundry account, you can sign up [here](https://my.cloudfoundry.com/signup)
+* Cloud Foundryのアカウント。
+  右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup
 * [Ruby](http://www.ruby-lang.org/en/)
 * [Bundler](http://gembundler.com/)
-* The [CF](../../managing-apps/) command line tool
+* The [CF](../../managing-apps/) コマンド・ライン・ツール
 
-## <a id='sample-project'></a>Creating a Sample Project ##
+## <a id='sample-project'></a>サンプル・プロジェクトの作成 ##
 
-Create a folder for your Rack application and create a basic application structure.
+フォルダを作り、Rackアプリケーションの基本構造を用意します。
 
-<pre class="terminal">
-$ mkdir sinatra_hello_world
-$ cd sinatra_hello_world
-$ touch hello_world.rb config.ru Gemfile
-</pre>
+<pre class="terminal"> $ mkdir sinatra_hello_world $ cd sinatra_hello_world
+$ touch hello_world.rb config.ru Gemfile </pre>
 
-Initialise both files as follows;
+二つのファイルを以下のように初期化します;
 
 hello_world.rb
 
-~~~ruby
-require 'sinatra/base'
+~~~ruby require 'sinatra/base'
 
 class HelloWorld < Sinatra::Base
   get "/" do
@@ -41,62 +39,41 @@ end
 
 config.ru
 
-~~~ruby
-require './hello_world'
-run HelloWorld.new
-~~~
+~~~ruby require './hello_world' run HelloWorld.new ~~~
 
 Gemfile
 
-~~~ruby
-source 'https://rubygems.org'
-gem 'sinatra'
-~~~
+~~~ruby source 'https://rubygems.org' gem 'sinatra' ~~~
 
 Install the required Sinatra gem using Bundler;
 
-<pre class="terminal">
-$ bundle install
-</pre>
+<pre class="terminal"> $ bundle install </pre>
 
-You should be able to run the application locally by using Rackup;
+Rackupを使い、ローカルでアプリケーションを動かせる必要があります;
 
-<pre class="terminal">
-$ rackup
->> Thin web server (v1.4.1 codename Chromeo)
->> Maximum connections set to 1024
->> Listening on 0.0.0.0:9292, CTRL+C to stop
-</pre>
+<pre class="terminal"> $ rackup >> Thin web server (v1.4.1 codename Chromeo)
+>> Maximum connections set to 1024 >> Listening on 0.0.0.0:9292, CTRL+C to
+stop </pre>
 
-View your application at [http://localhost:9292](http://localhost:9292)
+あなたのアプリケーションを[http://localhost:9292](http://localhost:9292)で見てみます。
 
 ## <a id='deploying'></a>Deploying Your Application ##
 
-Push the application with CF;
+CFコマンドでアプリケーションをプッシュします;
 
-<pre class="terminal">
-$ cf push
+<pre class="terminal"> $ cf push
 
 Name> sinatra-hello-world
 
 Instances> 1
 
-1: 64M
-2: 128M
-3: 256M
-4: 512M
-5: 1G
-6: 2G
-7: 4G
-8: 8G
-9: 16G
-Memory Limit> 128M
+1: 64M 2: 128M 3: 256M 4: 512M 5: 1G 6: 2G 7: 4G 8: 8G 9: 16G Memory Limit>
+128M
 
 Creating rack-test... OK
 
-1: sinatra-hello-world.cloudfoundry.com
-2: none
-URL> sinatra-hello-world.cloudfoundry.com
+1: sinatra-hello-world.cloudfoundry.com 2: none URL>
+sinatra-hello-world.cloudfoundry.com
 
 Updating rack-test... OK
 
@@ -106,13 +83,11 @@ Bind other services to application?> n
 
 Save configuration?> n
 
-Uploading sinatra-hello-world... OK
-Starting sinatra-hello-world... OK
-Checking sinatra-hello-world... OK
-</pre>
+Uploading sinatra-hello-world... OK Starting sinatra-hello-world... OK
+Checking sinatra-hello-world... OK </pre>
 
-Once this is deployed, you should be able to view the application on Cloud Foundry at the URL you chose during the push.
+アプリケーションをデプロイすると、プッシュした時に指定したURLでアクセスできます。
 
 ## <a id='next-steps'></a>Next steps - Binding a service ##
 
-Binding and using a service with Ruby is covered [here](./ruby-service-bindings.html)
+Rails 3とサービスの接続と利用については右のページを参照してください。 [here](./ruby-service-bindings.html)

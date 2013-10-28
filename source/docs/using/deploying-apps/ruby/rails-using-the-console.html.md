@@ -1,19 +1,16 @@
 ---
-title: Rails 3, Using the Console
+title: Rails 3, コンソールの使用
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-**Rails Console is not yet available for Cloud Foundry v2**.
+**RailsコンソールはCloud Foundry v2では未サポートです。**
 
-## <a id='invoke'></a>Invoking the console ##
+## <a id='invoke'></a>コンソールの起動 ##
 
-Once Rails Console support is available on Cloud Foundry v2, you will be able to invoke the console with a command like:
+Cloud Foundry v2でRailsコンソールが使えるようになれば、以下のようなコマンドで起動できるはずです:
 
-<pre class="terminal">
-$ cf console [application name]
-Opening console on port 10000... OK
-irb():001:0>
-</pre>
+<pre class="terminal"> $ cf console [application name] Opening console on
+port 10000... OK irb():001:0> </pre>
 
-The familiar IRB-style console should open with a live connection to the Rails application.
+見慣れたIRBスタイルのコンソールが表示され、動作中のRailsに接続されています。

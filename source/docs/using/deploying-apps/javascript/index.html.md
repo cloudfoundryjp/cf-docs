@@ -1,18 +1,20 @@
 ---
-title: Deploying Node.js
+title: Node.jsのデプロイ
 ---
 
-This page will prepare you to deploy Node.js apps via the [getting started guide](../../../dotcom/getting-started.html).
+Node.jsアプリのデプロイの準備については右のページをご欄ください。
+[入門](../../../dotcom/getting-started.html).
 
-## <a id='packagejson'></a> Application package file ##
+## <a id='packagejson'></a>アプリケーション・パッケージ・ファイル ##
 
-Cloud Foundry expects a `package.json` in your Node.js application. You can specify the version of Node.js you want to use in the `engine` node of your `package.json` file. As of July, 2013, Cloud Foundry uses 0.10.x as the default.
+Node.jsアプリケーション内に`package.json`が必要です。Node.jsのヴァージョンを`package.json`内の
+`engine`ノードで指定できます。July, 2013以降、Cloud Foundryのデフォルトは0.10.xです。
 
-## <a id='start'></a> Application start command ##
+## <a id='start'></a>アプリケーション起動コマンド ##
 
-Node.js applications require a start command, which is saved with other configurations in `manifest.yml`.
+Node.jsは起動コマンドを必要とし、それは`manifest.yml`に格納されます。
 
-You will be asked if you want to save your configuration the first time you deploy. This will save a `manifest.yml` in your application with the settings you entered during the initial push. Edit the `manifest.yml` file and create a start command as follows:
+最初にデプロイする時、設定を保存するかきかれます。これにより、最初のプッシュの時に入力した設定がアプリケーション内の`manifest.yml`へ格納されます。`manifest.yml`を編集し、以下のように起動コマンドを記述してください:
 
 ~~~yaml
 ---
@@ -22,21 +24,21 @@ applications:
 ... the rest of your settings  ...
 ~~~
 
-Alternately, specify the `cf push --command` flag.
+あるいは、`cf push --command`とオプションを指定してください。
 
-<pre class="termainl">
-$ cf push --command "node my-app.js"
-</pre>
+<pre class="termainl"> $ cf push --command "node my-app.js" </pre>
 
-## <a id='nodemodules'></a> Application bundling ##
+## <a id='nodemodules'></a>アプリケーションのバンドリング ##
 
-You do not need to run `npm install` before deploying your application. Cloud Foundry will run it for you when your application is pushed. If you would prefer to run `npm install` and create a `node_modules` folder inside of your application, this is also supported.
+アプリケーションをデプロイする前に`npm install`を実行する必要はありません。アプリケーションをプッシュした時に、Cloud
+Foundryがそのコマンドを実行します。`npm install`を自分で実行し、`node_modules`フォルダを作っても問題ありません。
 
-## <a id='buildpack'></a> Node.js buildpack ##
+## <a id='buildpack'></a> Node.jsビルドパック ##
 
-If Cloud Foundry does not automatically detect that your application is a Node.js application, you can override the auto-detection by specifying the Node.js buildpack.
+Cloud
+FoundryがNode.jsのアプリケーションと認識しない場合でも、Node.jsビルドパックを指定することにより認識させることができます。
 
-Either, add the buildpack into your `manifest.yml` and re-run `cf push --reset`
+どちらの場合でも、ビルドパックを`manifest.yml`で指定し、`cf push --reset`を実行してください。
 
 ~~~yaml
 ---
@@ -46,12 +48,11 @@ applications:
 ... the rest of your settings  ...
 ~~~
 
-Or, specify the `cf push --buildpack` flag.
+あるいは、`cf push --buildpack`とオプションを指定してください。
 
-<pre class="termainl">
-$ cf push --buildpack https://github.com/cloudfoundry/heroku-buildpack-nodejs.git
-</pre>
+<pre class="termainl"> $ cf push --buildpack
+https://github.com/cloudfoundry/heroku-buildpack-nodejs.git </pre>
 
-## <a id='services'></a> How do I bind services? ##
+## <a id='services'></a>サービスをバインドするに##
 
-Refer to the [instructions for node.js service bindings](../../services/node-service-bindings.html).
+[node.jsとサービスのバインド](../../services/node-service-bindings.html)をご参照ください。

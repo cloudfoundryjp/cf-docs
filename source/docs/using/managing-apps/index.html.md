@@ -2,9 +2,11 @@
 title: Managing Apps, Orgs and Spaces
 ---
 
-Managing Apps
+アプリを管理する
 
-Developers can interact with Cloud Foundry using `cf`, which is a Ruby based command line interface. Developers using JVM languages can also use Cloud Foundry plugins for various IDEs and build tools.
+開発者はRubyで記述された`cf`コマンドを使ってCloud
+Foundryを使うことができます。JVMを使っている開発者はさまざまなIDEやビルド・ツール用のCloud
+Foundryプラグインを使うこともできます。
 
 Client tools:
 
@@ -18,11 +20,13 @@ Also see:
 
 * [API and Libraries](libs/index.html)
 
-Managing Orgs and Domains
+オーガナイゼーションとドメインの管理
 
-Cloud Foundry offers the ability to map your applications and domains to different groups of users.
+Cloud Foundryはアプリケーションとドメインをユーザのグループへ割り当てる機能を提供しています。
 
-* [Orgs and Spaces](orgs-and-spaces.html) provide for both protection and collaboration in an organization.
+* [Orgs and
+  Spaces](orgs-and-spaces.html)は一つのオーガナイゼーションの中での保護と協調の両方の機能を提供します。
 
-* [About Domains, Subdomains and Routes](custom-domains/index.html) has information about domains, including custom domains, and how the domain and subdomain you assign to an application determine determin its route in Cloud Foundry.
+* [About Domains, Subdomains and
+  Routes](custom-domains/index.html)はドメイン(独自ドメインを含む)の情報を提供します。また、指定したサブドメインとドメインからどのようにルートが決められるかの情報も提供します。
 

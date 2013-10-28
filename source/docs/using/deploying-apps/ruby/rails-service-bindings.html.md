@@ -1,25 +1,29 @@
 ---
-title: Rails 3, Service Bindings
+title: Rails 3とサービスのバインド
 ---
 
-## <a id='intro'></a>Introduction ##
+## <a id='intro'></a>紹介 ##
 
-This guide is for developers who wish to bind an ORM type data source to a Rails 3 application deployed and running on Cloud Foundry. For information on binding other data sources to Rails and other Ruby-based applications see the Ruby [Service Bindings](./ruby-service-bindings.html) page.
+本ガイドは、次に述べるようなアプリケーションの開発者向けです。ここでのアプリケーションはORMタイプのデータ・リソースと結合し、Cloud
+Foundry上へデプロイされ、実行されます。他の種類のデータ・リソースとRailsやRubyベースのアプリケーションとのバインドについては、Ruby
+[Service Bindings](./ruby-service-bindings.html)ページをご覧ください。
 
-## <a id='prerequisites'></a>Prerequisites ##
+## <a id='prerequisites'></a>前提 ##
 
-To complete this quickstart guide, you need to fulfill the following prerequisites;
+以下の前提を満たす必要があります;
 
-* A Cloud Foundry account, you can sign up [here](https://my.cloudfoundry.com/signup)
+* Cloud Foundryのアカウント。
+  右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup
 * [Ruby](http://www.ruby-lang.org/en/)
 * [Rails](http://rubyonrails.org/)
 * [Bundler](http://gembundler.com/)
-* The [CF](../../managing-apps/) command line tool
-* A sample application such as the one created in [this](./rails-getting-started.html) tutorial
+* The [CF](../../managing-apps/) コマンド・ライン・ツール
+* サンプル・アプリケーションは [this](./rails-getting-started.html) tutorial
 
 ## <a id='gemfile'></a>Configuring your Gemfile ##
 
-Depending on which service you plan to bind to your application, you need to make sure the correct gem is included in the project and the bundle has been updated. Edit the file 'Gemfile' and make sure the following gem is made available to the production environment;
+どのサービスを使うかにより、適切なgemが含まれていてバンドルが更新されていることを確認する必要があります。'Gemfile'を編集し、以下のgemがproduction
+environmentで使えることを確認してください;
 
 <pre>
 Service Type      Gem
@@ -32,13 +36,12 @@ MongoDB           mongo_mapper
 
 Add the gems for the bound services and update the bundle
 
-<pre class="terminal">
-$ bundle update
-</pre>
+<pre class="terminal"> $ bundle update </pre>
 
-## <a id='modifying'></a>Modifying the sample application ##
+## <a id='modifying'></a>サンプル・アプリケーションの変更 ##
 
-If you are using ActiveRecord both MySQL and Postgres should work fine as long as the adapter is set correctly in config/database.yml for the production environment and the correct service bound to the application.
+MySQLとPostgresのどちらとでも動作するActiveRecordの場合 (ただし、production
+environment向けのconfig/database.ymlで適切なアダプタが設定され、適切なサービスがバインドされている必要があります)
 
 For MySQL;
 
@@ -56,21 +59,20 @@ production:
   encoding: unicode
 ~~~
 
-For MongoDB there are a few different gems you can use, however if you are looking for an ActiveRecord-like ORM, best use [Mongo Mapper](http://mongomapper.com/). This requires a few changes to the application itself, all the changes are explained in detail on the "[Rails 3 - Getting Started]" page of the Mongo DB website.
+MongoDB向けに、いくつかのgemが存在します。ActiveRecordのようなORMを探しているのなら、[Mongo
+Mapper](http://mongomapper.com/)が最適でしょう。アプリケーションの変更が必要で、詳しくはMongo DBのWWWサイトの
+"[Rails 3 - Getting Started]"ページをご覧ください。
 
 Both
 
 ## <a id='creating-and-binding'></a>Creating and binding the service ##
 
-To create a service issue the following command with cf and answer the interactive prompts;
+サービスを作るには、以下のようにcfコマンドを実行し、対話的に質問に答えます;
 
-<pre class="terminal">
-$ cf create-service
-</pre>
+<pre class="terminal"> $ cf create-service </pre>
 
-To bind the service to the application, use the following cf command;
+サービスとアプリケーションをバインドするためには、以下のcfコマンドを実行してください;
 
-<pre class="terminal">
-$ cf bind-service --app [application name] --service [service name]
-</pre>
+<pre class="terminal"> $ cf bind-service --app [application name] --service
+[service name] </pre>
 

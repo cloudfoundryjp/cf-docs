@@ -1,270 +1,277 @@
 ---
-title: Cloud Foundry Glindex (Glossary + Index)
+title: Cloud Foundry Glindex (用語集 + 索引)
 ---
-This page briefly describes a number of terms that are commonly used in Cloud Foundry documentation. For some terms, cross-references to related topics are provided. 
+このページではCloud
+Foundryの文書で使われる用語について簡単に説明しています。いくつかの用語については関連項目へのクロス・リファレンスがついています。
 
-## <a id='application-manifest'></a>application manifest  ##
-> An application manifest defines application deployment settings, such as the name of an application, the number of instances to deploy, the maximum memory available to an instance, the services it uses, and so on. The default name for a manifest is `manifest.yml`. Use of a manifest automates application deployment`, allowing a user to provide deployment settings in a file rather than at the command line.
-<br> <br>
-> For more information, see [Application Manifests](../../using/deploying-apps/manifest.html).
+## <a id='application-manifest'></a>アプリケーションのマニフェスト ##
 
-##<a id='autoconfig'></a>auto-configuration ##
+> マニフェストはデプロイの設定を定義します。アプリケーションの名前やインスタンスの数や使用できるメモリ量の上限や使用するサービスなどです。マニフェストの名前のデフォルトはmanifest.ymlです。マニフェストを使えばデプロイを自動化できます。コマンド・ラインでいろいろ設定する必要はありません。<br>
+<br>
+> 詳しくは[アプリケーションのマニフェスト](../../using/deploying-apps/manifest.html)をご覧ください。
 
-> In Cloud Foundry, auto-configuration is the process of automatically configuring an application to connect to a service that is bound to it. In selected frameworks, Cloud Foundry can detect server and service connection parameters and update the appropriate configuration file accordingly. Auto-configuration enables an application to connect to a Cloud Foundry service without the developer having to manually configure the connection settings. 
+## <a id='autoconfig'></a>自動設定 ##
 
-## <a id='autoreconfig'></a>auto-reconfiguration ##
+> Cloud Foundryにおいて、オート・コンフィギュレーションとはバインドされたサービスとの接続を自動的に設定するプロセスのことです。フレームワークに応じてCloud Foundryはサーバーとサービスの接続パラメータを検出し、適切な設定ファイルをそれに応じて更新します。アプリケーションからCloud Foundryのサービスへ接続する際、開発者が設定しなくても、オート・コンフィギュレーションが接続できるようにしてくれます。
 
-> See [auto-configuration](#auto-config). 
+> Cloud Foundryにおいて、自動設定とはバインドされたサービスとの接続を自動的に設定するプロセスのことです。フレームワークに応じてCloud Foundryはサーバーとサービスの接続パラメータを検出し、適切な設定ファイルをそれに応じて更新します。アプリケーションからCloud Foundryのサービスへ接続する際、開発者が設定しなくても、自動設定が接続できるようにしてくれます。
 
-## <a id='bosh-agent'></a>BOSH Agent ##
+## <a id='autoreconfig'></a>自動再設定 ##
 
-> The BOSH Agent is a process that runs on each VM maganged by BOSH and listens for instructions from the [BOSH Director](bosh-director). When the director assigns a [job](#job) to an agent, the agent downloads the packages associated with the job from the blobstore and installs and configures them. The agent uses `monit` to start and stops jobs. 
+ [自動再設定](#auto-config)をご覧ください。
+
+## <a id='bosh-agent'></a>BOSHエージェント ##
+
+> BOSHエージェントはBOSHに管理されているVMで動作しているプロセスで、[BOSHダイレクター](bosh-director)からの指示を待っています。ダイレクターが[job](#job)をエージェントへアサインすると、エージェントは適切なパッケージをblobstoreからダウンロードし、実行し、設定します。エージェントは`monit`を使ってジョブの起動や停止を実行します。
 
 ## <a id='bosh-blobstore'></a> BOSH Blobstore ##
 
-> The BOSH Blobstore is an object-based cloud storage platform that stores the content of releases (job and package sources, and compiled packages.) The BOSH Director is the component that reads and writes to the blobstore.
+> BOSH Blobstoreはオブジェクトに基づいたcloud storage platformで、リリースごとのコンテントを格納します。(ジョブ、パッケージ・ソース、コンパイルされたパッケージなど) BOSHダイレクターは、blobstoreを読み書きするコンポーネントです。
 
 ## <a id='bosh-cli'></a>BOSH CLI ##
 
-> Command line interface used to interact with the [BOSH Director](#bosh-director). The BOSH CLI provides commands for creating and managing a release and the artifacts it comprises.
+> [BOSHダイレクター](#bosh-director)と相互作用するコマンドBOSH CLIはreleaseとartifactsの作成と管理を行なうコマンドの集りです。
 <br><br>
->For more information see [BOSH Command Line Interface](../bosh/reference/bosh-cli.html).
+>詳しくは[BOSHコマンド・ライン・インターフェース](../bosh/reference/bosh-cli.html)をご覧ください。
 
-## <a id='bosh-director'></a>BOSH Director ##
+## <a id='bosh-director'></a>BOSHダイレクター ##
 
-> The BOSH Director orchestrates creation of virtual machines, the compilation of packages, deployment of a Cloud Foundry instance, and storage of application packages and droplets in the blobstore.  
+> BOSHダイレクターは、VMの作成、パッケージのコンパイル、Cloud Foundryインスタンスのデプロイ、パッケージの保存、ドロップレットのブロブストアへの保存などを統合的に実行します。
 
 
 ## <a id='bosh-health-monitor'></a>BOSH Health Monitor ##
 
-> Receives health status and life cycle events from the BOSH Agent and can send alerts through notification plugins, such as email. 
+> ヘルス・ステータスをBOSH Agentから受け取り、メールなどのプラグインを通じて警告を送ります。
 
 ## <a id='bosh'></a>BOSH ##
 
-> BOSH is an open source tool chain for release engineering, deployment, and lifecycle management of large scale distributed services. BOSH can be used to deploy Cloud Foundry, or other distributed services, on Infrastructure as a Service (IaaS) providers such as VMware vSphere, vCloud Director, Amazon Web Services EC2, and OpenStack.  
+> BOSHは、大規模分散サービスのリリース・エンジニアリングやデプロイやライフサイクル・マネージメントのためのオープン・ソース・ツールです。BOSHはIaaS上でのCloud Foundryや他の分散サービスのデプロイに使えます。IaaSとしてはvSphere, vCloud Director, Amazon Web Services EC2, OpenStackなどが挙げられます。
 
 ## <a id='bosh-manifest'></a> BOSH manifest ##
 
-> A BOSH manifest is a YAML file that defines deployment settings for a Cloud Foundry instance including: 
+> BOSHのマニフェストはYAMLファイルで、デプロイの設定を定義します。 Cloud Foundry向けには以下を含みます:
 <br> <br>
 
-> - VMs to be created.
+> - 作成するVM
 
-> - Persistent disks to be attached to each VM.
+> - VMが使う永続性のディスク
 
-> - Networks and IP addresses to be bound to each VM.
+> - VMに割り当てるネットワークとIPアドレス
 
-> - Templates from the BOSH release to be applied to each VM.
+> - VMに適用するBOSHリリース
 
-> - custom properties to be applied to configuration files and scripts for each [job template](#job-template).
+> - [ジョブ・テンプレート](#job-template)ごとの、設定ファイルやスクリプトへ適用される独自の設定
 
-## <a id='buildpack'></a> buildpack  ##
+## <a id='buildpack'></a>ビルドパック ##
 
-> A buildpack is a set of scripts that Cloud Foundry runs on an application [package](#package) to create a [droplet](#droplet) that contains everthing the application needs to run. (This process is referred to as [staging](#staging).) A buildpack is specific to a particular framework or runtime environment. Cloud Foundry includes buildpacks for Ruby, Java, and Node.js; when you upload an application, Cloud Foundry examines the application artifacts to determine which buildpack to apply. Cloud Foundry can use remote buildpacks as well; you can specify the URL of the desired buildpack when running the `cf push` command.
+> ビルドパックとは、[ドロップレット](#droplet)を作成するためにアプリケーション[パッケージ](#package)に対して実行されるスクリプトの集りです。アプリケーションの実行に必要なすべてを含みます(このプロセスを[ステージング](#staging)と呼びます)。ビルドパックはフレームワークやランタイムそれぞれに特有です。Cloud FoundryはRuby, Java, Node.js向けのビルドパックを含んでいます; アプリケーションをアップロードすると、Cloud Foundryはアプリケーションを調べて適用するビルドパックを決めます。Cloud Foundryはリモートのビルドパックも使えます; `cf push` コマンドを実行する際、使いたいビルドパックのURLを指定します。
 <br><br>
-> For more information, see [Introduction to Custom Buildpacks](../../using/deploying-apps/buildpacks.html).
+> 詳しくは、[独自のビルドパックの紹介](../../using/deploying-apps/buildpacks.html)をご覧ください。
 
-## <a id='cc'></a>CC  ##
-> See [Cloud Controller](#cloud-controller). 
+## <a id='cc'></a>CC ##
+> [Cloud Controller](#cloud-controller)をご覧ください。
 
-## <a id='ccng'></a>CCNG  ##
-> Cloud Control Next Generation, or v2. See [Cloud Controller](#cloud-controller). 
+## <a id='ccng'></a>CCNG ##
+> 次世代あるいはv2のCloud Controller[Cloud Controller](#cloud-controller)をご覧ください。
 
 ## <a id='cf'></a> cf ##
-> cf is a command line interface to the Cloud Controller. It uses the features of the Cloud Controller REST API to enable Cloud Foundry users to deploy and manage applications; provision, bind and manage services; and manage users, organizations, and spaces.  
+> cfはCloud Controller用のコマンドです。ユーザがデプロイやアプリケーションの管理ができるように、Cloud Controller REST APIが使われます; 管理とは、プロヴィジョン、サービスとそのバインド、ユーザやオーガナイゼーションやスペースの管理、などです。
 <br>
-> For more information, see [cf Command Line Interface](../../using/managing-apps/cf/index.html).
+> 詳しくは、[cfコマンド・ライン・インターフェース](../../using/managing-apps/cf/index.html)をご覧ください。
 
 ## <a id='cf-release'></a>CF-Release ##
->  [CF-Release](https://github.com/cloudfoundry/cf-release) is the BOSH release repository for Cloud Foundry. You use CF-Release with a  manifest customized for your environment to deploy Cloud Foundry.
-<br><br>  
+> [CF-Release](https://github.com/cloudfoundry/cf-release)がCloud Foundry用のBOSHリリース・リポジトリですCloud Foundryをデプロイする際、カスタマイズしたマニフェストとCF-Releaseを使うことができます。
+<br><br>
 
-> For more information, see [Using the latest CF-Release](../../running/deploying-cf/common/cf-release.html)
+> 詳しくは、[最新のCF-Releaseを使う](../../running/deploying-cf/common/cf-release.html)をご覧ください。
 
 ## <a id='cloud-controller'></a> Cloud Controller##
 
-> Cloud Controller (CC) is the Cloud Foundry component that orchestrates the processing performed by backend components, such as application staging and lifecycle management, and service provisioning and binding operations. Cloud Controller functions and features include:
+> Cloud Controller (CC)はバックエンドの機能を統合するコンポーネントです。それらの機能とは、アプリケーションのステージング、ライフサイクル・マネージメント、プロヴィジョニング、バインドなどです。Cloud Controllerは以下のような機能を持ちます:
+
 <br> <br>
 
-> - Maintainance of a database of information about applications, services, and configurable items such as organizations, spaces, users, and roles. 
+> - データベースのメンテナンス。対象は以下のものに関する情報です。アプリケーション、サービス、オーガナイゼーションやスペースやユーザやロールなどです。
 
-> - Storage of application packages and droplets in the blobstore.
+> - 保存されたアプリケーション・パッケージとブロブストア内のドロップレット
 
-> - Interaction, via the NATS messaging bus, with other Cloud Foundry components, including Droplet Execution Agents (DEAs), Service Gateways, and the Health Manager. 
+> - NATSを通じて、他のコンポーネントとの相互作用。他のコンポーネントとは、DEA、サービス・ゲートウェイ、ヘルス・マネージャーを含みます。
 
-> - A REST API that enables client access to backend functionality. 
+> - ユーザがバックエンドの機能にアクセスするためのREST API
 
 ## <a id='cpi'></a> Cloud Provider Interface ##
 
-> A Cloud Provider Interface (CPI) is an API that BOSH uses to interact with an Infrastructure as a Service (IaaS) provider to create and manage stemcells and VMs. CPIs exist for vSphere, OpenStack, and Amazon Web Services. A CPI abstracts an underlying virtualized infrastructure from the rest of BOSH, and is fundamental to Cloud Foundry's model for deploying and running applications across multiple clouds.   
+> Cloud Provider Interface (CPI)はAPIで、BOSHがIaaSと相互に作用してVMやテンプレートを管理するのに使われます。以下のもの向けのCPIがあります。vSphere, OpenStack, Amazon Web ServicesCPIは仮想環境を抽象化し、アプリケーションのデプロイと実行を複数のクラウドにまたがって実行する基盤となります。
 
 ## <a id='cloud-provider-interface'></a>CPI ##
 
->  See [Cloud Provider Interface](#cpi).
+> [Cloud Provider Interface](#cpi)をご覧ください。
 
-## <a id='droplet-execution-agent'></a>DEA  ##
+## <a id='droplet-execution-agent'></a>DEA ##
 
-> See [Droplet Execution Agent](#dea). 
+> [Droplet Execution Agent](#dea)をご覧ください。
 
 ## <a id='dea'></a> Droplet Execution Agent ##
 
-> A Droplet Execution Agent (DEA) is a process that runs on Cloud Foundry VMs that host applications. A DEA subscribes to the messages that the Cloud Controller publishes when droplets need to be run. If the DEA host meets the runtime and RAM requirements of a droplet, the DEA responds to the Cloud Controller's request, receives the droplet, and starts it. Similarly, a DEA stops an application as requested by the Cloud Controller. A DEA keepS track of the instances it started and periodically broadcasts messages about their state using [NATS](#nats). 
-<br><br>  
+> Droplet Execution Agent (DEA)はVM上でアプリケーションを実行します。Cloud Controllerはドロップレットを実行する際にメッセージを発行し、DEAがサブスクライブします。DEAの環境がドロップレットのランタイムと必要なメモリ量に合っている場合、DEAはCloud Controllerのリクエストへ応答し、ドロップレットを受け取り、起動します。同様に、Cloud Controllerからリクエストがあれば、DEAはアプリケーションを停止します。DEAは自分が起動したインスタンスを監視し、状態を定期的に[NATS](#nats)を通じてブロードキャストします。
+<br><br>
 
-> For more information, see [Droplet Execution Agent](../architecture/execution-agent.html).
+> 詳しくは、[Droplet Execution Agent](../architecture/execution-agent.html)をご覧ください。
 
 ## <a id='droplet'></a> droplet ##
 
-> A droplet is the result of the application [staging](#staging) process, it is an uploaded application to which a buildpack as been applied. It is the original application, with a wrapper around it that accepts one input -- the port where it should listen for HTTP requests, and has two methods, a start and a stop. 
+> ドロップレットはアプリケーションの[staging](#staging)プロセスの結果で、ビルドパックが適用されるべきアップロードされたアプリケーションです。元のアプリケーションにラッパーをかぶせたもので、HTTPリクエストを待つべきポートを入力として受け取ります。また二つのメソッドstartとstopを持ちます。
 
 ## <a id=' '></a>flapping ##
 
-> Flapping is the heath status that Cloud Foundry reports for an application that repeatedly crashes or will not start.   
+> 繰り返しクラッシュするか、あるいあは起動しないアプリケーションについて、Cloud FoundryはFlappingというヘルス・ステータスを報告します。
 
 ## <a id='health-manager'></a>Health Manager ##
 
-> The Health Manager is a daemon that periodically scans the Cloud Controller database  for the expected state of applications that have been deployed and the VMs where they run. The Health Manager compares expected state with actual state, and issues a message to the Cloud Controller when it detects a problem.
-<br> <br> 
-> For more information see [Health Manager](health-manager.html).
+> Health Managerはデーモンの一つで、定期的にCloud Controllerデータベースをスキャンし、デプロイされたアプリケーションの状態とその上で実行されるべきVMを調べます。Health Managerはあるべき状態と実際の状態を比較し、問題を見つけるとCloud Controllerへメッサージを送ります。
+<br> <br>
+>詳しくは[Health Manager](health-manager.html)をご覧ください。
 
 ## <a id='health-monitor'></a>Health Monitor##
 
->  See [BOSH Health Monitor](#bosh-health-monitor). 
+> [BOSH Health Monitor](#bosh-health-monitor)をご覧ください。
 
 ## <a id='job'></a>job ##
 
-> In BOSH, a job is a set of deployment and execution rules and resources for starting and running the processes for a package. Jobs are defined in deployment manifests (both for BOSH and for Cloud Foundry itself.) A job defines, either explicitly or by reference to a [resource pool](#resource-pool): <br> <br>
+> BOSHにおいて、ジョブとはパッケージの起動と実行のためのデプロイと実行のルールと資源の集合です。ジョブはマニフェストの中で定義されます。 (BOSH用とCloud Foundry 自体用の両方で) ジョブは、明示的あるいは参照 [resourcepool](#resource-pool)によって定義されます:
 
-> - Network settings
+<br> <br>
 
-> - Job template
+> - ネットワークの設定
 
-> - The number of instances to deploy
+> - ジョブのテンプレート
 
-> - Resource allocations (ram, disk, CPU )
+> - デプロイするインスタンスの数
 
-> Jobs are also referred to as roles. 
+> - 資源の割当て(メモリ、ディスク、CPU)
+
+> ジョブはロールからも参照されます。
 
 
 ## <a id='job-spec'></a>job specification ##
 
-> A job specification is YAML file that lists templates files, package dependencies, and properties for a [job](#job). 
+> ジョブの定義はYAMLファイルで、[ジョブ](#job)のテンプレート・ファイルやパッケージの依存関係やプロパティを記述しています。
 
-## <a id='job-template'></a>job template ##
+## <a id='job-template'></a>ジョブのテンプレート ##
 
->  A set of generalized configuration files and scripts for a [job](#job). The job uses Ruby ERB templates to generate the final configuration files and scripts when a Stemcell is turned into a job. A job template can be generated with the BOSH CLI. 
+> [job](#job)のための、汎用的な設定ファイルとスクリプトの集りテンプレートが適用される際、ジョブはRuby ERBのテンプレートを使って最終的な設定ファイルとクリプトを生成します。BOSH CLIを使ってジョブのテンプレートを生成できます。
+
 <br><br>
 
-> When a configuration file is turned into a template, instance-specific information is abstracted into a property that later is provided when the Director starts the job on a VM. Information includes, for example, which port the webserver should run on, or which username and password a databse should use.
-
+>設定ファイルがテンプレートへ変えられる際、インスタンス特有の情報は抽象化され、VM上でジョブが起動される時に与えられます。たとえば、WWWサーバが使うポートや、データベースのユーザ名とパスワードなどです。
 
 
 ## <a id='manifest'></a>manifest ##
->  See [application manifest](#application-manifest) and [BOSH manifest](#bosh-manifest).
+> [application manifest](#application-manifest)と[BOSH manifest](#bosh-manifest)をご覧ください。
 
 ## <a id='micro-bosh'></a>Micro BOSH ##
-> Micro BOSH is a VM that includes all BOSH components. Micro BOSH is used to install BOSH. 
+> Micro BOSHはBOSHのコンポーネントすべてを含むVMです。MicroBOSHはBOSHをインストールするために使われます。
 <br><br>
 
-> For more information see [Deploying BOSH with Micro BOSH](../../running/deploying-cf/vsphere/deploying_bosh_with_micro_bosh.html).
+> 詳しくは、[Deploying BOSH with Micro BOSH](../../running/deploying-cf/vsphere/deploying_bosh_with_micro_bosh.html)をご覧ください。
 
 
-## <a id='nats'></a>NATS  ##
->  NATS is a  publish and subscribe and distributed messaging system. Cloud Foundry components use NATS to communicate with each other.
+## <a id='nats'></a>NATS ##
+> NATSは分散メッセージングのシステムです。Cloud Foundryのコンポーネント間の通信にはNATSが使われています。
 
 
-## <a id='org'></a>Organization ##
-> In Cloud Foundry, an organization is a group of users that work on the same, or related, applications and services. Users in an organization can have varying permissions to resources associated with the organization. Organizations contain [Spaces](#space).
-<br><br>
+## <a id='org'></a>オーガナイゼーション ##
+> Cloud
+Foundryでは、オーガナイゼーションはユーザの集りで、関連するアプリケーションとサービスのために使われます。ユーザはオーガナイゼーションに応じて、資源に対してさまざまな権限を持ちます。オーガナイゼーションは[スペース](#space)を含みます。<br><br>
 
-> For more information see [Organizations and Spaces](../../using/managing-apps/orgs-and-spaces.html).
+>
+詳しくは[オーガナイゼーションとスペース](../../using/managing-apps/orgs-and-spaces.html)をご覧ください。
 
 
-## <a id='package'></a>package ##
-> In BOSH, a package is a collection of source code and a script for compiling and installing the package. Packages are compiled, as necessary, during deployment. The Director checks whether a compiled version of the package already exists for the stemcell version to which the package will be deployed. If not, the Director instantiates a compile VM using the same stemcell version to which the package will be deployed. This action gets the package source from the blobstore, compiles it, packages the resulting binaries, and stores the package in the blobstore. To turn source code into binaries, each package has a packaging script that is responsible for the compilation, and is run on the compile VM.
+## <a id='package'></a>パッケージ ##
+> BOSHでは、パッケージはコンパイルとインストールのためのソース・コードとスクリプトの集りです。必要に応じて、パッケージはデプロイの際にコンパイルされます。ダイレクターはテンプレート向けにデプロイされるパッケージのコンパイル済のヴァージョンがあるかチェックします。存在しなければ、同じテンプレートを使ってコンパイル用VMを起動します。これにより、パッケージのソースがブロブストアから取り出され、コンパイルされ、パッケージのバイナリが作られてブロブストアに格納されます。ソース・コードをバイナリへ変換するには、コンパイルを担当するパッケージング・スクリプトが各パッケージに存在し、コンパイルVM上で実行されます。
 
 ## <a id='package-spec'></a>package spec ##
 
->  A file that specifies the name of a package, other packages upon which it depends, and the files it contains. 
+> このファイルは、パッケージの名前、依存するパッケージ、含まれるファイルを定義しています。
 
 
 ## <a id='release'></a> release ##
 
-> In BOSH, a release is a set of software and configuration templates that are installed on the VMs created from a stemcell.
+> BOSHにおいて、リリースはテンプレートから作られたVMへインストールされるソフトウェアと設定ファイルのひな形の集りです。
 
 
-## <a id='resource pool'></a>resource pool ##
+## <a id='resource pool'></a>リソース・プール ##
 
-> In a BOSH manifest, a resource pool defines the characteristics of a pool of VMs to be created, to which one or more [jobs](#job) can be assigned. The attributes defined for a resource pool include the number of VMs to create and the stemcell from which to create them; the number of CPUs and the amount of RAM and disk space to configure for each VM, and so on.
+> BOSHのマニフェストでは、リソース・プールが作成されるVMの特性を定義します。これらのVMへは、一つまたは複数の[jobs](#job)をアサインすることができます。アトリビュートはリソース・プールを定義します。これには、作成されるVMの数、VMのテンプレート、CPUの数、メモリの量、各VMのディスク容量、などが含まれます。
 <br><br>
 
-> Refer to [Cloud Foundry Example Manifest](../../running/deploying-cf/vsphere/cloud-foundry-example-manifest.html) to see resource pool definitions, and how each job in the manifest is assigned to a resource pool. 
- 
+> リソース・プールの内容、マニフェスト内のジョブがどのように割当てられるかなどについては、[Cloud Foundryのマニフェストの例](../../running/deploying-cf/vsphere/cloud-foundry-example-manifest.html)をご覧ください。
 
 ## <a id='router'></a>Router ##
 
->  The Router routes traffic coming into Cloud Foundry to the appropriate component -- usually Cloud Controller or an application running on a DEA node. The router is implemented in Go. Routers listen for the messages that a DEA issues when an application comes online or goes offline, and maintain an in-memory routing table. Incoming requests are load balanced across a pool of Routers.
+> ルータはCloud Foundryへのトラフィックを適切なコンポーネントへ届くようにします。 -- たいていは Cloud ControllerかDEA上のアプリケーションが行き先です。ルータはGo言語で記述されています。ルータはDEAからのアプリケーションがオンラインになったまたはオフラインになったというメッセージを受信し、メモリ上のルーティング・テーブルを更新します。外部からのリクエストは、ルータのプール内で負荷分散されます。
 <br><br>
 
-> For more information, see [Router](router.html).
+> 詳しくは、[Router](router.html)をご覧ください。
 
 
 ## <a id='space'></a> Space ##
 
-> In Cloud Foundry, a space is a logical grouping of applications and services within an [organization](#org). Examples may include personal spaces which are similar to a user's home directory in an operating system or shared Spaces like "Development", "Staging", and "Production". Users in an organization must be granted specific permissions in a Space in order to access it. 
+> Cloud Foundryにおいて、スペースは[オーガナイゼーション](#org)内のアプリケーションとサービスのグループです。例として、いろいろなOSのホーム・ディレクトリに相当する個人用スペースや "Development", "Staging", "Production"のような共有スペースを含みえます。あるオーガナイゼーションにアクセスするには、ユーザは特定の権限を必要とします。
 <br><br>
-> For more information see [Organizations and Spaces](../../using/managing-apps/orgs-and-spaces.html).
+> 詳しくは、[オーガナイゼーションとスペース](../../using/managing-apps/orgs-and-spaces.html)をご覧ください。
 
-## <a id='staging'></a> staging ##
+## <a id='staging'></a>ステージング ##
 
->  Staging refers to the processing performed by a DEA on an uploaded application, in accordance with the buildpack selected for use by Cloud Foundry or specified by the user. The result of thestaging process is a [droplet](#droplet).  
+> ステージングとは、アップロードされたアプリケーションとCloud Foundryかユーザが指定したビルドパックを使ってDEAが実行するプロセスを意味します。ステージングの結果が[ドロップレット](#droplet)です。
 
 
 ## <a id='stemcell'></a>stemcell##
 
-> A stemcell is a VM template with Linux and a BOSH Agent. BOSH uses a stemcell to clone a pool of VMs to which a Cloud Foundry [release](#release) is deployed.
+> stemcellはLinuxやBOSHエージェント向けのVMのテンプレートです。BOSHははstemcellをCloud Foundry [リリース](#release)がデプロイされるVM群をクローンするために使います。
 
 ## <a id='steno'></a>Steno ##
 
-> A lightweight, modular logging library written  to support Cloud Foundry. 
+> Cloud Foundryをサポートするために作られた、軽量のロギング・ライブラリです。
 
 
-## <a id='uaa'></a> UAA  ##
+## <a id='uaa'></a> UAA ##
 
-> See [User Account and Authentication Service](#uaa). 
+> [User Account and Authentication Service](#uaa)をご覧ください。
 
 
 ## <a id='uaa'></a>User Account and Authentication Service (UAA)  ##
 
-> In Cloud Foundry, the User Account and Authentication Service (UAA) provides single sign-on for web applications and secures Cloud Foundry resources. The UAA acts as an OAuth 2.0 Authorization Server. It grants access tokens to client applications for use in accessing Resource Servers in the platform, including the Cloud Controller.   
+> Cloud Foundryにおいて、User Account and Authentication Service (UAA)はアプリケーションとCloud Foundryの資源に関するシングル・サインオンの機能を提供します。UAAはOAuth 2.0認証サーバとして動作します。クライアント・アプリケーションに対して、Cloud Controllerを含むリソース・サーバへのアクセス・トークンを与えます。
 <br><br>
 
-> For more information, see [User Account and Authentication Service](../architecture/uaa.html).
+> 詳しくは[User Account and Authentication Service](../architecture/uaa.html)をご覧ください。
 
 ## <a id='vcap-services'></a>VCAP_SERVICES##
 
-> An environment variable that contains connection information for all services bound to an application.
+> あるアプリケーションにバインドされているサービスの接続情報が格納されている環境変数
 <br><br>
-> For more information, see [VCAP_SERVICES Environment Variable](../../using/services/environment-variable.html).
+> 詳しくは[VCAP_SERVICES Environment Variable](../../using/services/environment-variable.html)をご覧ください。
 
 
 ## <a id='vmc'></a>VMC ##
-> VMC was the command line interface in Cloud Foundry v1.  [cf](#cf) replaced VMC in Cloud Foundry v2.
+> VMCはCloud Foundry v1用のコマンドです。[cf](#cf)はCloud Foundry v2用のコマンドです。
 
 
 ## <a id='warden'></a>Warden ##
 
-> Warden is a framework within Cloud Foundry for creating and managing isolated environments on Unix. Warden provides an API and a command line interface for creating and managing containers within a VM. Containers created by Warden can be limited in terms of network access as well as CPU, memory, and disk usage. 
+> Wardenは、Cloud Foundryで用いられている、Unix上で隔離された環境の作成や管理のフレームワークです。WardenはVM内にコンテナを作成し管理するためのAPIとコマンドを提供します。Wardenはコンテナの使うCPUやメモリ量やディスク容量を制限することができます。
 
 
 ## <a id='yaml'></a> YAML ##
 
-> YAML is the format used in application manifests and BOSH manifests in Cloud Foundry. For information about the YAML grammar, see [www.yaml.org](www.yaml.org).  
+> YAMLはアプリケーションのマニフェストやBOSHのマニフェストで使われているフォーマットです。YAMLの文法については、[www.yaml.org](www.yaml.org)をご覧ください。
 
 
 ## <a id='yml'></a>yml ##
 
->  The file extension for a YAML file. See [YAML](#yaml). 
+> YAMLファイルに使われる拡張子。[YAML](#yaml)をご覧ください。
 
 
 

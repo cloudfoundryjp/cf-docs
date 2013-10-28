@@ -1,14 +1,22 @@
 ---
-title: Grails - Service Bindings
+title: Grails - サービスのバインド
 ---
 
-Cloud Foundry provides extensive support for connecting a Grails application to services such as MySQL, Postgres, MongoDB, Redis, and RabbitMQ. In many cases, a Grails application running on Cloud Foundry can automatically detect and configure connections to services. For more advanced cases, you can control service connection parameters yourself. 
+Cloud FoundryはGrailsアプリケーションとMySQL, Postgres, MongoDB, Redis,
+RabbitMQなどのサービスとの接続をサポートしている。多くの場合、Cloud
+Foundry上のGrailsアプリケーションは自動的にサービスを検出し、接続することができる。それ以外の場合、接続パラメーターを自分で制御することもできます。
 
 ## <a id="auto"></a>Auto-Reconfiguration ##
 
-Grails provides plugins for accessing SQL (using [Hibernate](http://grails.org/plugin/hibernate)), [MongoDB](http://www.grails.org/plugin/mongodb), and [Redis](http://grails.org/plugin/redis) services. If you install any of these plugins and configure them in your `Config.groovy` or `DataSource.groovy` file, the Cloud Foundry Grails plugin will re-configure the plugins when the app starts to provide the connection information to the plugins. 
+GrailsはSQLアクセスのプラグインを提供している。
+([Hibernate](http://grails.org/plugin/hibernate)を使って)や[MongoDB](http://www.grails.org/plugin/mongodb)や[Redis](http://grails.org/plugin/redis)など。これらのうちの一つをインストールし`Config.groovy`か`DataSource.groovy`で設定すれば、アプリが起動し接続情報が与えられた際にCloud
+Foundry Grailsプラグインが自動的に再設定します。
 
-To enable auto-reconfiguration of service connections, add the `cloudfoundry-runtime` library to the `dependencies` section in your `BuildConfig.groovy` file, and add the `cloud-foundry` plugin to the `plugins` section. You will also need the Spring Framework Milestone repository in the `repositories` section. **For Cloud Foundry v2 support, the version of `cloudfoundry-runtime` must be at least `0.8.4`**:
+サービス接続のオート・リコンフィギュレーションを有効にするには、
+`cloudfoundry-runtime`ライブラリを`BuildConfig.groovy`ファイルの`dependencies`セクションへ追加し、`cloud-foundry`プラグインを
+`plugins`セクションへ追加してください。また、Spring Framework
+Milestoneリポジトリを`repositories`セクションへ追加してください。**Cloud Foundry
+v2をサポートするには、`cloudfoundry-runtime`のヴァージョンは`0.8.4`以上にしてください**:
 
 ~~~groovy
   repositories {
@@ -27,7 +35,8 @@ To enable auto-reconfiguration of service connections, add the `cloudfoundry-run
   }
 ~~~
 
-If you were using all three types of services, your configuration might look like this: 
+If you were using all three types of services, your configuration might look
+like this:
 
 ~~~groovy
 environments {
@@ -58,13 +67,19 @@ environments {
 }
 ~~~
 
-The `url`, `host`, `port`, `databaseName`, `username`, and `password` fields in this configuration will be overriden by the Cloud Foundry Grails plugin if it detects that the application is running in a Cloud Foundry environment. If you want to test the application locally against your own services, you can put real values in these fields. If the application will only be run against Cloud Foundry services, you can put placeholder values as shown here, but the fields must exist in the configuration. 
+この設定では、`url`, `host`, `port`, `databaseName`, `username`, and `password`
+はCloud Foundry
+Grailsプラグインに上書きされます。ローカルな環境で自分のサービスに接続してアプリケーションを試験したい場合、これらのフィールドには実際の値をセットできます。Cloud
+Foundryのサービスにのみ接続するアプリケーションなら、以下のような値をセットできます。ただし、フィールドは存在していなければなりません。
 
 ## <a id="manual"></a>Manual Configuration ##
 
-If you do not want to use the Cloud Foundry Grails plugin, you can choose to configure the Cloud Foundry service connections manually. 
+Cloud Foundry Grailsプラグインを使いたくないなら、Cloud Foundry のサービスへ自分で設定することもできます。
 
-The best way to do the manual configuration is to use the `cloudfoundry-runtime` library to get the details of the Cloud Foundry environment the application is running in. To use this library, add it to the `dependencies` section in your `BuildConfig.groovy` file. You will also need the Spring Framework Milestone repository in the `repositories` section. **For Cloud Foundry v2 support, the version of this library must be at least `0.8.4`**:
+自分で設定する場合、最善の方法は`cloudfoundry-runtime` ライブライリを使ってアプリケーションが動作するCloud
+Foundry環境の情報を得ることです。このライブラリを使うには、`BuildConfig.groovy`ファイルの`dependencies`セクションにこのライブラリを追加してください。また、Spring
+Framework Milestoneリポジトリを`repositories`セクションへ追加してください。**Cloud Foundry
+v2サポートが必要なら、このライブラリのヴァージョンは`0.8.4`以上である必要があります**:
 
 ~~~groovy
   repositories {
@@ -79,13 +94,14 @@ The best way to do the manual configuration is to use the `cloudfoundry-runtime`
   }
 ~~~
 
-Then you can use the `cloudfoundry-runtime` API in your `DataSources.groovy` file to set the connection parameters. If you were using all three types of database services as in the auto-reconfiguration example, and the services were named "myapp-mysql", "myapp-mongodb", and "myapp-redis", your `DataSources.groovy` file might look like the one below. 
+その後、`DataSources.groovy`ファイル内で`cloudfoundry-runtime` API
+を使って接続のパラメーターをセットできます。三つのタイプのデータベースを使っていて、オート・リコンフィギュレーションの例に従い、サービスの名前が"myapp-mysql",
+"myapp-mongodb", and "myapp-redis"だとすると、`DataSources.groovy`ファイルは以下のようになります。
 
-~~~groovy
-import org.cloudfoundry.runtime.env.CloudEnvironment
-import org.cloudfoundry.runtime.env.RdbmsServiceInfo
-import org.cloudfoundry.runtime.env.RedisServiceInfo
-import org.cloudfoundry.runtime.env.MongoServiceInfo
+~~~groovy import org.cloudfoundry.runtime.env.CloudEnvironment import
+org.cloudfoundry.runtime.env.RdbmsServiceInfo import
+org.cloudfoundry.runtime.env.RedisServiceInfo import
+org.cloudfoundry.runtime.env.MongoServiceInfo
 
 def cloudEnv = new CloudEnvironment()
 

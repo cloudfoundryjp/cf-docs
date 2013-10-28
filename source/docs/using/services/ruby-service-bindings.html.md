@@ -1,25 +1,32 @@
 ---
-title: Configure Service Connections for Ruby 
+title: Rubyのためのサービス接続設定
 ---
 
-This page has information about how to configure a Ruby application to connect to a bound service.
+このページでは、Rubyアプリケーションからサービスへの接続の設定について述べています。
 
-## <a id='options'></a>Options for Configuring Ruby Apps for Services ##
+## <a id='options'></a>Rubyアプリとサービスの設定のオプション ##
 
-There are several methods for configuring a Ruby application to connect to a service:
+Rubyアプリケーションをサービスに接続するのに、設定する方法はいくつかあります:
 
-* Create a connection object --- You can use the `cfruntime` gem to create a service connection object. This is the recommended approach, as it gives you more control over how the application connects to the service. For more information, see [Manually Configure Connection with cfruntime](#manual) below.
+* 接続オブジェクトを作ってください --- そうするのに、`cfruntime` gem
+  が使えます。これがお勧めの方法になりますが、接続をきめ細かく制御できるためです。詳しくは[Manually Configure Connection
+  with cfruntime](#manual)をご覧ください。
 
-* For a database application, you can define the connection in `database.yml` --- You can parse the `VCAP_SERVICES` environment variable, which contains connection information for all services bound to your application, and update the `database.yml` file for your application. For more information, see [Define Connection in Configuration File](#config-file).
+* データベースを使うアプリケーションでは `database.yml`内で接続を定義できます ---
+  環境変数`VCAP_SERVICES`内のバインドされたすべてのサービスの接続情報を調べて、それに応じて`database.yml`ファイルを更新することができます。詳しくは[Define
+  Connection in Configuration File](#config-file)をご覧ください。
 
-* Auto-configuration -- You can auto-configure the application with the `cf-autoconfig` gem, if: (1) the application runs on the Rails framework, (2) the type of service bound to the application is PostgreSQL or MySQL, and (3) not more than one relational database service instance is bound to the application. For more information, see [Auto-Configure Connection with cf-autoconfig](#autoconfig).
+* オート・コンフィギュレーション -- `cf-autoconfig` gemを使って自動的に設定することができます。 以下の条件があります: (1)
+  Rails フレームワークであること, (2) サービスがPostgreSQLかMySQLであること, (3)
+  複数のサービスのインスタンスがバインドされていないこと詳しくは、[Auto-Configure Connection with
+  cf-autoconfig](#autoconfig)をご覧ください。
 
-     **Note:** Auto-configuration for a Ruby on Rails database applicaiton overwrites the database connection information in the application's `database.yml` file -- if this is unacceptable, configure the service manually, rather than using auto-configuration.  
+     **注意:** データベースを使うRuby on Railsアプリケーション向けのオート・コンフィギュレーションは、`database.yml`ファイル内の接続情報を上書きします -- 問題があるようなら、オート・コンフィギュレーションを使わずに自分で設定してください  
 
 
-## <a id='prereq'></a>Prerequisites ##
+## <a id='prereq'></a>前提 ##
 
-Ensure that the application includes the correct adapter gem in the Gemfile:
+適切なgemがGemfileに記述されていることを確認してください:
 
 <table>
   <tr>
@@ -32,18 +39,18 @@ Ensure that the application includes the correct adapter gem in the Gemfile:
   <tr><td>Redis</td><td><a href="https://github.com/redis/redis-rb">redis</a></td></tr>
 </table>
 
-Run `bundle install` to generate an updated `Gemfile.lock`.
+`bundle install`を実行して`Gemfile.lock`を更新してください。
 
 
-## <a id='manual'></a>Manually Configure Connection with cfruntime</a> ##
+## <a id='manual'></a>cfruntimeを使って手動で設定する</a> ##
 
-This approach to configuring a Ruby application for a service entails updating the application to obtain service connection data using the `cf-runtime` gem.   
-The `cf-runtime` gem provides helper functions that ease configuration of connections to any service bound to an application.
+このやり方では、`cf-runtime` gemを使って接続情報を得て、アプリケーションを更新する必要があります。The `cf-runtime` gemは、バインドされたサービスへの接続の設定を容易にするヘルパー機能を提供します。
 
 
-### <a id='connecting-to-a-named-service'></a>Connect to a Named Service ###
+### <a id='connecting-to-a-named-service'></a>名前を指定したサービスへの接続 ###
 
-To create a connection from a named service, use the `create_from_svc` method of the client class for the service type.  The table below lists the connection classes in the `cf-runtime` library by service type; you can call `create_from_svc` from any of the client classes.
+名前で指定したサービスへの接続を作るには、クライアントのクラスの`create_from_svc`メソッドを使います。以下のテーブルは、`cf-runtime`ライブラリの接続のクラスの一覧を示しています;
+`create_from_svc`をどのクライアンのクラスからでも呼ぶことができます。
 
 <table>
   <tr>
@@ -57,54 +64,55 @@ To create a connection from a named service, use the `create_from_svc` method of
   <tr><td>Blob</td><td>CFRuntime::AWSS3Client</td></tr>
 </table>
 
-**Example 1**
+**例1**
 
-To create a connection for a MySQL instance named "mysql-test":
-
-~~~ruby
-
-require 'cfruntime'
-client = CFRuntime::Mysql2Client.create_from_svc 'mysql-test'
-
-~~~
-
-**Example 2**
-
-To create a connection for a MongoDB instance named "mongo-test":
+"mysql-test"という名前のMySQLインスタンスへの接続を作るには:
 
 ~~~ruby
 
-require 'cfruntime'
-client = CFRuntime::MongoClient.create_from_svc 'mysql-test'
+require 'cfruntime' client = CFRuntime::Mysql2Client.create_from_svc
+'mysql-test'
 
 ~~~
 
-### <a id='connecting-to-one-instance'></a>Connect to Only Instance of a Service ###
+**例2**
 
-If only one instance of a particular service type is bound to an application, you do not need to specify its name to create a client, for example:
+"mongo-test"という名前のMongoDB インスタンスへの接続を作るには:
 
 ~~~ruby
 
-require 'cfruntime'
-connection = CFRuntime::MongoClient.create
-db = connection.db
+require 'cfruntime' client = CFRuntime::MongoClient.create_from_svc
+'mysql-test'
 
 ~~~
 
-The example above finds the only MongoDB instance bound to the application and retrieves a client for it. If there is more than one instance of the service type, the library will raise an error or type ArgumentError. All of the connection classes listed above respond this way to the `create` method.
+### <a id='connecting-to-one-instance'></a>Connect to Only Instance of a
+Service ###
 
-### <a id='obtaining-connection-properties'></a>Get Connection Data with cfruntime ###
-
-`cfruntime`  provides a utility method for obtaining connection properties. Using the `CFRuntime::CloudApp` class, the `service_props` method can be called passing in either the name of a service type or the name of a service instance. For example, to retrieve connection details from a MySQL service:
+あるサービスに対してただ一つのインスタンスだけを使う場合、名前を指定する必要はありません。例として:
 
 ~~~ruby
 
-require 'cfruntime'
-service_props = CFRuntime::CloudApp.service_props 'mysql'
+require 'cfruntime' connection = CFRuntime::MongoClient.create db =
+connection.db
 
 ~~~
 
-The table below lists the alias for each service type.
+上の例では、アプリケーションにバインドされたMongoDBインスタンスを見つけ、クライアントを取って来ます。もしあるタイプのサービスで複数のインスタンスがある場合、ライブラリはArgumentErrorというエラーを上げます。上に挙げたクラスは、`create`に関して同様に反応します。
+
+### <a id='obtaining-connection-properties'></a>Get Connection Data with
+cfruntime ###
+
+`cfruntime`は、接続のプロパティを得るメソッドを提供します。`CFRuntime::CloudApp`クラスを使って、`service_props`メソッドはサービスの名前かインスタンスの名前とともに呼び出せます。たとえば、MySQLサービスから接続の詳細を取り出すには:
+
+~~~ruby
+
+require 'cfruntime' service_props = CFRuntime::CloudApp.service_props
+'mysql'
+
+~~~
+
+下の表は、各サービスの別名の一覧です。
 
 <table>
   <tr>
@@ -118,11 +126,11 @@ The table below lists the alias for each service type.
   <tr><td>Blob</td><td>blob</td></tr>
 </table>
 
-A service name can also be passed to `service_props` to get details of a particular instance.
+`service_props`へサービスの名前を渡してあるインスタンスの情報を取り出すこともできます。
 
 ### <a id='other-hand-methods'></a>Useful cfruntime Methods ###
 
-The table below lists other useful methods in the`CFRuntime::Cloudapp` class.
+下の表は`CFRuntime::Cloudapp`クラスの有用なメソッドの一覧です。
 
 
 <table>
@@ -138,11 +146,12 @@ The table below lists other useful methods in the`CFRuntime::Cloudapp` class.
 
 ## <a id='config-file'></a>Define Connection in Configuration File ##
 
-For a Ruby database application, you can configure the database connection information in the application's `database.yml` file. You can determine the connection details from the `VCAP_SERVICES` environment variable, which  contains JSON describing all the services bound to your application and the credentials you need to connect to them. When you bind a service to an application with the `cf bind-service` command, cf writes the service connection details to the `VCAP_SERVICES` environment variable. 
+データベースを使うRubyアプリケーションでは、データベースへの接続は`database.yml`ファイルで設定できます。環境変数`VCAP_SERVICES`から接続情報の詳細を得ることができ、それにはバインドされているすべてのサービスの情報と資格情報がJSON形式で含まれています。`cf
+bind-service`コマンドでサービスをアプリケーションへバインドする際、cfは接続情報を環境変数`VCAP_SERVICES`へ書き込みます。
 
-In Ruby, you can read the contents of `VCAP_SERVICES` with `ENV`.
+Rubyでは、`VCAP_SERVICES`の内容に`ENV`でアクセスできます。
 
-For example:
+例:
 
 ~~~ruby
 
@@ -150,11 +159,11 @@ my_services = JSON.parse(ENV['VCAP_SERVICES'])
 
 ~~~
 
-To obtain the credentials from the `VCAP_SERVICES` JSON, you need to know the string to use as a key for the hash.
+`VCAP_SERVICES` JSONから資格情報を得るには、ハッシュのキーを必要とします。
 
-You can use `cf services` to list the available services to find the correct string.
+`cf services`でサービスの一覧とキーを見ることができます。
 
-For example:
+例:
 
 <pre class="terminal">
   cf services
@@ -165,10 +174,12 @@ For example:
 
 </pre>
 
-The general format of this string is *provider-version*.
-In this case the provider is "elephantsql" and the version is "n/a" so the hash key is "elephantsql-n/a".
+The general format of this string is *provider-version*.  In this case the
+provider is "elephantsql" and the version is "n/a" so the hash key is
+"elephantsql-n/a".
 
-Given this example, you can pull the credentials for your service with these ruby statements:
+Given this example, you can pull the credentials for your service with these
+ruby statements:
 
 ~~~ruby
   db = JSON.parse(ENV['VCAP_SERVICES'])["elephantsql-n/a"]
@@ -180,11 +191,9 @@ Given this example, you can pull the credentials for your service with these rub
   port = credentials["port"]
 ~~~
 
-To configure a Rails application, you would change your `database.yml` to use
-erb syntax to programmatically set the connection values using the credentials
-information from VCAP_SERVICES.
+Railsアプリケーションを設定するために、`database.yml`を変更することになります。VCAP_SERVICESからの資格情報を使い、erb形式で接続情報を記述してください。
 
-If you are using the ElephantSQL Postgres service, your `database.yml` file might look like:
+ElephantSQL Postgresを使っている場合、`database.yml`ファイルは下のようになります:
 
 ~~~
 
@@ -206,7 +215,7 @@ production:
 
 ~~~
 
-If you are not using Active Record or another ORM and are instead instantiating your adapter client directly, your code would like something like this:
+Active Recordまたは他のORMを使っていて、インスタンス化を直接記述しない場合、コードは以下のようになります:
 
 ~~~ruby
 
@@ -223,51 +232,48 @@ client = Mysql2::Client.new credentials
 
 ~~~
 
-Your code may vary from the example above, depending on the key in your VCAP_SERVICES environmentvariable and syntax for instantiating your database adapter client.
+環境変数VCAP_SERVICESの中のキーによりコードは変化します。
 
 
 ## <a id='autoconfig'></a>Auto-Configure Connection with cf-autoconfig ##
 
 
-To use auto-configuration, currently supported only for Ruby applications running on Rails, include this line in your Gemfile:
+現時点ではRailsアプリケーションのみサポートされていますが、オート・コンフィギュレーションを使うためには、以下の行をGemfileへ追加してください:
 
-~~~ruby
-gem 'cf-autoconfig'
-~~~
+~~~ruby gem 'cf-autoconfig' ~~~
 
-After modifying the Gemfile, run `bundle install` to generate an updated `Gemfile.lock`.
+Gemfileの更新後、`bundle install`を実行して`Gemfile.lock`を更新してください。
 
 
 
 ## <a id='database-migration'></a>Create and Populate Database Tables ##
 
-Before you can use your database for the first time, you must run a migration script to create the tables and insert any seed data.
+データベースを使いはじめる前に、migrationスクリプトの実行が必要です。
 
-If you are using Rails, you would usually set up your database schema by running a command like:
+Railsを使っている場合、データベースのスキーマを初期化するために、以下のようなコマンドを実行します:
 
 <pre class="terminal">
   $ bundle exec rake db:create db:migrate
 </pre>
 
-The same process is required for your application on Cloud Foundry.
-You provide the command for running the migration script when you push the application, using the 'cf push --command` option. For example:
+同様のプロセスがCloud Foundry上のアプリケーションに対しても必要です。アプリケーションをプッシュする際、'cf push
+--command`オプションでマイグレーションのスクリプトを指定します。例:
 
 <pre class="terminal">
   $ cf push --command "bundle exec rake db:create db:migrate" myapp
 </pre>
 
-If you are using a cf manifest.yml file, be sure to use the `--reset` flag to override the command setting in the manifest.
+cfでmanifest.ymlファイルを使っている場合、マニフェスト内の設定を上書きするために`--reset`オプションをつけるのを忘れないでください。
 
-After migrating your database, push your application again to set the start command back.
+データベースのマイグレーションの後、起動コマンドを元にもどすためにもう一度アプリケーションをプッシュしてください。
 
-To set the start command back to the default, use this command:
+起動コマンドをデフォルトの状態にもどすために、以下のコマンドを実行してください:
 
 <pre class="terminal">
   $ cf push --command "" myapp
 </pre>
 
-If you want to set a custom start command, include the PORT environment variable.
-For example:
+独自の起動コマンドを使いたい場合は、環境変数PORTを含めてください。例:
 
 <pre class="terminal">
   $ cf push --command 'bundle exec rackup -p$PORT' myapp
@@ -275,8 +281,8 @@ For example:
 
 ## <a id='troubleshooting'></a>Troubleshooting ##
 
-If you have trouble connecting to your service, run the `cf logs` command to view log messages and see the values of the environment
-variables available to your application. `cf logs` command results include the value of the VCAP_SERVICES envioronment variable, for example:
+サービスとの接続に問題がある場合、 `cf logs`コマンドでログ・メッセージとアプリケーションの環境変数を調べてください。`cf
+logs`コマンドの出力には環境変数VCAP_SERVICESの内容も含まれます。以下に例を示します:
 
 <pre class="terminal">
   $ cf logs myapp
@@ -301,7 +307,8 @@ variables available to your application. `cf logs` command results include the v
   --
 </pre>
 
-If you encounter the error "a fatal error has occurred. Please see the Bundler troubleshooting documentation", update your version of bundler and run `bundle install` again.
+"a fatal error has occurred. Please see the Bundler troubleshooting
+documentation"が出力される場合、bundlerをヴァージョン・アップして`bundle install`を実行してください。
 
 <pre class="terminal">
   $ gem update bundler

@@ -1,20 +1,20 @@
 ---
-title: Build Tool Integration
----
+ビルド・ツールへの統合
 
-It is possible to deploy application using a couple of different JVM build tools - Maven and Gradle.
+アプリケーションをデプロイするのに別のツールを使うこともできます - MavenとGradleの二つです。
 
-> **The Gradle and Maven plugins will be updated in the coming weeks to support Cloud Foundry v2, including support for organizations, spaces, and custom buildpacks.**
+> ** GradlとMaven用プラグインは数週以内に更新されます。Cloud Foundry
+v2のサポートのためです。オーガナイゼーション、スペース、独自のビルドパックも含まれます **
 
 ## <a id='gradle'></a>Gradle ##
 
-Gradle is a build tool that automates the building, testing, publishing, and deployment of software packages, generated static websites, generated documentation, and more.
+Gradleはビルド・ツールの一つです。ソフトウェア・パッケージのビルド、テスト、公開、デプロイを自動化します。静的ウェブサイトの生成やドキュメントの生成、さらにその他の機能があります。
 
-The gradle-cf-plugin adds Cloud Foundry-oriented tasks to a Gradle project. 
+gradle-cf-pluginはGradleプロジェクトにCloud Foundly向けの機能を追加します。
 
 ### <a id="gradle-install"></a> Install the plugin ###
 
-An example Gradle project with the Cloud Foundry plugin installed looks something like this (build.gradle):
+Cloud Foundryプラグインを使ったGradleプロジェクトの例を示します。(build.gradle):
 
 ~~~
 
@@ -41,12 +41,11 @@ cloudfoundry {
 
 ~~~
 
-After you add the plugin, running the tasks command should include the following output:
+プラグインの追加後、タスクの実行で以下のような出力が含まれているはずです:
 
 <pre class="terminal">
 
-$ gradle tasks
-:tasks
+$ gradle tasks :tasks
 
 ------------------------------------------------------------
 All tasks runnable from root project
@@ -54,49 +53,41 @@ All tasks runnable from root project
 
 CloudFoundry tasks
 ------------------
-cf-add-service - Creates a service, optionally bound to an application
-cf-add-user - Registers a new user
-cf-apps - Lists applications on the cloud
-cf-bind - Binds a service to an application
-cf-delete-app - Deletes an application from the cloud
-cf-delete-service - Deletes a service from the cloud
-cf-delete-user - Deletes a user account. Uses the current credentials!
-cf-info - Displays information about the target CloudFoundry platform
-cf-login - Logs in then out to verify credentials
-cf-push - Pushes an application to the cloud
-cf-restart - Starts an application
-cf-start - Starts an application
-cf-status - Returns information about an application deployed on the cloud
-cf-stop - Stops an application
-cf-unbind - Unbinds a service from an application
-cf-update - Updates an application which is already deployed
+cf-add-service - サービスを作る。アプリケーションにバインドすることもできる cf-add-user - 新規ユーザを登録する
+cf-apps - アプリケーションの一覧を表示する cf-bind - サービスをアプリケーションへバインドする cf-delete-app -
+アプリケーションを削除する cf-delete-service - サービスを削除する cf-delete-user - ユーザを削除すUses the
+current credentials!cf-info - 指定されているCloudFoundryの情報を表示する cf-login - ログインする
+cf-push - アプリケーションをプッシュする cf-restart - アプリケーションを再起動する cf-start -
+アプリケーションを起動する cf-status - アプリケーションの情報を表示する cf-stop - アプリケーションを停止する cf-unbind
+- サービスをアプリケーションから切り離す cf-update - デプロイ済のアプリケーションを更新する
 
 Help tasks
 ----------
-dependencies - Displays all dependencies declared in root project 'hello-world'.
-dependencyInsight - Displays the insight into a specific dependency in root project 'hello-world'.
-help - Displays a help message
-projects - Displays the sub-projects of root project 'hello-world'.
-properties - Displays the properties of root project 'hello-world'.
-tasks - Displays the tasks runnable from root project 'hello-world' (some of the displayed tasks may belong to subprojects).
+dependencies - Displays all dependencies declared in root project
+'hello-world'.  dependencyInsight - Displays the insight into a specific
+dependency in root project 'hello-world'.  help - ヘルプ・メッセージを表示する projects -
+rootプロジェクト'hello-world'の情報を表示するproperties -
+rootプロジェクト'hello-world'のプロパティを表示するtasks -
+rootプロジェクト'hello-world'から使えるタスクを表示する (サブプロジェクトのタスクも表示され得る)
 
-To see all tasks and more detail, run with --all.
+すべてのタスクと詳細を見るには --allをつけて実行してください。
 
 BUILD SUCCESSFUL
 
-Total time: 2.543 secs
-</pre>
+Total time: 2.543 secs </pre>
 
-From this point it should be possible to carry out most tasks available as part of cf from within Gradle. For more information on configuration options within Gradle, take a look at the gradle-cf-plugin project on Github - https://github.com/melix/gradle-cf-plugin.
+この時点から、Gradle内からcfの一部としてほとんどのタスクが使えるようになる。Gradleの設定について、Githubのgradle-cf-plugin
+- https://github.com/melix/gradle-cf-plugin をご覧ください。
 
 ## <a id='maven'></a>Maven ##
 
 
-Using the cf-maven-plugin plugin, you can deploy an application directly from Maven. This is useful as it means being able to store the Cloud Foundry application manifest in pom.xml.
+cf-maven-pluginを使えば、Mavenからアプリケーションを直接デプロできます。Cloud Foundryアプリケーションのマニフェストを
+pom.xml書いておけるので、有益です。
 
 ### <a id='maven-install'></a>Install the Plugin ###
 
-Add the following to the `plugins` node of your `pom.xml`:
+以下の内容を`pom.xml`の`plugins`ノードへ追加してください:
 
 ~~~xml
 <plugin>
@@ -113,9 +104,9 @@ Add the following to the `plugins` node of your `pom.xml`:
 </plugin>
 ~~~
 
-Set the server name, the target address of the Cloud Foundry server, the intended url of the application and memory allocation.
+サーバー名、ターゲットとなるCloud Foundryサーバーのアドレス、アプリケーションのurlとメモリの使用量を指定します。
 
-Add the following to the pluginRepositories node:
+以下をpluginRepositories nodeへ追加します:
 
 ~~~xml
 <pluginRepository>
@@ -125,7 +116,7 @@ Add the following to the pluginRepositories node:
 </pluginRepository>
 ~~~
 
-Create a file in ~/.m2/settings.xml or if the file exists, edit and add:
+~/.m2/settings.xmlを作成するか、既存なら編集して、以下を追加します:
 
 ~~~xml
 
@@ -143,12 +134,9 @@ Create a file in ~/.m2/settings.xml or if the file exists, edit and add:
 </settings>
 ~~~
 
-Set the server/id node to correspond to the server name set in the pom.xml file and also set the username and password for the desired account.
+server/idノードへpom.xmlファイルで指定したサーバ名を設定します。また、該当アカウントのユーザ名とパスワードを設定します。
 
-Then use Maven to package and deploy.
+Mavenをパッケージへ適用し、デプロイします。
 
-<pre class="terminal">
-$ mvn clean package
-$ mvn cf:push
-</pre>
+<pre class="terminal"> $ mvn clean package $ mvn cf:push </pre>
 

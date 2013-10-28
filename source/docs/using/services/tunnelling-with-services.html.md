@@ -1,70 +1,54 @@
 ---
-title: Tunneling to Services
+title: サービスへのトンネル
 ---
 
-**Tunneling to services is not yet supported in Cloud Foundry v2.**  
+**サービスへのトンネリングはCloud Foundry v2では未サポートです**  
 
-You can access a provisioned service using a native connector for the service. For example, you can connect to a mySQL database using a command like this:
+実行中のサービスへネイティブ・コネクターを使ってアクセスできます。たとえば、MySQLデータベースへ次のようなコマンドでアクセスできます:
 
-`mysql -D [DATABASE_NAME]  -h [HOST_NAME] -P [PORT] -u [USER] -p`
+`mysql -D [DATABASE_NAME] -h [HOST_NAME] -P [PORT] -u [USER] -p`
 
-You can determine the connection details for the services bound to an application from the `VCAP_SERVICES` environment variable in the application’s `env.log` file.
+環境変数`VCAP_SERVICES`から接続に関する具体的な情報を得ることができます。環境変数`VCAP_SERVICES`はアプリケーションの`env.log`ファイルの中にあります。
 
-For information about `VCAP_SERVICES` and how to view an application’s `env.log` file, see [VCAP_SERVICES Environment Variable](../services/environment-variable.html).
+`VCAP_SERVICES`の詳細と`env.log`ファイルの見方については、[VCAP_SERVICES Environment
+Variable](../services/environment-variable.html)をご覧ください。
 
-<!---
-## <a id='what-is-tunnelling'></a>What Is Tunneling? ##
+<!--- ## <a id='what-is-tunnelling'></a>What Is Tunneling? ##
 
-A provisioned service on Cloud Foundry is not directly accessible to the outside world by default. An application that is bound to the service has access, but only because it sits on the same network, behind the Cloud Foundry firewall.
+Cloud Foundry上のサービスには通常は直接アクセスできません。サービスにバインドされたアプリケーションはアクセスできますが、それらはCloud
+Foundryファイアーウォールの向こう側にある同じネットワークに接続されています。
 
-To gain access to a service from outside the Cloud Foundry ecosystem, you use a technique called tunneling. You deploy a special application, called Caldecott, to a Cloud Foundry account. The application then binds and connects to the desired service and proxies a connection over HTTP to the service. Once deployed, Caldecott remains available for the creation of tunnels.
+Cloud
+Foundryの外部からサービスにアクセスするには、トンネリングと呼ばれる技術を使います。Caldecottという名前の特別なアプリケーションをデプロイします。このアプリケーションが目的のサービスとバインドし、HTTP上のプロキシとして動作します。デプロイされると、Caldecottはリクエストを待ち、トンネルを作成します。
 
-Once established, the tunnel can be used by a client, most likely cf. The client makes a port on the loopback adapter (127.0.0.1) available to use with a native client of the bound service.
+接続が確立すると、cfなどのクライアントはトンネルを使うことができます。クライアントはループバック・アダプタ(127.0.0.1)を作り、該当サービスのクライアントがこれを利用できます。
 
 ## <a id='creating-a-tunnel'></a>Create a tunnel ##
 
-The following example illustrates how to create a tunnel to a MySQL database and then use mysqldump to create a backup of the database (even though it will be empty).
+以下の例では、MySQLデータベースへのトンネルを作り、次にmysqldumpを使ってデータベースのバックアップを作成します。(データベースは空ですが)
 
 Create a service instance with cf;
 
-<pre class="terminal">
-$ cf create-service
-1: blob 0.51
-2: mongodb 2.0
-3: mysql 5.1
-4: postgresql 9.0
-5: rabbitmq 2.4
-6: redis 2.2
-7: redis 2.4
-8: redis 2.6
-What kind?> 3
+<pre class="terminal"> $ cf create-service 1: blob 0.51 2: mongodb 2.0 3:
+mysql 5.1 4: postgresql 9.0 5: rabbitmq 2.4 6: redis 2.2 7: redis 2.4 8:
+redis 2.6 What kind?> 3
 
 Name?> mysql-a7cc7
 
-Creating service mysql-a7cc7... OK
-</pre>
+Creating service mysql-a7cc7... OK </pre>
 
-Tunnel to the service with cf, select mysqldump for the client and give a file path (mydb.sql) to dump to;
+cfでトンネルを作り、クライアントとしてmysqldumpを選択し、バックアップ先となるファイル名(mydb.sql)を入力します;
 
-<pre class="terminal">
-$ cf tunnel mysql-a7cc7
-1: none
-2: mysql
-3: mysqldump
+<pre class="terminal"> $ cf tunnel mysql-a7cc7 1: none 2: mysql 3: mysqldump
 Which client would you like to start?> 3
 
-Opening tunnel on port 10000... OK
-Waiting for local tunnel to become available... OK
-Output file> mydb.sql
-</pre>
+Opening tunnel on port 10000... OK Waiting for local tunnel to become
+available... OK Output file> mydb.sql </pre>
 
-The dump is successfully writen to mydb.sql. At this point the tunnel has closed. However, if option 1 - none is selected, the tunnel is held open indefinitely supplying the connection details:
+ダンプが正常にmydb.sqlへ書き込まれました。この時点でトンネルがクローズされます。しかし、option 1 -
+noneが選択された場合、トンネルは開いたままになります:
 
-<pre class="terminal">
-$ cf tunnel mysql-a7cc7
-1: none
-2: mysql
-3: mysqldump
+<pre class="terminal"> $ cf tunnel mysql-a7cc7 1: none 2: mysql 3: mysqldump
 Which client would you like to start?> 1
 
 Opening tunnel on port 10000... OK
@@ -75,11 +59,10 @@ Service connection info:
   name     : db1626ceeb99d42739244cb5c635519e6
 
 
-Open another shell to run command-line clients or
-use a UI tool to connect using the displayed information.
-Press Ctrl-C to exit...
+表示された情報を使って、別のシェルでコマンド・ラインのクライアントを使うか、UIツールを接続します。Press Ctrl-C to exit...
 </pre>
 
-This allows a native client to connect to the service. Note that in this instance, for MySQL, the connection is available on port 10000, not 3306.
+This allows a native client to connect to the
+service. ここでは、MySQLに接続するポートは10000であり、3306ではないことに注意してください。
 
 -->

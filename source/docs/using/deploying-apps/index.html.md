@@ -1,19 +1,21 @@
 ---
-title: Deploying Apps
+title: アプリのデプロイ
 ---
 
-Cloud Foundry supports many frameworks and runtimes, including these: 
+Cloud Foundryは多くのフレームワークやランタイムをサポートしています。
 
-| Runtime        | Framework                                                                             |
+| ランタイム        | フレームワーク                                                                             |
 | :------------- | :-------------                                                                        |
 | Javascript     | [Node.js](/docs/using/deploying-apps/javascript/index.html)                           |
-| Java / JVM     | [Java Spring, Grails, Scala Lift, and Play](/docs/using/deploying-apps/jvm/index.html)|
+| Java / JVM     | [Java Spring, Grails, Scala Lift, Play](/docs/using/deploying-apps/jvm/index.html)|
 | Ruby           | [Rack, Rails, or Sinatra](/docs/using/deploying-apps/ruby/index.html)                 |
 
-Cloud Foundry supports these frameworks and runtimes using a buildpack model. Some of the <a href="https://devcenter.heroku.com/articles/third-party-buildpacks">Heroku third party buildpacks</a> will work, but your experience may vary. To push an application using one of these buildpacks use `cf push [appname] --buildpack=[git url]`
+ビルドパック・モデルを使ってCloud Foundry 以下のフレームワークとランタイムをサポートします。<a href="https://devcenter.heroku.com/articles/third-party-buildpacks">Heroku
+third party buildpacks</a>のいくつかは動作するでしょうが、動かないものもあるでしょう。これらのビルドパックの一つを用いてアプリケーションをプッシュするには、`cf
+push [appname] --buildpack=[git url]`を実行してください。
 
-You can also build your own [Custom Buildpack](buildpacks.html).
+あなた独自のカスタム・ビルドパックを作ることができます。[独自のビルドパック](buildpacks.html)
 
-How you deploy your application depends on the Cloud Foundry you are targeting. 
+デプロイの手順はどのCloud Foundryを使っているかにより異ります。
 
-For **run.pivotal.io**, you can follow the [Getting Started document here](../../dotcom/getting-started.html).
+run.pivotal.ioについては、こちらの文書をご参照ください。 [入門](../../dotcom/getting-started.html)

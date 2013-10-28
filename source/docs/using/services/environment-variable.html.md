@@ -1,42 +1,35 @@
 ---
-title: VCAP_SERVICES Environment Variable
+title: VCAP_SERVICES環境変数
 ---
 
-Binding a service to your application may add credentials to the VCAP\_SERVICES environment variable which are visible to your application process. You can see the contents of VCAP\_SERVICES in several ways.
+サービスをアプリケーションへバインドすることにより、アプリケーションのプロセスの環境変数VCAP\_SERVICESへ資格情報が追加されることがあります。VCAP\_SERVICESの内容を参照するにはいくつかの方法があります。
 
-## <a id='cli'></a>View contents of VCAP_SERVICES using CLI ##
+## <a id='cli'></a>VCAP_SERVICESをコマンドで参照する ##
 
-This command will show all environment variables including VCAP_SERVICES if it is set.
+このコマンドはVCAP_SERVICESを含むすべての環境変数を見ることができます。
 
-<pre class="terminal">
-$ cf files APP_NAME_HERE logs/env.log
-</pre>
+<pre class="terminal"> $ cf files APP_NAME_HERE logs/env.log </pre>
 
-## <a id='app'></a>View contents of VCAP_SERVICES from your application ##
+## <a id='app'></a>アプリケーションからVCAP_SERVICESを参照する ##
 
-Alternatively, you can use code in an application to access the environment variable and either use it, print it, log it, etc.
+以下のようなコードで環境変数を扱えます。
 
 ### Java
 
-```
-System.getenv("VCAP_SERVICES");
-```
+``` System.getenv("VCAP_SERVICES"); ```
 
 ### Ruby
 
-```
-ENV['VCAP_SERVICES']
-```
+``` ENV['VCAP_SERVICES'] ```
 
 ### Node.js
 
-```
-process.env.VCAP_SERVICES
-```
+``` process.env.VCAP_SERVICES ```
 
 ## <a id='example'></a>Example Contents ##
 
-This example shows an example value of VCAP\_SERVICES. In this example, we've created and bound four service instances. One ClearDB, two CloudAMQP, and one Redis Cloud. 
+この例では、VCAP\_SERVICESの内容を読み出します。ここでは、四つのサービスのインスタンスを作成し、バインドしています。一つ目はClearDB,
+二つ目はCloudAMQP, もう一つはRedis Cloudです。
 
 ~~~
 VCAP_SERVICES=
@@ -92,8 +85,8 @@ VCAP_SERVICES=
 
 ## <a id='database_url'></a>DATABASE_URL ##
 
-If your application depends on DATABASE_URL being set to the connection string for your service, and we're not setting this for you automatically (the Rails buildpack should), you can set this variable manually.
+もしアプリケーションが接続用文字列を設定されたDATABASE_URLに依存しているのなら、自分で設定してもかまいません。
 
-<pre class="terminal">
-$ cf set-env myapp DATABASE_URL mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab
+<pre class="terminal"> $ cf set-env myapp DATABASE_URL
+mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab
 </pre>
