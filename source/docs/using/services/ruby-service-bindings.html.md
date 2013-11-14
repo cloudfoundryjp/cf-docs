@@ -8,18 +8,12 @@ title: Rubyのためのサービス接続設定
 
 Rubyアプリケーションをサービスに接続するのに、設定する方法はいくつかあります:
 
-* 接続オブジェクトを作ってください --- そうするのに、`cfruntime` gem
-  が使えます。これがお勧めの方法になりますが、接続をきめ細かく制御できるためです。詳しくは[Manually Configure Connection
-  with cfruntime](#manual)をご覧ください。
+* 接続オブジェクトを作ってください --- そうするのに、`cfruntime` gem が使えます。これがお勧めの方法になりますが、接続をきめ細かく制御できるためです。詳しくは[Manually Configure Connection with cfruntime](#manual)をご覧ください。
 
 * データベースを使うアプリケーションでは `database.yml`内で接続を定義できます ---
-  環境変数`VCAP_SERVICES`内のバインドされたすべてのサービスの接続情報を調べて、それに応じて`database.yml`ファイルを更新することができます。詳しくは[Define
-  Connection in Configuration File](#config-file)をご覧ください。
+  環境変数`VCAP_SERVICES`内のバインドされたすべてのサービスの接続情報を調べて、それに応じて`database.yml`ファイルを更新することができます。詳しくは[Define Connection in Configuration File](#config-file)をご覧ください。
 
-* オート・コンフィギュレーション -- `cf-autoconfig` gemを使って自動的に設定することができます。 以下の条件があります: (1)
-  Rails フレームワークであること, (2) サービスがPostgreSQLかMySQLであること, (3)
-  複数のサービスのインスタンスがバインドされていないこと詳しくは、[Auto-Configure Connection with
-  cf-autoconfig](#autoconfig)をご覧ください。
+* オート・コンフィギュレーション -- `cf-autoconfig` gemを使って自動的に設定することができます。 以下の条件があります: (1) Rails フレームワークであること, (2) サービスがPostgreSQLかMySQLであること, (3) 複数のサービスのインスタンスがバインドされていないこと詳しくは、[Auto-Configure Connection with cf-autoconfig](#autoconfig)をご覧ください。
 
      **注意:** データベースを使うRuby on Railsアプリケーション向けのオート・コンフィギュレーションは、`database.yml`ファイル内の接続情報を上書きします -- 問題があるようなら、オート・コンフィギュレーションを使わずに自分で設定してください  
 
@@ -81,34 +75,33 @@ require 'cfruntime' client = CFRuntime::Mysql2Client.create_from_svc
 
 ~~~ruby
 
-require 'cfruntime' client = CFRuntime::MongoClient.create_from_svc
-'mysql-test'
+require 'cfruntime'
+client = CFRuntime::MongoClient.create_from_svc 'mysql-test'
 
 ~~~
 
-### <a id='connecting-to-one-instance'></a>Connect to Only Instance of a
-Service ###
+### <a id='connecting-to-one-instance'></a>サービスのインスタンスが一つだけの場合の接続 ###
 
 あるサービスに対してただ一つのインスタンスだけを使う場合、名前を指定する必要はありません。例として:
 
 ~~~ruby
 
-require 'cfruntime' connection = CFRuntime::MongoClient.create db =
-connection.db
+require 'cfruntime'
+connection = CFRuntime::MongoClient.create
+db = connection.db
 
 ~~~
 
 上の例では、アプリケーションにバインドされたMongoDBインスタンスを見つけ、クライアントを取って来ます。もしあるタイプのサービスで複数のインスタンスがある場合、ライブラリはArgumentErrorというエラーを上げます。上に挙げたクラスは、`create`に関して同様に反応します。
 
-### <a id='obtaining-connection-properties'></a>Get Connection Data with
-cfruntime ###
+### <a id='obtaining-connection-properties'></a>cfruntimeを使ってコネクションの情報を得る ###
 
 `cfruntime`は、接続のプロパティを得るメソッドを提供します。`CFRuntime::CloudApp`クラスを使って、`service_props`メソッドはサービスの名前かインスタンスの名前とともに呼び出せます。たとえば、MySQLサービスから接続の詳細を取り出すには:
 
 ~~~ruby
 
-require 'cfruntime' service_props = CFRuntime::CloudApp.service_props
-'mysql'
+require 'cfruntime'
+service_props = CFRuntime::CloudApp.service_props 'mysql'
 
 ~~~
 
@@ -128,7 +121,7 @@ require 'cfruntime' service_props = CFRuntime::CloudApp.service_props
 
 `service_props`へサービスの名前を渡してあるインスタンスの情報を取り出すこともできます。
 
-### <a id='other-hand-methods'></a>Useful cfruntime Methods ###
+### <a id='other-hand-methods'></a>cfruntimeの有用なメソッド ###
 
 下の表は`CFRuntime::Cloudapp`クラスの有用なメソッドの一覧です。
 
@@ -144,10 +137,9 @@ require 'cfruntime' service_props = CFRuntime::CloudApp.service_props
   <tr><td>CFRuntime::CloudApp.running_in_cloud?</td><td>Returns a boolean value, indicating if the application is running on a Cloud Foundry instance</td></tr>
 </table>
 
-## <a id='config-file'></a>Define Connection in Configuration File ##
+## <a id='config-file'></a>設定ファイルでコネクションを定義する ##
 
-データベースを使うRubyアプリケーションでは、データベースへの接続は`database.yml`ファイルで設定できます。環境変数`VCAP_SERVICES`から接続情報の詳細を得ることができ、それにはバインドされているすべてのサービスの情報と資格情報がJSON形式で含まれています。`cf
-bind-service`コマンドでサービスをアプリケーションへバインドする際、cfは接続情報を環境変数`VCAP_SERVICES`へ書き込みます。
+データベースを使うRubyアプリケーションでは、データベースへの接続は`database.yml`ファイルで設定できます。環境変数`VCAP_SERVICES`から接続情報の詳細を得ることができ、それにはバインドされているすべてのサービスの情報と資格情報がJSON形式で含まれています。`cf bind-service`コマンドでサービスをアプリケーションへバインドする際、cfは接続情報を環境変数`VCAP_SERVICES`へ書き込みます。
 
 Rubyでは、`VCAP_SERVICES`の内容に`ENV`でアクセスできます。
 
@@ -235,18 +227,20 @@ client = Mysql2::Client.new credentials
 環境変数VCAP_SERVICESの中のキーによりコードは変化します。
 
 
-## <a id='autoconfig'></a>Auto-Configure Connection with cf-autoconfig ##
+## <a id='autoconfig'></a>cf-autoconfigを使ったコネクションの自動設定 ##
 
 
 現時点ではRailsアプリケーションのみサポートされていますが、オート・コンフィギュレーションを使うためには、以下の行をGemfileへ追加してください:
 
-~~~ruby gem 'cf-autoconfig' ~~~
+~~~ruby
+gem 'cf-autoconfig'
+~~~
 
 Gemfileの更新後、`bundle install`を実行して`Gemfile.lock`を更新してください。
 
 
 
-## <a id='database-migration'></a>Create and Populate Database Tables ##
+## <a id='database-migration'></a>データベースのテーブルの作成とデータの書込み ##
 
 データベースを使いはじめる前に、migrationスクリプトの実行が必要です。
 
@@ -256,8 +250,7 @@ Railsを使っている場合、データベースのスキーマを初期化す
   $ bundle exec rake db:create db:migrate
 </pre>
 
-同様のプロセスがCloud Foundry上のアプリケーションに対しても必要です。アプリケーションをプッシュする際、'cf push
---command`オプションでマイグレーションのスクリプトを指定します。例:
+同様のプロセスがCloud Foundry上のアプリケーションに対しても必要です。アプリケーションをプッシュする際、'cf push --command`オプションでマイグレーションのスクリプトを指定します。例:
 
 <pre class="terminal">
   $ cf push --command "bundle exec rake db:create db:migrate" myapp
@@ -279,10 +272,9 @@ cfでmanifest.ymlファイルを使っている場合、マニフェスト内の
   $ cf push --command 'bundle exec rackup -p$PORT' myapp
 </pre>
 
-## <a id='troubleshooting'></a>Troubleshooting ##
+## <a id='troubleshooting'></a>トラブルシューティング ##
 
-サービスとの接続に問題がある場合、 `cf logs`コマンドでログ・メッセージとアプリケーションの環境変数を調べてください。`cf
-logs`コマンドの出力には環境変数VCAP_SERVICESの内容も含まれます。以下に例を示します:
+サービスとの接続に問題がある場合、 `cf logs`コマンドでログ・メッセージとアプリケーションの環境変数を調べてください。`cf logs`コマンドの出力には環境変数VCAP_SERVICESの内容も含まれます。以下に例を示します:
 
 <pre class="terminal">
   $ cf logs myapp

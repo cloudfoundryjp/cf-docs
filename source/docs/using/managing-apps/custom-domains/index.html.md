@@ -7,7 +7,8 @@ title: ドメイン、サブドメイン、ルート
 
 以下のルートでは`myapp`がサブドメインで、`example.com`がドメインです:
 
-`myapp.example.com` ## <a id='domains'></a>ドメインについての重要な情報 ##
+`myapp.example.com`
+## <a id='domains'></a>ドメインについての重要な情報 ##
 
 Cloud Foundryでは、ドメインはスペースに関連づけられます。
 
@@ -17,10 +18,9 @@ Foundryのインスタンスでは`cfapps.io` ドメインがすべてのオー�
 また、Cloud Foundryはカスタムドメインもサポートします -- 以下のように、独自のドメインを登録し、Cloud
 Foundryの中のスペースに割り当てることができます。
 
-## <a id='map-domain'></a>Map a Custom Domain to a Space ##
+## <a id='map-domain'></a>カスタム・ドメインのスペースへのマッピング ##
 
-自分のドメインを使いたいなら、`cf map-domain`コマンドでCloud
-Foundryへ登録しアプリケーションのスペースに割り当てる必要があります。
+自分のドメインを使いたいなら、`cf map-domain`コマンドでCloud Foundryへ登録しアプリケーションのスペースに割り当てる必要があります。
 
 `cfapps.io`や`example.com`のようなトップ・レベル・ドメインを指定してください。以下のコマンドは独自ドメイン`example.com`を“development”へ割り当てます。
 
@@ -30,10 +30,11 @@ Foundryへ登録しアプリケーションのスペースに割り当てる必�
 
 ## <a id='view-domains'></a>スペース内のドメインの表示 ##
 
-`cf
-domains`コマンドであるスペースへ割り当てられたドメインを見ることができます。この例では、“development”スペースに二つのドメインが割り当てられています。デフォルトの`cfapps.io`と独自の`example.com`です:
+`cf domains`コマンドであるスペースへ割り当てられたドメインを見ることができます。この例では、“development”スペースに二つのドメインが割り当てられています。デフォルトの`cfapps.io`と独自の`example.com`です:
 
-<pre class="terminal"> cf push my-new-app cf domains --space development
+<pre class="terminal">
+cf push my-new-app
+cf domains --space development
 Getting domains in development... OK
 
 name           owner   
@@ -43,11 +44,13 @@ example.com    jdoe
 
  
 
-## <a id='unmap-domain'></a>Unmap a Domain ## `cf
-unmap-domain`コマンドでドメインを切り離すことができます。この例では、`example.com`ドメインが“development”から切り離されます:
+## <a id='unmap-domain'></a>Unmap a Domain ##
+`cf unmap-domain`コマンドでドメインを切り離すことができます。この例では、`example.com`ドメインが“development”から切り離されます:
 
-<pre class="terminal"> cf unmap-domain --space development example.com
-Unmapping example.com from development... OK </pre>
+<pre class="terminal">
+cf unmap-domain --space development example.com
+Unmapping example.com from development... OK
+</pre>
 
 ## <a id='subdomain'></a>サブドメインについての重要な情報 ##
 
@@ -70,11 +73,17 @@ Unmapping example.com from development... OK </pre>
 
 `myapp.example.com`
 
-<pre class="terminal"> cf push Name> myapp
+<pre class="terminal">
+cf push
+Name> myapp
 
 Instances> 1
 
-1: 64M 2: 128M 3: 256M 4: 512M Memory Limit> 256M
+1: 64M
+2: 128M
+3: 256M
+4: 512M
+Memory Limit> 256M
 
 Creating myapp... OK
 
@@ -82,24 +91,26 @@ Creating myapp... OK
 2: none
 Subdomain> 1     
 
-1: cfapps.io 2: example.com 3: none Domain> 2
+1: cfapps.io
+2: example.com
+3: none Domain> 2
 
-Creating route .example.com... OK Binding .example.com to myapp... OK
+Creating route myapp.example.com... OK
+Binding myapp.example.com to myapp... OK
 
 </pre>
 
 
-## <a id='assign-in-manifest'></a>Assign Subdomain in Manifest ##
+## <a id='assign-in-manifest'></a>マニフェストでのサブドメインの指定 ##
 
 マニフェストを使うなら、ルートの構成要素として`host` (subdomain)と
-``domain`を記述することができます。詳細については[Application
-Manifests](../../deploying-apps/manifest.html)をご覧ください。
+``domain`を記述することができます。詳細については[Application Manifests](../../deploying-apps/manifest.html)をご覧ください。
 
-## <a id='list-routes'></a>List Routes ##
+## <a id='list-routes'></a>ルーティングの表示 ##
 
-`cf
-routes`コマンドを使って現在のスペースへのルートの一覧を表示できます。ここで、サブドメインは“host”として表示され、ドメインとは分離されていることに注意してください。For
-example: <pre class="terminal"> cf routes Getting routes... OK
+`cf routes`コマンドを使って現在のスペースへのルートの一覧を表示できます。ここで、サブドメインは“host”として表示され、ドメインとは分離されていることに注意してください。For example:
+<pre class="terminal">
+cf routes Getting routes... OK
 
 host                     domain   
 myapp                    example.com 
@@ -108,12 +119,13 @@ sinatra-hello-world      cfapps.io
 sinatra-to-do            cfapps.io
 </pre>
 
-## <a id='define-route'></a> `cf
-map`コマンドでルートを定義したり変更したりできます。この例では、ルート`myapp.example.com`はアプリケーション“myapp”に割り当てられています:
+## <a id='define-route'></a>コマンド・ラインからのルートの設定や変更 ##
+`cf map`コマンドでルートを定義したり変更したりできます。この例では、ルート`myapp.example.com`はアプリケーション“myapp”に割り当てられています:
 <pre class="terminal">
 
-cf map --app myapp --host myapp --domain example.com </pre> Note that you
-use the `--host` qualifier to specify the subdomain.
+cf map --app myapp --host myapp --domain example.com
+</pre>
+`--host`オプションを使ってサブドメインを指定することに注意してください。
 
 ルートを割り当てた時点でアプケーションが動作中だった場合、アプリケーションを再起動してください。アプリケーションが再起動されるまでは新しいルートは有効になりません。
 

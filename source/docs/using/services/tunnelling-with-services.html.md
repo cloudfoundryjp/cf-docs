@@ -10,10 +10,10 @@ title: サービスへのトンネル
 
 環境変数`VCAP_SERVICES`から接続に関する具体的な情報を得ることができます。環境変数`VCAP_SERVICES`はアプリケーションの`env.log`ファイルの中にあります。
 
-`VCAP_SERVICES`の詳細と`env.log`ファイルの見方については、[VCAP_SERVICES Environment
-Variable](../services/environment-variable.html)をご覧ください。
+`VCAP_SERVICES`の詳細と`env.log`ファイルの見方については、[VCAP_SERVICES Environment Variable](../services/environment-variable.html)をご覧ください。
 
-<!--- ## <a id='what-is-tunnelling'></a>What Is Tunneling? ##
+<!---
+## <a id='what-is-tunnelling'></a>What Is Tunneling? ##
 
 Cloud Foundry上のサービスには通常は直接アクセスできません。サービスにバインドされたアプリケーションはアクセスできますが、それらはCloud
 Foundryファイアーウォールの向こう側にある同じネットワークに接続されています。
@@ -29,26 +29,45 @@ Foundryの外部からサービスにアクセスするには、トンネリン�
 
 Create a service instance with cf;
 
-<pre class="terminal"> $ cf create-service 1: blob 0.51 2: mongodb 2.0 3:
-mysql 5.1 4: postgresql 9.0 5: rabbitmq 2.4 6: redis 2.2 7: redis 2.4 8:
-redis 2.6 What kind?> 3
+<pre class="terminal">
+$ cf create-service
+1: blob 0.51
+2: mongodb 2.0
+3: mysql 5.1
+4: postgresql 9.0
+5: rabbitmq 2.4
+6: redis 2.2
+7: redis 2.4
+8: redis 2.6
+What kind?> 3
 
 Name?> mysql-a7cc7
 
-Creating service mysql-a7cc7... OK </pre>
+Creating service mysql-a7cc7... OK
+</pre>
 
 cfでトンネルを作り、クライアントとしてmysqldumpを選択し、バックアップ先となるファイル名(mydb.sql)を入力します;
 
-<pre class="terminal"> $ cf tunnel mysql-a7cc7 1: none 2: mysql 3: mysqldump
+<pre class="terminal">
+$ cf tunnel mysql-a7cc7
+1: none
+2: mysql
+3: mysqldump
 Which client would you like to start?> 3
 
-Opening tunnel on port 10000... OK Waiting for local tunnel to become
-available... OK Output file> mydb.sql </pre>
+Opening tunnel on port 10000... OK
+Waiting for local tunnel to become available... OK
+Output file> mydb.sql
+</pre>
 
 ダンプが正常にmydb.sqlへ書き込まれました。この時点でトンネルがクローズされます。しかし、option 1 -
 noneが選択された場合、トンネルは開いたままになります:
 
-<pre class="terminal"> $ cf tunnel mysql-a7cc7 1: none 2: mysql 3: mysqldump
+<pre class="terminal">
+$ cf tunnel mysql-a7cc7
+1: none
+2: mysql
+3: mysqldump
 Which client would you like to start?> 1
 
 Opening tunnel on port 10000... OK
@@ -59,10 +78,11 @@ Service connection info:
   name     : db1626ceeb99d42739244cb5c635519e6
 
 
-表示された情報を使って、別のシェルでコマンド・ラインのクライアントを使うか、UIツールを接続します。Press Ctrl-C to exit...
+Open another shell to run command-line clients or
+use a UI tool to connect using the displayed information.
+Press Ctrl-C to exit...
 </pre>
 
-This allows a native client to connect to the
-service. ここでは、MySQLに接続するポートは10000であり、3306ではないことに注意してください。
+これによりネイティブなクライアントがサービスに接続します。 ここで、MySQLに接続するポートは10000であり、3306ではないことに注意してください。
 
 -->

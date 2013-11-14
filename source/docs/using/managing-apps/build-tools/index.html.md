@@ -1,10 +1,10 @@
 ---
-ビルド・ツールへの統合
+title: ビルド・ツールへの統合
+---
 
 アプリケーションをデプロイするのに別のツールを使うこともできます - MavenとGradleの二つです。
 
-> ** GradlとMaven用プラグインは数週以内に更新されます。Cloud Foundry
-v2のサポートのためです。オーガナイゼーション、スペース、独自のビルドパックも含まれます **
+> ** GradleとMaven用プラグインは数週以内に更新されます。Cloud Foundry v2のサポートのためです。オーガナイゼーション、スペース、独自のビルドパックも含まれます **
 
 ## <a id='gradle'></a>Gradle ##
 
@@ -12,7 +12,7 @@ Gradleはビルド・ツールの一つです。ソフトウェア・パッケ�
 
 gradle-cf-pluginはGradleプロジェクトにCloud Foundly向けの機能を追加します。
 
-### <a id="gradle-install"></a> Install the plugin ###
+### <a id="gradle-install"></a> プラグインのインストール ###
 
 Cloud Foundryプラグインを使ったGradleプロジェクトの例を示します。(build.gradle):
 
@@ -45,7 +45,8 @@ cloudfoundry {
 
 <pre class="terminal">
 
-$ gradle tasks :tasks
+$ gradle tasks
+:tasks
 
 ------------------------------------------------------------
 All tasks runnable from root project
@@ -53,28 +54,38 @@ All tasks runnable from root project
 
 CloudFoundry tasks
 ------------------
-cf-add-service - サービスを作る。アプリケーションにバインドすることもできる cf-add-user - 新規ユーザを登録する
-cf-apps - アプリケーションの一覧を表示する cf-bind - サービスをアプリケーションへバインドする cf-delete-app -
-アプリケーションを削除する cf-delete-service - サービスを削除する cf-delete-user - ユーザを削除すUses the
-current credentials!cf-info - 指定されているCloudFoundryの情報を表示する cf-login - ログインする
-cf-push - アプリケーションをプッシュする cf-restart - アプリケーションを再起動する cf-start -
-アプリケーションを起動する cf-status - アプリケーションの情報を表示する cf-stop - アプリケーションを停止する cf-unbind
-- サービスをアプリケーションから切り離す cf-update - デプロイ済のアプリケーションを更新する
+cf-add-service - Creates a service, optionally bound to an application
+cf-add-user - Registers a new user
+cf-apps - Lists applications on the cloud
+cf-bind - Binds a service to an application
+cf-delete-app - Deletes an application from the cloud
+cf-delete-service - Deletes a service from the cloud
+cf-delete-user - Deletes a user account. Uses the current credentials!
+cf-info - Displays information about the target CloudFoundry platform
+cf-login - Logs in then out to verify credentials
+cf-push - Pushes an application to the cloud
+cf-restart - Starts an application
+cf-start - Starts an application
+cf-status - Returns information about an application deployed on the cloud
+cf-stop - Stops an application
+cf-unbind - Unbinds a service from an application
+cf-update - Updates an application which is already deployed
 
 Help tasks
 ----------
-dependencies - Displays all dependencies declared in root project
-'hello-world'.  dependencyInsight - Displays the insight into a specific
-dependency in root project 'hello-world'.  help - ヘルプ・メッセージを表示する projects -
-rootプロジェクト'hello-world'の情報を表示するproperties -
-rootプロジェクト'hello-world'のプロパティを表示するtasks -
-rootプロジェクト'hello-world'から使えるタスクを表示する (サブプロジェクトのタスクも表示され得る)
+dependencies - Displays all dependencies declared in root project 'hello-world'.
+dependencyInsight - Displays the insight into a specific dependency in root project 'hello-world'.
+help - Displays a help message
+projects - Displays the sub-projects of root project 'hello-world'.
+properties - Displays the properties of root project 'hello-world'.
+tasks - Displays the tasks runnable from root project 'hello-world' (some of the displayed tasks may belong to subprojects).
 
-すべてのタスクと詳細を見るには --allをつけて実行してください。
+To see all tasks and more detail, run with --all.
 
 BUILD SUCCESSFUL
 
-Total time: 2.543 secs </pre>
+Total time: 2.543 secs
+</pre>
 
 この時点から、Gradle内からcfの一部としてほとんどのタスクが使えるようになる。Gradleの設定について、Githubのgradle-cf-plugin
 - https://github.com/melix/gradle-cf-plugin をご覧ください。
@@ -82,10 +93,9 @@ Total time: 2.543 secs </pre>
 ## <a id='maven'></a>Maven ##
 
 
-cf-maven-pluginを使えば、Mavenからアプリケーションを直接デプロできます。Cloud Foundryアプリケーションのマニフェストを
-pom.xml書いておけるので、有益です。
+cf-maven-pluginを使えば、Mavenからアプリケーションを直接デプロできます。Cloud Foundryアプリケーションのマニフェストをpom.xml書いておけるので、有益です。
 
-### <a id='maven-install'></a>Install the Plugin ###
+### <a id='maven-install'></a>プラグインのインストール ###
 
 以下の内容を`pom.xml`の`plugins`ノードへ追加してください:
 
@@ -138,5 +148,8 @@ server/idノードへpom.xmlファイルで指定したサーバ名を設定し�
 
 Mavenをパッケージへ適用し、デプロイします。
 
-<pre class="terminal"> $ mvn clean package $ mvn cf:push </pre>
+<pre class="terminal">
+$ mvn clean package
+$ mvn cf:push
+</pre>
 

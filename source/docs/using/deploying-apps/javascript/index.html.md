@@ -7,8 +7,7 @@ Node.jsアプリのデプロイの準備については右のページをご欄�
 
 ## <a id='packagejson'></a>アプリケーション・パッケージ・ファイル ##
 
-Node.jsアプリケーション内に`package.json`が必要です。Node.jsのヴァージョンを`package.json`内の
-`engine`ノードで指定できます。July, 2013以降、Cloud Foundryのデフォルトは0.10.xです。
+Node.jsアプリケーション内に`package.json`が必要です。Node.jsのヴァージョンを`package.json`内の `engine`ノードで指定できます。July, 2013以降、Cloud Foundryのデフォルトは0.10.xです。
 
 ## <a id='start'></a>アプリケーション起動コマンド ##
 
@@ -50,9 +49,10 @@ applications:
 
 あるいは、`cf push --buildpack`とオプションを指定してください。
 
-<pre class="termainl"> $ cf push --buildpack
-https://github.com/cloudfoundry/heroku-buildpack-nodejs.git </pre>
+<pre class="termainl">
+$ cf push --buildpack https://github.com/cloudfoundry/heroku-buildpack-nodejs.git
+</pre>
 
-## <a id='services'></a>サービスをバインドするに##
+## <a id='services'></a>サービスをバインドするには? ##
 
 [node.jsとサービスのバインド](../../services/node-service-bindings.html)をご参照ください。

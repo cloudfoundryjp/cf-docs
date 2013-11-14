@@ -7,33 +7,39 @@ Rack, Rails, Sinatraアプリのデプロイの準備については、右のペ
 
 ## <a id='bundler'></a>アプリケーションのバンドル ##
 
-GemfileとGemfile.lockを作るために<a
-href="http://gembundler.com/">Bundler</a>コマンドを実行してください。Cloud
-Foundryへプッシュする前にこの二つのファイルを用意してください。
+GemfileとGemfile.lockを作るために<a href="http://gembundler.com/">Bundler</a>コマンドを実行してください。Cloud Foundryへプッシュする前にこの二つのファイルを用意してください。
 
 ## <a id='config'></a> Rackの設定ファイル ##
 
 **Rack** か **Sinatra** には、`config.ru`が必要です。例を示します:
 
-~~~ruby require './hello_world' run HelloWorld.new ~~~
+~~~ruby
+require './hello_world'
+run HelloWorld.new
+~~~
 
 ## <a id='precompile'></a> Asset precompilation ##
 
-Cloud FoundryはRails asset pipelineをサポートしています。Cloud
-Foundryへプッシュする前にプリコンパイルされたアセットを用意しなければ、ステージされる時に用意されるということです。デプロイの前にプレコンパイルするには、以下のコマンドを使ってください:
+Cloud FoundryはRails asset pipelineをサポートしています。Cloud Foundryへプッシュする前にプリコンパイルされたアセットを用意しなければ、ステージされる時に用意されるということです。デプロイの前にプレコンパイルするには、以下のコマンドを使ってください:
 
-<pre class="terminal"> rake assets:precompile </pre>
+<pre class="terminal">
+rake assets:precompile
+</pre>
 
 これにより、ステージされるたびにプリコンパイルが実行されなくなり、速度が向上することになります。
 
 アプリケーションの初期化の際、潜在的な危険が一つあります。プリコンパイルされたrakeタスクはRailsアプリケーションの再初期化を実行します。これは、サービスへの接続や環境のチェックなどステージングの段階では使えないものを必要とすることがあります。application.rb内のオプションで再初期化されないようにできます:
 
-~~~ruby config.assets.initialize_on_precompile = false ~~~
+~~~ruby
+config.assets.initialize_on_precompile = false
+~~~
 
 assets:precompileが失敗すると、Cloud
 Foundryはライブ・コンピレーションを有効にします。これはプレコンパイルの代替手段になります。このモードでは、最初にロードされる時にコンパイルされます。application.rb内で設定を追加してライブ・コンパイレーションを有効にできます。
 
-~~~ruby Rails.application.config.assets.compile = true ~~~
+~~~ruby
+Rails.application.config.assets.compile = true
+~~~
 
 ## <a id='workers'></a> Workers tasks ##
 
@@ -50,10 +56,7 @@ Cloud Foundry v2ではRail Consoleは未サポートです。
 
 ## <a id='rake'></a>Rakeタスクの実行 ##
 
-あなたのアプリケーションが使っているデータベースなどのサービスがCloud
-Foundryで未サポートで、直接接続可能なら、rakeタスクをローカルで(Cloud Foundry上ではなく)実行し database
-migration
-することができます。他のタスクも実行できます。サービスへの接続情報を保持している環境変数`VCAP_SERVICES`の内容へアクセスする方法については、以下をご覧ください。
+あなたのアプリケーションが使っているデータベースなどのサービスがCloud Foundryで未サポートで、直接接続可能なら、rakeタスクをローカルで(Cloud Foundry上ではなく)実行し database migration することができます。他のタスクも実行できます。サービスへの接続情報を保持している環境変数`VCAP_SERVICES`の内容へアクセスする方法については、以下をご覧ください。
 
 あるいは、manifest.yml内の起動コマンドを使ってCloud Foundry上でrakeタスクを実行できます。
 
@@ -77,16 +80,27 @@ Cloud Foundry上のRubyアプリで`VCAP_APPLICATION`の内容を見るには以
 
 `cf log APPNAME`コマンドで`env.log`の内容を取り出すこともできます。
 
-~~~ Reading logs/env.log... OK TMPDIR=/home/vcap/tmp VCAP_APP_PORT=61169
-VCAP_CONSOLE_IP=0.0.0.0 USER=vcap
-VCAP_APPLICATION={"application_users":[],"instance_id":"d05ee6e8198d8b8deb51b3a5dcd0f228","instance_index":0,"application_version":"0699019d-51f4-409e-b588-ef6669596c6f","application_name":"railsnew","application_uris":["railsnew.cfapps.io"],"started_at":"2013-06-14
-01:46:34
-+0000","started_at_timestamp":1371174394,"host":"0.0.0.0","port":61169,"limits":{"mem":256,"disk":1024,"fds":16384},"version":"0699019d-51f4-409e-b588-ef6669596c6f","name":"railsnew","uris":["railsnew.cfapps.io"],"users":[],"start":"2013-06-14
-01:46:34 +0000","state_timestamp":1371174394} RACK_ENV=production
+~~~
+Reading logs/env.log... OK
+TMPDIR=/home/vcap/tmp
+VCAP_APP_PORT=61169
+VCAP_CONSOLE_IP=0.0.0.0
+USER=vcap
+VCAP_APPLICATION={"application_users":[],"instance_id":"d05ee6e8198d8b8deb51b3a5dcd0f228","instance_index":0,"application_version":"0699019d-51f4-409e-b588-ef6669596c6f","application_name":"railsnew","application_uris":["railsnew.cfapps.io"],"started_at":"2013-06-14 01:46:34 +0000","started_at_timestamp":1371174394,"host":"0.0.0.0","port":61169,"limits":{"mem":256,"disk":1024,"fds":16384},"version":"0699019d-51f4-409e-b588-ef6669596c6f","name":"railsnew","uris":["railsnew.cfapps.io"],"users":[],"start":"2013-06-14 01:46:34 +0000","state_timestamp":1371174394}
+RACK_ENV=production
 PATH=/home/vcap/app/bin:/home/vcap/app/vendor/bundle/ruby/1.9.1/bin:/bin:/usr/bin:/bin:/usr/bin
-PWD=/home/vcap LANG=en_US.UTF-8 VCAP_SERVICES={} HOME=/home/vcap/app SHLVL=2
-RAILS_ENV=production GEM_PATH=/home/vcap/app/vendor/bundle/ruby/1.9.1:
-PORT=61169 VCAP_APP_HOST=0.0.0.0 MEMORY_LIMIT=256m DATABASE_URL=
-VCAP_CONSOLE_PORT=61170 _=/usr/bin/env
+PWD=/home/vcap
+LANG=en_US.UTF-8
+VCAP_SERVICES={}
+HOME=/home/vcap/app
+SHLVL=2
+RAILS_ENV=production
+GEM_PATH=/home/vcap/app/vendor/bundle/ruby/1.9.1:
+PORT=61169
+VCAP_APP_HOST=0.0.0.0
+MEMORY_LIMIT=256m
+DATABASE_URL=
+VCAP_CONSOLE_PORT=61170
+_=/usr/bin/env
 
 ~~~

@@ -4,8 +4,7 @@ title: Rails 3, ワーカー・タスクを実行する
 
 ## <a id='intro'></a>紹介 ##
 
-Often when developing a Rails
-3アプリケーションを開発する際、資源を節約してユーザからのリクエストに使えるようにいくつかのタスクを遅らせたいことがよくあります。
+Rails 3アプリケーションを開発する際、資源を節約してユーザからのリクエストに使えるようにいくつかのタスクを遅らせたいことがよくあります。
 
 本ガイドはワーカー・ライブラリを用いたRailsアプリケーションの例の作り方とデプロイの方法を示します。ワーカー・ライブラリで遅延されたタスクは別のアプリケーションとして実行されます。また、ワーカー・アプリケーションのリソースのスケールのさせ方も示します。
 
@@ -27,8 +26,7 @@ Often when developing a Rails
 3と密に統合することによりバックグラウンドでのメッセージ処理をとても簡単にします」 このライブラリは
 Redis-backedであり、おおむねResque messagingと互換性があります。
 
-他にもたくさんありますので、 https://www.ruby-toolbox.com/categories/Background_Jobs
-をご参照ください!
+他にもたくさんありますので、 https://www.ruby-toolbox.com/categories/Background_Jobsをご参照ください!
 
 ## <a id='example-app'></a> サンプル・アプリケーションの作成 ##
 
@@ -36,12 +34,15 @@ Redis-backedであり、おおむねResque messagingと互換性があります�
 
 最初に、モデルthingsを持つRailsアプリケーションを作ります。;
 
-<pre class="terminal"> $ rails create rails-sidekiq $ cd rails-sidekiq $
-rails g model Thing title:string description:string </pre>
+<pre class="terminal">
+$ rails create rails-sidekiq
+$ cd rails-sidekiq
+$ rails g model Thing title:string description:string </pre>
 
 Gemfileにsidekiqとuuidtoolsを追加します。以下のようになります。;
 
-~~~ruby source 'https://rubygems.org'
+~~~ruby
+source 'https://rubygems.org'
 
 gem 'rails', '3.2.9' gem 'mysql2'
 
@@ -51,17 +52,25 @@ group :assets do
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails' gem 'sidekiq' gem 'uuidtools' ~~~
+gem 'jquery-rails'
+gem 'sidekiq'
+gem 'uuidtools'
+~~~
 
-Install the bundle;
+bundleをインストールします;
 
-<pre class="terminal"> $ bundle install </pre>
+<pre class="terminal">
+$ bundle install
+</pre>
 
 sidekiqのためのワーカーをapp/workers内に作ります;
 
-<pre class="terminal"> $ touch app/workers/thing_worker.rb </pre>
+<pre class="terminal">
+$ touch app/workers/thing_worker.rb
+</pre>
 
-~~~ruby class ThingWorker
+~~~ruby
+class ThingWorker
 
   include Sidekiq::Worker
 
@@ -75,16 +84,19 @@ sidekiqのためのワーカーをapp/workers内に作ります;
 
   end
 
-end ~~~
+end
+~~~
 
-This worker will create n number of things, where n is the value passed to
-the worker.
+nをworkerに引き渡される数とすると、workerがn個のthingsが作成します。
 
-Create a controller for 'things';
+'things'のコントローラを作成します;
 
-<pre class="terminal"> $ rails g controller Thing </pre>
+<pre class="terminal">
+$ rails g controller Thing
+</pre>
 
-~~~ruby class ThingController < ApplicationController
+~~~ruby
+class ThingController < ApplicationController
 
   def new
     ThingWorker.perform_async(2)
@@ -95,20 +107,25 @@ Create a controller for 'things';
     @things = Thing.all
   end
 
-end ~~~
+end
+~~~
 
-Add a view to inspect our collection of things;
+thingsのためのviewを追加します;
 
-<pre class="terminal"> $ mkdir app/views/things $ touch
-app/views/things/index.html.erb </pre>
+<pre class="terminal">
+$ mkdir app/views/things
+$ touch app/views/things/index.html.erb
+</pre>
 
-~~~html <%= @things.inspect %> ~~~
+~~~html
+<%= @things.inspect %>
+~~~
 
-## <a id='deploy'></a>Deploying once, deploying twice... ##
+## <a id='deploy'></a>1回目のデプロイ、2回目のデプロイ…  ##
 
 このアプリケーションは2回デプロイする必要があります。1回はRailsアプリケーションのため、もう1回はRubyアプリケーションのためです。もっとも簡単な方法は、別々のcfマニフェストとして扱うことです;
 
-Web Manifest (save this as web-manifest.yml);
+Web Manifest (web-manifest.ymlとして保存);
 
 ~~~yaml
 ---
@@ -131,7 +148,7 @@ applications:
       tier: free
 ~~~
 
-Worker Manifest (save this as worker-manifest.yml);
+Worker Manifest (worker-manifest.ymlとして保存);
 
 ~~~yaml
 ---
@@ -162,18 +179,19 @@ worker-manifest.yml </pre>
 
 CFがワーカーのためのURLをきいてくるはずですが、option 2 - "none"を選びます。
 
-## <a id='test'></a>Testing the application ##
+## <a id='test'></a>アプリケーションの試験 ##
 
-該当URLのthings controllerのnewアクションを実行します。この例では、URLは
-http://sidekiq.cloudfoundry.com/thing/new になります。
+該当URLのthings controllerのnewアクションを実行します。この例では、URLはhttp://sidekiq.cloudfoundry.com/thing/new になります。
 
 新しいsidekiqジョブが作られ、Redisの待ち行列に入れられます。次に、ワーカー・アプリケーションに取り上げられ、ブラウザが/thingにリダイレクトされ、'things'コレクションが表示されます。ブラウザがリダイレクトされる前に、Sidekiqがタスクを終える可能性があります!
 
-## <a id='test'></a>Scale your workers ##
+## <a id='test'></a>workersのスケール ##
 
 このアプローチの良い点は、リソースを使わないでおき、Sidekiqワーカーのスケーリングがあまり問題にならなくなることです。
 
 ワーカーの数を2に変更します;
 
-<pre class="terminal"> $ cf scale sidekiq-worker --instances 2 </pre>
+<pre class="terminal">
+$ cf scale sidekiq-worker --instances 2
+</pre>
 

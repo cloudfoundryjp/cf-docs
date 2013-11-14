@@ -1,8 +1,7 @@
 ---
 title: Cloud Foundry Glindex (用語集 + 索引)
 ---
-このページではCloud
-Foundryの文書で使われる用語について簡単に説明しています。いくつかの用語については関連項目へのクロス・リファレンスがついています。
+このページではCloud Foundryの文書で使われる用語について簡単に説明しています。いくつかの用語については関連項目へのクロス・リファレンスがついています。
 
 ## <a id='application-manifest'></a>アプリケーションのマニフェスト ##
 
@@ -32,7 +31,7 @@ Foundryの文書で使われる用語について簡単に説明しています�
 
 > [BOSHダイレクター](#bosh-director)と相互作用するコマンドBOSH CLIはreleaseとartifactsの作成と管理を行なうコマンドの集りです。
 <br><br>
->詳しくは[BOSHコマンド・ライン・インターフェース](../bosh/reference/bosh-cli.html)をご覧ください。
+> 詳しくは[BOSHコマンド・ライン・インターフェース](../bosh/reference/bosh-cli.html)をご覧ください。
 
 ## <a id='bosh-director'></a>BOSHダイレクター ##
 
@@ -130,7 +129,7 @@ Foundryの文書で使われる用語について簡単に説明しています�
 
 > Health Managerはデーモンの一つで、定期的にCloud Controllerデータベースをスキャンし、デプロイされたアプリケーションの状態とその上で実行されるべきVMを調べます。Health Managerはあるべき状態と実際の状態を比較し、問題を見つけるとCloud Controllerへメッサージを送ります。
 <br> <br>
->詳しくは[Health Manager](health-manager.html)をご覧ください。
+> 詳しくは[Health Manager](health-manager.html)をご覧ください。
 
 ## <a id='health-monitor'></a>Health Monitor##
 
@@ -138,9 +137,7 @@ Foundryの文書で使われる用語について簡単に説明しています�
 
 ## <a id='job'></a>job ##
 
-> BOSHにおいて、ジョブとはパッケージの起動と実行のためのデプロイと実行のルールと資源の集合です。ジョブはマニフェストの中で定義されます。 (BOSH用とCloud Foundry 自体用の両方で) ジョブは、明示的あるいは参照 [resourcepool](#resource-pool)によって定義されます:
-
-<br> <br>
+> BOSHにおいて、ジョブとはパッケージの起動と実行のためのデプロイと実行のルールと資源の集合です。ジョブはマニフェストの中で定義されます。 (BOSH用とCloud Foundry 自体用の両方で) ジョブは、明示的あるいは参照 [resourcepool](#resource-pool)によって定義されます: <br> <br>
 
 > - ネットワークの設定
 
@@ -160,10 +157,9 @@ Foundryの文書で使われる用語について簡単に説明しています�
 ## <a id='job-template'></a>ジョブのテンプレート ##
 
 > [job](#job)のための、汎用的な設定ファイルとスクリプトの集りテンプレートが適用される際、ジョブはRuby ERBのテンプレートを使って最終的な設定ファイルとクリプトを生成します。BOSH CLIを使ってジョブのテンプレートを生成できます。
-
 <br><br>
 
->設定ファイルがテンプレートへ変えられる際、インスタンス特有の情報は抽象化され、VM上でジョブが起動される時に与えられます。たとえば、WWWサーバが使うポートや、データベースのユーザ名とパスワードなどです。
+> 設定ファイルがテンプレートへ変えられる際、インスタンス特有の情報は抽象化され、VM上でジョブが起動される時に与えられます。たとえば、WWWサーバが使うポートや、データベースのユーザ名とパスワードなどです。
 
 
 ## <a id='manifest'></a>manifest ##
@@ -181,11 +177,9 @@ Foundryの文書で使われる用語について簡単に説明しています�
 
 
 ## <a id='org'></a>オーガナイゼーション ##
-> Cloud
-Foundryでは、オーガナイゼーションはユーザの集りで、関連するアプリケーションとサービスのために使われます。ユーザはオーガナイゼーションに応じて、資源に対してさまざまな権限を持ちます。オーガナイゼーションは[スペース](#space)を含みます。<br><br>
+> Cloud Foundryでは、オーガナイゼーションはユーザの集りで、関連するアプリケーションとサービスのために使われます。ユーザはオーガナイゼーションに応じて、資源に対してさまざまな権限を持ちます。オーガナイゼーションは[スペース](#space)を含みます。<br><br>
 
->
-詳しくは[オーガナイゼーションとスペース](../../using/managing-apps/orgs-and-spaces.html)をご覧ください。
+> 詳しくは[オーガナイゼーションとスペース](../../using/managing-apps/orgs-and-spaces.html)をご覧ください。
 
 
 ## <a id='package'></a>パッケージ ##
@@ -207,6 +201,7 @@ Foundryでは、オーガナイゼーションはユーザの集りで、関連�
 <br><br>
 
 > リソース・プールの内容、マニフェスト内のジョブがどのように割当てられるかなどについては、[Cloud Foundryのマニフェストの例](../../running/deploying-cf/vsphere/cloud-foundry-example-manifest.html)をご覧ください。
+
 
 ## <a id='router'></a>Router ##
 
@@ -250,7 +245,7 @@ Foundryでは、オーガナイゼーションはユーザの集りで、関連�
 
 ## <a id='vcap-services'></a>VCAP_SERVICES##
 
-> あるアプリケーションにバインドされているサービスの接続情報が格納されている環境変数
+> あるアプリケーションにバインドされているサービスの接続情報が格納されている環境変数です。
 <br><br>
 > 詳しくは[VCAP_SERVICES Environment Variable](../../using/services/environment-variable.html)をご覧ください。
 

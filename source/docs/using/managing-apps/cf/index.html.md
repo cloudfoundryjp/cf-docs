@@ -2,9 +2,7 @@
 title: cfコマンド
 ---
 
-cfはCloud
-Foundryのコマンドです。cfコマンドを使ってアプリケーションをデプロイしたり管理することができます。CloudFoundry.comを含むCloud
-Foundryベースの環境で使えます。
+cfはCloud Foundryのコマンドです。cfコマンドを使ってアプリケーションをデプロイしたり管理することができます。CloudFoundry.comを含むCloud Foundryベースの環境で使えます。
 
 ## <a id='commands'></a>機能ごとに分類したコマンド ##
 
@@ -18,16 +16,19 @@ Foundryベースの環境で使えます。
 
 ## <a id='installing'></a>cfのインストール ##
 
-cfはRubyとRubyGemsを必要とします。RubyとRubyGemsについては、右のページを参照してください。[Installing
-Ruby](/docs/common/install_ruby.html).
+cfはRubyとRubyGemsを必要とします。RubyとRubyGemsについては、右のページを参照してください。[Installing Ruby](/docs/common/install_ruby.html).
 
 RubyとRubyGemsをインストールした後、cfの最新版をインストールするには以下のコマンドを実行してください。:
 
-<pre class="terminal"> $ gem install cf </pre>
+<pre class="terminal">
+$ gem install cf
+</pre>
 
 プレリリース版のcfをインストールするには:
 
-<pre class="terminal"> $ gem install cf --pre </pre>
+<pre class="terminal">
+$ gem install cf --pre
+</pre>
 
 ## <a id='usage'></a>コマンドの使い方とオプション ##
 
@@ -35,7 +36,9 @@ cfコマンドは、Cloud
 Foundryのアプリケーション、サービス、オーガナイゼーション、スペース、ドメインなどの参照、作成、変更を行なうことができます。applications,
 services, organisations, spaces, domains, and so on. 各コマンドはcfではじまります。例えば:
 
-<pre class="terminal"> $ cf push my-new-app </pre>
+<pre class="terminal">
+$ cf push my-new-app
+</pre>
 
 
 大半のコマンドは振舞を変えたり引数の値を与えたりするためのオプションを供えています。必要な引数の値をコマンドラインで指定しなかった場合、cfは対話的に必要なデータの入力を求めます。cfコマンドをスクリプトの中で使う場合、必要な引数をすべて指定しておく必要があります。コマンドのオプションは任意の順番で指定できます。
@@ -80,7 +83,8 @@ services, organisations, spaces, domains, and so on. 各コマンドはcfでは�
 * urls -- アプリケーションに割り当てられたURLです
 * services --- アプリケーションにバインドされたサービスのインスタンスです
 
-#### <a id='apps'></a> apps #### 現在のスペースのアプリケーションの一覧
+#### <a id='apps'></a> apps ####
+現在のスペースのアプリケーションの一覧
 
 <div class="command-doc">
   <pre class="terminal">$ cf apps</pre>
@@ -106,8 +110,7 @@ services, organisations, spaces, domains, and so on. 各コマンドはcfでは�
 
 サービスをアプリケーションにバインドするバインドできるサービスとできないサービスがあります。バインドをサポートしているサービスについて、アプリケーションにバインドすると資格情報が環境変数`VCAP_SERVICES`へ追加されます。バインドが使えるようにするためにはアプリケーションの再起動が必要です。
 
-[サービスの作成](#create-service)にあるように、サービスの作成と同時にアプリケーションへバインドできることに注意してください。サービスのインスタンスの作成とバインドについて、詳細は
-[サービスの追加をするには](/docs/dotcom/adding-a-service.html)をご覧ください
+[サービスの作成](#create-service)にあるように、サービスの作成と同時にアプリケーションへバインドできることに注意してください。サービスのインスタンスの作成とバインドについて、詳細は[サービスの追加をするには](/docs/dotcom/adding-a-service.html)をご覧ください
 
 
 
@@ -125,15 +128,12 @@ services, organisations, spaces, domains, and so on. 各コマンドはcfでは�
 
 #### <a id='console'></a> console ####
 
-Railsのコンソールを開き、アプリケーションへ接続する。Railsコンソールの詳細については、"Deploying Rails
-Apps"の[Rails 3,
-コンソールを使う](/docs/using/deploying-apps/ruby/rails-using-the-console.html)をご覧ください。**
+Railsのコンソールを開き、アプリケーションへ接続する。Railsコンソールの詳細については、"Deploying Rails Apps"の[Rails 3, コンソールを使う](/docs/using/deploying-apps/ruby/rails-using-the-console.html)をご覧ください。**
 
 <div class="command-doc">
   <pre class="terminal">$ cf console  [application name] [port}</pre>
   <div class="break"></div>
 </div>
-
 | オプション | 必須 | 説明 |
 | :-------- | :------- | :---------- |
 | --app     |   y       | アプリケーションの名前|
@@ -160,7 +160,7 @@ Apps"の[Rails 3,
 
 #### <a id='create-org'></a> create-org ####
 
-オーガナイゼーションを作る
+オーガナイゼーションを作る。
 
 <div class="command-doc">
   <pre class="terminal">$ cf create-org [organisation name]</pre>
@@ -201,32 +201,37 @@ Apps"の[Rails 3,
 
 #### <a id='create-service-auth-token'></a> create-service-auth-token ####
 
-サービスの認証トークンを作成する
+サービスの認証トークンを作成する。
 
 <div class="command-doc">
   <pre class="terminal">$ cf create-service-auth-token [label] [provider]</pre>
   <div class="break"></div>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--label | |Token
-lable.| |--provider | |トークンのプロヴァイダー| |--token TOKEN | |トークンの値|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--label | |トークンのラベル|
+|--provider | |トークンのプロヴァイダー|
+|--token TOKEN | |トークンの値|
 
 
 #### <a id='create-space'></a> create-space ###
 
-オーガナイゼーションの中にスペースを作成する
+オーガナイゼーションの中にスペースを作成する。
 
 <div class="command-doc">
   <pre class="terminal">$ cf create-space [space name] [organization name]</pre>
   <div class="break"></div>
 </div>
 
-| オプション | | 説明 | | :-------- | :------- | :---------- | |--[no-]developer |
-|あなたをスペースへ開発者として追加するかどうかを指定します。| | --[no-]manager|
-|あなたをスペースへ管理者として追加するかどうかを指定します。| |--auditor |
-|あなたをスペースへ監査者として追加するかどうかを指定します。| |--name NAME | |新しいスペースの名前| |-o,
---organization, --org ORGANIZATION | |スペースを追加するオーガナイゼーションの名前| |-t, --target
-| |スペースの作成後、そのスペースへスイッチするかどうかを指定する。|
+| オプション | | 説明 |
+| :-------- | :------- | :---------- |
+|--[no-]developer | |あなたをスペースへ開発者として追加するかどうかを指定します。|
+| --[no-]manager| |あなたをスペースへ管理者として追加するかどうかを指定します。|
+|--auditor | |あなたをスペースへ監査者として追加するかどうかを指定します。|
+|--name NAME | |新しいスペースの名前|
+|-o, --organization, --org ORGANIZATION | |スペースを追加するオーガナイゼーションの名前|
+|-t, --target | |スペースの作成後、そのスペースへスイッチするかどうかを指定する。|
 
 
 #### <a id='create-user'></a> create-user ####
@@ -241,10 +246,12 @@ lable.| |--provider | |トークンのプロヴァイダー| |--token TOKEN | |�
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--email EMAIL |
-y|Email of the new user. | |--password PASSWORD |y |新規ユーザのパスワード| |--verify
-VERIFY |y |もう一度パスワードを指定する| |-o, --organization, --org ORGANIZATION|
-|新規ユーザの割当てられるオーガナイゼーション。|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--email EMAIL | y|Email of the new user. |
+|--password PASSWORD |y |新規ユーザのパスワード|
+|--verify VERIFY |y |もう一度パスワードを指定する|
+|-o, --organization, --org ORGANIZATION| |新規ユーザの割当てられるオーガナイゼーション。|
 
 #### <a id='delete'></a> delete ####
 
@@ -255,10 +262,12 @@ VERIFY |y |もう一度パスワードを指定する| |-o, --organization, --or
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--all |n
-|現在のスペースのアプリケーションすべてを削除する。| |--apps, --app APPS |y | 削除されるアプリケーションの名前|
-|--routes | n |削除されるアプリケーションに対応づけられたルートを削除するか | |-o, --delete-orphaned
-DELETE_ORPHANED |n | |
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--all |n |現在のスペースのアプリケーションすべてを削除する。|
+|--apps, --app APPS |y | 削除されるアプリケーションの名前|
+|--routes | n |削除されるアプリケーションに対応づけられたルートを削除するか |
+|-o, --delete-orphaned DELETE_ORPHANED |n | |
 
 #### <a id='delete-org'></a> delete-org ####
 
@@ -270,8 +279,11 @@ DELETE_ORPHANED |n | |
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | | --[no-]warn| |
-| | -o, --organization, --org ORGANIZATION| | | | -r, --recursive| | |
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+| --[no-]warn| | |
+| -o, --organization, --org ORGANIZATION| | |
+| -r, --recursive| | |
 
 
 #### <a id='delete-route'></a> delete-route ####
@@ -294,7 +306,7 @@ DELETE_ORPHANED |n | |
   <div class="break"></div>
 </div>
 
-#### <a id='delete-service'></a> delete-service ####
+#### <a id='delete-service'></a> サービスの削除 ####
 
 サービスを削除する。
 
@@ -319,10 +331,12 @@ DELETE_ORPHANED |n | |
   <div class="break"></div>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--[no-]warn |
-|削除しようとしているスペースがオーガナイゼーション内で最後の一つの場合に警告するかどうか。| |--space SPACE | |削除するスペース|
-|-o, --organization, --org ORGANIZATION | |削除するスペースを含んでいるオーガナイゼーション| |-r,
---recursive | |
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--[no-]warn | |削除しようとしているスペースがオーガナイゼーション内で最後の一つの場合に警告するかどうか。|
+|--space SPACE | |削除するスペース|
+|-o, --organization, --org ORGANIZATION | |削除するスペースを含んでいるオーガナイゼーション|
+|-r, --recursive | |
 
 #### <a id='delete-user'></a> delete-user ####
 
@@ -380,9 +394,10 @@ S3のAPIキーのような知られたくないデータを格納する際、ソ
   <div class="break"></div>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--name NAME |
-n|オブジェクトの名前| |--type TYPE |y |オプジェクトのタイプ: "app", "org", "space", "domain".
-|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--name NAME | n|オブジェクトの名前|
+|--type TYPE |y |オプジェクトのタイプ: "app", "org", "space", "domain".  |
 
 
 #### <a id='health'></a> health ####
@@ -401,8 +416,10 @@ n|オブジェクトの名前| |--type TYPE |y |オプジェクトのタイプ: 
 
 ターゲットの情報の表示
 
-| オプション	 | 必須 | 説明 | | :-------- | :------- | :---------- | |-a, --all | n|
-| |-s, --services |n | |
+| オプション	 | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|-a, --all | n| |
+|-s, --services |n | |
 
 以下の情報が返されます:
 
@@ -433,13 +450,14 @@ n|オブジェクトの名前| |--type TYPE |y |オプジェクトのタイプ: 
   <div class="break"></div>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--password
-PASSWORD |y |認証用パスワード| |--username, --email EMAIL |y
-|ユーザ・アカウントを識別するためのユーザ名またはメールアドレス| |-o, --organization, --org ORGANIZATION |n
-|ログインした時にスイッチするオーガナイゼーションを指定する。| |-s, --space SPACE |n
-|ログインした時にスイッチするスペースを指定する。|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--password PASSWORD |y |認証用パスワード|
+|--username, --email EMAIL |y |ユーザ・アカウントを識別するためのユーザ名またはメールアドレス|
+|-o, --organization, --org ORGANIZATION |n |ログインした時にスイッチするオーガナイゼーションを指定する。|
+|-s, --space SPACE |n |ログインした時にスイッチするスペースを指定する。|
 
-#### <a id='logout'></a> logout ####
+#### <a id='logout'></a> ログアウト ####
 
 ターゲットからログアウトする。
 
@@ -458,14 +476,14 @@ PASSWORD |y |認証用パスワード| |--username, --email EMAIL |y
   <pre class="terminal">$ cf logs [application name]</pre>
   <div class="break"></div>
 </div>
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--all |n |アプリケーションのすべてのインスタンスのログの一覧を表示する|
+|--app APP |y |アプリケーションの名前|
+|--instance INSTANCE |n |ログを見たいアプリケーションのインスタンスを指定する。たとえば、"2"。<br>指定がなければ、最初のインスタンス("0")が表示される。|
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--all |n
-|アプリケーションのすべてのインスタンスのログの一覧を表示する| |--app APP |y |アプリケーションの名前| |--instance
-INSTANCE |n
-|ログを見たいアプリケーションのインスタンスを指定する。たとえば、"2"。<br>指定がなければ、最初のインスタンス("0")が表示される。|
 
-
-#### <a id='map'></a> map ####
+#### <a id='map'></a> マップ ####
 
 URLとアプリケーションを関連づけます。
 
@@ -474,8 +492,11 @@ URLとアプリケーションを関連づけます。
   <div class="break"></div>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--app APP|
-|URLと関連づけたいアプリケーション| |--domain DOMAIN | |トップ・レベルのドメイン| |--host HOST | | |
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--app APP| |URLと関連づけたいアプリケーション|
+|--domain DOMAIN | |トップ・レベルのドメイン|
+|--host HOST | | |
 
 
 #### <a id='map-domain'></a> map-domain ####
@@ -493,7 +514,7 @@ URLとアプリケーションを関連づけます。
 |-o, --organization, --org ORGANIZATION   | |ドメインがマップされるオーガナイゼーション指定がない場合、ドメインはオーガナイゼーションに関連づけられます。|
 
 
-#### <a id='org'></a> org ####
+#### <a id='org'></a> オーガナイゼーション ####
 
 オーガナイゼーションの情報の表示
 
@@ -503,18 +524,20 @@ URLとアプリケーションを関連づけます。
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--full |
-|オーガナイゼーション内のスペースの情報を帰す| |--org ORGANIZATION |
-|データ表示の対象となるオーガナイゼーション指定されなければ、現在のオーガナイゼーションの情報が返されます。|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--full | |オーガナイゼーション内のスペースの情報を帰す|
+|--org ORGANIZATION | |データ表示の対象となるオーガナイゼーション指定されなければ、現在のオーガナイゼーションの情報が返されます。|
 
 以下のようなデータが返されます:
 
 * domains -- オーガナイゼーションへマップされたドメイン
 * spaces -- オーガナイゼーション内のスペース
 * `--full`オプションが指定されていれば、オーガナイゼーション内の各スペースについて以下のデータが返されます:
-     * apps -- スペースへデプロイされたアプリケーション     * services -- スペースの中のサービス
+     * apps -- スペースへデプロイされたアプリケーション
+     * services -- スペースの中のサービス
 
-#### <a id='orgs'></a> orgs ####
+#### <a id='orgs'></a> オーガナイゼーション ####
 
 オーガナイゼーションの一覧
 
@@ -528,11 +551,14 @@ URLとアプリケーションを関連づけます。
 * domains -- オーガナイゼーションへマップされたドメイン
 * spaces -- オーガナイゼーション内のスペース
 * `--full`オプションが指定されていれば、オーガナイゼーション内の各スペースについて以下のデータが返されます:
-     * apps -- スペースへデプロイされたアプリケーション     * services -- スペースの中のサービス
+     * apps -- スペースへデプロイされたアプリケーション
+     * services -- スペースの中のサービス
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--full |n
-|オーガナイゼーション内のスペースの情報を返す| #### <a id='passwd'></a> passwd ####
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--full |n |オーガナイゼーション内のスペースの情報を返す|
+#### <a id='passwd'></a> passwd ####
 
 ユーザのパスワードを設定する。<div class="command-doc">
   <pre class="terminal">$ cf passwd [email]</pre>
@@ -593,7 +619,7 @@ behaves similarly to `.gitignore`.
 |--password PASSWORD  | | |
 |--verify VERIFY
  | | |
-#### <a id='rename'></a> rename ####
+#### <a id='rename'></a> リネーム ####
 
 アプリケーションの名前を変更します。コマンド・ラインで必要なオプションを指定しなかった場合、cfは入力を求めてきます。
 
@@ -618,7 +644,7 @@ behaves similarly to `.gitignore`.
   <div class="break"></div>
 </div>
 
-#### <a id='rename-space'></a> rename-space ####
+#### <a id='rename-space'></a> スペースのリネーム ####
 
 Rename a space.
 
@@ -627,7 +653,7 @@ Rename a space.
   <div class="break"></div>
 </div>
 
-#### <a id='restart'></a> restart ####
+#### <a id='restart'></a> 再起動 ####
 
 アプリケーションを停止し、その後起動します。
 
@@ -636,9 +662,11 @@ Rename a space.
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--all |
-|現在のスペースのアプリケーションすべてを削除する。| |--app APP | |削除されるアプリケーションの名前| |-d,
---debug-mode DEBUG_MODE | |デバッグ・モードに設定し、アプリケーションを再起動します。|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--all | |現在のスペースのアプリケーションすべてを削除する。|
+|--app APP | |削除されるアプリケーションの名前|
+|-d, --debug-mode DEBUG_MODE | |デバッグ・モードに設定し、アプリケーションを再起動します。|
 
 #### <a id='routes'></a>ルート ####
 
@@ -660,13 +688,17 @@ Rename a space.
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--[no-]restart |
-|アプリケーションを更新した後に再起動したいかどうかを指定する。 ||--app APP | |更新するアプリケーション||--disk DISK |
-|アプリケーションへ割当てるディスク容量 ||--instances INSTANCES | |実行するインスタンスの数 ||--memory
-MEMORY | |アプリケーションへ割当てるメモリ容量 |||--plan PLAN | |アプリケーションのプラン ||
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--[no-]restart | |アプリケーションを更新した後に再起動したいかどうかを指定する。 |
+|--app APP | |更新するアプリケーション|
+|--disk DISK | |アプリケーションへ割当てるディスク容量 |
+|--instances INSTANCES | |実行するインスタンスの数 |
+|--memory MEMORY | |アプリケーションへ割当てるメモリ容量 |
+|--plan PLAN | |アプリケーションのプラン |
 
 
-#### <a id='service-auth-token'></a> service-auth-token ####
+#### <a id='service-auth-token'></a> 認証用トークン ####
 
 認証用トークンの一覧
 
@@ -745,9 +777,10 @@ MEMORY | |アプリケーションへ割当てるメモリ容量 |||--plan PLAN 
   <pre class="terminal">$ cf set-quota [QUOTA_DEFINITION] [ORGANIZATION]</pre>
 </div>
 
-| Qualifier | Required | Description | | :-------- | :------- | :----------
-| |--quota-definition QUOTA-DEFINITION| y| 設定できる値は "free", "paid",
-"runaway", "trial"| |--organization ORG |y |クォータの対象となるオーガナイゼーション ||
+| Qualifier | Required | Description |
+| :-------- | :------- | :---------- |
+|--quota-definition QUOTA-DEFINITION| y| 設定できる値は "free", "paid", "runaway", "trial"|
+|--organization ORG |y |クォータの対象となるオーガナイゼーション |
 
 
 #### <a id='space'></a> space ####
@@ -759,10 +792,11 @@ MEMORY | |アプリケーションへ割当てるメモリ容量 |||--plan PLAN 
   <div class="break"></div>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--full |
-|スペース内のアプリケーションの情報を含める| |--space SPACE |
-|情報を見たいスペース指定がなければ、現在のスペースの情報が返される。| |--org ORGANIZATION |
-|データ表示の対象となるオーガナイゼーション指定がなければ、現在のオーガナイゼーションの情報が返される。|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--full | |スペース内のアプリケーションの情報を含める|
+|--space SPACE | |情報を見たいスペース指定がなければ、現在のスペースの情報が返される。|
+|--org ORGANIZATION | |データ表示の対象となるオーガナイゼーション指定がなければ、現在のオーガナイゼーションの情報が返される。|
 
 以下のようなデータが返されます:
 
@@ -782,11 +816,12 @@ MEMORY | |アプリケーションへ割当てるメモリ容量 |||--plan PLAN 
   <div class="break"></div>
 </div>
 
-| Qualifier | Required | Description | | :-------- | :------- | :----------
-| |--full | |各スペースのアプリケーションとサービスの情報を含める||--name NAME |
-|名前でフィルター指定がなければ、指定のオーガナイゼーション内のすべてのスペースの情報になる。| |--org ORGANIZATION |
-|オーガナイゼーションの指定指定がなければ、現在のオーガナイゼーション内のスペースが対象。| #### <a id='start'></a> start
-####
+| Qualifier | Required | Description |
+| :-------- | :------- | :---------- |
+|--full | |各スペースのアプリケーションとサービスの情報を含める|
+|--name NAME | |名前でフィルター指定がなければ、指定のオーガナイゼーション内のすべてのスペースの情報になる。|
+|--org ORGANIZATION | |オーガナイゼーションの指定指定がなければ、現在のオーガナイゼーション内のスペースが対象。|
+#### <a id='start'></a> start ####
 
 アプリケーションの起動
 
@@ -794,9 +829,11 @@ MEMORY | |アプリケーションへ割当てるメモリ容量 |||--plan PLAN 
   <pre class="terminal">$ cf start [APP]</pre>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--all |
-|スペース内のすべてのアプリケーションを起動する| |--apps, --app APPS | |起動するアプリケーションを指定する| |-d,
---debug-mode DEBUG_MODE | |アプリケーションをデバッグ・モードで起動する|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--all | |スペース内のすべてのアプリケーションを起動する|
+|--apps, --app APPS | |起動するアプリケーションを指定する|
+|-d, --debug-mode DEBUG_MODE | |アプリケーションをデバッグ・モードで起動する|
 
 #### <a id='stats'></a> stats ####
 
@@ -822,8 +859,10 @@ MEMORY | |アプリケーションへ割当てるメモリ容量 |||--plan PLAN 
   <pre class="terminal">$ cf stop [list of application names]</pre>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--all |
-|スペース内のすべてのアプリケーションの停止||--apps, --app APPS | |停止するアプリケーションの指定|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--all | |スペース内のすべてのアプリケーションの停止|
+|--apps, --app APPS | |停止するアプリケーションの指定|
 
 #### <a id='switch-space'></a> switch-space ####
 
@@ -842,7 +881,9 @@ MEMORY | |アプリケーションへ割当てるメモリ容量 |||--plan PLAN 
   <div class="break"></div>
 </div>
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--app APP| | |
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--app APP| | |
 |--path PATH | | |
 
 #### <a id='target'></a> target ####
@@ -855,9 +896,11 @@ MEMORY | |アプリケーションへ割当てるメモリ容量 |||--plan PLAN 
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | | --url URL |n|
-別のCloud Foundryインスタンスを指定する時に使う | | --org ORGANIZATION |n
-|別のオーガナイゼーションを指定する時に使う||--space SPACE |n |別のスペースを指定する時に使う|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+| --url URL |n| 別のCloud Foundryインスタンスを指定する時に使う |
+| --org ORGANIZATION |n |別のオーガナイゼーションを指定する時に使う|
+|--space SPACE |n |別のスペースを指定する時に使う|
 
 コマンド・ラインでオプションが指定されなかった場合、以下のデータが返されます:
 
@@ -913,9 +956,11 @@ to Services](../../services/tunnelling-with-services.html)をご覧ください�
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--delete | |
-ドメインの切り離し、または削除を指定する||--domain DOMAIN | |切り離すドメイン | | --space SPACE| |
-ドメインを切り離すスペース| | --org ORGANIZATION| |ドメインを切り離すオーガナイゼーション|
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--delete | | ドメインの切り離し、または削除を指定する||--domain DOMAIN | |切り離すドメイン |
+| --space SPACE| | ドメインを切り離すスペース|
+| --org ORGANIZATION| |ドメインを切り離すオーガナイゼーション|
 
 #### <a id='unmap'></a> unmap ####
 
@@ -927,9 +972,12 @@ URLとアプリケーションの関連を断ちきる。
 </div>
 
 
-| オプション | 必須 | 説明 | | :-------- | :------- | :---------- | |--all |
-|すべてのルートについて動作する | | --app APP| |URLを切り離すアプリケーション| |--url URL | |切り離すURL| |
-| | |
+| オプション | 必須 | 説明 |
+| :-------- | :------- | :---------- |
+|--all | |すべてのルートについて動作する |
+| --app APP| |URLを切り離すアプリケーション|
+|--url URL | |切り離すURL|
+| | | |
 
 #### <a id='unset-env'></a> unset-env ####
 

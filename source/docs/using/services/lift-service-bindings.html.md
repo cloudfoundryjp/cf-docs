@@ -6,18 +6,16 @@ title: Lift - サービスのバインド
 
 本ガイドは、liftアプリケーションをCloud Foundryのサービスへ接続する方法を説明します。
 
-## <a id='auto'></a>Auto-reconfiguration ##
+## <a id='auto'></a>自動設定 ##
 
 デフォルトでは、Cloud FoundryはLiftアプリケーションの中のサービスへの接続を検出し、Cloud
 Foundry環境が提供する資格情報を使って設定します。オート・リコンフィギュレーションは、各タイプごとに一つのサービスだけが使われている場合にのみ適用されます
 - rリレーショナル・データベース(MySQL or Postgres), MongoDB, Redis,
 RabbitMQ各タイプごとで二つ以上のサービスを使っているか、よりきめ細かい制御をしたいならば、自分で設定することもできます。やり方については後述します。
 
-## <a id='manual'></a>Manual Configuration ##
+## <a id='manual'></a>手動設定 ##
 
-Scalaでデータベース接続の手動設定をしたい場合、プロジェクトへもう少し追加する必要があります。まず、`spring-core`と`cloudfoundry-runtime`をMavenの`pom.xml`
-へ追加します。**Cloud Foundry
-v2をサポートするには、`cloudfoundry-runtime`のヴァージョンは`0.8.4`以上にしてください**:
+Scalaでデータベース接続の手動設定をしたい場合、プロジェクトへもう少し追加する必要があります。まず、`spring-core`と`cloudfoundry-runtime`をMavenの`pom.xml` へ追加します。**Cloud Foundry v2をサポートするには、`cloudfoundry-runtime`のヴァージョンは`0.8.4`以上にしてください**:
 
 ~~~xml
   <dependency>
@@ -43,9 +41,7 @@ Spring milestonesリポジトリも追加が必要になるでしょう:
   </repository>
 ~~~
 
-Now set the Connection Manager in
-`./src/main/scala/bootstrap/liftweb/Boot.scala`. Import the following
-namespaces first:
+`./src/main/scala/bootstrap/liftweb/Boot.scala`の中のConnection Managerを設定しましょう。以下のnamespacesをインポートします:
 
 ~~~scala
   import org.cloudfoundry.runtime.env._

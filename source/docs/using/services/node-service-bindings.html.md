@@ -10,23 +10,21 @@ title: サービスのバインド
 
 ## <a id='prerequisites'></a>前提 ##
 
-* Cloud Foundryのアカウント。
-  右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup
+* Cloud Foundryのアカウント。右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup)
 * The [CF](../../managing-apps/) コマンド・ライン・ツール
-* [Node.js](http://www.nodejs.org) installed using the matching version of
-  Node.js on your Cloud Foundry instance
-* [NPM](http://npmjs.org/) - Node Package Manager, to manage dependencies on
-  your application
-* A sample application such as the one created in [this](./index.html)
-  tutorial
+* [Node.js](http://www.nodejs.org) Cloud Foundryインスタンスへ適切なヴァージョンのNODE.jsをインストールする。
+* [NPM](http://npmjs.org/) - アプリの依存関係などを管理するNodeパッケージマネージャー
+* サンプル・アプリケーションは[このチュートリアル](./index.html)にあります。
 
-### <a id='creating'></a> Creating a service ##
+### <a id='creating'></a> サービスを作成する ##
 
 サービスを作るには、以下のようにcfコマンドを実行し、対話的に質問に答えます;
 
-~~~bash $ cf create-service ~~~
+~~~bash
+$ cf create-service
+~~~
 
-## <a id='autoconfig'></a>Auto Configuration ##
+## <a id='autoconfig'></a>自動設定 ##
 
 以下のようなサービスがNode.jsアプリケーションにバインドされている時、Cloud Foundryが自動的に設定します。
 
@@ -57,30 +55,36 @@ node モジュールを追加します。以下の二箇所を変更し、cf-aut
 
 アプリケーションの先頭でこのライブラリをrequireします;
 
-~~~javascript require("cf-autoconfig"); var express = require("express");
+~~~javascript
+require("cf-autoconfig");
+var express = require("express");
 var app = express();
 
 app.get('/', function(req, res) {
     res.send('Hello from Cloud Foundry');
 });
 
-app.listen(3000); ~~~
+app.listen(3000);
+~~~
 
 通常通りアプリケーションをデプロイすると、ポートが自動的に割当てられ、接続が行なわれます。自動設定を使いたくなければ、環境変数から得たポートへ接続するようアプリを変更するだけです;
 
-~~~javascript var express = require("express"); var app = express();
+~~~javascript
+var express = require("express");
+var app = express();
 
 app.get('/', function(req, res) {
     res.send('Hello from Cloud Foundry');
 });
 
-app.listen(process.env.VCAP_APP_PORT || 3000); ~~~
+app.listen(process.env.VCAP_APP_PORT || 3000);
+~~~
 
-## <a id='Connecting'></a> Connecting to a Service ##
+## <a id='Connecting'></a> サービスへ接続する ##
 
 アプリケーションにrecord_visitという関数を追加してみましょう。これは訪問者のIPアドレスと日付を記録する、接続のデモンストレーションです。
 
-### <a id='module-support'></a> Adding support for the correct module ###
+### <a id='module-support'></a> 適切なモジュールのサポートを追加する ###
 
 package.jsonを編集し、dependenciesセクションへ該当モジュールを追加します。通常、一つだけが必要ですが、念のためすべて追加することにします。
 
@@ -108,7 +112,9 @@ package.jsonを編集し、dependenciesセクションへ該当モジュール�
 
 ### <a id='mongodb'></a> Mongodb ##
 
-~~~javascript require("cf-autoconfig"); var express = require("express");
+~~~javascript
+require("cf-autoconfig");
+var express = require("express");
 var app = express();
 
 var record_visit = function(req, res){
@@ -132,7 +138,9 @@ app.listen(3000); ~~~~
 
 ### <a id='redis'></a> Redis ##
 
-~~~javascript require("cf-autoconfig"); var express = require("express");
+~~~javascript
+require("cf-autoconfig");
+var express = require("express");
 var app = express();
 
 var record_visit = function(req, res){
@@ -151,12 +159,15 @@ app.get('/', function(req, res) {
   res.send('Hello from Cloud Foundry');
 });
 
-app.listen(3000); ~~~~
+app.listen(3000);
+~~~~
 
 
 ### <a id='mysql'></a> MySQL ##
 
-~~~javascript require("cf-autoconfig"); var express = require("express");
+~~~javascript
+require("cf-autoconfig");
+var express = require("express");
 var app = express();
 
 var record_visit = function(req, res){
@@ -183,11 +194,14 @@ app.get('/', function(req, res) {
   record_visit(req, res);
 });
 
-app.listen(3000); ~~~~
+app.listen(3000);
+~~~~
 
 ### <a id='rabbitmq'></a> Rabbit MQ ##
 
-~~~javascript require("cf-autoconfig"); var express = require("express");
+~~~javascript
+require("cf-autoconfig");
+var express = require("express");
 var app = express();
 
 var record_visit = function(req, res){
@@ -215,12 +229,14 @@ app.get('/', function(req, res) {
   record_visit(req, res);
 });
 
-app.listen(3000); ~~~~
+app.listen(3000);
+~~~~
 
 ### <a id='binding'></a> Binding a service ##
 
 サービスとアプリケーションをバインドするためには、以下のcfコマンドを実行してください;
 
-~~~bash $ cf bind-service --app [application name] --service [service name]
+~~~bash
+$ cf bind-service --app [application name] --service [service name]
 ~~~
 

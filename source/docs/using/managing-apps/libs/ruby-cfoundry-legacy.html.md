@@ -12,20 +12,25 @@ title: CFoundry Ruby Gemでアプリケーションを管理する (旧版のClo
 
 ~~~ruby
 
-source 'https://rubygems.org' gem 'cfoundry'
+source 'https://rubygems.org'
+gem 'cfoundry'
 
 ~~~
 
 cfoundryの最初のステップは、クライアントのインスタンスを作りログインすることです。;
 
-~~~ruby require 'cfoundry'
+~~~ruby
+require 'cfoundry'
 
-endpoint = 'http://api.cloudfoundry.com' username = 'my_cf_user' password =
-'my_cf_password'
+endpoint = 'http://api.cloudfoundry.com'
+username = 'my_cf_user'
+password = 'my_cf_password'
 
-client = CFoundry::Client.new endpoint client.login username, password ~~~
+client = CFoundry::Client.new endpoint
+client.login username, password
+~~~
 
-Test the connection by listing the available services;
+試しに利用可能なサービスへの接続の一覧を表示します;
 
 ~~~ruby
 
@@ -33,17 +38,17 @@ client.services.collect { |x| x.description }
 
 ~~~
 
-## <a id='persist-authentication'></a>Persisting Authentication (Using cf
-tokens) ##
+## <a id='persist-authentication'></a>認証の要求 (cfトークンを使う) ##
 
-あなたの資格情報をばらすことなくcfoundryクライアントのオブジェクトを作る安全な方法は、cfでログインして生成されたauthトークンを使うことです。authトークンはcfによって~/.cf/tokens.ymlに保存されます。以下のrubyコードの断片は、このファイルを開き、適切なauthトークンを選択し、それを使ってCloud
-Foundryへログインします。
+あなたの資格情報を公開することなくcfoundryクライアントのオブジェクトを作る安全な方法は、cfでログインして生成されたauthトークンを使うことです。authトークンはcfによって~/.cf/tokens.ymlに保存されます。以下のrubyコードの断片は、このファイルを開き、適切なauthトークンを選択し、それを使ってCloud Foundryへログインします。
 
 ~~~ruby
 
-require 'cfoundry' require 'yaml'
+require 'cfoundry'
+require 'yaml'
 
-home = ENV['HOME'] endpoint = 'https://api.cloudfoundry.com'
+home = ENV['HOME']
+endpoint = 'https://api.cloudfoundry.com'
 
 config = YAML.load File.read("#{home}/.cf/tokens.yml")  token =
 CFoundry::AuthToken.from_hash config[endpoint]
@@ -54,12 +59,12 @@ client = CFoundry::Client.new endpoint, token
 
 クライアントのオブジェクトができれば、以前と同様のやり方で扱えます。
 
-## <a id='services'></a>Services ##
+## <a id='services'></a>サービス ##
 
 クライアントのクラスは四つのサービスを含んでいます; services, service_instances,
 service_instance_by_name, service_instanceの四つです。
 
-一番目のメソッド'services'は、使用可能なすべてのサービスのハッシュを返します。;
+一番目のメソッド'services'は、使用可能なすべてのサービスのハッシュを返します;
 
 ~~~ruby
 pp client.services
@@ -101,30 +106,36 @@ pp client.service_instances
  #<CFoundry::V1::ServiceInstance 'mongodb-220c4'>]
 ~~~
 
-The 'service\_instance\_by_name' method returns a named service instance;
+The 'service\_instance\_by_name'メソッドは指定されたサービスのインスタンスを返します;
 
-~~~ruby client.service_instance_by_name 'mysql-7327e' =>
-#<CFoundry::V1::ServiceInstance 'mysql-7327e'> ~~~
+~~~ruby
+client.service_instance_by_name 'mysql-7327e'
+=> #<CFoundry::V1::ServiceInstance 'mysql-7327e'>
+~~~
 
 サービスのインスタンスを作るには、service_instanceメソッドを使用します;
 
-~~~ruby service = client.service_instance 'my_new_service' service.vendor =
-'redis' # <- this is the label property of the service service.version =
-'2.6' # <- if there are multiple versions of the same service, specify the
-one required service.tier = 'free' service.create!
+~~~ruby
+service = client.service_instance 'my_new_service'
+service.vendor = 'redis' # <- this is the label property of the service
+service.version =
+'2.6' # <- if there are multiple versions of the same service, specify the one required
+service.tier = 'free'
+service.create!
 
-# if the create was succesful, it should return true.  ~~~ ## <a
-id='runtimes-and-frameworks'></a>Runtimes and Frameworks ##
+# if the create was succesful, it should return true. 
+~~~
+## <a id='runtimes-and-frameworks'></a>ランタイムとフレームワーク ##
 
 ランタイムとフレームワークは、その両方を参照するのに使えるコレクションを持っています;
 
 ~~~ruby
 
-client.frameworks.collect { |x| x.name } => ["rails3", "rack", "java_web",
-"play", "spring", "node", "standalone", "lift", "sinatra", "grails"]
+client.frameworks.collect { |x| x.name }
+=> ["rails3", "rack", "java_web", "play", "spring", "node", "standalone", "lift", "sinatra", "grails"]
 
-client.runtimes.collect { |x| x.name } => ["java", "java7", "node",
-"node06", "node08", "ruby18", "ruby19"]
+client.runtimes.collect { |x| x.name }
+=> ["java", "java7", "node", "node06", "node08", "ruby18", "ruby19"]
 
 ~~~
 
@@ -147,19 +158,23 @@ pp client.apps
 
 'app\_by\_name'メソッドは、名前を指定してアプリケーションを検索します;
 
-~~~ruby client.app_by_name 'sidekiq' => #<CFoundry::V1::App 'sidekiq'> ~~~
+~~~ruby
+client.app_by_name 'sidekiq'
+=> #<CFoundry::V1::App 'sidekiq'>
+~~~
 
 アプリケーションのユーザを作るには、app methodメソッドを使います;
 
 ~~~ ruby
 
-app = client.app 'my_new_app' app.instances = 1 # <- set the number of
+app = client.app 'my_new_app'
+app.instances = 1 # <- set the number of
 instances you want app.memory = 256 # <- set the allocated amount of memory
 app.services = [service] # <- set the services bound to the appliation as an
 array of references to service_instance objects (optional)
-app.framework_name = 'standalone' # <- the name of the framework app.command
-= 'bundle exec ./app.rb' # <- an optional command to start the application
-(if standalone)  app.runtime_name = 'ruby19' # <- the name of the runtime
+app.framework_name = 'standalone' # <- the name of the framework
+app.command = 'bundle exec ./app.rb' # <- an optional command to start the application (if standalone) 
+app.runtime_name = 'ruby19' # <- the name of the runtime
 app.create!
 
 ~~~

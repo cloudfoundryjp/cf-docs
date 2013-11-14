@@ -10,9 +10,7 @@ Cloud Foundryは多くのフレームワークやランタイムをサポート�
 | Java / JVM     | [Java Spring, Grails, Scala Lift, Play](/docs/using/deploying-apps/jvm/index.html)|
 | Ruby           | [Rack, Rails, or Sinatra](/docs/using/deploying-apps/ruby/index.html)                 |
 
-ビルドパック・モデルを使ってCloud Foundry 以下のフレームワークとランタイムをサポートします。<a href="https://devcenter.heroku.com/articles/third-party-buildpacks">Heroku
-third party buildpacks</a>のいくつかは動作するでしょうが、動かないものもあるでしょう。これらのビルドパックの一つを用いてアプリケーションをプッシュするには、`cf
-push [appname] --buildpack=[git url]`を実行してください。
+ビルドパック・モデルを使ってCloud Foundry 以下のフレームワークとランタイムをサポートします。<a href="https://devcenter.heroku.com/articles/third-party-buildpacks">Heroku third party buildpacks</a>のいくつかは動作するでしょうが、動かないものもあるでしょう。これらのビルドパックの一つを用いてアプリケーションをプッシュするには、`cf push [appname] --buildpack=[git url]`を実行してください。
 
 あなた独自のカスタム・ビルドパックを作ることができます。[独自のビルドパック](buildpacks.html)
 

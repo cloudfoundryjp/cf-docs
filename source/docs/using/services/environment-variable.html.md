@@ -8,7 +8,9 @@ title: VCAP_SERVICES環境変数
 
 このコマンドはVCAP_SERVICESを含むすべての環境変数を見ることができます。
 
-<pre class="terminal"> $ cf files APP_NAME_HERE logs/env.log </pre>
+<pre class="terminal">
+$ cf files APP_NAME_HERE logs/env.log
+</pre>
 
 ## <a id='app'></a>アプリケーションからVCAP_SERVICESを参照する ##
 
@@ -16,20 +18,25 @@ title: VCAP_SERVICES環境変数
 
 ### Java
 
-``` System.getenv("VCAP_SERVICES"); ```
+```
+System.getenv("VCAP_SERVICES");
+```
 
 ### Ruby
 
-``` ENV['VCAP_SERVICES'] ```
+```
+ENV['VCAP_SERVICES']
+```
 
 ### Node.js
 
-``` process.env.VCAP_SERVICES ```
+```
+process.env.VCAP_SERVICES
+```
 
 ## <a id='example'></a>Example Contents ##
 
-この例では、VCAP\_SERVICESの内容を読み出します。ここでは、四つのサービスのインスタンスを作成し、バインドしています。一つ目はClearDB,
-二つ目はCloudAMQP, もう一つはRedis Cloudです。
+この例では、VCAP\_SERVICESの内容を読み出します。ここでは、四つのサービスのインスタンスを作成し、バインドしています。一つ目はClearDB, 二つ目はCloudAMQP, もう一つはRedis Cloudです。
 
 ~~~
 VCAP_SERVICES=
@@ -83,10 +90,10 @@ VCAP_SERVICES=
 }
 ~~~
 
-## <a id='database_url'></a>DATABASE_URL ##
+## <a id='database_url'></a>データベースのURL ##
 
 もしアプリケーションが接続用文字列を設定されたDATABASE_URLに依存しているのなら、自分で設定してもかまいません。
 
-<pre class="terminal"> $ cf set-env myapp DATABASE_URL
-mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab
+<pre class="terminal">
+$ cf set-env myapp DATABASE_URL mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab
 </pre>

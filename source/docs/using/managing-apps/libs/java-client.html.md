@@ -13,8 +13,7 @@ milestoneリポジトリから入手できます。以下のような情報が�
 
 ### <a id='maven'></a>Maven ###
 
-MavenプロジェクトでJavaクライアントを使うには、まず`pom.xml`ファイルへSpring Framework
-milestoneリポジトリを追加します。`<repository>`セクションへ、以下のように追加してください:
+MavenプロジェクトでJavaクライアントを使うには、まず`pom.xml`ファイルへSpring Framework milestoneリポジトリを追加します。`<repository>`セクションへ、以下のように追加してください:
 
 ~~~xml
   <repositories>
@@ -56,11 +55,10 @@ dependencies {
 
 ## <a id='sample'></a>Sample Code ##
 
-以下はとてもシンプリなサンプル・アプリケーションです。これはCloud
-Foundryインスタンスへ接続し、ログインし、アカウントに関する情報を表示します。このプログラムを実行する時は、適切なターゲット(i.e.
-http://api.run.pivotal.io)とユーザ名とパスワードをコマンド・ラインのパラメータとして与えてください。
+以下はとてもシンプリなサンプル・アプリケーションです。これはCloud Foundryインスタンスへ接続し、ログインし、アカウントに関する情報を表示します。このプログラムを実行する時は、適切なターゲット(i.e.  http://api.run.pivotal.io)とユーザ名とパスワードをコマンド・ラインのパラメータとして与えてください。
 
-~~~java package org.cloudfoundry.sample;
+~~~java
+package org.cloudfoundry.sample;
 
 import org.cloudfoundry.client.lib.CloudCredentials; import
 org.cloudfoundry.client.lib.CloudFoundryClient; import
@@ -107,10 +105,6 @@ public class JavaSample {
 }
 ~~~
 
-Java APIの詳細については[source on
-GitHub](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib)をご覧ください。[domain
-package](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib/src/main/java/org/cloudfoundry/client/lib/domain)が読み書きできるオブジェクトを示しています。
+Java APIの詳細については[source on GitHub](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib)をご覧ください。[domain package](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib/src/main/java/org/cloudfoundry/client/lib/domain)が読み書きできるオブジェクトを示しています。
 
-[Cloud Foundry Maven
-plugin](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-maven-plugin)のソースがJava
-client libraryの使い方のサンプルにもなっています。
+[Cloud Foundry Maven plugin](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-maven-plugin)のソースがJava client libraryの使い方のサンプルにもなっています。

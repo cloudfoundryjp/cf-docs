@@ -4,8 +4,7 @@ title: カスタム・ビルドパックの紹介
 
 ## <a id='intro'></a>紹介 ##
 
-ビルドパックは、フレームワークとランタイムをまとめる便利な方法です。たとえば、Cloud
-FoundryはDjangoやPythonをサポートしていません。ビルドパックを使えば、PythonやDjangoのサポートをデプロイする段階で追加することができます。
+ビルドパックは、フレームワークとランタイムをまとめる便利な方法です。たとえば、Cloud FoundryはDjangoやPythonをサポートしていません。ビルドパックを使えば、PythonやDjangoのサポートをデプロイする段階で追加することができます。
 
 ## <a id='standard-buildpacks'></a>標準的なビルドパック ##
 
@@ -78,8 +77,7 @@ end
 
 リリース・スクリプトがCloud Foundryへフィードバック・メタデータを提供し、アプリケーションのビルド・ロケーションを引数で指定します。
 
-結果はYAMLで返されるのが期待され、Cloud
-Foundryはconfig\_varsとdefault\_process\_typesの二つのキーを必要とします。
+結果はYAMLで返されるのが期待され、Cloud Foundryはconfig\_varsとdefault\_process\_typesの二つのキーを必要とします。
 
 ~~~ruby
 
@@ -108,9 +106,9 @@ Rackのアプリケーションが返すデータの例を示します;
 カスタム・ビルドパックがパブリックなgitに置かれていると、アプリケーションをプッシュする時にそのgit
 URLを使うことができます。以下にgithubにプッシュされたビルドパックの例を示します;
 
-<pre class="terminal"> $ cf push my-new-app
---buildpack=git://github.com/johndoe/my-buildpack.git </pre>
+<pre class="terminal">
+$ cf push my-new-app --buildpack=git://github.com/johndoe/my-buildpack.git
+</pre>
 
-アプリケーションがCloud
-Foundryへデプロイされ、ビルドパックが複製されてアプリケーションへ適用されます。もちろんbin/detectスクリプトが0を返したとして!
+アプリケーションがCloud Foundryへデプロイされ、ビルドパックが複製されてアプリケーションへ適用されます。もちろんbin/detectスクリプトが0を返したとして!
 
