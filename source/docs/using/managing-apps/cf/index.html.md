@@ -70,7 +70,8 @@ $ cf push my-new-app
 
 ## <a id='details'></a>コマンドの詳しい説明 ##
 
-#### <a id='app'></a> app #### アプリケーションの情報を表示する。
+#### <a id='app'></a> app ####
+アプリケーションの情報を表示する。
 
 <div class="command-doc">
   <pre class="terminal">$ cf app [application name]</pre>
