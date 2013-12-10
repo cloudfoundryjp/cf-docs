@@ -4,7 +4,7 @@ title: オーガナイゼーションとスペース
 
 オーガナイゼーションとスペースは、アプリケーションやサービスやドメインやユーザを組織化する仕組みです。以下はCloud Foundryにおける組織化の様子を表わしています。
 
-<img src="/images/CF-Arch.png" style='margin:50px auto; display: block;'></img>
+ <%= image_tag("CF-Arch.png", :style =>'margin:50px auto; display: block;') %>
 
 ## <a id='organizations'></a>オーガナイゼーション ##
 
@@ -13,7 +13,7 @@ Foundryインスタンスの管理者権限を持つアカウントは、オー�
 
 ## <a id='spaces'></a>スペース ##
 
-オーガナイゼーションはスペースを含むことができます。インストール時のデフォルトでは、**development**, **test**, **production**が存在します。ドメインは複数のスペースに割り当てることができますが、ルートは一つのスペースにのみ割り当てることができます。
+オーガナイゼーションは複数のスペースを含むことができます。インストール時のデフォルトでは、**development**, **test**, **production**が存在します。ドメインは複数のスペースに割り当てることができますが、ルートは一つのスペースにのみ割り当てることができます。
 
 ## <a id='domains'></a>ドメイン ##
 

@@ -1,0 +1,33 @@
+---
+title: IntelliJ IDEA
+---
+
+> ** IntelliJプラグインは数週以内に更新されます。Cloud Foundry v2のサポートのためです。オーガナイゼーション、スペース、カスタム・ビルドパックのサポートも含まれます **
+
+IntelliJ IDEAの作者であるJetBrainsはJVMアプリケーションをCloud Foundry上で動作させるための機能拡張を提供しています。この手順のためには、IntelliJ IDEAがインストールされていて、Cloud Foundry supportが有効になっている必要があります。
+
+## <a id='adding-a-configuration'></a>設定の追加 ##
+
+Cloud Foundryへデプロイするためには、Run/Debug設定を追加する必要があります。**Run**メニューから**Edit Configurations**を選んでください。**plus sign**をクリックして新しい設定を追加し、メニューから**Cloud Foundry**を選んでください。
+
+<%= image_tag("intellij/add-configuration.png") %>
+
+Cloud Foundryのインスタンスを選択し、資格情報を追加し、**OK**をクリックしてください。
+
+<%= image_tag("intellij/credentials.png") %>
+
+**Deployment**タブで**plus button**をクリックし、デプロイの対象を追加してください。下はGrailsアプリケーションの例で、対象は生成されたWARファイルになります。
+
+<%= image_tag("intellij/add-artifact.png") %>
+
+対象が追加された後、タイプ、リソース、サービスを設定してください。
+
+<%= image_tag("intellij/config-artifact.png") %>
+
+## <a id='deploying'></a>アプリケーションのデプロイ ##
+
+**Run**メニューからエントリーを選択します。"Production-CF"が設定の名前なら、"Production-CF"がメニューに書かれます**Run**タブの出力部が下の図と同様になるはずです。
+
+<%= image_tag("intellij/deploy-output.png") %>
+
+デプロイ時に、対象の名前がURLとして使われます。デプロイ時にこれを考慮した方がよいでしょう。この例では、grails\_hello-0.1.warが名前なので、URLはhttp://grails\_hello\_0\_1\_war.cloudfoundry.coになります。

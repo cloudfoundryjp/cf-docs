@@ -17,12 +17,11 @@ title: アプリケーションのマニフェスト
 ~~~
 applications:
 - name: nodetestdh01
- runtime: node08
- mem: 64M
- instances: 2
- host: crn
- domain: csapps.io 
- path: .
+  memory: 64M
+  instances: 2
+  host: crn
+  domain: csapps.io
+  path: .
 ~~~
 
 マニフェストはYAML形式で記述されます。YAMLについては、www.yaml.orgをご参照ください。
@@ -87,7 +86,7 @@ services:<br>
 ~~~
 applications:
 - name: mysample
-  mem: 256M
+  memory: 256M
   instances: 1
   host: tapp
   domain: ctapps.io
@@ -165,29 +164,28 @@ depends on the “subscriber” application, when you do `cf push` from the
 applications: 
 - name: publisher
   runtime: node08
-  mem: 64M
+  memory: 64M
   path: ./publisher
-  domain: ${target-base}
+  domain: cfapps.io
   host: publisher
-    instances: 1
-    services: 
-      work-queue: 
-        type: rediscloud
-        provider: garantiadata
-        plan: 20mb
+  instances: 1
+  services:
+    work-queue:
+      type: rediscloud
+      provider: garantiadata
+      plan: 20mb
   depends-on: ./subscriber
 - name: subscriber
-  runtime: node08
-  mem: 64M
+  memory: 64M
   path: ./subscriber
-  domain: ${target-base}
+  domain: cfapps.io
   host: subscriber
-    instances: 1
-    services: 
-      work-queue: 
-        type: rediscloud
-        provider: garantiadata
-        plan: 20mb
+  instances: 1
+  services:
+    work-queue:
+      type: rediscloud
+      provider: garantiadata
+      plan: 20mb
 ~~~
 
 
@@ -287,7 +285,7 @@ applications:
 |command  |アプリケーションを起動するコマンド  |n  |command: bundle exec rake server:start_command  |
 |domain  |アプリケーションのドメイン|  |  |
 |host  | アプリケーションのホスト|  |  |
-|instances  |アプリケーションのインスタンスの数|y, defaults to 1<br> 指定されない場合|instances: 2  |
+|instances  |アプリケーションのインスタンスの数。 <br><br>関連する情報について、[Key Facts About Application Deployment](/docs/using/deploying-apps/index.html)の [Run Multiple Instances to Increase Availability](/docs/using/deploying-apps/index.html#instances)をご覧ください。|y, defaults to 1<br> 指定されない場合|instances: 2  |
 |mem  |アプリケーションが使えるメモリ量の上限|y, defaults to 256M<br> 指定されない場合|mem: 64M |
 |disk  |アプリケーションが使えるディスク容量の上限|  |disk:1G  |
 |path  |ワーキング・ディレクトリからプッシュするアプリケーションへの相対パス| y  | path: . |

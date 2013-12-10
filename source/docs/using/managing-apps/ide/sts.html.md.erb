@@ -1,0 +1,351 @@
+---
+title: Cloud Foundry Eclipseプラグイン
+---
+
+Cloud Foundry EclipseプラグインはEclipseやSpring Tools Suite (STS)からCloud Foundryインスタンス上のJavaとSpringアプリケーションをデプロイしたり管理したりするための機能拡張です。
+
+このプラグインはEclipse v3.8とv4.3(Jave EE版を推奨)およびSTS 3.0.0以降をサポートしています。
+
+このページではプラグインのv1.5.1(Cloud Foundry v2互換)のインストールと使い方について説明します。
+
+プラグインは以下について使用可能です:
+
+* EclipseまたはSTSワークスペースから動作中のCloud Foundryインスタンスへアプリケーションをデプロイできます。プラグインはJava/JVMと以下のフレームワークをサポートします:
+  * Spring
+  * Java Web
+  * Java standalone
+  * Grails
+  * Lift
+* サービスの作成、バインド、アンバインドができます。
+* デプロイしたアプリケーションやサービスの管理ができます。
+* アプリケーションの起動や停止ができます。
+
+v1.5.1は以下のような新機能を備えています:
+
+* カスタム・ビルドパックのサポート --- プラグインを使ってアプリケーションをデプロイする際、カスタム・ビルドパックのURLを指定できます。
+* ホスト名とドメインを別々に指定 --- このヴァージョンのプラグインであ、一つのURLではなく、ホスト名とドメインをそれぞれ指定できます。
+* Cloud Foundryサーバのクローニング --- プラグインv1.5.1は複数のCloud Foundryスペースを容易に扱えます。プラグインを使って最初のCloud Foundryサーバ・インスタンスを設定した後、**Clone Server**コマンドを使って他のCloud Foundryスペース向けのサーバ・インスタンスを追加できます。
+
+## <a id='install'></a>Cloud Foundry Eclipseプラグインのインストール ##
+
+古いヴァージョンのプラグインがインストール済なら、まずそれをアンインストールしてください。アンインストールするには:
+
+1. Eclipse (または**Spring Tools Suite**)メニューから**About Eclipse**(または**About Spring Tools Suite**)を選びます。そして**Installation Details**をクリックします。
+1. **Installation Details**で旧ヴァージョンのプラグインを選び、**Uninstall**をクリックします。
+
+あなたの環境に応じてインストール方法を選びます:
+
+* [Eclipseへマーケットプレースからインストールする](#install-to-eclipse)
+* [STSへExtensions Tabからインストールする](#install-to-sts)
+* [ローカルのリポジトリからインストールする](#install-local)
+
+### <a id='install-to-eclipse'></a>Eclipseへマーケットプレースからインストールする ###
+
+マーケットプレースからEclipseへプラグインをインストールするには、以下の手順に従ってください。
+
+1. Eclipseを起動します。
+1. Eclipseの**Help**メニューから**Eclipse Marketplace**を選びます。
+1. マーケットプレースのウィンドウの**Find**欄で"Cloud Foundry"を入力し、**Go**をクリックします。
+1. 検索結果の中のCloud Foundry Integrationのとなりの**Install**をクリックします。
+
+  <%= image_tag("sts/eclipse-marketplace.png") %>
+
+1. **Confirm Selected Features**ウィンドウにプラグインの一覧が表示されます --- "Cloud Foundry Integration for Eclipse" --- さらにオプショナルな"SpringSource UAA Integration"コンポーネント(リポート・ツール) プラグインの利用についての統計情報を送信されたくない場合は、**Confirm**をクリックする前にUAA componentを選択から外してください。
+
+    <%= image_tag("sts/confirm-selected-features.png") %>
+
+1. **Review Licenses**ウィンドウが現われます。“I accept the terms of the license agreement”をクリックし、次に**Finish**をクリックします。
+1. **Software Updates**ウィンドウが現われます。**Yes**をクリックするとEclipseが再起動します。
+
+     <%= image_tag("sts/software-updates.png") %>
+
+### <a id='install-to-sts'></a>STSへExtensions Tabからインストールする ###
+
+STSへCloud Foundry Eclipseプラグインを**Extensions** tabからインストールするには、以下の手順に従ってください。
+
+1. STSを起動します。
+1. STSダッシュボードから**Extensions**タブを選択してください。
+1. **Find**欄に"Cloud Foundry"と入力してください。
+1. **Cloud Foundry Integration for Eclipse**を選択し**Install**をクリックしてください。
+
+  <%= image_tag("sts/extensions.png") %>
+
+1. **Install**ウィンドウにプラグインの一覧が表示されます。 --- "Cloud Foundry Integration for Eclipse" --- さらにオプショナルな"Spring UAA Integration"コンポーネント(リポート・ツール) プラグインの利用についての統計情報を送信されたくない場合は、**Next**をクリックする前にUAA componentを選択から外してください。
+
+  <%= image_tag("sts/install.png") %>
+
+1. **Install Details**ウィンドウで**Next**をクリックします。
+
+  <%= image_tag("sts/install-details.png") %>
+
+1. **Review Licenses**が現われます。“I accept the terms of the license agreement”をクリックし、**Finish**をクリックしてインストールを実行します。
+
+1. **Software Updates**が現われます。**Yes**をクリックしてSTSを再起動します。
+
+     <%= image_tag("sts/restart-sts.png") %>
+
+1. STSの再起動後、画面のEditorの部分に新しいペインが見えるはずです。プラグイン・タブについては以下の[About the Plugin User Interface](#plugin-ui)をご覧ください。
+1. [Create a Cloud Foundry Server](#cloud-foundry-server)へ進んでください。
+
+### <a id='install-local'></a>ローカルのリポジトリからインストールする ###
+
+Cloud Foundry Eclipseプラグインをインターネット経由でなくローカルでインストールする必要があるなら、ソースをダウンロードしておき、リポジトリを作ってそこからインストールすることができます。
+
+*Step 1: GitHubからプラグインのソースを得る*
+
+* https://github.com/SpringSource/eclipse-integration-cloudfoundry/releases からリリース版のアーカイブされたソース・コードをダウンロードできます。
+* 最新版のソースが欲しければ、リポジトリをクローンしてください:
+
+    ```
+    git clone https://github.com/SpringSource/eclipse-integration-cloudfoundry
+    ```
+<br>
+
+*Step 2: リポジトリを構築する*
+
+ダウンロードしたアーカイブをunzipし、ルート・ディレクトリへ移動し、下のコマンドを実行します:
+
+`mvn -Pe37 package`
+
+`org.cloudfoundry.ide.eclipse.server.site/target/site`をインストールするマシンへ持って行きます。zipした場合は、unzipも忘れずに実行しておきましょう。
+
+*Step 3: ローカルのリポジトリからインストールする*
+
+EclipseまたはSpring Tools Suiteが動作しているマシン上で:
+
+1. Eclipse(またはSTS)の**Help**メニューから、**Install New Software**を選択します。
+1. **Available Software**ウィンドウで**Work with**の右側の**Add**をクリックします。
+1. **Add Repository**ウィンドウでリポジトリの名前を入力します。たとえば、“Cloud Foundry Integration”です。**Local**をクリックします。
+1. **Open**ウィンドウで`org.cloudfoundry.ide.eclipse.server.site/target/site`を見つけ、**Open**をクリックします。
+1. **Add Repository**ウィンドウで **OK**をクリックします。
+1. **Available Software**ウィンドウで“Core/Cloud Foundry Integration”と“Resources/Cloud Foundry Integration”にチェックマークをつけ、**Next**をクリックします。
+1. **Review Licenses**ウィンドウで“I accept the terms of the license agreement”をクリックし、続いて**Finish**をクリックします。
+
+
+
+## <a id='cloud-foundry-server'></a>Cloud Foundryサーバを作成する ##
+
+この節では、Cloud Foundryスペースに相当するサーバ・リソースの設定の方法を説明します。アプリケーションをデプロイするCloud Foundryのスペースごとにサーバを作ることになります。以下の手順に従い最初のサーバのインスタンスを作れば、 [Clone Server](#clone)機能で追加することができます。
+
+1. **Servers**を右クリックし、**New > Server**を選択します。
+1. **Define a New Server**ウィンドウで**Pivotal**フォルダを開き、**Cloud Foundry**を選び、**Next**をクリックします。
+
+    **注意:** **Server host name**や**Server Runtime Environment**に何か入力しないでください。これらのフィールドは現在使われていません。今後、削除される予定です。
+
+     <%= image_tag("sts/define-new-server.png") %>
+
+1. 既にアカウントがあるなら、**Cloud Foundry Account**ウィンドウでCloud Foundryにログインするのに使うメール・アドレスと既にアカウントがあるなら、メール・アドレスとパスワードを入力します。**Validate Account**をクリックします。
+
+  Cloud Foundryアカウントがなければ、**Pivotal CF Signup**をクリックしアカウントを登録します。その後にここの手順を続けてください。
+
+  **注意:** **Register Account**機能はCloud Foundry v2のパブリックなインスタンスではサポートされていません。[run.pivotal.io](https://console.run.pivotal.io)でPivotal CFのアカウントを登録できます。
+
+     <%= image_tag("sts/cloud-foundry-account.png") %>
+
+1. **Cloud Foundry Account**ウィンドウが更新され、あなたの利用者情報が有効かどうかが表示されます --- 有効だったら、**Next**をクリックします。
+
+      <%= image_tag("sts/new-server.png") %>
+
+1. **Organizations and Spaces**ウィンドウで使いたいスペースを選び、**Finish**をクリックします。
+
+   **注意:** スペースを選択しなかった場合、スペースの一覧の先頭にあるデフォルトのスペースを使うよう設定されます。
+
+      <%= image_tag("sts/orgs-and-spaces.png") %>
+
+1. Pivotal Cloud Foundryサーバを設定すると、EclipseまたはSTSの**Servers**ビューにそれが表示されます。プラグインのインタフェースになれるため、[About the Plugin User Interface](#plugin-ui)をご覧ください。準備ができたら、[Deploy an Application](#deploy-an-application)へ進んでください。
+
+## <a id='plugin-ui'></a>プラグインのユーザ・インタフェースについて ##
+
+以下の節ではCloud FoundryのEclipseプラグインのユーザ・インタフェースについて説明します。以下のタブが表示されない場合は、**Servers**ビューでPivotal Cloud Foundryを選択してください。サーバのビューを表示するには、Javaパースペクティブを使っていることを確認し、 **Window > Show View > Other > Server > Servers**と選択してください。
+
+以下のスクリーン・ショット内に赤で示したCloud Foundryエディタはプラグインの基本的なユーザ・インタフェースです。
+いくつかのワークフローはEclipseのユーザ・インタフェースの基本要素とインタラクトします。基本要素とは、**Project Explorer**や**Console**や**Servers**ビューなどです。
+
+Cloud Foundryエディタは一つのCloud Foundryスペースに対して動作することにご注意ください; 各スペースは**Servers**ビュー(B)内の別々のサーバのインスタンスとして実現されています。それぞれ別のスペースに対応する複数のエディタを同時に開くことができます。しかし、ある時点では一つのCloud Foundryサーバに対応するエディタは一つしか開くことができません。
+
+### <a id='overview-tab'></a>オーバービュー・タブ ###
+
+**Overview**タブが選択された場合、以下のペインが現われます:
+
+* A --- **Package Explorer**ビューには現在のワークスペース内のプロジェクトの一覧が表示されます。
+* B -- **Servers**ビューには現在のワークスペース内のサーバのインスタンスの一覧が表示されます。"Pivotal Cloud Foundry"タイプのサーバがターゲットとして指定されているスペースを表わします。
+* C -- **General Information**ペイン
+* D -- **Account Information**ペインにはCloud Foundryの利用者情報とターゲットのオーガナイゼーションとスペースの一覧が表示されます。このペインには以下も含まれます:
+    * **Clone Server** --- Pivotal Cloud Foundryサーバのインスタンスを追加するのに使います。あなたが使用したいCloud Foundryスペースごとにサーバのインスタンスを設定する必要があります。詳しくは[Create Additional Server Instances](#clone)をご覧ください。
+    * **Change Password** --- Cloud Foundryのパスワードの変更に使います。
+    * **Validate Account** --- Cloud Foundryの利用者情報を確認するのに使います。
+    * **Pivotal CF Signup** --- Cloud Foundryへサインアップするのに使います。
+* E -- **Server Status** このペインではターゲットのCloud Foundryのスペースに接続しているかどうかを表示し、**Disconnect**と**Connect**を制御します。
+* F -- **Console**ビューはアプリケーションのデプロイなどのアクションを実行した時のステータス・メッセージを表示します。
+
+* G -- The **Remote Systems**ビューではデプロイしたアプリケーションに含まれるファイルを見ることができます。詳しくは[View an Application File](#view-file)をご覧ください。
+
+ <%= image_tag("sts/ui-overview-tab.png", :width =>"1150") %>
+
+### <a id='apps-services-tab'></a>アプリケーションとサービスのタブ ###
+
+**Applications and Services**を選択すると以下のペインが表われます:
+
+* H --- **Applications**ペインにはターゲットのスペースへデプロイされたアプリケーションの一覧が表示されます。
+* I ---  **Services**ペインにはターゲットのスペースへプロヴィジョンされたサービスの一覧が表示されます。
+* J ---  **General**ペインには、**Applications**ペインで選択されたアプリケーションに関する以下の情報が表示されます:
+      * **Name**
+      * **Mapped URLs** -- そのアプリケーションにマップされたURLの一覧を表示します。URLをクリックすると、Eclipse (またはSTS)内のブラウザで開きます; 鉛筆のアイコンをクリックするとURLの追加や削除ができます。[Manage Application URLs](#manage-urls)をご覧ください。
+      * **Memory Limit** -- そのアプリケーションに割当てられたメモリの量。プルダウンでメモリの制限を変更できます。
+      * **Instances** -- そのアプリケーションのインスタンスの数。プルダウンでインスタンスの数を変更できます。
+      * **Start**, **Stop**, **Restart**, **Update and Restart** --- アプリケーションの現在の状態に応じて表示されます。**Update and Restart**コマンドはアプリケーションのリソースの変更された部分をプッシュします。アプリケーション全体をプッシュしません。[Push Application Changes](#push-changes)をご覧ください。
+
+* K --- **Services**ペインには、**Applications**ペインで選択されたアプリケーションにバインドされたサービスの一覧が表示されます。ペイン右上のアイコンにご注意ください --- [Create a Service](#create-service)にあるように、これを使ってサービスを作成することができます。
+
+ <%= image_tag("sts/ui-apps-services-tab.png", :width =>"1150") %>
+
+## <a id='deploy-an-application'></a>Deploy an Application ##
+
+プラグインを使ってCloud Foundryへアプリケーションをデプロイするには:
+
+1. 以下のいずれかでデプロイできます:
+  * **Package Explorer**から**Servers**ビューのPivotal Cloud Foundry serverへドラッグします。または、
+  * **Servers**ビューのPivotal Cloud Foundry serverで右クリックし、コンテキスト・メニューから**Add and Remove**を選択し、アプリケーションを**Available**から**Configured**へ移動します。
+
+1. **Application Details**ウィンドウ:
+
+  * デフォルトでは*Name*フィールドはアプリケーションのプロジェクト名になっています。望むなら、別の名前を入力できます --- その名前がデプロイしたアプリケーションの名前になりますが、プロジェクト名は変更されません。
+
+  * 外部のビルドパックを使いたいなら、ビルドパックのURLを入力します。
+
+  **Finish**をクリックすればこれ以上設定をすることなくアプリケーションをデプロイできます。アプリケーションのデフォルト値はロードするのに1,2秒かかるため、**Finish**ボタンは即座に有効にならないことに注意してください。プログレス・バーがデフォルト値がロードされたことを表示し、"Finish"ボタンが有効になります。
+
+  **Next**をクリックし、次へ進んでください。
+
+      <%= image_tag("sts/application-details.png") %>
+
+1. **Launch Deployment**ウィンドウ:
+
+  **Host** --- デフォルトではアプリケーションの名前が入っています。違う名前を入力することもできます。同じアプリケーションを一つのオーガナイゼーション内の別のスペースへデプロイする場合、**Host**はそれぞれについてユニークである必要があります。
+
+  **Domain** --- デフォルトのドメインが入っています。ターゲットのスペースへカスタム・ドメインをマップした場合、プルダウン・リストの中に入っています。**注意** 現在のヴァージョンのCloud Foundryプラグインにはカスタム・ドメインをスペースへマップする機能はないことに注意してください。`cf map domain`を使う必要があります。詳しくは[map-domain](/docs/using/managing-apps/cf/index.html#map-domain)をご覧ください。
+
+  **Deployed URL** --- デフォルトでは**Host**と**Domain**の値をピリオド(.)でつないだものが入っています。
+
+  **Memory Reservation** --- プルダウン・リストから割当てるメモリの量を選びます。
+
+  **Start application on deployment** --- デプロイした時にアプリケーションを起動したくない場合はチェックを外します。
+
+      <%= image_tag("sts/launch-deployment.png") %>
+
+1. **Services Selection**ウィンドウではターゲットになっているスペース内のサービスの一覧が表示されます。アプリケーションにバインドしたいサービスにチェック・マークをつけ、**Finish**をクリックします。[Bind and Unbind Services](#bind-service)にあるように、アプリケーションをデプロイする時にサービスをバインドできることにご注意ください。
+
+      <%= image_tag("sts/services-selection.png") %>
+
+   デプロイの進行に従って**Console**ビューにメッセージが表示されます。デプロイが終わるとそのアプリケーションが**Applications**ペインに表示されます。
+
+## <a id='create-service'></a>サービスを作成する ##
+
+アプリケーションにバインドする前に、サービスを作る必要があります。そうするには:
+
+1. **Applications and Services**タブを選択します。
+1. "Services"ペインの右上隅のアイコンをクリックします。
+1. **Service Configuration**ウィンドウで:
+
+  * **Name** --- サービスの名前を入力します。
+  * **Type** --- プルダウン・リストからサービスのタイプを選びます。
+
+      <%= image_tag("sts/service-configuration.png") %>
+
+**Services**ペインに新しいサービスが表示されます。
+
+## <a id='bind-service'></a>サービスのバインドとアンバインド ##
+
+アプリケーションをデプロイする時にサービスをバインドすることができます。デプロイ済のアプリケーションにサービスをバインドしたい場合は、**Services**から**Application Services**へサービスをドラッグします。([Applications and Services](#apps-services-tab)の"G"というラベルのある部分をご覧ください。)
+
+サービスをアンバインドするには、**Application Services**ペインでサービスを右クリックし、**Unbind from Application**を選びます。
+
+## <a id='view-file'></a>アプリケーションのファイルを見る ##
+
+**Remote Systems View**で選択することによりデプロイしたアプリケーションのファイルの内容を見ることができます。 ([Applications and Services Tab](#overview-tab)の"I"と"J"とラベルされたスクリーン・ショットをご覧ください。)
+
+1. **Remote Systems View**が表示されていない場合:
+  * **Applications and Services**タブを選択します。
+  * **Applications**ペインで目的のアプリケーションを選びます。
+  * **Instances**ペインで**Remote Systems View**リンクをクリックします。
+
+2. **Remote Systems View**でアプリケーションと目的のファイルを探し、ダブル・クリックします。エディタのエリアに新しいタブが開かれ、選択したファイルの内容が表示されます。
+
+      <%= image_tag("sts/file-contents.png") %>
+
+## <a id='undeploy'></a>アプリケーションの削除 ##
+
+アプリケーションを削除するには**Servers**または**Applications**ペインでそのアプリケーションを右クリックし、**Remove**を選択します。
+
+## <a id='scale-application'></a>アプリケーションをスケールする ##
+
+**Applications and Services**タブを選択した状態で、**General**ペインでメモリの割当てやデプロイしたアプリケーションのインスタンスの数を変更できます。**Memory Limit**と**Instances**のリストで選択します。
+
+アプリケーションが起動中でもスケーリングできますが、反映されない場合はアプリケーションを再起動してください。必要なら、アプリケーションの状態の表示は"Applications"右上の**Refresh**ボタンをクリックすることで更新できます。[Applications and Services Tab](#apps-services-tab)の"H"というラベルのついたところのスクリーン・ショットを参照ください。
+
+## <a id='push-changes'></a>アプリケーションの変更をプッシュする ##
+
+Cloud Foundryエディタは以下の機能をサポートしています:
+
+1. **Start**と**Stop** --- **Start**では、ファイルに変更があるかどうかに関わりなく、アプリケーションのすべてのファイルがCloud Foundryインスタンスへプッシュされてからアプリケーションが起動されます。
+
+2. **Restart** --- **Restart**の際、プラグインはCloud Foundryインスタンスへ何もプッシュしません。
+
+3. **Update and Restart** --- このコマンドでは、プラグインは前回から更新された分だけをプッシュします。全体をプッシュするわけではありません。大きなアプリケーションをインクリメンタルに更新するので有用です。
+
+
+## <a id='manage-app-urls'></a>アプリケーションのURLを管理する ##
+
+**Applications and Services**タブが選択されている状態で、**General**ペインを使ってURLの追加、編集、削除が可能です。鉛筆のアイコンをクリックして**Mapped URIs Configuration**を開いてください。
+
+ <%= image_tag("sts/manage-uris-configuration.png") %>
+
+## <a id='console-view'></a>コンソール・ビューの情報 ##
+
+アプリケーションを起動、再起動、更新して再起動した場合、その出力は**Console**へ表示されます。( [Overview Tab](#overview-tab)の"F"というラベルのついたスクリーン・ショットをご参照ください)**Console**ビューに表示される起動中のアプリケーションの情報には、ステージングの情報、標準出力、標準エラー出力が含まれます。
+
+複数のインスタンスが起動している場合、最初のインスタンスの情報のみが**Console**ビューに表示されます。別のインスタンスの情報を見たり出力を更新するには:
+
+1. **Applications and Services**タブの*Applications*ペインでデプロイされたアプリケーションを選択します。
+
+2. **Applications**ペインの右上の**Refresh**ボタンをクリックします。
+
+3. **Instances**ペインでインスタンスが更新されるのを待ちます。
+
+4. 目的のインスタンスについて0でないhealthが表示されたら、そのインスタンスを右クリックしてコンテキスト・メニューを開き、**Show Console**を選びます。
+
+
+## <a id='clone'></a>Cloud Foundryサーバのインスタンスをクローンする ##
+
+アプリケーションをデプロイする先のCloud Foundryのスペースは、**Servers**ビューでのCloud Foundryサーバ・インスタンスになっている必要があります。 [Create a Cloud Foundry Server](#cloud-foundry-instance)にあるように、Cloud Foundryサーバ・インスタンスを一度作成すれば、それを使ってクローンを作ることができます。
+
+クローンを作るには:
+
+1. 以下のいずれかを実行:
+  *  Cloud Foundryサーバ・インスタンス・エディタの"Overview"タブで、"Clone Server"ボタンをクリックします。または、
+  * **Servers**ビューでCloud Foundryサーバ・インスタンスを右クリックし、コンテキスト・メニューから**Clone Server**を選択します。
+
+1. **Organizations and Spaces**ウィンドウでスペースを選択します。
+1. 名前のフィールドに選択したスペースの名前が入ります。望むなら名前を変更することもできます。**Finish**をクリックします。
+
+## <a id='add-URL'></a>Cloud FoundryのインスタンスのURLを追加する ##
+
+Cloud Foundry EclipseプラグインはデフォルトではPivotal CFインスタンスへ接続するように設定されています。別のCloud Foundryインスタンスを使うよう設定することもできます。そうするには:
+
+1. [Create a Cloud Foundry Server](#cloud-foundry-server)のステップ1、2を実行します。
+1. **Cloud Foundry Account**ウィンドウで、ターゲットのインスタンスへログインするのに使っているメール・アドレスとパスワードを入力します。**Manage Cloud URLs**をクリックします。
+
+  <%= image_tag("sts/cloud-foundry-account.png") %>
+
+1. **Manage Cloud URLs**ウィンドウで**Add**をクリックします。
+
+      <%= image_tag("sts/manage-cloud-urls.png") %>
+
+1. **Add a Cloud URL**ウィンドウで目的のクラウドの名前とURLを入力し、**Finish**をクリックします。
+
+      <%= image_tag("sts/add-cloud-url.png") %>
+
+1. **Manage Cloud URLs**ウィンドウの一覧の中に新しいクラウドが現われます。**OK**をクリックして次に進みます。
+1. Foundry Account**ウィンドウで**Validate Account**をクリックします。
+1. [Create a Cloud Foundry Server](#cloud-foundry-server)のステップ4から6を実行します。
+

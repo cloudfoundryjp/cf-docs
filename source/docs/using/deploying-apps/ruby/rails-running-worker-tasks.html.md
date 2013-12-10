@@ -131,11 +131,10 @@ Web Manifest (web-manifest.ymlとして保存);
 ---
 applications:
 - name: sidekiq
-  framework: rails3
-  runtime: ruby19
   memory: 256M
   instances: 1
-  url: sidekiq.${target-base}
+  host: sidekiq
+  domain: ${target-base}
   path: .
   services:
     sidekiq-mysql:
@@ -154,11 +153,8 @@ Worker Manifest (worker-manifest.ymlとして保存);
 ---
 applications:
 - name: sidekiq-worker
-  framework: standalone
-  runtime: ruby19
   memory: 256M
   instances: 1
-  url:
   path: .
   command: bundle exec sidekiq
   services:

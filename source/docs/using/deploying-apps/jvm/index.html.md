@@ -1,5 +1,5 @@
 ---
-title: JVMアプリ(Java, Groovy, Scala)をデプロイする
+title: Java, Groovy, Scalaアプリをデプロイする
 ---
 
 ここでは、右のページ[getting started guide](../../../dotcom/getting-started.html)を通じて、Java, Groovy, Scalaなどの言語とSpring, Grails, Lift, Playなどのフレームワークのアプリケーションをデプロイする準備をします。

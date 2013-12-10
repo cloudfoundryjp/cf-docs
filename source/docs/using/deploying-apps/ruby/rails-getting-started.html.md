@@ -15,7 +15,7 @@ Foundryへデプロイしてみてください。
 * [Ruby](http://www.ruby-lang.org/en/)
 * [Rails](http://rubyonrails.org/)
 * [Bundler](http://gembundler.com/)
-* The [CF](../../managing-apps/) コマンド・ライン・ツール
+* [CF](../../managing-apps/index.html) コマンド・ライン・ツール
 * Railsの作り方と実行方法の基本的な知識
 
 ## <a id='sample-project'></a>サンプル・プロジェクトの作成 ##

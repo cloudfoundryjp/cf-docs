@@ -10,7 +10,7 @@ title: サービスへのトンネル
 
 環境変数`VCAP_SERVICES`から接続に関する具体的な情報を得ることができます。環境変数`VCAP_SERVICES`はアプリケーションの`env.log`ファイルの中にあります。
 
-`VCAP_SERVICES`の詳細と`env.log`ファイルの見方については、[VCAP_SERVICES Environment Variable](../services/environment-variable.html)をご覧ください。
+`VCAP_SERVICES`の詳細と`env.log`ファイルの見方については、[VCAP_SERVICES Environment Variable](../deploying-apps/environment-variable.html)をご覧ください。
 
 <!---
 ## <a id='what-is-tunnelling'></a>What Is Tunneling? ##

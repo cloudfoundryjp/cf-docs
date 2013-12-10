@@ -11,7 +11,7 @@ title: サービスのバインド
 ## <a id='prerequisites'></a>前提 ##
 
 * Cloud Foundryのアカウント。右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup)
-* The [CF](../../managing-apps/) コマンド・ライン・ツール
+* The [CF](../../managing-apps/index.html) コマンド・ライン・ツール
 * [Node.js](http://www.nodejs.org) Cloud Foundryインスタンスへ適切なヴァージョンのNODE.jsをインストールする。
 * [NPM](http://npmjs.org/) - アプリの依存関係などを管理するNodeパッケージマネージャー
 * サンプル・アプリケーションは[このチュートリアル](./index.html)にあります。

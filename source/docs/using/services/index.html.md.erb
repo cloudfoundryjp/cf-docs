@@ -1,10 +1,10 @@
 ---
-title: Using Services
+title: サービスを利用する
 ---
 
-Cloud Foundry Services are any type of add-on that can be provisioned alongside your application; for example, a database or an account on a third-party SaaS provider.
+Cloud Foundryにおけるサービスとは、アプリケーションと共にプロヴィジョンできるアドオンです。例として、データベースやサード・パーティのSaaSのアカウントなどが挙げられます。
 
-Some services support the concept of "binding" with an application. When a service is bound to an application, connection information and credentials specific to that service instance are placed in an environment variable `VCAP_SERVICES` in JSON format that are visible to the application process. 
+いくつかのサービスは「バインド」という概念をサポートしています。サービスがアプリケーションにバインドされると、接続情報と利用者情報が環境変数`VCAP_SERVICES`に追加され、そのアプリケーションから参照できるようになります。
 
 * [Getting Started - Adding a Service](../../dotcom/adding-a-service.html)
 * [Managing Services from the Command Line](managing-services.html)
@@ -15,11 +15,11 @@ Some services support the concept of "binding" with an application. When a servi
 
 * [Services Architecture](../../running/architecture/services/)
 
-If you are operating your own instance of Cloud Foundry and are interested in binding applications to services which are external to Cloud Foundry, see [Service Connector](/docs/running/architecture/services/service-connector.html).
+あなたがCloud Foundryインスタンスを運用していて、アプリケーションを外部のサービスにバインドすることに関心があるのなら、[Service Connector](/docs/running/architecture/services/service-connector.html)をご覧ください。
 
-## <a id='configuring'></a>Configuring Connections for Different Frameworks ##
+## <a id='configuring'></a>異なるフレームワークへの接続の設定 ##
  
-The procedure for configuring an application to connect to a service varies by framework. Note that auto-configuration is not supported for all frameworks. The table below has links to instructions for configuring service connections in different environments.  
+アプリケーションをサービスへ接続する手続きは、フレームワークにより異なります。自動設定はすべてのフレームワークをサポートしているわけでないことにご注意ください。下のテーブルはそれぞれの環境でのサービスの接続の設定の方法へのリンクを示しています。
 
 | Runtime               | Framework                   |
 | :-------------        |:-------------               |

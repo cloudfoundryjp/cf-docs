@@ -21,7 +21,7 @@ title: Cloud Foundry Glindex (用語集 + 索引)
 
 ## <a id='bosh-agent'></a>BOSHエージェント ##
 
-> BOSHエージェントはBOSHに管理されているVMで動作しているプロセスで、[BOSHダイレクター](bosh-director)からの指示を待っています。ダイレクターが[job](#job)をエージェントへアサインすると、エージェントは適切なパッケージをblobstoreからダウンロードし、実行し、設定します。エージェントは`monit`を使ってジョブの起動や停止を実行します。
+> BOSHエージェントはBOSHに管理されているVMで動作しているプロセスで、[BOSHダイレクター](#bosh-director)からの指示を待っています。ダイレクターが[job](#job)をエージェントへアサインすると、エージェントは適切なパッケージをblobstoreからダウンロードし、実行し、設定します。エージェントは`monit`を使ってジョブの起動や停止を実行します。
 
 ## <a id='bosh-blobstore'></a> BOSH Blobstore ##
 
@@ -119,7 +119,7 @@ title: Cloud Foundry Glindex (用語集 + 索引)
 
 ## <a id='droplet'></a> droplet ##
 
-> ドロップレットはアプリケーションの[staging](#staging)プロセスの結果で、ビルドパックが適用されるべきアップロードされたアプリケーションです。元のアプリケーションにラッパーをかぶせたもので、HTTPリクエストを待つべきポートを入力として受け取ります。また二つのメソッドstartとstopを持ちます。
+> ドロップレットはアプリケーションの[staging](#staging)プロセスの結果で、ビルドパックが適用されアップロードされたアプリケーションです。元のアプリケーションにラッパーをかぶせたもので、HTTPリクエストを待つべきポートを入力として受け取ります。また二つのメソッドstartとstopを持ちます。
 
 ## <a id=' '></a>flapping ##
 
@@ -179,7 +179,7 @@ title: Cloud Foundry Glindex (用語集 + 索引)
 ## <a id='org'></a>オーガナイゼーション ##
 > Cloud Foundryでは、オーガナイゼーションはユーザの集りで、関連するアプリケーションとサービスのために使われます。ユーザはオーガナイゼーションに応じて、資源に対してさまざまな権限を持ちます。オーガナイゼーションは[スペース](#space)を含みます。<br><br>
 
-> 詳しくは[オーガナイゼーションとスペース](../../using/managing-apps/orgs-and-spaces.html)をご覧ください。
+> 詳しくは[オーガナイゼーションとスペース](../../docs/using/managing-apps/orgs-and-spaces.html)をご覧ください。
 
 
 ## <a id='package'></a>パッケージ ##
@@ -228,8 +228,11 @@ title: Cloud Foundry Glindex (用語集 + 索引)
 
 ## <a id='steno'></a>Steno ##
 
-> Cloud Foundryをサポートするために作られた、軽量のロギング・ライブラリです。
+> Cloud Foundryをサポートするために作られた、軽量でモジュール化されたロギング・ライブラリです。
 
+## <a id='STS'></a>STS ##
+
+Spring Tool SuiteはEclipseを元にしたIDEです。STSはJavaアプリケーションをCloud Foundryへデプロイするプラグインをサポートしています。
 
 ## <a id='uaa'></a> UAA ##
 
@@ -238,12 +241,9 @@ title: Cloud Foundry Glindex (用語集 + 索引)
 
 ## <a id='uaa'></a>User Account and Authentication Service (UAA)  ##
 
-> Cloud Foundryにおいて、User Account and Authentication Service (UAA)はアプリケーションとCloud Foundryの資源に関するシングル・サインオンの機能を提供します。UAAはOAuth 2.0認証サーバとして動作します。クライアント・アプリケーションに対して、Cloud Controllerを含むリソース・サーバへのアクセス・トークンを与えます。
-<br><br>
+> Cloud Foundryにおいて、User Account and Authentication Service (UAA)はアプリケーションとCloud Foundryの資源に関するシングル・サインオンの機能を提供します。UAAはOAuth 2.0認証サーバとして動作します。クライアント・アプリケーションに対して、Cloud Controllerを含むリソース・サーバへのアクセス・トークンを与えます。 <br><br>詳しくは[User Account and Authentication Service](../architecture/uaa.html)をご覧ください。
 
-> 詳しくは[User Account and Authentication Service](../architecture/uaa.html)をご覧ください。
-
-## <a id='vcap-services'></a>VCAP_SERVICES##
+## <a id='vcap-services'></a>VCAP_SERVICES ##
 
 > あるアプリケーションにバインドされているサービスの接続情報が格納されている環境変数です。
 <br><br>

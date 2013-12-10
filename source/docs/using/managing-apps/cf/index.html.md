@@ -2,7 +2,7 @@
 title: cfコマンド
 ---
 
-cfはCloud Foundryのコマンドです。cfコマンドを使ってアプリケーションをデプロイしたり管理することができます。CloudFoundry.comを含むCloud Foundryベースの環境で使えます。
+cfはCloud Foundryのコマンドです。cfコマンドを使ってアプリケーションをデプロイしたり管理することができます。CloudFoundry.comを含むCloud Foundryベースの環境で使えます。このページではcf v5について説明します。cf v6については [Getting Started with cf v6](go-cli.html)をご覧ください。
 
 ## <a id='commands'></a>機能ごとに分類したコマンド ##
 
@@ -11,12 +11,12 @@ cfはCloud Foundryのコマンドです。cfコマンドを使ってアプリケ
 
 |   |  | |
 | :-------- | :---------- |:---------- |
-| **Basics** <br>[info](#info) <br>[login EMAIL](#login) <br>[logout](#logout) <br>[targets](#targets) <br>[target URL](#target)  <br> <br> **Manage Users** <br>  [create-user EMAIL](#create-user)  <br>   [passwd](#passwd) <br> [register EMAIL](#register) <br> [users](#users)<br><br> **Manage Apps** <br>[app APP](#app) <br> [apps](#apps) <br>[bind-service SVC APP](#bind-service)<br> [console APP](#console) <br>[delete APP](#delete) <br>[map APP HOST DOMAIN](#map) <br>[push NAME](#push) <br>[rename APP APP](#rename) <br>[restart APP](#restart) <br> [scale APP](#scale) <br> [set-env APP NAME VALUE](#set-env)<br>[start APPS](#start) <br>[stop APPS](#stop) <br>[unbind-service SVC APP](#unbind-service)   <br> [unmap URL APP](#unmap) <br> [unset-env APP NAME](#unset-env)    <br> <br> | **Get Information About Apps**  <br>[crashes APPS](#crashes) <br>[crashlogs APP](#crashlogs)  <br> [env APP](#env)  <br> [file APP PATH](#file)  <br> [files APP PATH](#file) <br> [guid TYPE NAME](#guid) <br>[health APP](#health) <br>[instances APP](#instances) <br>[logs APP](#logs) <br>[stats APP](#stats) <br>[tail APP PATH](#tail)        <br> <br>  **Manage Services** <br>[bind-service SVC APP](#bind-service) <br>[create-service-auth-token LABEL PROVIDER](#create-service-auth-token)<br>[create-service OFFERING NAME](#create-service) <br>[delete-service-auth-token TOKEN](#delete-service-auth-token)<br>[delete-service SVC](#delete-service) <br>[rename-service SVC SVC](#rename-service) <br>[tunnel INSTANCE CLIENT](#tunnel)  <br>[unbind-service SVC APP](#unbind-service)  <br>[update-service-auth-token TOKEN](#update-service-auth-token)   <br> <br>**Get Information about Services** <br>[info --service](#info) <br> [service-auth-tokens](#service-auth-tokens) <br>[service SERVICE](#service) <br>[services](#services)   |**Manage Organizations and Spaces** <br>[create-org ORG](#create-org) <br>[create-space NAME ORG](#create-space)  <br>  [delete-org ORG](#delete-org) <br>[delete-space SPACE](#delete-space)   <br>[rename-org ORG ORG](#rename-org)   <br>[rename-space SPACE SPACE](#rename-space) <br> [set-quota QUOTA ORG](#set-quota) <br>[switch-space SPACE](#switch-space) <br> <br> **Get Information About Organizations and Spaces** <br> [guid TYPE NAME](#guid) <br>[org ORG](#org)  <br>[orgs](#orgs)  <br>[space SPACE](#space)  <br> [spaces ORG](#spaces)  <br> <br>**Manage Domains and Routes** <br>[domains SPACE](#domains) <br> [guid TYPE NAME](#guid)<br>[routes](#routes) <br>[unmap-domain DOMAIN](#unmap-domain )  <br>
-|  | |
+| **Basics** <br>[login EMAIL](#login) <br>[logout](#logout) <br>[targets](#targets) <br>[target URL](#target)  <br> <br> **Manage Users** <br>  [create-user EMAIL](#create-user)  <br>   [passwd](#passwd) <br> [register EMAIL](#register) <br> [users](#users)<br><br> **Manage Apps** <br>[app APP](#app) <br> [apps](#apps) <br>[bind-service SVC APP](#bind-service)<br> [console APP](#console) <br>[delete APP](#delete) <br>[map APP HOST DOMAIN](#map) <br>[push NAME](#push) <br>[rename APP APP](#rename) <br>[restart APP](#restart) <br> [scale APP](#scale) <br> [set-env APP NAME VALUE](#set-env)<br>[start APPS](#start) <br>[stop APPS](#stop) <br>[unbind-service SVC APP](#unbind-service)   <br> [unmap URL APP](#unmap) <br> [unset-env APP NAME](#unset-env)    <br> <br> | **Get Information About Apps**  <br>[crashlogs APP](#crashlogs)  <br> [env APP](#env)  <br> [events APP](#events)  <br>[file APP PATH](#file)  <br> [files APP PATH](#file) <br> [guid TYPE NAME](#guid) <br>[health APP](#health) <br>[instances APP](#instances) <br>[logs APP](#logs) <br>[stats APP](#stats) <br>[tail APP PATH](#tail)        <br> <br>  **Manage Services** <br>[bind-service SVC APP](#bind-service) <br>[create-service-auth-token LABEL PROVIDER](#create-service-auth-token)<br>[create-service OFFERING NAME](#create-service) <br>[delete-service-auth-token TOKEN](#delete-service-auth-token)<br>[delete-service SVC](#delete-service) <br>[rename-service SVC SVC](#rename-service) <br>[tunnel INSTANCE CLIENT](#tunnel)  <br>[unbind-service SVC APP](#unbind-service)  <br>[update-service-auth-token TOKEN](#update-service-auth-token)   <br> <br>**Get Information about Services** <br> [service-auth-tokens](#service-auth-tokens) <br>[service SERVICE](#service) <br>[services](#services)   |**Manage Organizations and Spaces** <br>[create-org ORG](#create-org) <br>[create-space NAME ORG](#create-space)  <br>  [delete-org ORG](#delete-org) <br>[delete-space SPACE](#delete-space)   <br>[rename-org ORG ORG](#rename-org)   <br>[rename-space SPACE SPACE](#rename-space) <br> [set-quota QUOTA ORG](#set-quota) <br>[switch-space SPACE](#switch-space) <br> <br> **Get Information About Organizations and Spaces** <br> [guid TYPE NAME](#guid) <br>[org ORG](#org)  <br>[orgs](#orgs)  <br>[space SPACE](#space)  <br> [spaces ORG](#spaces)  <br> <br>**Manage Domains and Routes** <br>[delete-route SPACE](#delete-route) <br> [domains SPACE](#domains) <br> [guid TYPE NAME](#guid)<br>[map-domain DOMAIN](#map-domain)<br>[routes](#routes) <br>[unmap-domain DOMAIN](#unmap-domain )  <br>
+ |  | |
 
 ## <a id='installing'></a>cfのインストール ##
 
-cfはRubyとRubyGemsを必要とします。RubyとRubyGemsについては、右のページを参照してください。[Installing Ruby](/docs/common/install_ruby.html).
+cfはRubyとRubyGemsを必要とします。Ruby 1.9.3以降が必要です。推奨はRuby 1.9.3です。RubyとRubyGemsについては、右のページを参照してください。[Installing Ruby](/docs/common/install_ruby.html).
 
 RubyとRubyGemsをインストールした後、cfの最新版をインストールするには以下のコマンドを実行してください。:
 
@@ -30,10 +30,24 @@ $ gem install cf
 $ gem install cf --pre
 </pre>
 
+## <a id='troubleshooting'></a>cfインストールのトラブル・シューティング ##
+
+* OS XにはRuby v1.8.7が含まれていて、サポートの対象外です。cfを使うためには、Ruby 1.9.3以降へアップグレードしてください。
+
+* あなたがRuby 1.9.3とpre-1.9.xのgemsetを使っている場合cfのインストールは以下のメッセージで失敗します:
+
+<pre class="terminal">
+$ gem install cf
+...
+...
+ERROR: Error installing cf:
+activesupport requires Ruby version >= 1.9.3.
+</pre>
+
+
 ## <a id='usage'></a>コマンドの使い方とオプション ##
 
-cfコマンドは、Cloud
-Foundryのアプリケーション、サービス、オーガナイゼーション、スペース、ドメインなどの参照、作成、変更を行なうことができます。applications,
+cfコマンドは、Cloud Foundryのアプリケーション、サービス、オーガナイゼーション、スペース、ドメインなどの参照、作成、変更を行なうことができます。applications,
 services, organisations, spaces, domains, and so on. 各コマンドはcfではじまります。例えば:
 
 <pre class="terminal">
@@ -55,8 +69,8 @@ $ cf push my-new-app
 |  --color, --no-color                  | |
 |  --debug | コマンドが失敗した場合、スタック・トレースを~/.cf/crashへ書く代わりにコンソールへ出力します。|
 |  --force | 確認をスキップします。`--force`を指定した場合、必要なオプションすべてを指定してください。 <br>不足している場合はコマンドは失敗します。|  --help | コマンドの説明とオプションの一覧を表示します。|
-| --http-proxy HTTP_PROXY |httpプロキシを経由して接続します。|
-| --https-proxy HTTP_PROXY |httpsプロキシを経由して接続します。 |
+| --http-proxy HTTP_PROXY | プロキシを使っている場合、このオプションでhttpプロキシを指定します。詳しくは[Connecting Through a Proxy Server](#proxy)をご覧ください。  |
+| --https-proxy HTTP_PROXY |プロキシを使っている場合、このオプションでhttpsプロキシを指定します。詳しくは[Connecting Through a Proxy Server](#proxy)をご覧ください。 |
 | --manifest FILE, -m
 |  --quiet, --no-quiet |  Return a minimal response. たとえば、`cf apps --quiet`は各アプリの`name`アトリビュートを返します<br>`status`, `usage`, `url`は返しません。通常はこれらも表示されます。The `--quiet` <br>スクリプト内で使う場合に有用です。|
 | --script |  コマンドは`--force`と`--quiet`付で実行されます。出力をリダイレクトしたりパイプへ向けた場合、cfコマンドは自動的に`--script` オプションを追加することに注意してください。この機能を抑止するには、<br>`--no-script`オプションを指定してください。|
@@ -65,7 +79,25 @@ $ cf push my-new-app
 |  --version, -v | cfのヴァージョンを表示します。|
 
 
+## <a id='proxy'></a>プロキシを介しての接続 ##
 
+この機能はcf v5.2以降で有効です。
+
+プロキシの後ろでcfを実行する場合、プロキシのアドレスを指定する必要があります。グローバルなオプションの`--http-proxy`か`--https-proxy`を使ってください。説明は [コマンドの使い方とオプション](#usage)にあります。(アプリケーションをプッシュする際、マニフェスト内の環境変数でプロキシを指定することもできます。ただし、この方法は該当するマニフェストを使ったプッシュの時のみ有効であることに注意してください。)
+
+cfコマンドのすべての通信がプロキシを経由するよう、`--http-proxy`と`--https-proxy`の両方を指定してください。例として、プロキシを使って`cf apps`を実行する場合、以下のようにしてください:
+
+<div class="command-doc">
+ <pre class="terminal">
+cf apps --http-proxy myproxy.myproxydomain:8080 --https-proxy myproxy.myproxydomain:443
+</div>
+
+あなたのプロキシがユーザ名とパスワードを必要とするなら、以下のように指定してください:
+
+<div class="command-doc">
+ <pre class="terminal">
+cf apps --http-proxy myusername:mypassword@myproxy.myproxydomain:8080 --https-proxy myusername:mypassword@myproxy.myproxydomain:443
+</div>
 
 
 ## <a id='details'></a>コマンドの詳しい説明 ##
@@ -139,15 +171,6 @@ Railsのコンソールを開き、アプリケーションへ接続する。Rai
 | :-------- | :------- | :---------- |
 | --app     |   y       | アプリケーションの名前|
 | --port     |  y        | アプリケーションが実行されているポート|
-
-#### <a id='crashes'></a> crashes ####
-
-指定されたアプリケーションのリストについて、反応のないアプリケーションを表示します。Nin
-
-<div class="command-doc">
-  <pre class="terminal">$ cf crashes [list of application names]</pre>
-  <div class="break"></div>
-</div>
 
 
 #### <a id='crashlogs'></a> crashlogs ####
@@ -366,11 +389,34 @@ Railsのコンソールを開き、アプリケーションへ接続する。Rai
 
 #### <a id='env'></a> env ####
 
-アプリケーションの環境変数すべてAmazon
-S3のAPIキーのような知られたくないデータを格納する際、ソース・コードの中ではなく環境変数を使うのはよい方法です。
+アプリケーションの環境変数すべてを表示します。Amazon S3のAPIキーのような知られたくないデータを格納する際、ソース・コードの中ではなく環境変数を使うのはよい方法です。
+
+アプリケーションのために環境変数をセットすることができます:
+
+* [Set Environment Variable in a Manifest](/docs/using/deploying-apps/manifest.html#var)にあるように、デプロイする時のマニフェストの中でセットできます。または
+* アプリケーションをプッシュした後、[set-env](#set-env)コマンドでセットすることもできます。
 
 <div class="command-doc">
   <pre class="terminal">$ cf env [application name]</pre>
+</div>
+
+#### <a id='events'></a> イベント ####
+
+アプリケーションのイベントを表示します。
+
+<div class="command-doc">
+  <pre class="terminal">$ cf events [application name]</pre>
+</div>
+
+出力の例:
+
+<div class="command-doc">
+  <pre class="terminal">
+
+time                        instance index   description                 exit status
+2013-08-07 16:31:47 +0000   0                out of memory               Failure (255)
+2013-08-07 16:31:48 +0000   0                Hostname not supplied: ''   Failure (-1)
+</pre>
 </div>
 
 #### <a id='file'></a> file ####
@@ -381,9 +427,46 @@ S3のAPIキーのような知られたくないデータを格納する際、ソ
   <pre class="terminal">$ cf file [application name] [path]</pre>
 </div>
 
+#####出力の例#####
+
+<div class="command-doc">
+  <pre class="terminal">
+cf file rabbitmq-node staging_info.yml
+Getting file contents... OK
+
+---
+detected_buildpack: Node.js
+start_command: node app.js
+</pre>
+</div>
+
+
 #### <a id='files'></a> files ###
 
 アプリケーションに属するファイルの一覧を表示する。
+
+#####出力の例#####
+
+<div class="command-doc">
+  <pre class="terminal">
+cf file rabbitmq-node
+Getting file contents... OK
+
+.bash_logout                              220B
+.bashrc                                   3.0K
+.profile                                  675B
+app/                                         -
+logs/                                        -
+nodejs-0.10.15.tgz                        5.3M
+nodejs-0.4.7.tgz                          3.1M
+npm-1.2.30.tgz                            2.2M
+run.pid                                     3B
+scons-1.2.0.tgz                         382.1K
+staging_info.yml                           59B
+tmp/                                         -
+</pre>
+</div>
+
 
 #### <a id='guid'></a> guid ####
 
@@ -413,22 +496,6 @@ S3のAPIキーのような知られたくないデータを格納する際、ソ
 アプリケーションの状態("running", "flapping",
 "stopped")を返します。アプリケーションのインスタンスの一部だけが実行されている場合、そのパーセンテージを表示します。
 
-#### <a id='info'></a> info ####
-
-ターゲットの情報の表示
-
-| オプション	 | 必須 | 説明 |
-| :-------- | :------- | :---------- |
-|-a, --all | n| |
-|-s, --services |n | |
-
-以下の情報が返されます:
-
-* target -- ターゲットとなっているCloud Foundryのインスタンス
-* version -- Cloud Foundryのヴァージョン
-* `--all`か`--services`オプションを指定した場合、サービスのタイプごとに以下の情報が返されます:
-    * service -- サービスのタイプ    * version -- サービスのヴァージョン
-    * provider -- サービスを提供している企業    * plans -- サービスの属するプラン    * description -- サービスの説明
 
 #### <a id='instances'></a>インスタンス #### インスタンスの一覧を表示する。
 
@@ -471,7 +538,7 @@ S3のAPIキーのような知られたくないデータを格納する際、ソ
 
 ステージング、標準出力、標準エラー出力などのログを表示します。ログ・ファイルはいくつかの種類がありえます。
 
-アプリケーション特有のログを見たい場合は'cf file'コマンドを実行してください。
+アプリケーションのディレクトリにあるファイルの内容を見たい場合は、'cf file'コマンドを実行してください。
 
 <div class="command-doc">
   <pre class="terminal">$ cf logs [application name]</pre>
@@ -482,6 +549,76 @@ S3のAPIキーのような知られたくないデータを格納する際、ソ
 |--all |n |アプリケーションのすべてのインスタンスのログの一覧を表示する|
 |--app APP |y |アプリケーションの名前|
 |--instance INSTANCE |n |ログを見たいアプリケーションのインスタンスを指定する。たとえば、"2"。<br>指定がなければ、最初のインスタンス("0")が表示される。|
+
+#####Sample Results#####
+
+<div class="command-doc">
+  <pre class="terminal">cf logs rabbitmq-node
+
+Using manifest file manifest.yml
+
+Getting logs for rabbitmq-node #0... OK
+
+Reading logs/env.log... OK
+TMPDIR=/home/vcap/tmp
+VCAP_CONSOLE_IP=0.0.0.0
+VCAP_APP_PORT=61749
+USER=vcap
+VCAP_APPLICATION={"instance_id":"633be93bac16a403721cef6adb8f48f0","instance_index":0,"host":"0.0.0.0","port":61749,"started_at":"2013-08-20 22:32:39 +0000","started_at_timestamp":1377037959,"start":"2013-08-20 22:32:39 +0000","state_timestamp":1377037959,"limits":{"mem":256,"disk":1024,"fds":16384},"application_version":"230091c5-b14b-41d2-94c0-c0149a8ba4b7","application_name":"rabbitmq-node","application_uris":[],"version":"230091c5-b14b-41d2-94c0-c0149a8ba4b7","name":"rabbitmq-node","uris":[],"users":null}
+PATH=/home/vcap/app/bin:/home/vcap/app/node_modules/.bin:/bin:/usr/bin
+PWD=/home/vcap
+VCAP_SERVICES={"cloudamqp-n/a":[{"name":"rabbit-sample","label":"cloudamqp-n/a","tags":[],"plan":"lemur","credentials":{"uri":"amqp://urhyfncz:CvvtPhOUHdk_CFQiUruW6sQDTFBd61Sv@lemur.cloudamqp.com/urhyfncz"}}]}
+SHLVL=1
+HOME=/home/vcap/app
+PORT=61749
+VCAP_APP_HOST=0.0.0.0
+DATABASE_URL=
+MEMORY_LIMIT=256m
+VCAP_CONSOLE_PORT=61750
+_=/usr/bin/env
+
+
+
+Reading logs/staging_task.log... OK
+-----> Downloaded app package (4.0K)
+-----> Resolving engine versions
+
+       WARNING: No version of Node.js specified in package.json, see:
+       https://devcenter.heroku.com/articles/nodejs-versions
+
+       Using Node.js version: 0.10.15
+       Using npm version: 1.2.30
+-----> Fetching Node.js binaries
+-----> Vendoring node into slug
+-----> Installing dependencies with npm
+       npm WARN package.json rabbitmq-node@0.0.2 No repository field.
+       npm http GET https://registry.npmjs.org/amqp
+       npm http GET https://registry.npmjs.org/sanitizer
+       npm http 200 https://registry.npmjs.org/sanitizer
+       npm http GET https://registry.npmjs.org/sanitizer/-/sanitizer-0.0.15.tgz
+       npm http 200 https://registry.npmjs.org/amqp
+       npm http GET https://registry.npmjs.org/amqp/-/amqp-0.1.7.tgz
+       npm http 200 https://registry.npmjs.org/sanitizer/-/sanitizer-0.0.15.tgz
+       npm http 200 https://registry.npmjs.org/amqp/-/amqp-0.1.7.tgz
+       sanitizer@0.0.15 node_modules/sanitizer
+       
+       amqp@0.1.7 node_modules/amqp
+       npm WARN package.json rabbitmq-node@0.0.2 No repository field.
+       amqp@0.1.7 /tmp/staged/app/node_modules/amqp
+       sanitizer@0.0.15 /tmp/staged/app/node_modules/sanitizer
+       Dependencies installed
+-----> Building runtime environment
+
+
+
+Reading logs/stderr.log... OK
+
+
+Reading logs/stdout.log... OK
+Starting ... AMQP URL: amqp://urhyfncz:CvvtPhOUHdk_CFQiUruW6sQDTFBd61Sv@lemur.cloudamqp.com/urhyfncz
+
+  <div class="break"></div>
+</div>
 
 
 #### <a id='map'></a> マップ ####
@@ -502,7 +639,8 @@ URLとアプリケーションを関連づけます。
 
 #### <a id='map-domain'></a> map-domain ####
 
-ドメインを追加し、スペースへ割当てる。<div class="command-doc">
+ドメインを追加し、スペースへ割当てます。
+<div class="command-doc">
   <pre class="terminal">$ cf map-domain [domain]</pre>
   <div class="break"></div>
 </div>
@@ -573,13 +711,10 @@ URLとアプリケーションを関連づけます。
 デプロイのオプションは、コマンドラインか対話的にかマニフェスト・ファイルで指定できます。`cf
 push`を最初に実行した時、コマンド・ラインで指定しないかぎり、cfはカレント・ディレクトリで`manifest.yml`を探します。見つからない場合、cfは対話的に設定するよう求めます。必要な情報を入力した後、cfは設定を保存するかきいてきます。肯定すると、カレント・ディレクトリに`manifest.yml`として保存されます。
 
-アプリケーションを更新する場合、cfは`manifest.yml`を参照しないことに注意してください。その代わりに、cfはその時点で有効な設定を使用します。二回目以降にマニフェストを適用させるには、`--reset`オプションを指定する必要があります。詳細については[アプリケーションのマニフェスト](../../deploying-apps/manifest.html)ページの[cf
-pushとマニフェスト](../../deploying-apps/manifest.html#push-and-manifest)をご覧ください。
+アプリケーションを更新する場合、cfは`manifest.yml`を参照しないことに注意してください。その代わりに、cfはその時点で有効な設定を使用します。二回目以降にマニフェストを適用させるには、`--reset`オプションを指定する必要があります。詳細については[アプリケーションのマニフェスト](../../deploying-apps/manifest.html)ページの[cf pushとマニフェスト](../../deploying-apps/manifest.html#push-and-manifest)をご覧ください。
 
 
-cfはアプリケーションのファイルをすべてアップロードしますが、ヴァージョン・コントロール・システム`.svn`, `.git`, and
-`.darcs`は除外します。他にも除外したいファイルがあれば、プッシュする時のディレクトリの`.cfcignore`に記述してください。`.cfignore`
-behaves similarly to `.gitignore`.
+cfはアプリケーションのファイルをすべてアップロードしますが、ヴァージョン・コントロール・システム`.svn`, `.git`, and `.darcs`は除外します。他にも除外したいファイルがあれば、プッシュする時のディレクトリの`.cfcignore`に記述してください。`.cfignore`は`.gitignore`と同様にふるまいます。詳しくは [Key Facts About Application Deployment](/docs/using/deploying-apps/index.html)の[Exclude Unnecessary Files with cfignore](/docs/using/deploying-apps/index.html#exclude)をご覧ください。
 
 
 <div class="command-doc">
@@ -593,16 +728,30 @@ behaves similarly to `.gitignore`.
 | --[no-]restart              |  | 更新後にアプリを再起動したいかどうかを指定します。|
 | --[no-]start      |          |デプロイ後にアプリケーションを起動したいかどうかを指定します。|
 | --buildpack BUILDPACK         |          | 使用したいビルドパックのURLを指定します。|
-| --command COMMAND        |         |アプリケーションを起動するためのコマンド**注意:** Cloud FoundryのビルドパックはHerokuのビルドパックに似ていますが、 Herokuとは異なり、Cloud Foundryは`procfile`から起動コマンドを探そうとはしません。|
+| --command COMMAND        |         |アプリケーションを起動するためのコマンド <br><br>起動コマンドを含むスクリプトを指定するのに使っているのなら、スクリプト内が相対パスになっているようにしてください。たとえば、起動スクリプト`start.sh`がアプリケーションのルート・ディレクトリの`\bin`ディレクトリにある場合、`--command './bin.start.sh'`と指定してください。<br><br>詳しくは[Key Facts About Application Deployment](/docs/using/deploying-apps/index.html)の[The Application Start Command](/docs/using/deploying-apps/index.html#start-command)をご覧ください。|
 | --domain DOMAIN              |          | アプリケーションのトップ・レベル・ドメイン|
 | --host HOST    |        |サブドメイン。独自のドメインを使う場合は指定しないでください。|
 | --instances INSTANCES       |          | アプリケーションのインスタンスの数|
 | --memory MEMORY             |          | 各インスタンスのメモリの最大値|
 | --name NAME             | | プッシュするアプリケーションの名前|
+| -m --marketplace | n | サービス・マーケットプレースで利用可能なサービス・タイプの一覧を表示します。 |
 | --plan PLAN              | | 使いたいサービスのプラン(プランによってサービスの価格と利用できるリソースが決まります)     |
 |--path | |プッシュするアプリケーションへのパス|
 | --reset             | |`push` のオプションの値を指定し、以前の値を上書きする場合に使います。|
 | --stack STACK           | | |
+
+`--marketplace`オプションが指定されている場合、サービス・マーケットプレースで利用可能な各サービスについて、以下の情報が返されます。
+
+* service -- サービスのタイプ。たとえば、 "cleardb"や"rediscloud"。
+* version -- サービスのヴァージョン。
+* provider -- サービスのヴェンダーまたは提供者
+* plan -- サービスのプラン
+* description -- サービスの説明
+
+`--marketplace`以外のオプションが指定されている場合、各サービス・インスタンスについて、以下の情報が返されます。
+
+* name -- サービスのインスタンスが作られた時に割当てられた名前。
+* service -- サービスのタイプ。たとえば、 "cleardb"や"rediscloud"。
 
 #### <a id='register'></a> register ####
 
@@ -757,7 +906,7 @@ Rename a space.
 
 #### <a id='set-env'></a> set-env ####
 
-環境変数の設定境変数の削除については[set-env](#set-env)をご覧ください。
+環境変数の設定。環境変数の削除については[set-env](#set-env)をご覧ください。
 
 <div class="command-doc">
   <pre class="terminal">$ cf set-env [App] [Variable] [Value]</pre>

@@ -13,7 +13,7 @@ Cloud FoundryはSinatraアプリケーションをサポートしています。
 * Cloud Foundryのアカウント。右のページでサインアップできます。[サインアップ](https://my.cloudfoundry.com/signup
 * [Ruby](http://www.ruby-lang.org/en/)
 * [Bundler](http://gembundler.com/)
-* The [CF](../../managing-apps/) コマンド・ライン・ツール
+* The [CF](../../managing-apps/index.html) コマンド・ライン・ツール
 
 ## <a id='sample-project'></a>サンプル・プロジェクトの作成 ##
 

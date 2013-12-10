@@ -7,13 +7,13 @@ title: サービスの管理
 ターゲットの指定とログインの後、[cf](/docs/using/managing-apps/cf/index.html)コマンドでCloud Foundryを指定し、ログインした後、利用可能なサービスを表示することができます:
 
 <pre class="terminal">
-$ cf info --services
+$ cf services --marketplace
 </pre>
 
 このコマンドはアプリケーションから接続できるサービスの一覧を表示します。以下はCloud Foundryプライベートβでの例です。
 
 <pre class="terminal">
-$ cf info --services
+$ cf services --marketplace
 Getting services... OK
 
 service      version   provider        plans                        description                     
@@ -27,20 +27,20 @@ redis        2.6       core            200                          Redis key-va
 
 <i>Note: これは一例です。 現在のCloud Foundryでは使えないサービスも含まれています。</i>
 
-## <a id='create'></a>サービスを作成する ##
+## <a id='create'></a>サービス・インスタンスを作成する ##
 
-サービスを作成し、バインドするには、以下のコマンドを使ってください。
+サービス・インスタンスを作成するには、以下のコマンドを使ってください。
 
 <pre class="terminal">
 $ cf create-service
-1: mongodb n/a, via mongolab-dev
+1: mongodb n/a, via mongolab
 2: mongodb 2.2
 3: mysql 5.5
 4: postgresql 9.2
 5: rabbitmq 3.0
 6: redis 2.6
-7: redis n/a, via redistogo-dev
-8: smtp n/a, via sendgrid-dev
+7: redis n/a, via redistogo
+8: smtp n/a, via sendgrid
 What kind?> 3
 
 Name?> mysql-a0a77
@@ -52,7 +52,13 @@ Which plan?> 2
 Creating service mysql-a0a77... OK
 </pre>
 
-## <a id='bind'></a>Bind a Service ##
+## <a id='user-provided'></a>ユーザによるサービスのインスタンスを作成する ##
+
+ユーザによるサービスのインスタンスとは、Cloud Foundryの外側で動作するサービスのインスタンスです。たとえば、DBSはCloud Foundryに管理されていないOracleデータベースの利用者情報を提供することがあります。こういったインスタンスの利用者情報をソースに直接書くのではなく、Cloud Foundryのモック・サービスを作って外部のサービスへ接続することができます。そのためには慣れ親しんだ`create-service`コマンドが使え、利用者情報もいつものように扱えます。
+
+* [User Provided Service Instances](user-provided.html)
+
+## <a id='bind'></a>サービスのインスタンスへバインドする ##
 
 サービスをアプリケーションへバインドすると、環境変数VCAP_SERVICESへ資格情報が追加されます。通常、この資格情報はユニークです;
 別のアプリが同じサービスへ接続しても、異なる資格情報を受け取ります。変更を反映するため、アプリケーションの再起動が必要な場合があります。
@@ -72,9 +78,9 @@ Which service?> 1
 Binding mysql-a0a77 to my-app... OK
 </pre>
 
-## <a id='unbind'></a>Unbind a Service ##
+## <a id='unbind'></a>サービスのインスタンスをアンバインドする ##
 
-サービスを切り離すと、環境変数VCAP_SERVICESから該当する資格情報が削除されます。変更を反映するため、アプリケーションの再起動が必要な場合があります。
+サービスを切り離すと、環境変数[VCAP_SERVICES](../deploying-apps/environment-variable.html)から該当する資格情報が削除されます。変更を反映するため、アプリケーションの再起動が必要な場合があります。
 
 <pre class="terminal">
 $ cf unbind-service
@@ -87,7 +93,7 @@ Which service?> 1
 Unbinding mysql-a0a77 from my-app... OK
 </pre>
 
-## <a id='delete'></a>Delete a Service ##
+## <a id='delete'></a>サービスのインスタンスの削除 ##
 
 サービスを削除すると、サービスのインスタンスと*すべてのデータ* が削除されます。
 

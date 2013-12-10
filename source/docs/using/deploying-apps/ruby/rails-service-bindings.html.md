@@ -14,7 +14,7 @@ title: Rails 3とサービスのバインド
 * [Ruby](http://www.ruby-lang.org/en/)
 * [Rails](http://rubyonrails.org/)
 * [Bundler](http://gembundler.com/)
-* The [CF](../../managing-apps/) コマンド・ライン・ツール
+* The [CF](../../managing-apps/index.html) コマンド・ライン・ツール
 * サンプル・アプリケーションは [this](./rails-getting-started.html)にあります。
 
 ## <a id='gemfile'></a>Gemfileの設定 ##

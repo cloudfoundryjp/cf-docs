@@ -1,0 +1,121 @@
+---
+title: SSL対応のカスタム・ドメインを設定する
+---
+
+このページではコンテント分散ネットワークCloudFlareを使ってSSL対応のカスタム・ドメインを設定するやり方を説明しています。SSL対応のカスタム・ドメインを使うに際して、Pivotalはこの方法をお勧めします。このやり方では、Cloud Foundry上で動作しているあなたのアプリのトラフィックは、すべてCloudFlareを経由するようになります。
+
+browser  \< --- ssl --- \>  CloudFlareプロキシ  \< --- ssl --- \>  Cloud Foundry
+
+これを有効にするには、CloudFlareの該当ドメイン向けの“Full SSL”オプションを設定します。ブラウザとCloudFlareサーバの間でCloudFlareの生成したSSL証明書を使うことができます。あるいは、あなたの証明書を使うように設定することもできます。CloudFlareプロキシとCloud Foundry上のアプリの間では、Cloud Foundryの生成した証明書が使われます。
+
+この手順はあなたのドメインがDNSレジストラに登録済であることが前提です。この手順を完遂するためにはDNSレジストラに連絡する必要があります。DNSレジストラを変更する必要はないことに注意してください。唯一の必要な変更は、権限を持つネームサーバとしてCloudFlareのネームサーバを登録することだけです。
+
+ [ステップ5 - Configure DNS Records](#configure)を使用するために、該当ドメインのゾーン・ファイルをDNSプロヴァイダからダウンロードしておくことをお勧めします。
+
+## <a id='sign-up'></a>ステップ 1 - CloudFlareのアカウントを入手する ##
+
+https://www.cloudflare.com/へアクセスし、右上の **Sign up** をクリックします。登録ページでメイル・アドレス、ユーザ名、パスワードを入力します。CloudFlareの利用規約に同意し、 **Create account now** をクリックします。
+
+ <%= image_tag("cloudflare-register.png") %>
+
+
+## <a id='add-site'></a>ステップ2 - CloudFlareへドメインを追加する ##
+
+CloudFlareの"Add a website"ページであなたのカスタム・ドメインを入力し、**Add website**をクリックします。CloudFlareが権限のあるDNSサーバをたずねてきます。
+
+ <%= image_tag("add-website.png") %>
+
+
+## <a id='scan'></a>ステップ3 - スキャンの完了を待つ ##
+
+スキャンが完了すると、**Domain records scanned**が表示されます。**Continue Setup**をクリックします。
+
+ <%= image_tag("scan-complete.png") %>
+
+## <a id='configure'></a>ステップ4 - DNSレコードを設定する ##
+
+CloudFlareの"Configure Your DNS Records"でレコードの一覧が表示されます。あなたのドメインの行 -- 例では"uberconnected.com"--- の"Active"がオレンジになるはずです。
+
+DNSレコードが正しいことを確認するために、PivotalはDNSプロヴァイダからゾーン・ファイルをダウンロードし、それをCloudFlareへアップロードすることを推奨します。そのためには、**Upload a zone file**をクリックします。
+
+必要なら、レコードの追加のために**Add**をクリックします。
+
+済んだら**I've added all missing records, continue**をクリックします。
+
+<%= image_tag("config-dns.png") %>
+
+## <a id='settings'></a>ステップ5 - 設定を選ぶ ##
+
+"Settings for \<あなたのドメイン\>"ページで:
+
+*  **Choose a plan** --- "Pro"か"Business"を選んでください。無料プランを選んではいけません; CloudFlareの有料プランのみがSSLをサポートしています。"Pro"を選ぶとCloudFlareはCloudFlareプロキシとブラウザの間の通信に使われるSSL証明書を生成します。自分のSSL証明書を使う場合は"Business"を選びます。
+*  **Performance** --- 性能関連のさまざまな値をセットするパフォーマンス・プロファイルを設定します。どれを選択してもかまいません。また、後で変更するのも簡単です。設定した後、[Reviewing CloudFlare Configuration Options](#review)に従い、性能(とセキュリティ)に関わるオプションを理解し、変更してください。
+    * **CDN only (safest)** --- デフォルトです。
+    * **CDN + Basic Optimizations**
+    * **CDN + Full Optimizations**
+* **Security** --- CloudFlareを訪ずれた人の中の誰にキャプチャを表示するか制御します。以下のいずれかです:
+    * **I'm under attack!** --- DDoSを受けている時のみ使用します。この設定の場合、CloudFlareはリクエストがボットからではなく人間からのものであることを確かめるため約5秒間別のページを表示します。
+    * **High** --- CloudFlareは2週間以内に攻撃をしてきた人すべてに警告を出します。
+    * **Medium**
+    * **Low** --- CloudFlareはもっとも悪質な攻撃者たちへ警告を出します。CloudFlare推奨の初期値です。
+    * **Essentially off** --- CloudFlareは最悪の攻撃者にのみ反応します。
+*  **Automatiac IPV6** --- 以下のいずれかです:
+    * **Full IPv6 Gateway** --- CloudFlareが有効になっているすべてのサブドメイン(DNS設定画面でオレンジで表示されます)でIPv6が有効になります。
+    * **Safe IPv6 Gateway** IPv6用のサブドメイン(www.ipv6.yoursite.com)を作ります。
+*  **SmartErrors** --- SmartErrorsはCloudFlareの機能で、ページが見つからない場合に404 errorsにならないようにします。その代わりに、CloudFlareはユーザのリクエストに基づく検索を実行し、もっとも良くマッチしたページのリストを表示します。
+
+**Continue**をクリックしてください。
+
+<%= image_tag("settings.png") %>
+
+## <a id='ssl'></a>ステップ6 - SSLを確認する ##
+
+"Confirm SSL"ページにおいて、以下が選択できます:
+
+* **Automatic SSL Configuration** --- これを選択するとCloudFlareはSSL証明書を生成します。前のステップで"Business"を選択していれば、後で証明書をアップロードできます。
+* **Custom SSL Configuration** --- 前のステップで"Business"を選択した場合にのみ出現します。これを選択すると、秘密鍵と証明書をアップロードすることができます。
+* **Manual SSL Configuration**
+
+<%= image_tag("confirm-ssl.png") %>
+
+## <a id='settings'></a>ステップ7 - ネームサーバを更新する ##
+
+"Update Name Servers"ページではあなたのネームサーバの一覧とそれらを置換するCloudFlareを表示します。
+
+あなたのDNSレジストラにログインし、ネームサーバ管理ページへアクセスします。使用中のネームサーバをCloudFlareのネームサーバで置き換えます。
+
+"update your name servers page."で**I've updated my nameservers, continue**をクリックしてください。
+
+## <a id='settings'></a>ステップ9 - 設定の終了 ##
+
+必要な情報をすべて入力すると、"My Websites"ページが現れ、ドメインの設定が終わったと表示されます。
+
+
+前のステップでの変更が有効になっているか、DNSレジストラのサイトで確認してください。
+
+<%= image_tag("complete.png") %>
+
+
+## <a id='review'></a>CloudFlareの設定の見直し ##
+
+初期設定の後、CloudFlareの設定を見直したくなることがあります。そうするには、CloudFlare.comの任意のページの上部にある**Websites**をクリックし、"My WebSites"へアクセスしてください。
+
+あなたのドメインの行の歯車のアイコンをクリックし、メニューから**CloudFlare settings**を選択します。**CloudFlare settings**ページにはCloudFlareの設定に関するいくつかのタブがあります。特に、**Security**と**Performance**タブを参照して設定した内容とそれ以外の選択肢を理解してください。
+
+<%= image_tag("my-websites.png") %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

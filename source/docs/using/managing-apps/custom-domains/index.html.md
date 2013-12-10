@@ -12,17 +12,15 @@ title: ドメイン、サブドメイン、ルート
 
 Cloud Foundryでは、ドメインはスペースに関連づけられます。
 
-Cloud Foundryのインスタンスはすべてのスペースに使えるデフォルトのドメインを持っています。たとえば、PivotalのCloud
-Foundryのインスタンスでは`cfapps.io` ドメインがすべてのオーガナイゼーションのすべてのスペースに割り当てられます。
+Cloud Foundryのインスタンスはすべてのスペースに使えるデフォルトのドメインを持っています。たとえば、PivotalのCloud Foundryのインスタンスでは`cfapps.io` ドメインがすべてのオーガナイゼーションのすべてのスペースに割り当てられます。
 
-また、Cloud Foundryはカスタムドメインもサポートします -- 以下のように、独自のドメインを登録し、Cloud
-Foundryの中のスペースに割り当てることができます。
+また、Cloud Foundryはカスタムドメインもサポートします -- 以下のように、独自のドメインを登録し、Cloud Foundryの中のスペースに割り当てることができます。カスタム・ドメインとSSLを使いたいなら、 [SSL対応のカスタム・ドメインを設定する](/docs/using/managing-apps/custom-domains/cloudflare.html)をご覧ください。
 
 ## <a id='map-domain'></a>カスタム・ドメインのスペースへのマッピング ##
 
 自分のドメインを使いたいなら、`cf map-domain`コマンドでCloud Foundryへ登録しアプリケーションのスペースに割り当てる必要があります。
 
-`cfapps.io`や`example.com`のようなトップ・レベル・ドメインを指定してください。以下のコマンドは独自ドメイン`example.com`を“development”へ割り当てます。
+以下のコマンドは独自ドメイン`example.com`を“development”スペースへ割り当てます。
 
 `cf map-domain --space development example.com`
 
@@ -93,7 +91,8 @@ Subdomain> 1
 
 1: cfapps.io
 2: example.com
-3: none Domain> 2
+3: none
+Domain> 2
 
 Creating route myapp.example.com... OK
 Binding myapp.example.com to myapp... OK

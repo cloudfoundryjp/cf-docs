@@ -1,46 +1,32 @@
 ---
-title: Java Cloud Foundryクライアント
+title: Cloud Foundry Java クライアント・ライブラリ
 ---
 
-## <a id='intro'></a>紹介 ##
+## <a id='intro'></a>はじめに ##
 
-Cloud Foundryインスタンス上のアカウントを管理するJava Cloud Foundryクライアントの使い方を説明します。
+Cloud Foundryインスタンス上のアカウントを管理するCloud Foundry Javaクライアント・ライブラリの使い方を説明します。
 
 ## <a id='getting'></a>ライブラリの入手 ##
 
-Java Cloud Foundryライブラリは、Spring Framework
-milestoneリポジトリから入手できます。以下のような情報があれば、MavenまたはGradleプロジェクトへの従属としてこのライブラリを追加できます。
+Cloud Foundry Javaクライアント・ライブラリは、Maven Centralから入手できます。以下のような情報があれば、MavenまたはGradleプロジェクトへの従属としてこのライブラリを追加できます。
 
 ### <a id='maven'></a>Maven ###
 
-MavenプロジェクトでJavaクライアントを使うには、まず`pom.xml`ファイルへSpring Framework milestoneリポジトリを追加します。`<repository>`セクションへ、以下のように追加してください:
-
-~~~xml
-  <repositories>
-    <repository>
-      <id>repository.springframework.milestone</id>
-      <name>Spring Framework Milestone Repository</name>
-      <url>http://repo.springframework.org/milestone</url>
-    </repository>
-  </repositories>
-~~~
-
-リポジトリを`pom.xml`へ追加した後、依存関係を以下のように追加します:
+以下のように`pom.xml`へ`cloudfoundry-client-lib`の依存関係を追加できます:
 
 ~~~xml
   <dependencies>
     <dependency>
       <groupId>org.cloudfoundry</groupId>
       <artifactId>cloudfoundry-client-lib</artifactId>
-      <version>0.8.4</version>
+      <version>1.0.0</version>
     </dependency>
   </dependencies>
 ~~~ 
 
 ### <a id='gradle'></a>Gradle ###
 
-GradleプロジェクトでJavaクライアントを使うには、次のようにSpring Framework
-milestoneリポジトリを`build.gradle`ファイルへ追加してください。:
+GradleプロジェクトでJavaクライアント・ライブラリを使うには、次のように`cloudfoundry-client-lib`の依存関係を`build.gradle`ファイルへ追加してください。:
 
 ~~~groovy
 repositories {
@@ -49,7 +35,7 @@ repositories {
 }
 
 dependencies {
-  compile 'org.cloudfoundry:cloudfoundry-client-lib:0.8.4'
+  compile 'org.cloudfoundry:cloudfoundry-client-lib:1.0.0'
 } 
 ~~~
 
@@ -105,6 +91,6 @@ public class JavaSample {
 }
 ~~~
 
-Java APIの詳細については[source on GitHub](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib)をご覧ください。[domain package](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-client-lib/src/main/java/org/cloudfoundry/client/lib/domain)が読み書きできるオブジェクトを示しています。
+Cloud Foundry Javaクライアント・ライブラリについて、詳しくは[source on GitHub](https://github.com/cloudfoundry/cf-java-client/tree/master/cloudfoundry-client-lib). The [domain package](https://github.com/cloudfoundry/cf-java-client/tree/master/cloudfoundry-client-lib/src/main/java/org/cloudfoundry/client/lib/domain)をご覧ください。問合せや検査可能なオブジェクトを示しています。
 
-[Cloud Foundry Maven plugin](https://github.com/cloudfoundry/vcap-java-client/tree/master/cloudfoundry-maven-plugin)のソースがJava client libraryの使い方のサンプルにもなっています。
+[Cloud Foundry Maven plugin](https://github.com/cloudfoundry/cf-java-client/tree/master/cloudfoundry-maven-plugin)のソースも使い方の良い例です。

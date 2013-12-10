@@ -8,27 +8,26 @@ Cloud Foundryは、SpringアプリケーションからMySQL, Postgres, MongoDB,
 RabbitMQなどのサービスへの接続をサポートしています。多くの場合、Cloud
 Foundryはコードを変更することなく自動的にSpringアプリケーションを設定することができます。それ以外の場合、接続パラメーターを自分で制御することもできます。
 
-## <a id='auto'></a>自動再設定 ##
+## <a id='auto'></a>自動設定 ##
 
-SpSpringアプリケーションがサービス(データベースやメッセージング・システムなどの)を使っている場合、コードに手を加えることなくCloud
-Foundryへデプロイできます。こういったケースで、Cloud Foundryは自動的にサービスへの接続を再設定します。
+Springアプリケーションがサービス(データベースやメッセージング・システムなどの)を使っている場合、コードに手を加えることなくCloud Foundryへデプロイできます。こういったケースで、Cloud Foundryは自動的にサービスへの接続を再設定します。
 
-Cloud Foundryは以下の条件が成り立つ場合に自動再設定を行ないます:
+Cloud Foundryは以下の条件が成り立つ場合に自動設定を行ないます:
 
-* サービスごとに、ただ一つのインスタンスだけが使われている。この文脈では、MySQLとPostgresは一つのサービスの種類(リレーショナル・データベース)と見なされます。MySQLとPostgresサービスの両方がバインドされている場合、自動再設定は行われません。
+* サービスごとに、ただ一つのインスタンスだけが使われている。この文脈では、MySQLとPostgresは一つのサービスの種類(リレーショナル・データベース)と見なされます。MySQLとPostgresサービスの両方がバインドされている場合、自動設定は行われません。
 * Springアプリケーションのcontextの中で、サービスのタイプごとにただ一つのbeanが存在する。たとえば、`javax.sql.DataSource`のbeanが一つだけある。
 
-自動再設定の場合、Cloud Foundryがデータベースまたは接続のfactory beanを作成します。この時、Cloud Foundryが持っているホスト、ポート、ユーザ名などのプロパティを使用します。たとえば、`javax.sql.DataSource`のbeanが一つだけある場合、Cloud Foundryは自分のデータベース・サービスと接続し、元々指定されていたユーザ名、パスワード、URLは使用しません。Cloud Foundryは自分が持っている値を使います。これはアプリケーションからは透過的です。アプリケーションはデータを読み書きできれば十分で、プロパティなどは気にしないからです。また、独自の設定(たとえば、接続のプールの大きさなど)をしていてもCloud Foundryの自動再設定はそれを無視します。
+自動設定の場合、Cloud Foundryがデータベースまたは接続のfactory beanを作成します。この時、Cloud Foundryが持っているホスト、ポート、ユーザ名などのプロパティを使用します。たとえば、`javax.sql.DataSource`のbeanが一つだけある場合、Cloud Foundryは自分のデータベース・サービスと接続し、元々指定されていたユーザ名、パスワード、URLは使用しません。Cloud Foundryは自分が持っている値を使います。これはアプリケーションからは透過的です。アプリケーションはデータを読み書きできれば十分で、プロパティなどは気にしないからです。また、独自の設定(たとえば、接続のプールの大きさなど)をしていてもCloud Foundryの自動設定はそれを無視します。
 
-サービスのタイプごとの自動再設定の詳細については、[Service-specific Details](#services)セクションをご覧ください。
+サービスのタイプごとの自動設定の詳細については、[Service-specific Details](#services)セクションをご覧ください。
 
-### <a id='optout'></a>自動再設定を避ける ###
+### <a id='optout'></a>自動設定を避ける ###
 
-Cloud Foundryの自動再設定が望ましくない場合があります。自動再設定をさせないためには、Spring application context file内の[`<cloud:>` namespace](#namespace)エレメントを使って、サービスを示すbeanを明示的に作成してください。これにより自動再設定が使われなくなります。
+Cloud Foundryの自動設定が望ましくない場合があります。自動設定をさせないためには、Spring application context file内の[`<cloud:>` namespace](#namespace)エレメントを使って、サービスを示すbeanを明示的に作成してください。これにより自動設定が使われなくなります。
 
 ## <a id='manual'></a>手動設定 ##
 
-SpringアプリケーションがCloud Fouundryの自動再設定を使えない、あるいはきめ細かく制御したいなどの場合、やるべきことは単純です。
+SpringアプリケーションがCloud Fouundryの自動設定を使えない、あるいはきめ細かく制御したいなどの場合、やるべきことは単純です。
 
 手動設定の場合、`cloudfoundry-runtime`ライブラリを依存関係の中に含めます。ビルド・ファイル(e.g. Maven `pom.xml`ファイル、またはGradle `build.gradle` ファイル)を`org.cloudfoundry.cloudfoundry-runtime`が含まれるように更新します。例として、アプリケーションをビルドするのにMavenを使っているとして、以下の`pom.xml`の一部が**Cloud Foundry v2サポートが必要なら、このライブラリのヴァージョンは`0.8.4`以上である必要があります**:
 
@@ -285,15 +284,15 @@ standard root `<beans>`要素内の`<beans profile="value">`要素はネスト�
 
 ## <a id='services'></a>サービス特有の詳細 ##
 
-続くセクションではCloud Foundryがサポートするサービス向けのSpringの自動再設定と手動設定について説明します。
+続くセクションではCloud Foundryがサポートするサービス向けのSpringの自動設定と手動設定について説明します。
 
 ### <a id='rdbms'></a>MySQLとPostgres ###
 
-#### 自動再設定 ####
+#### 自動設定 ####
 
-自動再設定、Cloud FoundryがSpring application context内の`javax.sql.DataSource`
+自動設定、Cloud FoundryがSpring application context内の`javax.sql.DataSource`
 beanを検出した際に実行されます。以下のSpring application context
-fileの一部はこのタイプのbeanの定義の例を示しています。Cloud Foundryはこれを検知し、自動再設定を実行します:
+fileの一部はこのタイプのbeanの定義の例を示しています。Cloud Foundryはこれを検知し、自動設定を実行します:
 
 ~~~xml
 <bean class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close" id="dataSource">
@@ -382,11 +381,11 @@ beanはこのIDを使います。デフォルトの値はバインドされた�
 
 ### <a id='mongodb'></a>MongoDB ###
 
-#### 自動再設定 ####
+#### 自動設定 ####
 
-自動再設定を使うには、[Spring Data MongoDB](http://www.springsource.org/spring-data/mongodb) 1.0 M4またはそれ以降を使う必要があります。
+自動設定を使うには、[Spring Data MongoDB](http://www.springsource.org/spring-data/mongodb) 1.0 M4またはそれ以降を使う必要があります。
 
-Cloud FoundryがSpring application context内に`org.springframework.data.document.mongodb.MongoDbFactory` beanを発見すると、自動再設定が実行されます。以下のSpring XML application contextファイルの一部は、Cloud Foundryが感知すると自動再設定がされるはずのbeanの例になっています:
+Cloud FoundryがSpring application context内に`org.springframework.data.document.mongodb.MongoDbFactory` beanを発見すると、自動設定が実行されます。以下のSpring XML application contextファイルの一部は、Cloud Foundryが感知すると自動設定がされるはずのbeanの例になっています:
 
 ~~~xml
 <mongo:db-factory
@@ -499,11 +498,11 @@ The `<cloud:mongo-options>` child element takes the following attributes:
 
 ### <a id='redis'></a>Redis ###
 
-#### 自動再設定 ####
+#### 自動設定 ####
 
-自動再設定を使うには、 [Spring Data Redis](http://www.springsource.org/spring-data/redis) 1.0 M4またはそれ以降を使う必要があります。
+自動設定を使うには、 [Spring Data Redis](http://www.springsource.org/spring-data/redis) 1.0 M4またはそれ以降を使う必要があります。
 
-自動再設定は、Cloud FoundryがSpring application context内の`org.springframework.data.redis.connection.RedisConnectionFactory` beanを検出した際に実行されます。以下のSpring XML application contextファイルの一部は、Cloud Foundryが感知すると自動再設定がされるはずのbeanの例になっています:
+自動設定は、Cloud FoundryがSpring application context内の`org.springframework.data.redis.connection.RedisConnectionFactory` beanを検出した際に実行されます。以下のSpring XML application contextファイルの一部は、Cloud Foundryが感知すると自動設定がされるはずのbeanの例になっています:
 
 ~~~xml
 <bean id="redis"
@@ -618,12 +617,12 @@ The `<cloud:pool>` child element takes the following attributes:
 
 ### <a id='rabbitmq'></a>RabbitMQ ###
 
-#### 自動再設定 ####
+#### 自動設定 ####
 
-自動再設定を使うには、[Spring AMQP](http://www.springsource.org/spring-amqp)
+自動設定を使うには、[Spring AMQP](http://www.springsource.org/spring-amqp)
 1.0またはそれ以降を使う必要があります。Spring AMQP provides publishing, multi-threaded consumer generation, and message conversion. It also facilitates management of AMQP resources while promoting dependency injection and declarative configuration.
 
-自動再設定は、Cloud FoundryがSpring application context内の`org.springframework.amqp.rabbit.connection.ConnectionFactory` beanを検出した際に実行されます。以下のSpring application context fileの一部はこのタイプのbeanの定義の例を示しています。Cloud Foundryはこれを検知し、自動再設定を実行します:
+自動設定は、Cloud FoundryがSpring application context内の`org.springframework.amqp.rabbit.connection.ConnectionFactory` beanを検出した際に実行されます。以下のSpring application context fileの一部はこのタイプのbeanの定義の例を示しています。Cloud Foundryはこれを検知し、自動設定を実行します:
 
 ~~~xml
 <rabbit:connection-factory

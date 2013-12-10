@@ -4,11 +4,11 @@ title: Grails - サービスのバインド
 
 Cloud FoundryはGrailsアプリケーションとMySQL, Postgres, MongoDB, Redis, RabbitMQなどのサービスとの接続をサポートしている。多くの場合、Cloud Foundry上のGrailsアプリケーションは自動的にサービスを検出し、接続することができる。それ以外の場合、接続パラメーターを自分で制御することもできます。
 
-## <a id="auto"></a>自動再設定 ##
+## <a id="auto"></a>自動設定 ##
 
 GrailsはSQLアクセスのプラグインを提供している。 ([Hibernate](http://grails.org/plugin/hibernate)を使って)や[MongoDB](http://www.grails.org/plugin/mongodb)や[Redis](http://grails.org/plugin/redis)など。これらのうちの一つをインストールし`Config.groovy`か`DataSource.groovy`で設定すれば、アプリが起動し接続情報が与えられた際にCloud Foundry Grailsプラグインが自動的に再設定します。
 
-サービス接続のオート・リコンフィギュレーションを有効にするには、`cloudfoundry-runtime`ライブラリを`BuildConfig.groovy`ファイルの`dependencies`セクションへ追加し、`cloud-foundry`プラグインを`plugins`セクションへ追加してください。また、Spring Framework Milestoneリポジトリを`repositories`セクションへ追加してください。**Cloud Foundry v2をサポートするには、`cloudfoundry-runtime`のヴァージョンは`0.8.4`以上にしてください**:
+サービス接続の自動設定を有効にするには、`cloudfoundry-runtime`ライブラリを`BuildConfig.groovy`ファイルの`dependencies`セクションへ追加し、`cloud-foundry`プラグインを`plugins`セクションへ追加してください。また、Spring Framework Milestoneリポジトリを`repositories`セクションへ追加してください。**Cloud Foundry v2をサポートするには、`cloudfoundry-runtime`のヴァージョンは`0.8.4`以上にしてください**:
 
 ~~~groovy
   repositories {
@@ -80,8 +80,7 @@ Cloud Foundry Grailsプラグインを使いたくないなら、Cloud Foundry �
 ~~~
 
 その後、`DataSources.groovy`ファイル内で`cloudfoundry-runtime` API
-を使って接続のパラメーターをセットできます。三つのタイプのデータベースを使っていて、オート・リコンフィギュレーションの例に従い、サービスの名前が"myapp-mysql",
-"myapp-mongodb", and "myapp-redis"だとすると、`DataSources.groovy`ファイルは以下のようになります。
+を使って接続のパラメーターをセットできます。三つのタイプのデータベースを使っていて、自動設定の例に従い、サービスの名前が"myapp-mysql", "myapp-mongodb", "myapp-redis"だとすると、`DataSources.groovy`ファイルは以下のようになります。
 
 ~~~groovy
 import org.cloudfoundry.runtime.env.CloudEnvironment
