@@ -127,9 +127,9 @@ Railsコンソールにアクセスできるポート(IPアドレスは`VCAP_CON
 
 ### <a id='VCAP_SERVICES'></a>VCAP\_SERVICES ###
 
-ほとんどのサービス・タイプについて、Cloud Foundryは接続情報をサービスがアプリケーションへバインドされた時に環境変数`VCAP_SERVICES`へ追加します。
+ほとんどのサービス・タイプについて、Cloud Foundryは接続情報をサービスがアプリケーションへバインドされ、その後アプリケーションが再起動された時に環境変数`VCAP_SERVICES`へ追加します。
 
-結果はJSON形式で返され、一つ以上のインスタンスがアプリケーションへバインドされているサービス・タイプのオブジェクトが格納されています。サービス・タイプのオブジェクトはアプリケーションへバインドされているサービスのインスタンスのための子オブジェクトを含みます。サービスのインスタンスの属性はタイプにより異ります。バインドされたサービスの属性を以下の表に示します。すべての属性がすべてのタイプに適用されるわけではないことにご注意ください。
+結果はJSON形式で返され、一つ以上のインスタンスがアプリケーションへバインドされているサービス・タイプのオブジェクトが格納されています。サービス・タイプのオブジェクトはアプリケーションへバインドされているサービスのインスタンスのための子オブジェクトを含みます。バインドされたサービスの属性を以下の表に示します。
 
 
 |属性|説明 |
@@ -145,99 +145,70 @@ Railsコンソールにアクセスできるポート(IPアドレスは`VCAP_CON
 |password |サービスへ接続するためのパスワード; cleardb, cloudamp, sendgridのインスタンスのための"credentials"オブジェクトに含まれる |
 |uri  |サービスへ接続するためのURI; cleardb, rediscloud, elephantsql, mongolabのインスタンスのための"credentials"オブジェクトに含まれる |
 |jdbcUrl|データベース接続のためのJDBC; cleardbのインスタンスのための"credentials"オブジェクトに含まれる |
+|属性|説明 |
+| --------- | --------- | 
+|名前|サービスのインスタンスが作られた時に割当てられた名前。 |
+|ラベル (v1 API)|サービスの名前とヴァージョン (ヴァージョンがなければ"n/a"という文字列が使われます)。"-"で区切られます。例: "cleardb-n/a"|
+|label (v2 API)|サービスの名前と同じ。 |
+|プラン|サービスが作られた時に選択されたプラン。 |
+|利用者情報|アクセスに必要となるサービス固有の利用者情報を含むJSONオブジェクト。たとえば、cleardbサービスの場合、次のものを含みます。名前、ホスト名、ポート、ユーザ名、パスワード、URI、JDBCのURL。|
 
 
-以下の例では、Cloud Foundry Marketplaceで利用可能な各サービス・タイプのインスタンスにバインドされたVCAP_SERVICE変数を解析した内容を示します。
+
+以下の[v1](/docs/running/architecture/services/writing-service-v1.html)の例は[Pivotal Web Services](http://run.pivotal.io)マーケット・プレースで利用可能な各サービス・タイプのインスタンスにバインドされたVCAP_SERVICE変数についてのJSONを含んでいます。
 
 ~~~
 VCAP_SERVICES=
 {
-  cleardb-n/a: [
+  "elephantsql-dev-n/a": [
     {
-      name: "cleardb-1",
-      label: "cleardb-n/a",
-      plan: "spark",
-      credentials: {
-        name: "ad_c6f4446532610ab",
-        hostname: "us-cdbr-east-03.cleardb.com",
-        port: "3306",
-        username: "b5d435f40dd2b2",
-        password: "ebfc00ac",
-        uri: "mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab",
-        jdbcUrl: "jdbc:mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab"
+      "name": "elephantsql-dev-c6c60",
+      "label": "elephantsql-dev-n/a",
+      "plan": "turtle",
+      "credentials": {
+        "uri": "postgres://seilbmbd:PHxTPJSbkcDakfK4cYwXHiIX9Q8p5Bxn@babar.elephantsql.com:5432/seilbmbd"
       }
     }
   ],
-  cloudamqp-n/a: [
+  "sendgrid-n/a": [
     {
-      name: "cloudamqp-6",
-      label: "cloudamqp-n/a",
-      plan: "lemur",
-      credentials: {
-        uri: "amqp://ksvyjmiv:IwN6dCdZmeQD4O0ZPKpu1YOaLx1he8wo@lemur.cloudamqp.com/ksvyjmiv"
+      "name": "mysendgrid",
+      "label": "sendgrid-n/a",
+      "plan": "free",
+      "credentials": {
+        "hostname": "smtp.sendgrid.net",
+        "username": "QvsXMbJ3rK",
+        "password": "HCHMOYluTv"
       }
     }
-  ],
-  rediscloud-n/a: [
-    {
-      name: "rediscloud-1",
-      label: "rediscloud-n/a",
-      plan: "20mb",
-      credentials: {
-        port: "17546",
-        hostname: "pub-redis-17546.MatanCluster.ec2.garantiadata.com",
-        password: "1M5zd3QfWi9nUyya"
-      }
-    },
-  ],
-{
-  elephantsql-dev-n/a: [
-  {
-    name: "elephantsql-dev-c6c60",
-    label: "elephantsql-dev-n/a",
-    plan: "turtle",
-    credentials: {
-      uri: "postgres://seilbmbd:PHxTPJSbkcDakfK4cYwXHiIX9Q8p5Bxn@babar.elephantsql.com:5432/seilbmbd"
-    }
-  }
   ]
 }
+~~~
 
+The [v2](/docs/running/architecture/services/api-v2.0.html) version of the same data would look like this:
 
- mongolab-dev-n/a: [
-  {
-    name: "mongolab-dev-2cea8",
-    label: "mongolab-dev-n/a",
-    plan: "sandbox",
-    credentials: {
-      uri: "mongodb://cloudfoundry-test_2p6otl8c_841b7q4b_tmtlqeaa:eb5d00ac-2a4f-4beb-80ad-9da11cff5a70@ds027908.mongolab.com:27908/cloudfoundry-test_2p6otl8c_841b7q4b"
-    }
-  }
-  ]
-}
+~~~
+VCAP_SERVICES=
 {
-  "newrelic-n/a":[
+  "elephantsql-dev": [
     {
-      "name":"newrelic-14e9d",
-      "label":"newrelic-n/a",
-      "plan":"standard",
-      "credentials":
-        {
-          "licenseKey":"2865f6f3nsig8f813af7989fccb24a699cb22a4beb"
-        }
+      "name": "elephantsql-dev-c6c60",
+      "label": "elephantsql-dev",
+      "plan": "turtle",
+      "credentials": {
+        "uri": "postgres://seilbmbd:PHxTPJSbkcDakfK4cYwXHiIX9Q8p5Bxn@babar.elephantsql.com:5432/seilbmbd"
+      }
     }
-  ]
-}
-{
-  sendgrid-n/a: [
+  ],
+  "sendgrid": [
     {
-      name: "mysendgrid",
-      label: "sendgrid-n/a",
-      plan: "free",
-      credentials: {
-        hostname: "smtp.sendgrid.net",
-        username: "QvsXMbJ3rK",
-        password: "HCHMOYluTv"
+      "name": "mysendgrid",
+      "label": "sendgrid",
+      "plan": "free",
+      "credentials": {
+        "hostname": "smtp.sendgrid.net",
+        "username": "QvsXMbJ3rK",
+        "password": "HCHMOYluTv"
       }
     }
   ]

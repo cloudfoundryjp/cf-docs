@@ -8,6 +8,12 @@ title: Rubyのためのサービス接続設定
 
 アプリケーションからVCAP_SERVICES内の利用者情報を名前やタグやラベルで検索するためのgemが提供されています。
 
+* [cf-app-utils-ruby](https://github.com/cloudfoundry/cf-app-utils-ruby)
+
+## <a id='auto-config'></a>Auto-configuration for Rails ##
+
+Ruby on Railsアプリケーションは、環境変数`DATABASE_URL`内にリレーショナル・データベースの接続情報が格納されていることを期待している場合があります。これにはサービス・インスタンスの利用者情報のJSONオブジェクトの`uri`キーが含まれ、その値はスキームを示す`mysql`か`postgres`になります。ビルドパックは最初に見つけたものを使用します。
+
 ## <a id='config-file'></a>設定ファイルでコネクションを定義する ##
 
 データベースを使うRubyアプリケーションでは、データベースへの接続は`database.yml`ファイルで設定します。サービスをアプリケーションへバインドする際、接続情報を環境変数`VCAP_SERVICES`へ書き込まれます。`VCAP_SERVICES`にはJSONフォーマットでバインドされているサービスの一覧と利用者情報が書きこまれています。

@@ -4,25 +4,12 @@ title: サービスを利用する
 
 Cloud Foundryにおけるサービスとは、アプリケーションと共にプロヴィジョンできるアドオンです。例として、データベースやサード・パーティのSaaSのアカウントなどが挙げられます。
 
-いくつかのサービスは「バインド」という概念をサポートしています。サービスがアプリケーションにバインドされると、接続情報と利用者情報が環境変数`VCAP_SERVICES`に追加され、そのアプリケーションから参照できるようになります。
+いくつかのサービスはアプリケーションとの「バインド」という概念をサポートしています。サービスがアプリケーションにバインドされると、接続情報と利用者情報が環境変数`VCAP_SERVICES`にJSONフォーマットで追加され、そのアプリケーションから参照できるようになります。
 
 * [Getting Started - Adding a Service](../../dotcom/adding-a-service.html)
+* [Using Bound Service Instances with your Application](../../dotcom/adding-a-service.html#using)
 * [Managing Services from the Command Line](managing-services.html)
-* [VCAP_SERVICES Environment Variable](environment-variable.html)
+* [User-provided Service Instances](user-provided.html)
+* [VCAP_SERVICES Environment Variable](../deploying-apps/environment-variable.html)
 * [Tunnelling to Services Instances](tunnelling-with-services.html)
 
-## Services Architecture
-
-* [Services Architecture](../../running/architecture/services/)
-
-あなたがCloud Foundryインスタンスを運用していて、アプリケーションを外部のサービスにバインドすることに関心があるのなら、[Service Connector](/docs/running/architecture/services/service-connector.html)をご覧ください。
-
-## <a id='configuring'></a>異なるフレームワークへの接続の設定 ##
- 
-アプリケーションをサービスへ接続する手続きは、フレームワークにより異なります。自動設定はすべてのフレームワークをサポートしているわけでないことにご注意ください。下のテーブルはそれぞれの環境でのサービスの接続の設定の方法へのリンクを示しています。
-
-| Runtime               | Framework                   |
-| :-------------        |:-------------               |
-| Java / JVM        | <li>[Spring](../using/services/spring-service-bindings.html) <li>[Grails](../using/services/grails-service-bindings.html) <li>[Lift](../using/services/lift-service-bindings.html) |
-| Ruby            | <li>[Rack, Rails, or Sinatra](../using/services/ruby-service-bindings.html) |
-| Javascript          | <li>[Node.js](../using/services/node-service-bindings.html) |
