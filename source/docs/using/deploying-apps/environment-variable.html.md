@@ -127,35 +127,23 @@ Railsコンソールにアクセスできるポート(IPアドレスは`VCAP_CON
 
 ### <a id='VCAP_SERVICES'></a>VCAP\_SERVICES ###
 
-ほとんどのサービス・タイプについて、Cloud Foundryは接続情報をサービスがアプリケーションへバインドされ、その後アプリケーションが再起動された時に環境変数`VCAP_SERVICES`へ追加します。
+[bindable services](../services/)について、Cloud Foundryはサービスがアプリケーションへバインドされ、その後アプリケーションが再起動された時に接続情報を環境変数`VCAP_SERVICES`へ追加します。
 
-結果はJSON形式で返され、一つ以上のインスタンスがアプリケーションへバインドされているサービス・タイプのオブジェクトが格納されています。サービス・タイプのオブジェクトはアプリケーションへバインドされているサービスのインスタンスのための子オブジェクトを含みます。バインドされたサービスの属性を以下の表に示します。
+結果はJSON形式で返され、一つ以上のインスタンスがアプリケーションへバインドされているサービス・タイプのオブジェクトが格納されています。サービスのオブジェクトはアプリケーションへバインドされているサービスのインスタンスのための子オブジェクトを含みます。バインドされたサービスの属性を以下の表に示します。
 
+JSONドキュメントの中の各サービス・タイプのキーは"label"属性と同じ値になります。
 
 |属性|説明 |
 | --------- | --------- | 
-|service name-version|サービス・タイプを表すサービスの名前とヴァージョン。(ヴァージョンが指定されていない場合、"n/a") ダッシュで区切られる。例: "cleardb-n/a" |
-|name|サービスのインスタンスが作られた時に指定された名前 |
-|label|service name-versionと同じ値を取る |
-|plan|サービスが作られた時に選択されたプロヴァイダーのプラン |
-|name|サービス・プロヴァイダーのサーバーで動作しているデータベースの名前。cleardbのインスタンスのための"credentials"オブジェクトに含まれる  |
-|host |サービスへ接続するためのホスト; cleardb, rediscloud, or sendgridのインスタンスのための"credentials"オブジェクトに含まれる  |
-|port |サービスへ接続するためのポート; cleardb, rediscloudのインスタンスのための"credentials"オブジェクトに含まれる |
-|username |サービスへ接続するためのユーザ名; cleardb, sendgridのインスタンスのための"credentials"オブジェクトに含まれる |
-|password |サービスへ接続するためのパスワード; cleardb, cloudamp, sendgridのインスタンスのための"credentials"オブジェクトに含まれる |
-|uri  |サービスへ接続するためのURI; cleardb, rediscloud, elephantsql, mongolabのインスタンスのための"credentials"オブジェクトに含まれる |
-|jdbcUrl|データベース接続のためのJDBC; cleardbのインスタンスのための"credentials"オブジェクトに含まれる |
-|属性|説明 |
-| --------- | --------- | 
-|名前|サービスのインスタンスが作られた時に割当てられた名前。 |
-|ラベル (v1 API)|サービスの名前とヴァージョン (ヴァージョンがなければ"n/a"という文字列が使われます)。"-"で区切られます。例: "cleardb-n/a"|
-|label (v2 API)|サービスの名前と同じ。 |
-|プラン|サービスが作られた時に選択されたプラン。 |
-|利用者情報|アクセスに必要となるサービス固有の利用者情報を含むJSONオブジェクト。たとえば、cleardbサービスの場合、次のものを含みます。名前、ホスト名、ポート、ユーザ名、パスワード、URI、JDBCのURL。|
+|name|サービスのインスタンスが作られた時にユーザによって割当てられた名前。 |
+|label (v1 API)|サービスの名前とヴァージョン (ヴァージョンがなければ"n/a"という文字列が使われます)。"-"で区切られます。例: "cleardb-n/a"|
+|label (v2 API)|サービスの名前 |
+|plan|サービスが作られた時に選択されたサービスのプラン |
+|credentials|アクセスに必要となるサービス固有の利用者情報を含むJSONオブジェクト。たとえば、cleardbサービスの場合、次のものを含みます。名前、ホスト名、ポート、ユーザ名、パスワード、URI、jdbcUrl|
 
 
 
-以下の[v1](/docs/running/architecture/services/writing-service-v1.html)の例は[Pivotal Web Services](http://run.pivotal.io)マーケット・プレースで利用可能な各サービス・タイプのインスタンスにバインドされたVCAP_SERVICE変数についてのJSONを含んでいます。
+以下の[v1](/docs/running/architecture/services/writing-service-v1.html)の例は[Pivotal Web Services](http://run.pivotal.io)マーケット・プレースで利用可能なさまざまなサービスのインスタンスにバインドされたVCAP_SERVICE環境変数についてのJSONを含んでいます。
 
 ~~~
 VCAP_SERVICES=

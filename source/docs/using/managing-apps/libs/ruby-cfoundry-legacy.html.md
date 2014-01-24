@@ -17,7 +17,7 @@ gem 'cfoundry'
 
 ~~~
 
-cfoundryの最初のステップは、クライアントのインスタンスを作りログインすることです。;
+cfoundryの最初のステップは、クライアントのインスタンスを作りログインすることです:
 
 ~~~ruby
 require 'cfoundry'
@@ -30,7 +30,7 @@ client = CFoundry::Client.new endpoint
 client.login username, password
 ~~~
 
-試しに利用可能なサービスへの接続の一覧を表示します;
+試しに利用可能なサービスへの接続の一覧を表示します:
 
 ~~~ruby
 
@@ -40,7 +40,9 @@ client.services.collect { |x| x.description }
 
 ## <a id='persist-authentication'></a>認証の要求 (cfトークンを使う) ##
 
-あなたの資格情報を公開することなくcfoundryクライアントのオブジェクトを作る安全な方法は、cfでログインして生成されたauthトークンを使うことです。authトークンはcfによって~/.cf/tokens.ymlに保存されます。以下のrubyコードの断片は、このファイルを開き、適切なauthトークンを選択し、それを使ってCloud Foundryへログインします。
+あなたの資格情報を公開することなくcfoundryクライアントのオブジェクトを作る安全な方法は、cfでログインして生成されたauthトークンを使うことです。
+authトークンはcfによって~/.cf/tokens.ymlに保存されます。
+以下のrubyコードの断片は、このファイルを開き、適切なauthトークンを選択し、それを使ってCloud Foundryへログインします。
 
 ~~~ruby
 
@@ -61,8 +63,7 @@ client = CFoundry::Client.new endpoint, token
 
 ## <a id='services'></a>サービス ##
 
-クライアントのクラスは四つのサービスを含んでいます; services, service_instances,
-service_instance_by_name, service_instanceの四つです。
+クライアントのクラスは四つのサービスを含んでいます; services, service\_instances, service\_instance\_by\_name, service\_instanceの四つです。
 
 一番目のメソッド'services'は、使用可能なすべてのサービスのハッシュを返します;
 
@@ -92,7 +93,7 @@ pp client.services
   @version="2.0">]
 ~~~
 
-'service_instances'は実際に割り当てられているサービスのインスタンスを返します;
+'service_instances'メソッドは実際に割り当てられているサービスのインスタンスを返します;
 
 ~~~ruby
 pp client.service_instances
@@ -106,14 +107,14 @@ pp client.service_instances
  #<CFoundry::V1::ServiceInstance 'mongodb-220c4'>]
 ~~~
 
-The 'service\_instance\_by_name'メソッドは指定されたサービスのインスタンスを返します;
+The 'service\_instance\_by\_name'メソッドは指定されたサービスのインスタンスを返します;
 
 ~~~ruby
 client.service_instance_by_name 'mysql-7327e'
 => #<CFoundry::V1::ServiceInstance 'mysql-7327e'>
 ~~~
 
-サービスのインスタンスを作るには、service_instanceメソッドを使用します;
+サービスのインスタンスを作るには、service\_instanceメソッドを使用します;
 
 ~~~ruby
 service = client.service_instance 'my_new_service'
@@ -123,7 +124,7 @@ service.version =
 service.tier = 'free'
 service.create!
 
-# if the create was succesful, it should return true. 
+# if the create was successful, it should return true. 
 ~~~
 ## <a id='runtimes-and-frameworks'></a>ランタイムとフレームワーク ##
 
@@ -141,9 +142,9 @@ client.runtimes.collect { |x| x.name }
 
 ## <a id='applications'></a>アプリケーション ##
 
-Clientクラスは三つのアプリケーション・メソッドを持っています; apps, app, app_by_nameの三つです
+Clientクラスは三つのアプリケーション・メソッドを持っています; apps, app, app\_by\_nameの三つです
 
-'apps'メソッドはデプロイしたアプリケーションの一覧を返します;
+'apps'メソッドはデプロイしたアプリケーションの一覧を返します:
 
 ~~~ruby
 
@@ -156,7 +157,7 @@ pp client.apps
 
 ~~~
 
-'app\_by\_name'メソッドは、名前を指定してアプリケーションを検索します;
+'app\_by\_name'メソッドは、名前を指定してアプリケーションを検索します:
 
 ~~~ruby
 client.app_by_name 'sidekiq'
@@ -170,7 +171,7 @@ client.app_by_name 'sidekiq'
 app = client.app 'my_new_app'
 app.instances = 1 # <- set the number of
 instances you want app.memory = 256 # <- set the allocated amount of memory
-app.services = [service] # <- set the services bound to the appliation as an
+app.services = [service] # <- set the services bound to the application as an array of references to service_instance objects (optional)
 array of references to service_instance objects (optional)
 app.framework_name = 'standalone' # <- the name of the framework
 app.command = 'bundle exec ./app.rb' # <- an optional command to start the application (if standalone) 
@@ -179,8 +180,9 @@ app.create!
 
 ~~~
 
-'stub'というアプリケーションが作られるだけで、実際のコードがCloud
-Foundryへアップロードされるわでも起動されるわけでもありません。アプリケーションへ実際に実行するするものを提供するために、ソース、バイト・コード、バイナリなどの適切なもの(ランタイムやフレームワークに依存します)をzipファイルへアーカイブしてください。uploadコマンドを使ってzipファイルをアップロードしてください;
+'stub'というアプリケーションが作られるだけで、実際のコードがCloud Foundryへアップロードされるわでも起動されるわけでもありません。
+アプリケーションへ実際に実行するするものを提供するために、ソース、バイト・コード、バイナリなどの適切なもの(ランタイムやフレームワークに依存します)をzipファイルへアーカイブしてください。
+uploadコマンドを使ってzipファイルをアップロードしてください;
 
 ~~~ruby
 

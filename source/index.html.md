@@ -4,7 +4,7 @@ title: Welcome to Cloud Foundry Documentation
 
 <div class="column-left">
   <div class="column-title">
-  <h4>Hosted Developer Edition</h4>
+  <h4>Pivotal CF Hosted</h4>
   </div>
    <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
    <hr>
@@ -37,13 +37,21 @@ title: Welcome to Cloud Foundry Documentation
   <hr>
   <p>Application Deployment<br>
 
-  <a href="docs/using/deploying-apps/index.html">Deploy Your App</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a>  
+  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
+  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
+  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
+  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
+  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
+  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
+  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
+  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+
   </p>
   <hr>
 
   <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line</a><br>
+  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
+  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
   <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
   <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
   </p>
@@ -52,12 +60,14 @@ title: Welcome to Cloud Foundry Documentation
   <p>Managing Organizations and Domains<br>
   <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
   <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  </p>
+  <br>
+  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+
+
   <hr>
-  <p>
+  <p>Services<br>
   <a href="docs/using/services/">Using Services</a></br>
   <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/environment-variable.html">VCAP_SERVICES Environment Variable</a></br>
   <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
   </p>
     <hr>
@@ -87,7 +97,7 @@ title: Welcome to Cloud Foundry Documentation
   <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
   <a href="docs/running/bosh/reference/index.html">Reference</a><br>
   <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
-  
+
   </p>
 
   <hr>
@@ -96,21 +106,28 @@ title: Welcome to Cloud Foundry Documentation
   Deploy Cloud Foundry<br>
   <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
   <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>   
+  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
   <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
   <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
+  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
   <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
   <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
 
   </p>
 
   <hr>
- 
+
   <p>
   Managing Cloud Foundry<br>
   <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/monitoring.html">Monitoring</a><br>
   <a href="docs/running/managing-cf/logging.html">Logging</a>
+  </p>
+
+  <p>
+  Services<br>
+  <a href="docs/running/architecture/services/">Overview</a><br>
+  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+
   </p>
 
   <p>
