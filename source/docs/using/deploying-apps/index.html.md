@@ -35,9 +35,12 @@ Cloud Foundryがアップグレードされている間にアプリケーショ�
 
 Cloud Foundryはフレームワークとランタイムごとのビルドパックを使ってアプリケーションを公開します。Herokuがビルドパックを使ったアプローチを開発し、OSSコミュニティがそれを使えるように公開しました。Cloud Foundryはさまざまなフレームワークやランタイムのためのビルドパックを提供しています。ランタイムに応じたデプロイの方法については、以下のリンクをご覧ください。
 
-* Ruby --- [Rack, Rails, Sinatraアプリケーションをデプロイする](/docs/using/deploying-apps/ruby/index.html)
-* Javascript --- [Deploy Node.js アプリケーションをデプロイする](/docs/using/deploying-apps/javascript/index.html)
-* Java/JVM --- [Spring, Grails, Lift, Playフレームワークを使ったJava, Groovy, Scalaアプリケーションをデプロイする](/docs/using/deploying-apps/jvm/index.html)
+| Runtime        | Framework                                                                             |
+| :------------- | :-------------                                                                        |
+| Javascript     | [Node.js](/docs/using/deploying-apps/javascript/index.html)                           |
+| Java / JVM     | [Java Spring, Grails, Scala Lift, and Play](/docs/using/deploying-apps/jvm/index.html)|
+| Ruby           | [Rack, Rails, or Sinatra](/docs/using/deploying-apps/ruby/index.html)                 |
+
 
 Cloud Foundryはカスタム・ビルドパックもサポートしています。 [カスタム・ビルドパック](/docs/using/deploying-apps/buildpacks.html)に説明があります。<a href="https://devcenter.heroku.com/articles/third-party-buildpacks">Herokuサード・パーティ・ビルドパック</a>にあるうちのいくつかもCloud Foundryで動作するでしょうが、結果は様々です。コミュニティが開発したビルドパックについては、https://github.com/cloudfoundry-community/cf-docs-contrib/wiki/Buildpacks をご覧ください。Cloud Foundryに組込まれていないビルドパックを使うには、アプリケーションをプッシュする時に`--buildpack`オプションを使ってビルドパックのURLを指定します。
 

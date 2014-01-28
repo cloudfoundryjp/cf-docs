@@ -67,6 +67,8 @@ Gradleでの設定とオプションについては、Githubの [cf-gradle-plugi
       <target>http://api.run.pivotal.io</target>
       <url>hello-java-maven.cfapps.io</url>
       <memory>256</memory>
+      <org>yourOrganizationName</org>
+      <space>development</space>
   </configuration>
 </plugin>
 ~~~

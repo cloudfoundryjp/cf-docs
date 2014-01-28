@@ -18,7 +18,8 @@ Cloud Foundryのログの機能は以下の通りです:
 gcf logs APP_NAME [--recent]
 </pre>
 
-`gcf logs APPNAME`でアプリケーションのSTDOUTとSTDERRをリアル・タイムで見ることができます。たとえば:
+`gcf logs APPNAME`でアプリケーションのSTDOUTとSTDERRをリアル・タイムで見ることができます。
+たとえば:
 
 <pre class="terminal">
 $ gcf logs myapp
@@ -32,8 +33,8 @@ $ gcf logs myapp
 
 ### アプリケーションの最近の部分をダンプ
 
-アプリケーションがクラッシュした場合、最近のログが見られると便利です。
-そのためには--recentオプションを付けてください。たとえば:
+アプリケーションがクラッシュした場合、最近のログは有用です。
+そのためには、`gcf logsl`に`--recent`オプションを付けてください。
 
 <pre class="terminal">
 gcf logs APP_NAME --recent
@@ -41,7 +42,8 @@ gcf logs APP_NAME --recent
 
 ### アプリケーションのログの出力
 
-CFロギング・システムはsyslogフォーマットとオクテット・エンコーディングをサポートしています。syslogフォーマットについては[RFC 5424](http://tools.ietf.org/html/rfc5424)、オクテット・エンコーディングについては[RFC 6587](http://tools.ietf.org/html/rfc6587)に記述されています。オプションとして、syslog TLS([RFC 5425](http://tools.ietf.org/html/rfc5425))を使用することもできます。
+CFロギング・システムはsyslogフォーマットとオクテット・エンコーディングをサポートしています。syslogフォーマットについては[RFC 5424](http://tools.ietf.org/html/rfc5424)、オクテット・エンコーディングについては[RFC 6587](http://tools.ietf.org/html/rfc6587)に記述されています。
+オプションとして、syslog TLS([RFC 5425](http://tools.ietf.org/html/rfc5425))を使用することもできます。
 
 サード・パーティのsyslog出力システムへアプリケーションのログを渡すには、syslog出力用URLをアプリケーションへバインドする必要があります。
 
@@ -65,15 +67,21 @@ SYSLOG-DRAIN-URLはscheme://host:port'(schemeは'syslog'または'syslog-tls')�
 gcf bind-service APP_NAME SERVICE_NAME
 </pre>
 
-syslogサービスへログを出力したいすべてのアプリケーションについてこの手順をくりかえすことができます。新しいサービスを有効にするため、アプリケーションを再起動する必要があります。
+syslogサービスへログを出力したいすべてのアプリケーションについてこの手順をくりかえすことができます。
+新しいサービスを有効にするため、アプリケーションを再起動する必要があります。
 
 ### 注意
 
-Cloud Foundryによるログの収集と保存はベスト・エフォートです。クライアントが処理しきれないでログのバッファがあふれた場合、システムはログのメッセージの一部を破棄します。アプリケーションのログは、CLIなどのクライアントが最新部を追いかけるかsyslog出力がついていけるなら、利用可能です。
+Cloud Foundryによるログの収集と保存はベスト・エフォートです。
+クライアントが処理しきれないでログのバッファがあふれた場合、システムはログのメッセージの一部を破棄します。
+アプリケーションのログは、CLIなどのクライアントが最新部を追いかけるかsyslog出力がついていけるなら、利用可能です。
 ログの機能はアプリケーションのSTDOUT、STDERR、および関連のメッセージのみを表示
-します。アプリケーションがログを特定のファイルではなくSTDOUTやSTDERRに書くよう設定する必要があります。STDOUTとSTDERR以外のログはサポートの範囲外です。
+します。
+アプリケーションがログを特定のファイルではなくSTDOUTやSTDERRに書くよう設定する必要があります。
+STDOUTとSTDERR以外のログはサポートの範囲外です。
 
-ログはタイム・スタンプ付で出力されます。このタイム・スタンプはロギング・サービスがログを受けとる時点で付加されます。
+ログはタイム・スタンプ付で出力されます。
+このタイム・スタンプはロギング・サービスがログを受けとる時点で付加されます。
 ログがタイム・スタンプを含んでいた場合、こちらのタイム・スタンプはロギング・システムに処理されず、メッセージの一部として扱われます。
 
 これらを避けるため、アプリケーションがSTDOUTやSTDERRをバッファリングしないことを確認してください。
@@ -83,6 +91,8 @@ sinatraについて、以下の行を設定ファイルに入れておいてく�
     $stderr.sync = true
     $stdout.sync = true
 
-Log4J ConsoleAppenderを使っているなら、バッファリングは行なわれません。 [immediateFlush](http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/WriterAppender.html#immediateFlush)というオプションがあり、デフォルトはtrueになっています。falseに設定すると、バッファリングがありえます。
+Log4J ConsoleAppenderを使っているなら、バッファリングは行なわれません。
+ [immediateFlush](http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/WriterAppender.html#immediateFlush)というオプションがあり、デフォルトはtrueになっています。
+falseに設定すると、バッファリングがありえます。
 
 Logbackの[ConsoleAppender](http://logback.qos.ch/manual/appenders.html#ConsoleAppender)はデフォルトでバッファリングを行ないます。(OutputStreamWriterを使います)
