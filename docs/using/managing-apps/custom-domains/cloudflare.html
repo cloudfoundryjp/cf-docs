@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>SSL対応のカスタム・ドメインを設定する</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_using docs_using_managing-apps docs_using_managing-apps_custom-domains docs_using_managing-apps_custom-domains_cloudflare">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,144 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Cloud Foundryを使用する</a></li> <li class=""><a href="../">アプリ、オーガナイゼーション、スペースの管理</a></li> <li class=""><a href="./">ドメイン、サブドメイン、ルート</a></li> <li class="active"><span>SSL対応のカスタム・ドメインを設定する</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
-
- <hr>
-
+              <div class="quick-links"><ul>
+<li><a href="#sign-up">ステップ 1 - CloudFlareのアカウントを入手する</a></li>
+<li><a href="#add-site">ステップ2 - CloudFlareへドメインを追加する</a></li>
+<li><a href="#scan">ステップ3 - スキャンの完了を待つ</a></li>
+<li><a href="#configure">ステップ4 - DNSレコードを設定する</a></li>
+<li><a href="#settings">ステップ5 - 設定を選ぶ</a></li>
+<li><a href="#ssl">ステップ6 - SSLを確認する</a></li>
+<li><a href="#settings">ステップ7 - ネームサーバを更新する</a></li>
+<li><a href="#settings">ステップ9 - 設定の終了</a></li>
+<li><a href="#review">CloudFlareの設定の見直し</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>SSL対応のカスタム・ドメインを設定する</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <p>このページではコンテント分散ネットワークCloudFlareを使ってSSL対応のカスタム・ドメインを設定するやり方を説明しています。SSL対応のカスタム・ドメインを使うに際して、Pivotalはこの方法をお勧めします。このやり方では、Cloud Foundry上で動作しているあなたのアプリのトラフィックは、すべてCloudFlareを経由するようになります。</p>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>browser  &lt; &mdash; ssl &mdash; &gt;  CloudFlareプロキシ  &lt; &mdash; ssl &mdash; &gt;  Cloud Foundry</p>
 
-  <hr>
-  <p>Application Deployment<br>
+<p>これを有効にするには、CloudFlareの該当ドメイン向けの“Full SSL”オプションを設定します。ブラウザとCloudFlareサーバの間でCloudFlareの生成したSSL証明書を使うことができます。あるいは、あなたの証明書を使うように設定することもできます。CloudFlareプロキシとCloud Foundry上のアプリの間では、Cloud Foundryの生成した証明書が使われます。</p>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<p>この手順はあなたのドメインがDNSレジストラに登録済であることが前提です。この手順を完遂するためにはDNSレジストラに連絡する必要があります。DNSレジストラを変更する必要はないことに注意してください。唯一の必要な変更は、権限を持つネームサーバとしてCloudFlareのネームサーバを登録することだけです。</p>
 
-  </p>
-  <hr>
+<p><a href="#configure">ステップ5 - Configure DNS Records</a>を使用するために、該当ドメインのゾーン・ファイルをDNSプロヴァイダからダウンロードしておくことをお勧めします。</p>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<h2><a id='sign-up'></a>ステップ 1 - CloudFlareのアカウントを入手する</h2>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<p><a href="https://www.cloudflare.com/%E3%81%B8%E3%82%A2%E3%82%AF%E3%82%BB%E3%82%B9%E3%81%97%E3%80%81%E5%8F%B3%E4%B8%8A%E3%81%AE">https://www.cloudflare.com/へアクセスし、右上の</a> <strong>Sign up</strong> をクリックします。登録ページでメイル・アドレス、ユーザ名、パスワードを入力します。CloudFlareの利用規約に同意し、 <strong>Create account now</strong> をクリックします。</p>
 
+<p><img src="../../../../images/cloudflare-register.png" /></p>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<h2><a id='add-site'></a>ステップ2 - CloudFlareへドメインを追加する</h2>
 
-</div>
+<p>CloudFlareの&quot;Add a website&quot;ページであなたのカスタム・ドメインを入力し、<strong>Add website</strong>をクリックします。CloudFlareが権限のあるDNSサーバをたずねてきます。</p>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+<p><img src="../../../../images/add-website.png" /></p>
 
-  <hr>
+<h2><a id='scan'></a>ステップ3 - スキャンの完了を待つ</h2>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<p>スキャンが完了すると、<strong>Domain records scanned</strong>が表示されます。<strong>Continue Setup</strong>をクリックします。</p>
 
-  <hr>
+<p><img src="../../../../images/scan-complete.png" /></p>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<h2><a id='configure'></a>ステップ4 - DNSレコードを設定する</h2>
 
-  </p>
+<p>CloudFlareの&quot;Configure Your DNS Records&quot;でレコードの一覧が表示されます。あなたのドメインの行 &ndash; 例では&quot;uberconnected.com&quot;&mdash; の&quot;Active&quot;がオレンジになるはずです。</p>
 
-  <hr>
+<p>DNSレコードが正しいことを確認するために、PivotalはDNSプロヴァイダからゾーン・ファイルをダウンロードし、それをCloudFlareへアップロードすることを推奨します。そのためには、<strong>Upload a zone file</strong>をクリックします。</p>
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+<p>必要なら、レコードの追加のために<strong>Add</strong>をクリックします。</p>
 
-  </p>
+<p>済んだら<strong>I&#39;ve added all missing records, continue</strong>をクリックします。</p>
 
-  <hr>
+<p><img src="../../../../images/config-dns.png" /></p>
 
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
+<h2><a id='settings'></a>ステップ5 - 設定を選ぶ</h2>
 
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+<p>&ldquo;Settings for &lt;あなたのドメイン&gt;&quot;ページで:</p>
 
-  </p>
+<ul>
+<li> <strong>Choose a plan</strong> &mdash; &quot;Pro&quot;か&quot;Business&quot;を選んでください。無料プランを選んではいけません; CloudFlareの有料プランのみがSSLをサポートしています。&quot;Pro&quot;を選ぶとCloudFlareはCloudFlareプロキシとブラウザの間の通信に使われるSSL証明書を生成します。自分のSSL証明書を使う場合は&quot;Business&quot;を選びます。</li>
+<li> <strong>Performance</strong> &mdash; 性能関連のさまざまな値をセットするパフォーマンス・プロファイルを設定します。どれを選択してもかまいません。また、後で変更するのも簡単です。設定した後、<a href="#review">Reviewing CloudFlare Configuration Options</a>に従い、性能(とセキュリティ)に関わるオプションを理解し、変更してください。
 
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
+<ul>
+<li><strong>CDN only (safest)</strong> &mdash; デフォルトです。</li>
+<li><strong>CDN + Basic Optimizations</strong></li>
+<li><strong>CDN + Full Optimizations</strong></li>
+</ul></li>
+<li><strong>Security</strong> &mdash; CloudFlareを訪ずれた人の中の誰にキャプチャを表示するか制御します。以下のいずれかです:
 
-</div>
+<ul>
+<li><strong>I&#39;m under attack!</strong> &mdash; DDoSを受けている時のみ使用します。この設定の場合、CloudFlareはリクエストがボットからではなく人間からのものであることを確かめるため約5秒間別のページを表示します。</li>
+<li><strong>High</strong> &mdash; CloudFlareは2週間以内に攻撃をしてきた人すべてに警告を出します。</li>
+<li><strong>Medium</strong></li>
+<li><strong>Low</strong> &mdash; CloudFlareはもっとも悪質な攻撃者たちへ警告を出します。CloudFlare推奨の初期値です。</li>
+<li><strong>Essentially off</strong> &mdash; CloudFlareは最悪の攻撃者にのみ反応します。</li>
+</ul></li>
+<li> <strong>Automatiac IPV6</strong> &mdash; 以下のいずれかです:
 
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<ul>
+<li><strong>Full IPv6 Gateway</strong> &mdash; CloudFlareが有効になっているすべてのサブドメイン(DNS設定画面でオレンジで表示されます)でIPv6が有効になります。</li>
+<li><strong>Safe IPv6 Gateway</strong> IPv6用のサブドメイン(<a href="http://www.ipv6.yoursite.com)を作ります。">www.ipv6.yoursite.com)を作ります。</a></li>
+</ul></li>
+<li> <strong>SmartErrors</strong> &mdash; SmartErrorsはCloudFlareの機能で、ページが見つからない場合に404 errorsにならないようにします。その代わりに、CloudFlareはユーザのリクエストに基づく検索を実行し、もっとも良くマッチしたページのリストを表示します。</li>
+</ul>
+
+<p><strong>Continue</strong>をクリックしてください。</p>
+
+<p><img src="../../../../images/settings.png" /></p>
+
+<h2><a id='ssl'></a>ステップ6 - SSLを確認する</h2>
+
+<p>&quot;Confirm SSL&quot;ページにおいて、以下が選択できます:</p>
+
+<ul>
+<li><strong>Automatic SSL Configuration</strong> &mdash; これを選択するとCloudFlareはSSL証明書を生成します。前のステップで&quot;Business&quot;を選択していれば、後で証明書をアップロードできます。</li>
+<li><strong>Custom SSL Configuration</strong> &mdash; 前のステップで&quot;Business&quot;を選択した場合にのみ出現します。これを選択すると、秘密鍵と証明書をアップロードすることができます。</li>
+<li><strong>Manual SSL Configuration</strong></li>
+</ul>
+
+<p><img src="../../../../images/confirm-ssl.png" /></p>
+
+<h2><a id='settings'></a>ステップ7 - ネームサーバを更新する</h2>
+
+<p>&quot;Update Name Servers&quot;ページではあなたのネームサーバの一覧とそれらを置換するCloudFlareを表示します。</p>
+
+<p>あなたのDNSレジストラにログインし、ネームサーバ管理ページへアクセスします。使用中のネームサーバをCloudFlareのネームサーバで置き換えます。</p>
+
+<p>&quot;update your name servers page.&quot;で<strong>I&#39;ve updated my nameservers, continue</strong>をクリックしてください。</p>
+
+<h2><a id='settings'></a>ステップ9 - 設定の終了</h2>
+
+<p>必要な情報をすべて入力すると、&quot;My Websites&quot;ページが現れ、ドメインの設定が終わったと表示されます。</p>
+
+<p>前のステップでの変更が有効になっているか、DNSレジストラのサイトで確認してください。</p>
+
+<p><img src="../../../../images/complete.png" /></p>
+
+<h2><a id='review'></a>CloudFlareの設定の見直し</h2>
+
+<p>初期設定の後、CloudFlareの設定を見直したくなることがあります。そうするには、CloudFlare.comの任意のページの上部にある<strong>Websites</strong>をクリックし、&quot;My WebSites&quot;へアクセスしてください。</p>
+
+<p>あなたのドメインの行の歯車のアイコンをクリックし、メニューから<strong>CloudFlare settings</strong>を選択します。<strong>CloudFlare settings</strong>ページにはCloudFlareの設定に関するいくつかのタブがあります。特に、<strong>Security</strong>と<strong>Performance</strong>タブを参照して設定した内容とそれ以外の選択肢を理解してください。</p>
+
+<p><img src="../../../../images/my-websites.png" /></p>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

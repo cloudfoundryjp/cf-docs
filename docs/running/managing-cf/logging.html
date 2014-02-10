@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Cloud Foundry Logging</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_running docs_running_managing-cf docs_running_managing-cf_logging">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,65 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Running Cloud Foundry</a></li> <li class=""><a href="./">Managing Cloud Foundry</a></li> <li class="active"><span>Cloud Foundry Logging</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
+              <div class="quick-links"></div>
 
- <hr>
+              <h1>Cloud Foundry Logging</h1>
 
-</div>
+            
+            <p>This section contains information useful for debugging Cloud Foundry system components.</p>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+<h2>Component Logging</h2>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+<p>The Cloud Foundry components share a common interface for configuring their logs. For more information, see the
+READMEs for the <a href="http://github.com/cloudfoundry/dea_ng#logs">DEA</a>, the <a href="http://github.com/cloudfoundry/cloud_controller_ng#logs">Cloud
+Controller</a>, or for
+<a href="http://github.com/cloudfoundry/steno">Steno</a>, the logging library that these components use.</p>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>In <code>cf-release</code>, the components are all configured in a similar way:</p>
 
-  <hr>
-  <p>Application Deployment<br>
+<ul>
+<li>All of the job&#39;s log files are located in the directory <code>/var/vcap/sys/log</code>, on the machine where the job is running.</li>
+<li>The job&#39;s main logs are written to a file named <code>&lt;job-name&gt;.log</code>.</li>
+<li>Any output written directly to the job&#39;s stdout and stderr is written to <code>&lt;job-name&gt;.stdout.log</code> and <code>&lt;job-name&gt;.stderr.log</code>, respectively.</li>
+</ul>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<h3>Database Migrations</h3>
 
-  </p>
-  <hr>
+<p>For the Cloud Controller, database migration logs are written to <code>db_migrate.stdout.log</code> and <code>db_migrate.stderr.log</code>
+in the same directory.</p>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<h2>Log Aggregation</h2>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<p>In cf-release, there is a service called the <code>syslog_aggregator</code>, which allows you to view
+the logs of all instances of a given job together. For example, if your deployment has 60 DEAs,
+rather than looking at their logs individually, you can ssh to the <code>syslog_aggregator</code> node and
+view the collected logs of all DEAs. The <code>syslog_aggregator</code> works as follows:</p>
 
-
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
-
-</div>
-
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
-
-  <hr>
-
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
-
-  <hr>
-
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
-
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
-
-  </p>
-
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
-
-</div>
-
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<ul>
+<li>Most CF components have the <code>syslog_aggregator</code> package as one of the dependencies in their
+job spec. Example: <a href="http://github.com/cloudfoundry/cf-release/blob/5bfcdf9498051f410e5f60a8d3af77040e8ee6d7/jobs/cloud_controller_ng/spec#L24">Cloud Controller job spec</a></li>
+<li>The start script for the component includes the execution of a script in the <code>syslog_aggregator</code> package that
+starts a local syslog server. Example: <a href="http://github.com/cloudfoundry/cf-release/blob/5bfcdf9498051f410e5f60a8d3af77040e8ee6d7/jobs/cloud_controller_ng/templates/cloud_controller_ng_ctl.erb#L104">Cloud Controller start script</a></li>
+<li>The component&#39;s config file is written such that the component send its logs to this local syslog server in addition to its local log file.
+Example: <a href="http://github.com/cloudfoundry/cf-release/blob/5bfcdf9498051f410e5f60a8d3af77040e8ee6d7/jobs/cloud_controller_ng/templates/cloud_controller_ng.yml.erb#L55">Cloud Controller config file</a>.
+To see how this configuration is used, see the readme for <a href="http://github.com/cloudfoundry/steno">Steno</a>.</li>
+<li>The local syslog server forwards the logs to the <code>syslog_aggregator</code> node: a <a href="http://github.com/cloudfoundry/cf-release/tree/5bfcdf9498051f410e5f60a8d3af77040e8ee6d7/jobs/syslog_aggregator">job</a> in cf-release.</li>
+<li>The aggregated logs can be found on the <code>syslog_aggregator</code> VM in the <code>/var/vcap/store/log</code> directory.</li>
+<li>That directory contains subdirectories for each job, year, month and day. Example: <code>/var/vcap/store/log/cloud_controller_ng/2013/4/19</code>.</li>
+<li>In the top folder <code>/var/vcap/store/log</code>, there&#39;s a symlink named after each job for that job&#39;s current log file.</li>
+</ul>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

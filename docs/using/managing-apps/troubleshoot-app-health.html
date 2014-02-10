@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>アプリケーションのデプロイとヘルスのトラブルシューティング</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_using docs_using_managing-apps docs_using_managing-apps_troubleshoot-app-health">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,112 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Cloud Foundryを使用する</a></li> <li class=""><a href="./">アプリ、オーガナイゼーション、スペースの管理</a></li> <li class="active"><span>アプリケーションのデプロイとヘルスのトラブルシューティング</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
+              <div class="quick-links"><ul>
+<li><a href="#cf-commands">cfトラブルシューティングのコマンド</a></li>
+<li><a href="#java-apps">JavaとGrailsのお勧めの使い方</a>
 
- <hr>
-
+<ul>
+<li><a href="#jdbc">JDBCドライバの提供</a></li>
+<li><a href="#memory">適切なメモリの割当</a></li>
+<li><a href="#upload">アップロードの失敗のトラブルシュート</a></li>
+<li><a href="#slow-start">Slow Starting Java or Grails Apps</a></li>
+</ul></li>
+<li><a href="#node-apps">Nodeのベスト・プラクティス</a></li>
+<li><a href="#ruby-apps">Rubyのベスト・プラクティス</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>アプリケーションのデプロイとヘルスのトラブルシューティング</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <h2><a id='cf-commands'></a>cfトラブルシューティングのコマンド</h2>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>Cloud Foundryのcfコマンド・ライン・インタフェースはデプロイしたアプリケーションの調査や状態を調べる様々なコマンドを備えています。</p>
 
-  <hr>
-  <p>Application Deployment<br>
+<ul>
+<li><p><code>cf apps</code> &mdash; 現在のスペースにデプロイされたアプリケーションの一覧を表示します。インスタンスの数やメモリとディスクの割当てなどのデプロイ時のオプション、各アプリケーションの現在の状態も含みます。使い方については<a href="cf/">cf Command Line Interface</a>ページの<a href="cf/#apps">apps</a>セクションをご覧ください。</p></li>
+<li><p><code>cf app</code> &mdash; 一つのアプリケーションの各インスタンスの状態を返します。現在の状態、稼動時間、CPU、メモリ、ディスクの使用量を含みます。使い方については<a href="cf/#app">app</a>をご覧ください。</p></li>
+<li><p><code>cf logs</code> &mdash; 環境変数、ステージングのログ、最近のSTDOUTとSTDERRを見ることができます。<code>VCAP_SERVICES</code>がバインドされたサービスや利用者情報の一覧を保持しています。</p>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<p>あなたのアプリケーションをSTDOUTやSTDERRへメッセージを出力するように設定する必要がある場合があります。もしlog4jを使ってログをSTDOUTへ送るようにしていれば、<code>logs</code>コマンドで見ることができます。(STDOUTやSTDERRでなくファイルへメッセージを送るようになっているのなら、<code>cf file</code>コマンドを使ってください)</p>
 
-  </p>
-  <hr>
+<p><strong>注意:</strong>  <code>cf logs</code>は利用者情報も返すため、公開する場合は大事な情報を削除してからにしましょう。</p>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<p>使い方については<a href="cf/#logs">logs</a>をご覧ください。</p></li>
+<li><p><code>cf events</code> &mdash; このコマンドはアプリケーションがクラッシュした時の情報を返します。エラー・コードも含みます。Cloud Foundryのエラーについては <a href="https://github.com/cloudfoundry/errors">https://github.com/cloudfoundry/errors</a> をご覧ください。使い方については<a href="cf/#eventss">events</a>をご覧ください。</p></li>
+<li><p><code>cf files</code>と<code>cf file</code>&mdash; アプリケーションのディレクトリのファイル一覧やファイルの内容を見ることができます。使い方については<a href="cf/#files">files</a>と<a href="cf/#file">file</a>をご覧ください。</p></li>
+<li><p><code>cf guid</code> &mdash; アプリケーションのguidを返します。使い方については<a href="cf/#guid">guid</a>をご覧ください。</p></li>
+<li><p><code>cf stats</code> &mdash; アプリケーションの各インスタンスのリソース使用状況を表示します。CPU、メモリ、ディスクの使用状況を含みます。使い方については<a href="cf/#stats">stats</a>をご覧ください。</p></li>
+</ul>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<h2><a id='java-apps'></a>JavaとGrailsのお勧めの使い方</h2>
 
+<h3><a id='jdbc'></a>JDBCドライバの提供</h3>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<p>JavaビルドパックはJDBCドライバを提供しません。あなたのアプリケーションがSQL RDBMSへアクセスするなら、適切なドライバをアプリケーションに含めてください。</p>
 
-</div>
+<h3><a id='memory'></a>適切なメモリの割当</h3>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+<p>デプロイ時にJavaアプリケーションに適切なメモリを割当てなかった場合、起動できないかCloud Foundryによって停止させられます。Javaのヒープ、PermGen、スレッド・スタック、JVMのための余裕などとして十分なメモリを割当ててください。JavaビルドパックはPermGenのメモリ上限の10%を確保します。JVMのメモリ関連のオプションは<code>config/openjdk.yml</code>内で設定されます。(<a href="https://github.com/cloudfoundry/java-buildpack/blob/master/config/openjdk.yml)%E5%8B%95%E4%BD%9C%E4%B8%AD%E3%81%AE%E3%82%A2%E3%83%97%E3%83%AA%E3%82%B1%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6%E3%80%81%60cf">https://github.com/cloudfoundry/java-buildpack/blob/master/config/openjdk.yml)動作中のアプリケーションについて、cf</a> statsコマンドでメモリの使用率を見ることができます。</p>
 
-  <hr>
+<h3><a id='upload'></a>アップロードの失敗のトラブルシュート</h3>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<p>アプリケーションをCloud Foundryへプッシュする時のアップロードに失敗した場合、以下の理由が考えられます:</p>
 
-  <hr>
+<ul>
+<li><p>WARが大きすぎる &mdash; WARファイルの大きさのせいでアップロードが失敗することがあります。Cloud Foundryの試験では250MBのアップロードに成功しています。それより大きなWARファイルなら、大きさのせいで失敗が起こり得ます。</p></li>
+<li><p>接続の問題 &mdash; インターネット接続が低速だったり、ターゲットのCloud Foundryが非常に遠いところにある場合にアップロードに失敗することがあります。アップロードに時間がかかりすぎると、アップロードが終わる前に認証トークンが期限切れになってしまうことがあり得ます。応急措置として、Cloud Foundryインスタンスに近いサーバへWARファイルをコピーし、そこからプッシュすることが挙げられます。</p></li>
+<li><p>古いクライアント &mdash; より新しいcfコマンドを使った方が大きなWARファイルを高速でアップロードでき、失敗しにくくなります。大きなファイルのアップロードで問題があり、古いcfを使っているのなら、cfを最新版にしてみたください:</p>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<pre class="terminal">
+$ gem update cf
+</pre></li>
+<li><p>まちがったWARターゲッティング &mdash; デフォルトでは、<code>cf push</code>はすべてのファイルをカレント・ディレクトリへアップロードします。Javaアプリケーションについて、<code>cf push</code>はWARだけでなくソース・コードやその他の不要なファイルもアップロードします。Javaアプリケーションをアップロードする時は、WARのパスを指定しましょう:</p>
 
-  </p>
+<pre class="terminal">
+cf push --path PathToWAR
+</pre></li>
+</ul>
 
-  <hr>
+<p>デプロイのマニフェスト<code>manifest.yml</code>を見て、前回のプッシュ時にパスが指定されたかどうか知ることができます。パスがカレント・ディレクトリを指定していた場合、マニフェストは以下のような行を含みます:</p>
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+<p><code>path: .</code> </p>
 
-  </p>
+<p>WARだけをプッシュするには:</p>
 
-  <hr>
+<ul>
+<li><p><code>manifest.yml</code>を削除し、<code>--path</code>でWARの場所を指定して再度プッシュします。あるいは</p></li>
+<li><p><code>manifest.yml</code>内の<code>--path</code>でWARを指定し、再度プッシュします。</p></li>
+</ul>
 
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
+<h3><a id='slow-start'></a>Slow Starting Java or Grails Apps</h3>
 
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+<p>JavaやGrailsのアプリケーションでは、起動に時間がかかるのは珍しいことではありません。このことと現在のJavaビルドパックの実装から、問題が起きることがあります。JavaビルドパックはTomcatの<code>bindOnInit</code>属性を&quot;false&quot;に設定します。これによりTomcatはアプリケーションがデプロイされるまでHTTPリクエストを受信しません。アプリケーションの起動に時間がかかると、DEAのヘルス・チェックが失敗することがあります。応急措置として、Javaビルドパックを複製し、<code>bindOnInit</code> を&quot;false&quot;へ変更します。</p>
 
-  </p>
+<h2><a id='node-apps'></a>Nodeのベスト・プラクティス</h2>
 
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
+<ul>
+<li>Node.jsアプリケーションのweb起動コマンドをプロファイルかデプロイのマニフェストで指定します。</li>
+</ul>
 
-</div>
+<h2><a id='ruby-apps'></a>Rubyのベスト・プラクティス</h2>
 
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<ul>
+<li><p>プレコンパイル・アセット &mdash; ステージングの時間短縮のためにお勧めです。</p></li>
+<li><p>Rails 4では<code>rails_serv_static_assets</code>を使ってください &mdash; デフォルトでは、Nginxなどの外部プロキシ経由ではないアセットに対してRails 4は404を返します。<code>rails_serve_static_assets</code> gemはRailsサーバが404を返すのではなくスタティック・アセット・ディレクトリを提供できるようにします。この機能によりエッジ・キャッシュCDNを満たしたりwebアプリケーションから直接ファイルを提供したりできます。<code>rails_serv_static_assets</code> gemは、<code>config.serve_static_assets</code>オプションを&quot;true&quot;にするとこのように振舞います。手動で設定する必要はありません。 </p></li>
+</ul>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

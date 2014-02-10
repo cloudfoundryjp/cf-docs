@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Using Jenkins to Deploy</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_dotcom docs_dotcom_integration docs_dotcom_integration_cloudbees docs_dotcom_integration_cloudbees_jenkins-cloudbees-using">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,110 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Cloud Foundry Hosted Developer Edition</a></li> <li class=""><a href="../">Technical Integration</a></li> <li class=""><a href="./">CloudBees DEV@cloud</a></li> <li class="active"><span>Using Jenkins to Deploy</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
-
- <hr>
-
+              <div class="quick-links"><ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#config">Configuring a Job</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>Using Jenkins to Deploy</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <p>Jenkins can push applications to CloudFoundry.com after a successful build. This guide will show the process for configuring a Jenkins job to push to CloudFoundry.com. </p>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#config">Configuring a Job</a></li>
+<li><a href="#troubleshooting">Troubleshooting</a></li>
+</ul>
 
-  <hr>
-  <p>Application Deployment<br>
+<h2><a id='prerequisites'></a>Prerequisites</h2>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<p>This guide will show how to configure an existing CloudBees Jenkins job to push an application to CloudFoundry.com. Before this can be done, the follow steps should be completed: </p>
 
-  </p>
-  <hr>
+<ul>
+<li>The source code for the application should be in a public git or subversion repository (e.g. <a href="http://www.github.com">GitHub</a>, <a href="https://bitbucket.org/">BitBucket</a>, <a href="http://code.google.com/hosting/">Google Code</a> or <a href="http://www.cloudbees.com/">CloudBees Forge</a>).</li>
+<li>A Jenkins job should be created and configured to successfully build the application. See the <a href="http://developer.cloudbees.com/bin/view/DEV/Getting+started+with+Jenkins">CloudBees Jenkins documentation</a> for help creating the initial Jenkins job. </li>
+</ul>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<h2><a id='config'></a>Configuring a Job</h2>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<p>Follow these steps to configure an existing Jenkins job to push an application to CloudFoundry.com.</p>
 
+<p>Starting from the Jenkins Dashboard, click on the project name to view the project details:</p>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<p><img alt="Jenkins Dashboard" src="../../../../images/dotcom/integration/cloudbees/jenkins-dashboard.png" /></p>
 
-</div>
+<p>From the project page, click on the &ldquo;Configure&rdquo; link: </p>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+<p><img alt="Jenkins Project Page" src="../../../../images/dotcom/integration/cloudbees/jenkins-project.png" /></p>
 
-  <hr>
+<p>Scroll to the bottom of the project configuration page. Click on the &ldquo;Add post-build action&rdquo; button, and select &ldquo;Deploy applications&rdquo; from the presented list.</p>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<p><img alt="Jenkins Configure Page" src="../../../../images/dotcom/integration/cloudbees/jenkins-project-configure-1.png" /></p>
 
-  <hr>
+<p><img alt="Jenkins Configure Page" src="../../../../images/dotcom/integration/cloudbees/jenkins-project-configure-2.png" /></p>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<p>Look for the &ldquo;Cloud Foundry&rdquo; section added to the page:</p>
 
-  </p>
+<p><img alt="Jenkins Configure Page" src="../../../../images/dotcom/integration/cloudbees/jenkins-project-configure-3.png" /></p>
 
-  <hr>
+<p>Fill out the form fields as follows:</p>
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+<ul>
+<li><strong>Target API end-point</strong>: Enter the URL for the Cloud Foundry environment&#39;s Cloud Controller. </li>
+<li><strong>Credentials</strong>: Choose the CloudBees account that you previously linked to your CloudFoundry.com account.</li>
+<li><strong>Application Name</strong>: Enter a name for the application. This name must be unique to your Cloud Foundry account.</li>
+<li><strong>Deployment Hostname</strong>: Enter the URL that will be used to access the application. It must be unique across CloudFoundry.com. </li>
+<li><strong>Application Type</strong>: Choose the option appropriate for the application. </li>
+<li><strong>Runtime</strong>: Choose the option appropriate for the application</li>
+<li><strong>Number of Instances</strong>: Enter the number of instances of the application that should be started on Cloud Foundry. </li>
+<li><strong>Memory Reservation</strong>: Choose the amount of memory that Cloud Foundry should allocate to the application.</li>
+<li><strong>Start application on deployment</strong>: Check if Cloud Foundry should start the application after it is pushed. </li>
+</ul>
 
-  </p>
+<p>If the application requires services (a database, document store, key-value store, or messaging system), click on the &ldquo;Add service&rdquo; button. Additional fields will be added to the form: </p>
 
-  <hr>
+<p><img alt="Jenkins Configure Page" src="../../../../images/dotcom/integration/cloudbees/jenkins-project-configure-4.png" /></p>
 
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
+<p>Fill out the additional form fields as follows: </p>
 
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+<ul>
+<li><strong>Service name</strong>: Enter a name for the service. This name must be unique to your Cloud Foundry account.</li>
+<li><strong>Service type</strong>: Choose the appropriate service type from the list.</li>
+<li><strong>Service version</strong>: Choose a service version from the list. </li>
+</ul>
 
-  </p>
+<p>You can add as many services as necessary for your application by clicking the &ldquo;Add service&rdquo; button multiple times. </p>
 
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
+<p>After you are done adding the Cloud Foundry configuration to the Jenkins job, press the &ldquo;Save&rdquo; button. You will be returned to the project details page, where you can click the &ldquo;Build Now&rdquo; link to start a build of the project. </p>
 
-</div>
+<h2><a id='troubleshooting'></a>Troubleshooting</h2>
 
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<h3>&ldquo;Operation not permitted&rdquo; error</h3>
+
+<p>If you receive an &ldquo;Operation not permitted&rdquo; exception when pushing an application from Jenkins, your Cloud Foundry authorization may have expired. In such an event, you should receive an email from CloudBees informing you of this. Regardless, you can login to <a href="https://cloudfoundry.cloudbees.com">cloudfoundry.cloudbees.com</a> and re-authorize CloudBees to deploy applications on your behalf.</p>
+
+<h3>&ldquo;External URIs are not enabled for this account&rdquo; error</h3>
+
+<p>If you receive an HTTP error code 503 with a message stating &ldquo;External URIs are not enabled for this account&rdquo; when pushing an application from Jenkins, double check the format and contents of the &ldquo;Deployment URL&rdquo; field in your Cloud Foundry Jenkins deployer configuration. This URL must include the &ldquo;cloudfoundry.com&rdquo; domain, and must not contain illegal characters.</p>
+
+<h3>Support</h3>
+
+<p>If you have problems with your CloudBees Jenkins, you can ask questions on the <a href="http://stackoverflow.com/tags/cloudbees">CloudBees Stackoverflow tag</a>. Other DEV@cloud support options are available in the &ldquo;More&rdquo; tab of the toolbar located at the top of each Jenkins screen.</p>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

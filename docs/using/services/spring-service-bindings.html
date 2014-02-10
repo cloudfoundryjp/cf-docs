@@ -1,0 +1,1034 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Spring - サービスのバインド</title>
+
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_using docs_using_services docs_using_services_spring-service-bindings">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Cloud Foundryを使用する</a></li> <li class=""><a href="./">サービスを利用する</a></li> <li class="active"><span>Spring - サービスのバインド</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"><ul>
+<li><a href="#intro">紹介</a></li>
+<li><a href="#auto">自動設定</a>
+
+<ul>
+<li><a href="#optout">自動設定を避ける</a></li>
+</ul></li>
+<li><a href="#manual">手動設定</a>
+
+<ul>
+<li><a href="#namespace">XML Configuration</a></li>
+<li><a href="#javaconfig">Javaの設定</a></li>
+<li><a href="#properties">Property Placeholders</a></li>
+<li><a href="#profiles">プロファイル</a></li>
+</ul></li>
+<li><a href="#services">サービス特有の詳細</a>
+
+<ul>
+<li><a href="#rdbms">MySQLとPostgres</a></li>
+<li><a href="#mongodb">MongoDB</a></li>
+<li><a href="#redis">Redis</a></li>
+<li><a href="#rabbitmq">RabbitMQ</a></li>
+</ul></li>
+</ul>
+</div>
+
+              <h1>Spring - サービスのバインド</h1>
+
+            
+            <h2><a id='intro'></a>紹介</h2>
+
+<p>Cloud Foundryは、SpringアプリケーションからMySQL, Postgres, MongoDB, Redis,
+RabbitMQなどのサービスへの接続をサポートしています。多くの場合、Cloud
+Foundryはコードを変更することなく自動的にSpringアプリケーションを設定することができます。それ以外の場合、接続パラメーターを自分で制御することもできます。</p>
+
+<h2><a id='auto'></a>自動設定</h2>
+
+<p>Springアプリケーションがサービス(データベースやメッセージング・システムなどの)を使っている場合、コードに手を加えることなくCloud Foundryへデプロイできます。こういったケースで、Cloud Foundryは自動的にサービスへの接続を再設定します。</p>
+
+<p>Cloud Foundryは以下の条件が成り立つ場合に自動設定を行ないます:</p>
+
+<ul>
+<li>サービスごとに、ただ一つのインスタンスだけが使われている。この文脈では、MySQLとPostgresは一つのサービスの種類(リレーショナル・データベース)と見なされます。MySQLとPostgresサービスの両方がバインドされている場合、自動設定は行われません。</li>
+<li>Springアプリケーションのcontextの中で、サービスのタイプごとにただ一つのbeanが存在する。たとえば、<code>javax.sql.DataSource</code>のbeanが一つだけある。</li>
+</ul>
+
+<p>自動設定の場合、Cloud Foundryがデータベースまたは接続のfactory beanを作成します。この時、Cloud Foundryが持っているホスト、ポート、ユーザ名などのプロパティを使用します。たとえば、<code>javax.sql.DataSource</code>のbeanが一つだけある場合、Cloud Foundryは自分のデータベース・サービスと接続し、元々指定されていたユーザ名、パスワード、URLは使用しません。Cloud Foundryは自分が持っている値を使います。これはアプリケーションからは透過的です。アプリケーションはデータを読み書きできれば十分で、プロパティなどは気にしないからです。また、独自の設定(たとえば、接続のプールの大きさなど)をしていてもCloud Foundryの自動設定はそれを無視します。</p>
+
+<p>サービスのタイプごとの自動設定の詳細については、<a href="#services">Service-specific Details</a>セクションをご覧ください。</p>
+
+<h3><a id='optout'></a>自動設定を避ける</h3>
+
+<p>Cloud Foundryの自動設定が望ましくない場合があります。自動設定をさせないためには、Spring application context file内の<a href="#namespace"><code>&lt;cloud:&gt;</code> namespace</a>エレメントを使って、サービスを示すbeanを明示的に作成してください。これにより自動設定が使われなくなります。</p>
+
+<h2><a id='manual'></a>手動設定</h2>
+
+<p>SpringアプリケーションがCloud Fouundryの自動設定を使えない、あるいはきめ細かく制御したいなどの場合、やるべきことは単純です。</p>
+
+<p>手動設定の場合、<code>cloudfoundry-runtime</code>ライブラリを依存関係の中に含めます。ビルド・ファイル(e.g. Maven <code>pom.xml</code>ファイル、またはGradle <code>build.gradle</code> ファイル)を<code>org.cloudfoundry.cloudfoundry-runtime</code>が含まれるように更新します。例として、アプリケーションをビルドするのにMavenを使っているとして、以下の<code>pom.xml</code>の一部が<strong>Cloud Foundry v2サポートが必要なら、このライブラリのヴァージョンは<code>0.8.4</code>以上である必要があります</strong>:</p>
+<div class="highlight"><pre><span class="nt">&lt;dependencies&gt;</span>
+    <span class="nt">&lt;dependency&gt;</span>
+        <span class="nt">&lt;groupId&gt;</span>org.cloudfoundry<span class="nt">&lt;/groupId&gt;</span>
+        <span class="nt">&lt;artifactId&gt;</span>cloudfoundry-runtime<span class="nt">&lt;/artifactId&gt;</span>
+        <span class="nt">&lt;version&gt;</span>0.8.4<span class="nt">&lt;/version&gt;</span>
+    <span class="nt">&lt;/dependency&gt;</span>
+
+    <span class="c">&lt;!-- additional dependency declarations --&gt;</span>
+<span class="nt">&lt;/dependencies&gt;</span>
+</pre></div>
+<p>また、アプリケーションがSpring Framework
+Milestoneリポジトリを含むよう更新する必要があります。以下の<code>pom.xml</code>の一部は、Mavenでのやり方を示しています:</p>
+<div class="highlight"><pre><span class="nt">&lt;repositories&gt;</span>
+    <span class="nt">&lt;repository&gt;</span>
+          <span class="nt">&lt;id&gt;</span>org.springframework.maven.milestone<span class="nt">&lt;/id&gt;</span>
+           <span class="nt">&lt;name&gt;</span>Spring Maven Milestone Repository<span class="nt">&lt;/name&gt;</span>
+           <span class="nt">&lt;url&gt;</span>http://maven.springframework.org/milestone<span class="nt">&lt;/url&gt;</span>
+           <span class="nt">&lt;snapshots&gt;</span>
+                   <span class="nt">&lt;enabled&gt;</span>false<span class="nt">&lt;/enabled&gt;</span>
+           <span class="nt">&lt;/snapshots&gt;</span>
+    <span class="nt">&lt;/repository&gt;</span>
+
+    <span class="c">&lt;!-- additional repository declarations --&gt;</span>
+<span class="nt">&lt;/repositories&gt;</span>
+</pre></div>
+<h3><a id='namespace'></a>XML Configuration</h3>
+
+<p>手動でサービスを設定するために、 Spring XML application context
+configurationファイルで<code>&lt;cloud:&gt;</code>名前空間を使うことができます。このやり方で、Springアプリケーションはあるタイプで複数のサービスを使うことができます。<code>&lt;cloud:&gt;</code>名前空間の要素は、一般的な設定のデフォルトを提供します。</p>
+
+<p>Cloud Foundryを使うSpringアプリケーションを更新する基本的なステップは以下のようになります:</p>
+
+<ul>
+<li><p>上にあるように、<code>cloudfoundry-runtime</code>への依存関係を追加します。</p></li>
+<li><p>Springアプリケーションで、すべてのapplication context filesをCloud Foundry
+サービスの宣言(<code>&lt;cloud:&gt;</code>名前空間の宣言やCloud
+Foundryサービス・スキーマの場所を追加によるデータ・ソースなど)を含むように更新してください。設定の一部を以下に示します:</p></li>
+</ul>
+<div class="highlight"><pre><span class="nt">&lt;beans</span> <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+    <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+    <span class="na">xmlns:context=</span><span class="s">&quot;http://www.springframework.org/schema/context&quot;</span>
+    <span class="na">xmlns:cloud=</span><span class="s">&quot;http://schema.cloudfoundry.org/spring&quot;</span>
+    <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/beans</span>
+<span class="s">        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd</span>
+<span class="s">        http://www.springframework.org/schema/context</span>
+<span class="s">        http://www.springframework.org/schema/context/spring-context-3.2.xsd</span>
+<span class="s">        http://schema.cloudfoundry.org/spring</span>
+<span class="s">        http://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd&quot;</span><span class="nt">&gt;</span>
+
+    <span class="c">&lt;!-- bean declarations --&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</pre></div>
+<p>Cloud FoundryサービスをSpring XML application context
+fileで設定するには、<code>&lt;cloud:&gt;</code>名前空間とある要素の名前を使います。</p>
+
+<p>Cloud Foundryはサポートするサービスの名前を提供します: データベース(MySQLやPostgres), Redis, MongoDB, RabbitMQなどです。各サービスの名前空間の詳細については、<a href="#services">Service-specific Details</a>セクションをご覧ください。以下の名前空間の要素は、すべてのサービスにおいて有効です。</p>
+
+<h4>Cloud Properties</h4>
+
+<p><code>&lt;cloud:properties&gt;</code>要素は、アプリケーションとバインドされたサービスの基本的な情報を表します。Spring property placeholder supportによって、アプリケーションはこれらのプロパティを使います。</p>
+
+<p>Spring Framework 3.1 (またはそれ以降)を使っているなら、<code>&lt;cloud:properties&gt;</code>を含めることなく、自動的に使えるようになることに注意してください。</p>
+
+<p><code>&lt;cloud:properties&gt;</code>要素は一つのアトリビュート(<code>id</code>)だけを持ち、<code>Properties</code>
+beanの名前を示します。このIDを使って<code>&lt;context:property-placeholder&gt;</code>を参照します。これによりCloud Foundryによるすべてのプロパティを使うことができます。次に、これらのプロパティを他のbean defintionsで使えます。</p>
+
+<p>Spring application context fileでのこの要素の使い方の例を以下に示します:</p>
+<div class="highlight"><pre><span class="nt">&lt;cloud:properties</span> <span class="na">id=</span><span class="s">&quot;cloudProperties&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+<p>Spring property placeholdersの使い方については、以下をご覧ください。</p>
+
+<h3><a id='javaconfig'></a>Javaの設定</h3>
+
+<p>Java configurationはXMLでの<code>&lt;cloud:&gt;</code>名前空間の代わりに使えます。<code>cloudfoundry-runtime</code>ライブラリ内の<code>CloudEnvironment</code>クラスのメソッドは、サービスを名前かタイプで指定して情報を得るのに使えます。また、各サービスへの接続オブジェクトを作るのに使えます。Java configurationを使うために、<code>cloudfoundry-runtime</code>ライブラリをプロジェクトへ追加してください。詳しくは以下<a href="#manual">above</a>をご覧ください。</p>
+
+<p>各サービスの<code>CloudEnvironment</code>の使い方については、以下の<a href="#services">Service-specific Details</a>をご覧ください。</p>
+
+<h3><a id='properties'></a>Property Placeholders</h3>
+
+<p>Cloud Foundryはデプロイされたアプリケーションに対して、アプリケーションやサービスのプロパティを公開します。Cloud
+Foundryが公開するプロパティには、名前やクラウド・プロヴァイダーなどのアプリケーションの基本的な情報が含まれます。
+バインドされたサービスの詳細は接続情報も含まれます。</p>
+
+<p>サービスのプロパティは、一般的に以下の形式の一つを取ります:</p>
+<div class="highlight"><pre>    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.{</span><span class="n">service</span><span class="o">-</span><span class="n">name</span><span class="p">}.</span><span class="n">connection</span><span class="p">.{</span><span class="n">property</span><span class="p">}</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.{</span><span class="n">service</span><span class="o">-</span><span class="n">name</span><span class="p">}.{</span><span class="n">property</span><span class="p">}</span>
+</pre></div>
+<p>ここで、<code>{service-name}</code>はデプロイ時にサービスへ与えた名前を示し、<code>{property}</code>は環境変数<code>VCAP_SERVICES</code>内の資格情報のフィールドを示します。</p>
+
+<p>例として、<code>my-postgres</code>という名前のPostgresサービスを作り、アプリケーションへバインドしたとします。また、<code>VCAP_SERVICES</code>内の複数の資格情報を別々のフィールドとして公開しているとします。Cloud
+Foundryはこのサービスについて以下のプロパティを提供します:</p>
+<div class="highlight"><pre>    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">hostname</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">name</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">password</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">port</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">username</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">plan</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">type</span>
+</pre></div>
+<p>サービスが<code>uri</code>フィールドとして資格情報を提供しているなら、以下のプロパティが設定されます:</p>
+<div class="highlight"><pre>    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">connection</span><span class="p">.</span><span class="n">uri</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">plan</span>
+    <span class="n">cloud</span><span class="p">.</span><span class="n">services</span><span class="p">.</span><span class="n">my</span><span class="o">-</span><span class="n">postgres</span><span class="p">.</span><span class="n">type</span>
+</pre></div>
+<p>楽ができるように、あるタイプにおいてただ一つのサービスだけがある場合、Cloud
+Foundryはサービスの名前ではなくタイプの名前を使って別名を定義します。たとえば、アプリケーションへバインドされたMySQLサービスが一つだけならば、プロパティは
+<code>cloud.services.mysql.connection.{property}</code>という形式になります。このケースでは、Cloud
+Foundryは以下の別名を使います:</p>
+
+<ul>
+<li><code>mysql</code></li>
+<li><code>postgresql</code></li>
+<li><code>mongodb</code></li>
+<li><code>redis</code></li>
+<li><code>rabbitmq</code></li>
+</ul>
+
+<p>A Springアプリケーションは、property placeholder mechanismを使って、Cloud Foundryプロパティを活用できます。たとえば、<code>spring-mysql</code>という名前のMySQLサービスがあるとします。アプリケーションは、Cloud Foundryが提供する接続ではなくc3p0 connection poolを必要とするが、Cloud FoundryがMySQLサービスに提供するのと同じプロパティを使いたいものとします。ユーザ名、パスワード、JDBC URLなどです。</p>
+
+<p>以下のSpring XML application contextの断片がやり方を示しています:</p>
+<div class="highlight"><pre><span class="nt">&lt;beans</span> <span class="na">profile=</span><span class="s">&quot;cloud&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;c3p0DataSource&quot;</span> <span class="na">class=</span><span class="s">&quot;com.mchange.v2.c3p0.ComboPooledDataSource&quot;</span> <span class="na">destroy-method=</span><span class="s">&quot;close&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;driverClass&quot;</span> <span class="na">value=</span><span class="s">&quot;com.mysql.jdbc.Driver&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;jdbcUrl&quot;</span>
+              <span class="na">value=</span><span class="s">&quot;jdbc:mysql://${cloud.services.spring-mysql.connection.host}:${cloud.services.spring-mysql.connection.port}/${cloud.services.spring-mysql.connection.name}&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;user&quot;</span> <span class="na">value=</span><span class="s">&quot;${cloud.services.spring-mysql.connection.username}&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;${cloud.services.spring-mysql.connection.password}&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/bean&gt;</span>
+<span class="nt">&lt;/beans&gt;</span>
+</pre></div>
+<p>下の表は、Cloud Foundryがデプロイされたアプリケーションへ提供するプロパティの一覧です。</p>
+
+<table><thead>
+<tr>
+<th>プロパティ</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>cloud.application.name</td>
+<td>The name provided when the application was pushed to CloudFoundry.</td>
+</tr>
+<tr>
+<td>cloud.provider.url</td>
+<td>The URL of the cloud hosting the application, such as <code>cloudfoundry.com</code>.</td>
+</tr>
+</tbody></table>
+
+<p>各サービスごとの提供されるプロパティは<a href="#services">Service-specific Details</a>セクションにあります。</p>
+
+<h3><a id='profiles'></a>プロファイル</h3>
+
+<p>Spring Framework versions 3.1またはそれ以降は、条件付のアプリケーションの設定という方法で、ean definition profilesをサポートしています。ある条件が成り立つ時にのみ、一つのbean definitionだけが有効になります。これらのプロパティを設定すると、アプリケーションは環境によっていちいち設定しなおす必要がなくなります。たとえば、あなたのローカル環境とCloud Foundryでそのまま使えることになります。</p>
+
+<p>Spring bean definition profilesについて、詳しくは<a href="http://static.springsource.org/spring/docs/current/spring-framework-reference/html/new-in-3.1.html#new-in-3.1-bean-definition-profiles">Spring Framework
+documentation</a>をご覧ください。</p>
+
+<p>SpringアプリケーションをCloud Foundryへデプロイする際、Cloud Foundry は自動的に<code>cloud</code> profileを有効にします。</p>
+
+<h4>Profiles in Java Configration</h4>
+
+<p>どの設定が呼ばれるかの条件を決めるために、Springアプリケーションの<code>@Profile</code> annotationを<code>@Configuration</code>クラスに置くことができます<code>default</code>や<code>cloud</code>プロファイルは、Cloud Foundry上で実行されているかどうか知ることができ、Java configurationはローカルとcloud deploymentの両方をサポートできます。Java configuration classesは以下のようになります:</p>
+<div class="highlight"><pre><span class="nd">@Configuration</span>
+<span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;cloud&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">CloudDataSourceConfig</span> <span class="o">{</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">CloudEnvironment</span> <span class="n">cloudEnvironment</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CloudEnvironment</span><span class="o">();</span>
+        <span class="n">RdbmsServiceInfo</span> <span class="n">serviceInfo</span> <span class="o">=</span> <span class="n">cloudEnvironment</span><span class="o">.</span><span class="na">getServiceInfo</span><span class="o">(</span><span class="s">&quot;my-postgres&quot;</span><span class="o">,</span> <span class="n">RdbmsServiceInfo</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">RdbmsServiceCreator</span> <span class="n">serviceCreator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RdbmsServiceCreator</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">serviceCreator</span><span class="o">.</span><span class="na">createService</span><span class="o">(</span><span class="n">serviceInfo</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div><div class="highlight"><pre><span class="nd">@Configuration</span>
+<span class="nd">@Profile</span><span class="o">(</span><span class="s">&quot;default&quot;</span><span class="o">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">LocalDataSourceConfig</span> <span class="o">{</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">BasicDataSource</span> <span class="n">dataSource</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BasicDataSource</span><span class="o">();</span>
+        <span class="n">dataSource</span><span class="o">.</span><span class="na">setUrl</span><span class="o">(</span><span class="s">&quot;jdbc:postgresql://localhost/db&quot;</span><span class="o">);</span>
+        <span class="n">dataSource</span><span class="o">.</span><span class="na">setDriverClassName</span><span class="o">(</span><span class="s">&quot;org.postgresql.Driver&quot;</span><span class="o">);</span>
+        <span class="n">dataSource</span><span class="o">.</span><span class="na">setUsername</span><span class="o">(</span><span class="s">&quot;postgres&quot;</span><span class="o">);</span>
+        <span class="n">dataSource</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="s">&quot;postgres&quot;</span><span class="o">);</span>
+        <span class="k">return</span> <span class="n">dataSource</span><span class="o">;</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>XMLの設定内でのプロファイル</h4>
+
+<p>適切なSpring application context
+file内のネストした<code>&lt;beans&gt;</code>要素のプロファイル・アトリビュートを使って、XML設定ファイルの中で特定の環境向けの設定をグループ化できます。独自のプロファイルを作れますが、Cloud
+Foundryにとってもっともだいじなものは<code>default</code>や<code>cloud</code>プロファイルです。</p>
+
+<p>Cloud Foundry外の環境でアプリケーションが動作できるように、<code>cloud</code> profile block内の<code>&lt;cloud:&gt;</code>
+名前空間の使い方をグループ化すべきです。次に、<code>default</code>プロファイル(または独自のプロファイル)を、 Cloud Foundry以外のための設定
+that will be used if you deploy your application to a non-Cloud Foundry
+environment.</p>
+<div class="highlight"><pre><span class="cp">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span>
+<span class="nt">&lt;beans</span>  <span class="na">xmlns=</span><span class="s">&quot;http://www.springframework.org/schema/beans&quot;</span>
+        <span class="na">xmlns:xsi=</span><span class="s">&quot;http://www.w3.org/2001/XMLSchema-instance&quot;</span>
+        <span class="na">xmlns:cloud=</span><span class="s">&quot;http://schema.cloudfoundry.org/spring&quot;</span>
+        <span class="na">xmlns:jdbc=</span><span class="s">&quot;http://www.springframework.org/schema/jdbc&quot;</span>
+        <span class="na">xmlns:util=</span><span class="s">&quot;http://www.springframework.org/schema/util&quot;</span>
+        <span class="na">xmlns:mongo=</span><span class="s">&quot;http://www.springframework.org/schema/data/mongo&quot;</span>
+        <span class="na">xsi:schemaLocation=</span><span class="s">&quot;http://www.springframework.org/schema/data/mongo</span>
+<span class="s">          http://www.springframework.org/schema/data/mongo/spring-mongo-1.0.xsd</span>
+<span class="s">          http://www.springframework.org/schema/jdbc</span>
+<span class="s">          http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd</span>
+<span class="s">          http://schema.cloudfoundry.org/spring</span>
+<span class="s">          http://schema.cloudfoundry.org/spring/cloudfoundry-spring.xsd</span>
+<span class="s">          http://www.springframework.org/schema/beans</span>
+<span class="s">          http://www.springframework.org/schema/beans/spring-beans-3.2.xsd</span>
+<span class="s">          http://www.springframework.org/schema/util</span>
+<span class="s">          http://www.springframework.org/schema/util/spring-util-3.2.xsd&quot;</span><span class="nt">&gt;</span>
+
+  <span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;mongoTemplate&quot;</span> <span class="na">class=</span><span class="s">&quot;org.springframework.data.mongodb.core.MongoTemplate&quot;</span><span class="nt">&gt;</span>
+     <span class="nt">&lt;constructor-arg</span> <span class="na">ref=</span><span class="s">&quot;mongoDbFactory&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/bean&gt;</span>
+
+  <span class="nt">&lt;beans</span> <span class="na">profile=</span><span class="s">&quot;default&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;mongo:db-factory</span> <span class="na">id=</span><span class="s">&quot;mongoDbFactory&quot;</span> <span class="na">dbname=</span><span class="s">&quot;pwdtest&quot;</span> <span class="na">host=</span><span class="s">&quot;127.0.0.1&quot;</span> <span class="na">port=</span><span class="s">&quot;27017&quot;</span> <span class="na">username=</span><span class="s">&quot;test_user&quot;</span> <span class="na">password=</span><span class="s">&quot;efgh&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/beans&gt;</span>
+
+  <span class="nt">&lt;beans</span> <span class="na">profile=</span><span class="s">&quot;cloud&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;cloud:mongo-db-factory</span> <span class="na">id=</span><span class="s">&quot;mongoDbFactory&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;/beans&gt;</span>
+
+<span class="nt">&lt;/beans&gt;</span>
+</pre></div>
+<p>standard root <code>&lt;beans&gt;</code>要素内の<code>&lt;beans profile=&quot;value&quot;&gt;</code>要素はネストしていることに注意してください。cloud profile内ののMongoDB connection factoryは、<code>&lt;cloud:&gt;</code>名前空間を使います。default profile内のconnection factory configurationは、<code>&lt;mongo:&gt;</code>名前空間を使います。このアプリケーションは異なる二つの環境で動作し、片方からもう片方へ切り替える際、手動で変更する必要はありません。</p>
+
+<h2><a id='services'></a>サービス特有の詳細</h2>
+
+<p>続くセクションではCloud Foundryがサポートするサービス向けのSpringの自動設定と手動設定について説明します。</p>
+
+<h3><a id='rdbms'></a>MySQLとPostgres</h3>
+
+<h4>自動設定</h4>
+
+<p>自動設定、Cloud FoundryがSpring application context内の<code>javax.sql.DataSource</code>
+beanを検出した際に実行されます。以下のSpring application context
+fileの一部はこのタイプのbeanの定義の例を示しています。Cloud Foundryはこれを検知し、自動設定を実行します:</p>
+<div class="highlight"><pre><span class="nt">&lt;bean</span> <span class="na">class=</span><span class="s">&quot;org.apache.commons.dbcp.BasicDataSource&quot;</span> <span class="na">destroy-method=</span><span class="s">&quot;close&quot;</span> <span class="na">id=</span><span class="s">&quot;dataSource&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;driverClassName&quot;</span> <span class="na">value=</span><span class="s">&quot;org.h2.Driver&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;url&quot;</span> <span class="na">value=</span><span class="s">&quot;jdbc:h2:mem:&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;username&quot;</span> <span class="na">value=</span><span class="s">&quot;sa&quot;</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;password&quot;</span> <span class="na">value=</span><span class="s">&quot;&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</pre></div>
+<p>Cloud Foundryが実際に使うリレーショナル・データベースは、デプロイ時にバインドしたサービス・インスタンスに依存します:
+MySQLかPostgresです。Cloud Foundryは、classpath上で見つけたデータソースの実装に応じて、DBCPまたはTomcat datasourceを作ります。</p>
+
+<p>Cloud Foundryは内部的に以下の値を生成します。: <code>driverClassName</code>, <code>url</code>, <code>username</code>, <code>password</code>, <code>validationQuery</code>.</p>
+
+<h4>Javaでの手動設定</h4>
+
+<p>Java configuration内でデータベース・サービスを定義するには、<code>@Configuration</code>クラスを作り、<code>@Bean</code>メソッドが<code>javax.sql.DataSource</code> beanを返すようにします。<code>cloudfoundry-runtime</code>ライブラリ内でヘルパー・クラスでこのbeanを作ることができます。以下に例を示します:</p>
+<div class="highlight"><pre><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">DataSourceConfig</span> <span class="o">{</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">DataSource</span> <span class="nf">dataSource</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">CloudEnvironment</span> <span class="n">cloudEnvironment</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CloudEnvironment</span><span class="o">();</span>
+        <span class="n">RdbmsServiceInfo</span> <span class="n">serviceInfo</span> <span class="o">=</span> <span class="n">cloudEnvironment</span><span class="o">.</span><span class="na">getServiceInfo</span><span class="o">(</span><span class="s">&quot;my-postgres&quot;</span><span class="o">,</span> <span class="n">RdbmsServiceInfo</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">RdbmsServiceCreator</span> <span class="n">serviceCreator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RdbmsServiceCreator</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">serviceCreator</span><span class="o">.</span><span class="na">createService</span><span class="o">(</span><span class="n">serviceInfo</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>XMLでの手動設定</h4>
+
+<p><code>&lt;cloud:data-source&gt;</code>要素は、SpringアプリケーションでJDBCを設定する簡単な方法を提供します。この後、実際にアプリケーションをデプロイする際、MySQLかPostgresのインスタンスをバインドしてみます。</p>
+
+<h5>基本的な手動設定</h5>
+
+<p>以下のSpring XML application context fileの一部は、<code>org.springframework.jdbc.core.JdbcTemplate</code> beanへのJDBCデータソースを設定する方法を示しています:</p>
+<div class="highlight"><pre><span class="nt">&lt;cloud:data-source</span> <span class="na">id=</span><span class="s">&quot;dataSource&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;jdbcTemplate&quot;</span> <span class="na">class=</span><span class="s">&quot;org.springframework.jdbc.core.JdbcTemplate&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;dataSource&quot;</span> <span class="na">ref=</span><span class="s">&quot;dataSource&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</pre></div>
+<p>こちらの例では、データソースに関する個々の値を指定していないことに注意してください。JDBC
+driverのクラス名、データベースにアクセスするための具体的なURL、ユーザ名などです。その代わりに、Cloud
+Foundryは実行時にバインドしたデータベースのサービスのタイプから適切な情報を持ってきます。</p>
+
+<p>下の表は、<code>&lt;cloud:data-source&gt;</code>要素のアトリビュートの一覧です:</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>id</td>
+<td>The ID of this data source. データソースを参照する際、JdbcTemplate</td>
+<td></td>
+</tr>
+<tr>
+<td>beanはこのIDを使います。デフォルトの値はバインドされたサービスのインスタンスの名前です。</td>
+<td>String</td>
+<td></td>
+</tr>
+<tr>
+<td>service-name</td>
+<td>The name of the data source service. 複数のデータベースのサービスがバインドされていて、どのSpring beanをどのサービへバインドしたいかを指定したい時にのみこのアトリビュートを指定します。デフォルトの値はバインドされたサービスのインスタンスの名前です。</td>
+<td>String</td>
+</tr>
+</tbody></table>
+
+<p>この設定では、実行時にもっとも一般的な設定を使ってデータソースを作ります。次のセクションでは、デフォルトを上書きするやり方を説明します。</p>
+
+<h5>高度な手動設定</h5>
+
+<p><code>&lt;cloud:data-source&gt;</code>: <code>&lt;cloud:connection&gt;</code>と<code>&lt;cloud:pool&gt;</code>の二つの要素を使ってJDBCデータソースを設定することができます。</p>
+
+<p><code>&lt;cloud:connection&gt;</code>は、新しい接続が確立した時にJDBCドライバへ送りたいプロパティを格納した一つのString attribute (<code>properties</code>)を取ります。文字列のフォーマットは、セミコロンで区切られた名前と値の組になります。(たとえば、&quot;<code>property1=value;property2=value</code>&ldquo;)</p>
+
+<p><code>&lt;cloud:pool&gt;</code> child elementは以下の属性を持つ:</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>pool-size</td>
+<td>コネクション・プールのサイズ。接続の最大数か、最小と最大数をハイフンでつないで範囲を指定してください。</td>
+<td>int</td>
+<td>デフォルトの最小値は<code>0</code>. デフォルトの最大値は<code>8</code>. これはApache Commons Poolのデフォルトと同様です。</td>
+</tr>
+<tr>
+<td>max-wait-time</td>
+<td>利用可能な接続がない時の待ち時間の最大値(ミリセカンド単位)。これを越えると例外を発生させる。<code>-1</code>を指定するとタイムアウトしない。</td>
+<td>int</td>
+<td>デフォルトは <code>-1</code> (永遠に待つ).</td>
+</tr>
+</tbody></table>
+
+<p>以下はadvanced data source configuration optionsの使い方の例です:</p>
+<div class="highlight"><pre><span class="nt">&lt;cloud:data-source</span> <span class="na">id=</span><span class="s">&quot;mydatasource&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;cloud:connection</span> <span class="na">properties=</span><span class="s">&quot;charset=utf-8&quot;</span> <span class="nt">/&gt;</span>
+  <span class="nt">&lt;cloud:pool</span> <span class="na">pool-size=</span><span class="s">&quot;5-10&quot;</span> <span class="na">max-wait-time=</span><span class="s">&quot;2000&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/cloud:data-source&gt;</span>
+</pre></div>
+<p>上の例では、JDBCドライバにはUTF-8文字セットを指定するプロパティが渡されています。接続数の最小と最大は、それぞれ5と10です。接続の空きがない場合の待ち時間は2000ミリセカンド(2秒)で、その後は例外を投げます。</p>
+
+<h3><a id='mongodb'></a>MongoDB</h3>
+
+<h4>自動設定</h4>
+
+<p>自動設定を使うには、<a href="http://www.springsource.org/spring-data/mongodb">Spring Data MongoDB</a> 1.0 M4またはそれ以降を使う必要があります。</p>
+
+<p>Cloud FoundryがSpring application context内に<code>org.springframework.data.document.mongodb.MongoDbFactory</code> beanを発見すると、自動設定が実行されます。以下のSpring XML application contextファイルの一部は、Cloud Foundryが感知すると自動設定がされるはずのbeanの例になっています:</p>
+<div class="highlight"><pre><span class="nt">&lt;mongo:db-factory</span>
+    <span class="na">id=</span><span class="s">&quot;mongoDbFactory&quot;</span>
+    <span class="na">dbname=</span><span class="s">&quot;pwdtest&quot;</span>
+    <span class="na">host=</span><span class="s">&quot;127.0.0.1&quot;</span>
+    <span class="na">port=</span><span class="s">&quot;1234&quot;</span>
+    <span class="na">username=</span><span class="s">&quot;test_user&quot;</span>
+    <span class="na">password=</span><span class="s">&quot;test_pass&quot;</span>  <span class="nt">/&gt;</span>
+</pre></div>
+<p>Cloud Foundryは<code>SimpleMongoDbFactory</code>を作り、以下のプロパティの値をセットします: <code>host</code>, <code>port</code>, <code>username</code>, <code>password</code>, <code>dbname</code>.</p>
+
+<h4>Javaでの手動設定</h4>
+
+<p>Javaの設定内でMongoDBを設定するには、<code>org.springframework.data.mongodb.MongoDbFactory</code> beanを返す<code>@Bean</code>メソッドを持つ<code>@Configuration</code>クラスを作ってください。<code>cloudfoundry-runtime</code>ライブラリ内でヘルパー・クラスでこのbeanを作ることができます。以下に例を示します:</p>
+<div class="highlight"><pre><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">MongoConfig</span> <span class="o">{</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">MongoDbFactory</span> <span class="nf">mongoDbFactory</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">CloudEnvironment</span> <span class="n">cloudEnvironment</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CloudEnvironment</span><span class="o">();</span>
+        <span class="n">MongoServiceInfo</span> <span class="n">serviceInfo</span> <span class="o">=</span> <span class="n">cloudEnvironment</span><span class="o">.</span><span class="na">getServiceInfo</span><span class="o">(</span><span class="s">&quot;my-mongodb&quot;</span><span class="o">,</span> <span class="n">MongoServiceInfo</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">MongoServiceCreator</span> <span class="n">serviceCreator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">MongoServiceCreator</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">serviceCreator</span><span class="o">.</span><span class="na">createService</span><span class="o">(</span><span class="n">serviceInfo</span><span class="o">.</span><span class="na">get</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">MongoTemplate</span> <span class="nf">mongoTemplate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">MongoTemplate</span><span class="o">(</span><span class="n">mongoDbFactory</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>XMLでの手動設定</h4>
+
+<p><code>&lt;cloud:mongo-db-factory&gt;</code>名前空間を使って、SpringアプリケーションのためのMongoDB connection factoryを簡単に設定することができます。</p>
+
+<h5>基本的な手動設定</h5>
+
+<p>以下のSpring XML appication context fileの一部は、<code>org.springframework.data.mongodb.core.MongoTemplate</code> beanで使われる<code>MongoDbFactory</code> 設定の例です:</p>
+<div class="highlight"><pre><span class="nt">&lt;cloud:mongo-db-factory</span> <span class="na">id=</span><span class="s">&quot;mongoDbFactory&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;mongoTemplate&quot;</span> <span class="na">class=</span><span class="s">&quot;org.springframework.data.mongodb.core.MongoTemplate&quot;</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;constructor-arg</span> <span class="na">ref=</span><span class="s">&quot;mongoDbFactory&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</pre></div>
+<p>The following table lists the attributes of the <code>&lt;cloud:mongo-db-factory&gt;</code>
+element.</p>
+
+<table>
+<tbody>
+  <tr>
+    <th>Attribute</th>
+    <th>Description</th>
+    <th>Type</th>
+  </tr>
+  <tr>
+    <td>id</td>
+    <td>The ID of this MongoDB connection factory.  接続を参照する際、MongoTemplate beanはこのIDを使います。<br>デフォルトの値はバインドされたサービスのインスタンスの名前です。</td>
+    <td>String</td>
+  </tr>
+  <tr>
+  <td>service-name</td>
+    <td>The name of the MongoDB service. <br>複数のMongoDBサービスがバインドされていて、どのSpring beanをどのサービス・インスタンスへバインドしたいかを指定したい時にのみこのアトリビュートを指定します。デフォルトの値はバインドされたサービスのインスタンスの名前です。
+    <td>String</td>
+  </tr>
+  <tr>
+    <td>write-concern</td>
+    <td>Controls the behavior of writes to the data store.  このアトリビュートの値は、com.mongodb.WriteConcernクラスの値に対応します。       <p>このアトリビュートを指定しない場合、WriteConcernは設定されず、すべての書き込みのデフォルトはNORMALになります。</p>
+       <p>このアトリビュートが取り得る値は以下になります:</p>
+       <ul>
+         <li><b>NONE</b>: 例外があがりません。</li>
+         <li><b>NORMAL</b>: ネットワークについては例外をあげますが、サーバーに関しては例外をあげません。</li>
+         <li><b>SAFE</b>: MongoDBサービスは書き込みの前にサーバーを待ちます。ネットワークとサーバーの両方について例外をあげます。</li>
+         <li><b>FSYNC_SAVE</b>: MongoDBサービスは書き込み操作の前に、サーバーがデータをディスクへ実際に出力するのを待ちます。ネットワークとサーバーの両方について例外をあげます。</li>
+       </ul>
+     </td>
+     <td>String</td>
+   </tr>
+</tbody>
+</table>
+
+<p>これは、デフォルトの値を使ってMongoDB connection
+factoryを作ります。以下のセクションでは、デフォルトを上書きするやり方を説明します。</p>
+
+<h5>高度な手動設定</h5>
+
+<p><code>&lt;cloud:mong-db-factory&gt;</code>名前空間によって作られたconnection
+factoryは、<code>&lt;cloud:mongo-options&gt;</code>要素を指定することによりカスタマイズできます。以下にMongoDBの拡張設定の例を示します:</p>
+<div class="highlight"><pre><span class="nt">&lt;cloud:mongo-db-factory</span> <span class="na">id=</span><span class="s">&quot;mongoDbFactory&quot;</span> <span class="na">write-concern=</span><span class="s">&quot;FSYNC_SAFE&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;cloud:mongo-options</span> <span class="na">connections-per-host=</span><span class="s">&quot;12&quot;</span> <span class="na">max-wait-time=</span><span class="s">&quot;2000&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/cloud:mongo-db-factory&gt;</span>
+</pre></div>
+<p>上の例では、接続の数の最大値は12で、スレッドの待ち時間は1秒です。WriteConcernはいちばん安全な(FSYNC_SAFE)になっています。</p>
+
+<p>The <code>&lt;cloud:mongo-options&gt;</code> child element takes the following attributes:</p>
+
+<table><thead>
+<tr>
+<th>Attribute</th>
+<th>Description</th>
+<th>Type</th>
+<th>Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>connections-per-host</td>
+<td>MongoDBインスタンスへのホストごとの接続数の最大値。 これらの接続は、アイドル時はプール内に保持されます。プールが使いつくされると、接続を必要とする操作は接続が使えるようになるまでブロックされます。</td>
+<td>int</td>
+<td>10</td>
+</tr>
+<tr>
+<td>max-wait-time</td>
+<td>コネクションが利用可能になるまでの待ち時間の最大値(ミリセカンド単位)</td>
+<td>int</td>
+<td>120,000 (2 minutes)</td>
+</tr>
+</tbody></table>
+
+<h3><a id='redis'></a>Redis</h3>
+
+<h4>自動設定</h4>
+
+<p>自動設定を使うには、 <a href="http://www.springsource.org/spring-data/redis">Spring Data Redis</a> 1.0 M4またはそれ以降を使う必要があります。</p>
+
+<p>自動設定は、Cloud FoundryがSpring application context内の<code>org.springframework.data.redis.connection.RedisConnectionFactory</code> beanを検出した際に実行されます。以下のSpring XML application contextファイルの一部は、Cloud Foundryが感知すると自動設定がされるはずのbeanの例になっています:</p>
+<div class="highlight"><pre><span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;redis&quot;</span>
+      <span class="na">class=</span><span class="s">&quot;org.springframework.data.redis.connection.jedis.JedisConnectionFactory&quot;</span>
+      <span class="na">p:hostName=</span><span class="s">&quot;localhost&quot;</span> <span class="na">p:port=</span><span class="s">&quot;6379&quot;</span>  <span class="nt">/&gt;</span>
+</pre></div>
+<p>Cloud Foundryは<code>JedisConnectionFactory</code>を作り、その時に以下のプロパティの値を使います: <code>host</code>, <code>port</code>, <code>password</code>. このことは、アプリケーション内でJedis JARパッケージ化する必要があることを意味します。Cloud Foundryは現時点ではJRedisとRJCの実装をサポートしていません。</p>
+
+<h4>Javaでの手動設定</h4>
+
+<p>Javaの設定内でRedisサービスを設定するには、<code>org.springframework.data.redis.connection.RedisConnectionFactory</code> beanを返す<code>@Bean</code>メソッドを持つ<code>@Configuration</code>クラスを作ってください。<code>cloudfoundry-runtime</code>ライブラリ内でヘルパー・クラスでこのbeanを作ることができます。以下に例を示します:</p>
+<div class="highlight"><pre><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RedisConfig</span> <span class="o">{</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">RedisConnectionFactory</span> <span class="nf">redisConnectionFactory</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">CloudEnvironment</span> <span class="n">cloudEnvironment</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CloudEnvironment</span><span class="o">();</span>
+        <span class="n">RedisServiceInfo</span> <span class="n">serviceInfo</span> <span class="o">=</span> <span class="n">cloudEnvironment</span><span class="o">.</span><span class="na">getServiceInfo</span><span class="o">(</span><span class="s">&quot;my-redis&quot;</span><span class="o">,</span> <span class="n">RedisServiceInfo</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">RedisServiceCreator</span> <span class="n">serviceCreator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RedisServiceCreator</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">serviceCreator</span><span class="o">.</span><span class="na">createService</span><span class="o">(</span><span class="n">serviceInfo</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">RedisTemplate</span> <span class="nf">redisTemplate</span><span class="o">()</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">StringRedisTemplate</span><span class="o">(</span><span class="n">redisConnectionFactory</span><span class="o">());</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>XMLでの手動設定</h4>
+
+<p>The <code>&lt;cloud:redis-connection-factory&gt;</code> provides a simple way for you to
+configure a Redis connection factory for a Spring application.</p>
+
+<h5>基本的な手動設定</h5>
+
+<p>以下のSpring XML application context
+fileの一部は、<code>org.springframework.data.redis.core.StringRedisTemplate</code>
+beanでの<code>RedisConnectionFactory</code>設定の例です:</p>
+<div class="highlight"><pre><span class="nt">&lt;cloud:redis-connection-factory</span> <span class="na">id=</span><span class="s">&quot;redisConnectionFactory&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="nt">&lt;bean</span> <span class="na">id=</span><span class="s">&quot;redisTemplate&quot;</span> <span class="na">class=</span><span class="s">&quot;org.springframework.data.redis.core.StringRedisTemplate&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;property</span> <span class="na">name=</span><span class="s">&quot;connection-factory&quot;</span> <span class="na">ref=</span><span class="s">&quot;redisConnectionFactory&quot;</span><span class="nt">/&gt;</span>
+<span class="nt">&lt;/bean&gt;</span>
+</pre></div>
+<p>下の表は、<code>&lt;cloud:redis-connection-factory&gt;</code>要素のアトリビュートの一覧です:</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Attribute</th>
+  <th>Description</th>
+  <th>Type</th>
+</tr>
+<tr>
+  <td>id</td>
+  <td>The ID of this Redis connection factory.  接続を参照する際、RedisTemplate beanはこのIDを使います。<br>デフォルトの値はバインドされたサービスのインスタンスの名前です。</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>service-name</td>
+  <td>The name of the Redis service. <br>複数のRedisサービスがバインドされていて、どのSpring beanをどのサービス・インスタンスへバインドしたいかを指定したい時にのみこのアトリビュートを指定します。デフォルトの値はバインドされたサービスのインスタンスの名前です。
+  <td>String</td>
+</tr>
+</tbody> 
+</table>
+
+<p>この設定では、実行時にもっとも一般的な設定を使ってfactoryを作ります。以下のセクションでは、デフォルトを上書きするやり方を説明します。</p>
+
+<h5>高度な手動設定</h5>
+
+<p><code>&lt;cloud:redis-connection-factory&gt;</code>名前空間によって作られたconnection
+factoryは、<code>&lt;cloud:pool&gt;</code>要素を指定することによりカスタマイズできます。</p>
+
+<p>以下はadvanced Redis configuration optionsの使い方の例です:</p>
+<div class="highlight"><pre><span class="nt">&lt;cloud:redis-connection-factory</span> <span class="na">id=</span><span class="s">&quot;myRedisConnectionFactory&quot;</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;cloud:pool</span> <span class="na">pool-size=</span><span class="s">&quot;5-10&quot;</span> <span class="na">max-wait-time=</span><span class="s">&quot;2000&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/cloud:redis-connection-factory&gt;</span>
+</pre></div>
+<p>これ例では、接続数の最小と最大は、それぞれ5と10です。接続の空きがない場合の待ち時間は2000ミリセカンド(2秒)で、その後は例外を投げます。</p>
+
+<p>The <code>&lt;cloud:pool&gt;</code> child element takes the following attributes:</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Attribute</th>
+  <th>Description</th>
+  <th>Type</th>
+  <th>Default</th>
+</tr>
+<tr>
+  <td>pool-size</td>
+  <td>Specifies the size of the connection pool.  接続の最大数か、最小と最大数をハイフンでつないで範囲を指定してください。
+  <td>int</td>
+  <td>Default minimum is 0.  Default maximum is 8. これはApache Commons Poolのデフォルトと同様です。
+  <td>max-wait-time</td>
+  <td>使える接続がない場合、このアトリビュートの値(ミリセカンド単位)の時間接続が使えるようになるのを待ち、その後例外を投げます。Specify -1 to indicate that the connection pool should wait forever. </td>
+  <td>int</td>
+  <td>Default value is -1 (forever).</td>
+ </tr>
+</tbody> 
+</table>
+
+<h3><a id='rabbitmq'></a>RabbitMQ</h3>
+
+<h4>自動設定</h4>
+
+<p>自動設定を使うには、<a href="http://www.springsource.org/spring-amqp">Spring AMQP</a>
+1.0またはそれ以降を使う必要があります。Spring AMQP provides publishing, multi-threaded consumer generation, and message conversion. It also facilitates management of AMQP resources while promoting dependency injection and declarative configuration.</p>
+
+<p>自動設定は、Cloud FoundryがSpring application context内の<code>org.springframework.amqp.rabbit.connection.ConnectionFactory</code> beanを検出した際に実行されます。以下のSpring application context fileの一部はこのタイプのbeanの定義の例を示しています。Cloud Foundryはこれを検知し、自動設定を実行します:</p>
+<div class="highlight"><pre><span class="nt">&lt;rabbit:connection-factory</span>
+    <span class="na">id=</span><span class="s">&quot;rabbitConnectionFactory&quot;</span>
+    <span class="na">host=</span><span class="s">&quot;localhost&quot;</span>
+    <span class="na">password=</span><span class="s">&quot;testpwd&quot;</span>
+    <span class="na">port=</span><span class="s">&quot;1238&quot;</span>
+    <span class="na">username=</span><span class="s">&quot;testuser&quot;</span>
+    <span class="na">virtual-host=</span><span class="s">&quot;virthost&quot;</span> <span class="nt">/&gt;</span>
+</pre></div>
+<p>Cloud Foundryは<code>org.springframework.amqp.rabbit.connection.CachingConnectionFactory</code>を作り、以下のプロパティの値を使います:
+<code>host</code>, <code>port</code>, <code>username</code>, <code>password</code>, <code>dbname</code>.: <code>host</code>, <code>virtual-host</code>, <code>port</code>, <code>username</code>, <code>password</code>.</p>
+
+<h4>Javaでの手動設定</h4>
+
+<p>To configure a RabbitMQ service in Java configuration, simply create a <code>@Configuration</code> class with a <code>@Bean</code> method to return a <code>org.springframework.amqp.rabbit.connection.ConnectionFactory</code> bean (from the Spring AMQP library). <code>cloudfoundry-runtime</code>ライブラリ内でヘルパー・クラスでこのbeanを作ることができます。以下に例を示します:</p>
+<div class="highlight"><pre><span class="nd">@Configuration</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="nc">RabbitConfig</span> <span class="o">{</span>
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">ConnectionFactory</span> <span class="nf">rabbitConnectionFactory</span><span class="o">()</span> <span class="o">{</span>
+        <span class="n">CloudEnvironment</span> <span class="n">cloudEnvironment</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CloudEnvironment</span><span class="o">();</span>
+        <span class="n">RabbitServiceInfo</span> <span class="n">serviceInfo</span> <span class="o">=</span> <span class="n">cloudEnvironment</span><span class="o">.</span><span class="na">getServiceInfo</span><span class="o">(</span><span class="s">&quot;my-rabbit&quot;</span><span class="o">,</span> <span class="n">RabbitServiceInfo</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+        <span class="n">RabbitServiceCreator</span> <span class="n">serviceCreator</span> <span class="o">=</span> <span class="k">new</span> <span class="n">RabbitServiceCreator</span><span class="o">();</span>
+        <span class="k">return</span> <span class="n">serviceCreator</span><span class="o">.</span><span class="na">createService</span><span class="o">(</span><span class="n">serviceInfo</span><span class="o">);</span>
+    <span class="o">}</span>
+
+    <span class="nd">@Bean</span>
+    <span class="kd">public</span> <span class="n">RabbitTemplate</span> <span class="nf">rabbitTemplate</span><span class="o">(</span><span class="n">ConnectionFactory</span> <span class="n">connectionFactory</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="k">new</span> <span class="nf">RabbitTemplate</span><span class="o">(</span><span class="n">connectionFactory</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span>
+</pre></div>
+<h4>XMLでの手動設定</h4>
+
+<p><code>&lt;cloud:rabbit-connection-factory&gt;</code>は、SpringアプリケーションでRabbitMQ connection factoryを設定する簡単な方法を提供します。</p>
+
+<h5>基本的な手動設定</h5>
+
+<p>以下のSpring XML appication context fileの一部は、<code>rabbitTemplate</code> beanで使われるRabbitConnectionFactory configuration 設定の例です:この例は、 <code>&lt;rabbit:&gt;</code>名前空間を使ってRabbitMQ-specific configurationを行います。例の後に説明があります:</p>
+<div class="highlight"><pre><span class="c">&lt;!-- Obtain a connection to the RabbitMQ via cloudfoundry-runtime:</span>
+<span class="c">--&gt;</span> <span class="nt">&lt;cloud:rabbit-connection-factory</span> <span class="na">id=</span><span class="s">&quot;rabbitConnectionFactory&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="c">&lt;!-- Set up the AmqpTemplate/RabbitTemplate: --&gt;</span>
+<span class="nt">&lt;rabbit:template</span> <span class="na">id=</span><span class="s">&quot;rabbitTemplate&quot;</span>
+    <span class="na">connection-factory=</span><span class="s">&quot;rabbitConnectionFactory&quot;</span> <span class="nt">/&gt;</span>
+
+<span class="c">&lt;!-- Request that queues, exchanges and bindings be automatically declared</span>
+<span class="c">on the broker: --&gt;</span> <span class="nt">&lt;rabbit:admin</span>
+<span class="na">connection-factory=</span><span class="s">&quot;rabbitConnectionFactory&quot;</span><span class="nt">/&gt;</span>
+
+<span class="c">&lt;!-- Declare the &quot;messages&quot; queue: --&gt;</span> <span class="nt">&lt;rabbit:queue</span> <span class="na">name=</span><span class="s">&quot;messages&quot;</span>
+<span class="na">durable=</span><span class="s">&quot;true&quot;</span><span class="nt">/&gt;</span>
+</pre></div>
+<p>The following table lists the attributes of the
+<code>&lt;cloud:rabbit-connection-factory&gt;</code> element:</p>
+
+<table>
+<tbody>
+<tr>
+  <th>Attribute</th>
+  <th>Description</th>
+  <th>Type</th>
+</tr>
+<tr>
+  <td>id</td>
+  <td>The ID of this RabbitMQ connection factory. 接続を参照する際、RabbitTemplate beanはこのIDを使います。<br>デフォルトの値はバインドされたサービスのインスタンスの名前です。</td>
+  <td>String</td>
+</tr>
+<tr>
+  <td>service-name</td>
+  <td>The name of the RabbitMQ service. <br>複数のRabbitMQサービスがバインドされていて、どのSpring beanをどのサービス・インスタンスへバインドしたいかを指定したい時にのみこのアトリビュートを指定します。デフォルトの値はバインドされたサービスのインスタンスの名前です。
+  <td>String</td>
+</tr>
+</tbody>
+</table>
+
+<p>これは、デフォルトの値を使ってRabbitMQ connection
+factoryを作ります。以下のセクションでは、デフォルトを上書きするやり方を説明します。</p>
+
+<h5>高度な手動設定</h5>
+
+<p><code>&lt;cloud:rabbit-connection-factory&gt;</code>名前空間によって作られたconnection
+factoryは、<code>&lt;cloud:rabbit-options&gt;</code>要素を指定することによりカスタマイズできます。</p>
+
+<p>以下はadvanced RabbitMQ configuration optionsの使い方の例です:</p>
+<div class="highlight"><pre><span class="nt">&lt;cloud:rabbit-connection-factory</span> <span class="na">id=</span><span class="s">&quot;rabbitConnectionFactory&quot;</span> <span class="nt">&gt;</span>
+  <span class="nt">&lt;cloud:rabbit-options</span> <span class="na">channel-cache-size=</span><span class="s">&quot;10&quot;</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/cloud:rabbit-connection-factory&gt;</span>
+</pre></div>
+<p><code>&lt;cloud:rabbit-options&gt;</code>要素は、<code>channel-cache-size</code>というアトリビュートを定義し、チャンネルのキャッシュ・サイズの大きさを指定します。デフォルトの値は1です。前の例では、RabbitMQ connection factoryのキャッシュ・サイズは10です。</p>
+
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

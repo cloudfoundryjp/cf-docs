@@ -1,0 +1,701 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Cloud Foundryの環境変数</title>
+
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_using docs_using_deploying-apps docs_using_deploying-apps_environment-variable">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Cloud Foundryを使用する</a></li> <li class=""><a href="./">アプリケーションのデプロイについての重要事項</a></li> <li class="active"><span>Cloud Foundryの環境変数</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"><ul>
+<li><a href="#view">環境変数を参照する</a>
+
+<ul>
+<li><a href="#cli">CLIで環境変数を参照する</a></li>
+<li><a href="#app">プログラムから環境変数へアクセスする</a></li>
+</ul></li>
+<li><a href="#dea-set">DEAが設定する変数</a>
+
+<ul>
+<li><a href="#HOME">HOME</a></li>
+<li><a href="#HOME">MEMORY_LIMIT</a></li>
+<li><a href="#PORT">PORT</a></li>
+<li><a href="#PWD">PWD</a></li>
+<li><a href="#TMPDIR"></a></li>
+<li><a href="#USER"></a></li>
+<li><a href="#VCAP_APPLICATION">VCAP_APPLICATION</a></li>
+<li><a href="#VCAP_APP_PORT">VCAP_APP_PORT</a></li>
+<li><a href="#VCAP_CONSOLE_IP">VCAP_CONSOLE_IP</a></li>
+<li><a href="#VCAP_CONSOLE_PORT">VCAP_CONSOLE_PORT</a></li>
+<li><a href="#VCAP_SERVICES">VCAP_SERVICES</a></li>
+</ul></li>
+<li><a href="#java-buildpack">Javaビルドパックで設定される変数</a>
+
+<ul>
+<li><a href="#JAVA_HOME">JAVA_HOME</a></li>
+<li><a href="#JAVA_OPTS">JAVA_OPTS</a></li>
+<li><a href="#JAVA_TOOL_OPTIONS">JAVA_TOOL_OPTIONS</a></li>
+</ul></li>
+<li><a href="#ruby-buildpack">Rubyビルドパックで設定される変数</a>
+
+<ul>
+<li><a href="#BUNDLE_BIN_PATH">BUNDLE_BIN_PATH</a></li>
+<li><a href="#BUNDLE_GEMFILE">BUNDLE_GEMFILE</a></li>
+<li><a href="#BUNDLE_WITHOUT">BUNDLE_WITHOUT</a></li>
+<li><a href="#DATABASE_URL">DATABASE_URL</a></li>
+<li><a href="#GEM_HOME">GEM_HOME</a></li>
+<li><a href="#GEM_PATH">GEM_PATH</a></li>
+<li><a href="#RACK_ENV">RACK_ENV</a></li>
+<li><a href="#RAILS_ENV">RAILS_ENV</a></li>
+<li><a href="#RUBYOPT">RUBYOPT</a></li>
+</ul></li>
+<li><a href="#node-buildpack">Nodeビルドパックで設定される変数</a>
+
+<ul>
+<li><a href="#BUILD_DIR">BUILD_DIR</a></li>
+<li><a href="#CACHE_DIR">CACHE_DIR</a></li>
+<li><a href="#PATH">PATH</a></li>
+</ul></li>
+</ul>
+</div>
+
+              <h1>Cloud Foundryの環境変数</h1>
+
+            
+            <p>Cloud Foundryは環境変数を使ってデプロイされたアプリケーションと環境についての情報のやりとりします。このページではDEAとビルドパックがアプリケーションのために設定する環境変数について説明します。</p>
+
+<p>アプリケーション固有の環境変数の設定の方法については<a href="manifest.html">アプリケーションのマニフェスト</a>ページの<a href="manifest.html#var">マニフェストでの環境変数の設定</a>をご覧ください。</p>
+
+<h2><a id='view'></a>環境変数を参照する</h2>
+
+<p>この節ではCloud Foundryの環境変数を参照する方法について説明します。</p>
+
+<h3><a id='cli'></a>CLIで環境変数を参照する</h3>
+
+<p>cfコマンドは環境変数の値を返す機能を二通り提供します。詳しくは<a href="../managing-apps/cf/">cfコマンド・ライン・インターフェース</a>ページの <a href="../managing-apps/cf/#logs">ログ</a>と<a href="../managing-apps/cf/#files">ファイル</a>をご覧ください。</p>
+
+<pre class="terminal">
+$ cf files APP_NAME_HERE logs/env.log
+</pre>
+
+<h3><a id='app'></a>プログラムから環境変数へアクセスする</h3>
+
+<p>ここではプログラムから環境変数へアクセスするを説明します。以下の例では<code>VCAP_SERVICES</code>環境変数を使います。</p>
+
+<h3>Java</h3>
+<div class="highlight"><pre><span class="n">System</span><span class="p">.</span><span class="n">getenv</span><span class="p">(</span>&quot;<span class="n">VCAP_SERVICES</span>&quot;<span class="p">);</span>
+</pre></div>
+<h3>Ruby</h3>
+<div class="highlight"><pre><span class="n">ENV</span><span class="p">[</span><span class="s">&#39;VCAP_SERVICES&#39;</span><span class="p">]</span>
+</pre></div>
+<h3>Node.js</h3>
+<div class="highlight"><pre><span class="n">process</span><span class="p">.</span><span class="n">env</span><span class="p">.</span><span class="n">VCAP_SERVICES</span>
+</pre></div>
+<h2><a id='dea-set'></a>DEAが設定する変数</h2>
+
+<p>ここでは、アプリケーションを公開する時にDEAが設定する環境変数について説明します。</p>
+
+<h3><a id='HOME'></a>HOME</h3>
+
+<p>デプロイされたアプリケーションにとってのrootフォルダです。</p>
+
+<p><code>HOME=/home/vcap/app</code></p>
+
+<h3><a id='HOME'></a>MEMORY_LIMIT</h3>
+
+<p>アプリケーションの各インスタンスが使用できるメモリの量の最大値です。この値はアプリケーションのマニフェストあるいはプッシュする時のオプションの指定で決まります。</p>
+
+<p>インスタンスがこの制限を越えると再起動されます。再起動がくりかえされると、停止されます。</p>
+
+<p><code>MEMORY_LIMIT=512m</code></p>
+
+<h3><a id='PORT'></a>PORT</h3>
+
+<p>DEAがアプリケーションと通信するのに使うポートです。DEAはアプリケーションを公開する時にこのポートを割当てます。このため、ポートを使うコードは<code>PORT</code>を使って参照する必要があります。</p>
+
+<p><code>PORT=61857</code></p>
+
+<h3><a id='PWD'></a>PWD</h3>
+
+<p>アプリケーションを処理するビルドパックが実行されているワーキング・ディレクトリを示す。</p>
+
+<p><code>PWD=/home/vcap</code></p>
+
+<h3><a id='TMPDIR'></a>TMPDIR</h3>
+
+<p>一時的なファイルや公開するファイルを置くディレクトリ。</p>
+
+<p><code>TMPDIR=/home/vcap/tmp</code></p>
+
+<h3><a id='USER'></a>USER</h3>
+
+<p>DEAを実行しているユーザ・アカウント。</p>
+
+<p><code>USER=vcap</code></p>
+
+<h3><a id='VCAP\_APP\_HOST'></a>VCAP_APP_HOST</h3>
+
+<p>DEAは実行されているホストのIPアドレス。</p>
+
+<p><code>VCAP_APP_HOST=0.0.0.0</code></p>
+
+<h3><a id='VCAP_APPLICATION'></a>VCAP_APPLICATION</h3>
+
+<p>この変数はデプロイされたアプリケーションに関する有用な情報を保持しています。結果はJSON形式で返されます。以下の表は返される属性の一覧です。</p>
+
+<table><thead>
+<tr>
+<th>属性</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>application_users, users</td>
+<td></td>
+</tr>
+<tr>
+<td>instance_id</td>
+<td>アプリケーションを識別するGUID</td>
+</tr>
+<tr>
+<td>instance_index</td>
+<td>インスタンスを特定する番号(DEAごとに割り振られる)</td>
+</tr>
+<tr>
+<td>application_version, version</td>
+<td>アプリケーションのヴァージョンを示すGUID。アプリケーションがプッシュされる度に値が更新される。</td>
+</tr>
+<tr>
+<td>application_name, name</td>
+<td>プッシュされた時に割り振られるアプリケーションの名前</td>
+</tr>
+<tr>
+<td>application_uris</td>
+<td>The URI(s) assigned to the application.</td>
+</tr>
+<tr>
+<td>started_at, start</td>
+<td>アプリケーションが最後に起動された時刻</td>
+</tr>
+<tr>
+<td>started_at_timestamp</td>
+<td>アプリケーションが最後に起動されたタイム・スタンプ</td>
+</tr>
+<tr>
+<td>host</td>
+<td>アプリケーションのインスタンスのIPアドレス</td>
+</tr>
+<tr>
+<td>port</td>
+<td>アプリケーションのインスタンスのポート</td>
+</tr>
+<tr>
+<td>limits</td>
+<td>インスタンスが使用できるメモリ、ディスク、ファイル数の上限。 メモリとディスクの上限はアプリケーションがデプロイされた時コマンド・ラインまたはマニフェストによって決まる。使用できるファイル数は管理者が設定する。</td>
+</tr>
+<tr>
+<td>state_timestamp</td>
+<td>アプリケーションが現在の状態になった時点を表すタイム・スタンプ</td>
+</tr>
+</tbody></table>
+<div class="highlight"><pre><span class="n">VCAP_APPLICATION</span><span class="p">={</span>&quot;<span class="n">instance_id</span>&quot;<span class="p">:</span>&quot;<span class="mf">451f045</span><span class="n">fd16427bb99c895a2649b7b2a</span>&quot;<span class="p">,</span>&quot;<span class="n">instance_index</span>&quot;<span class="p">:</span><span class="mi">0</span><span class="p">,</span>&quot;<span class="n">host</span>&quot;<span class="p">:</span>&quot;<span class="mf">0.0</span><span class="p">.</span><span class="mf">0.0</span>&quot;<span class="p">,</span>&quot;<span class="n">port</span>&quot;<span class="p">:</span><span class="mi">61857</span><span class="p">,</span>&quot;<span class="n">started_at</span>&quot;<span class="p">:</span>&quot;<span class="mi">2013</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">12</span> <span class="mi">00</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">29</span> <span class="o">+</span><span class="mi">0000</span>&quot;<span class="p">,</span>&quot;<span class="n">started_at_timestamp</span>&quot;<span class="p">:</span><span class="mi">1376265929</span><span class="p">,</span>&quot;<span class="n">start</span>&quot;<span class="p">:</span>&quot;<span class="mi">2013</span><span class="o">-</span><span class="mi">08</span><span class="o">-</span><span class="mi">12</span> <span class="mi">00</span><span class="p">:</span><span class="mi">05</span><span class="p">:</span><span class="mi">29</span> <span class="o">+</span><span class="mi">0000</span>&quot;<span class="p">,</span>&quot;<span class="n">state_timestamp</span>&quot;<span class="p">:</span><span class="mi">1376265929</span><span class="p">,</span>&quot;<span class="n">limits</span>&quot;<span class="p">:{</span>&quot;<span class="n">mem</span>&quot;<span class="p">:</span><span class="mi">512</span><span class="p">,</span>&quot;<span class="n">disk</span>&quot;<span class="p">:</span><span class="mi">1024</span><span class="p">,</span>&quot;<span class="n">fds</span>&quot;<span class="p">:</span><span class="mi">16384</span><span class="p">},</span>&quot;<span class="n">application_version</span>&quot;<span class="p">:</span>&quot;<span class="n">c1063c1c</span><span class="o">-</span><span class="mi">40</span><span class="n">b9</span><span class="o">-</span><span class="mi">434</span><span class="n">e</span><span class="o">-</span><span class="n">a797</span><span class="o">-</span><span class="n">db240b587d32</span>&quot;<span class="p">,</span>&quot;<span class="n">application_name</span>&quot;<span class="p">:</span>&quot;<span class="n">styx</span><span class="o">-</span><span class="n">james</span>&quot;<span class="p">,</span>&quot;<span class="n">application_uris</span>&quot;<span class="p">:[</span>&quot;<span class="n">styx</span><span class="o">-</span><span class="n">james</span><span class="p">.</span><span class="n">a1</span><span class="o">-</span><span class="n">app</span><span class="p">.</span><span class="n">cf</span><span class="o">-</span><span class="n">app</span><span class="p">.</span><span class="n">com</span>&quot;<span class="p">],</span>&quot;<span class="n">version</span>&quot;<span class="p">:</span>&quot;<span class="n">c1063c1c</span><span class="o">-</span><span class="mi">40</span><span class="n">b9</span><span class="o">-</span><span class="mi">434</span><span class="n">e</span><span class="o">-</span><span class="n">a797</span><span class="o">-</span><span class="n">db240b587d32</span>&quot;<span class="p">,</span>&quot;<span class="n">name</span>&quot;<span class="p">:</span>&quot;<span class="n">styx</span><span class="o">-</span><span class="n">james</span>&quot;<span class="p">,</span>&quot;<span class="n">uris</span>&quot;<span class="p">:[</span>&quot;<span class="n">styx</span><span class="o">-</span><span class="n">james</span><span class="p">.</span><span class="n">a1</span><span class="o">-</span><span class="n">app</span><span class="p">.</span><span class="n">cf</span><span class="o">-</span><span class="n">app</span><span class="p">.</span><span class="n">com</span>&quot;<span class="p">],</span>&quot;<span class="n">users</span>&quot;<span class="p">:</span><span class="n">null</span><span class="p">}</span>`
+</pre></div>
+<h3><a id='VCAP_APP_PORT'></a>VCAP_APP_PORT</h3>
+
+<p>上で説明した <a href="#PORT">ポート</a>と同様です。</p>
+
+<h3><a id='VCAP_CONSOLE_IP'></a>VCAP_CONSOLE_IP</h3>
+
+<p>V2では未実装です。</p>
+
+<p>RailsコンソールにアクセスできるIPアドレス。</p>
+
+<p><code>VCAP_CONSOLE_IP=0.0.0.0</code></p>
+
+<h3><a id='VCAP\_CONSOLE\_PORT'></a>VCAP_CONSOLE_PORT</h3>
+
+<p>V2では未実装です。</p>
+
+<p>Railsコンソールにアクセスできるポート(IPアドレスは<code>VCAP_CONSOLE_IP</code>で示されます)。</p>
+
+<p><code>VCAP_CONSOLE_PORT=61858</code> </p>
+
+<h3><a id='VCAP_SERVICES'></a>VCAP_SERVICES</h3>
+
+<p><a href="../services/">bindable services</a>について、Cloud Foundryはサービスがアプリケーションへバインドされ、その後アプリケーションが再起動された時に接続情報を環境変数<code>VCAP_SERVICES</code>へ追加します。</p>
+
+<p>結果はJSON形式で返され、一つ以上のインスタンスがアプリケーションへバインドされているサービス・タイプのオブジェクトが格納されています。サービスのオブジェクトはアプリケーションへバインドされているサービスのインスタンスのための子オブジェクトを含みます。バインドされたサービスの属性を以下の表に示します。</p>
+
+<p>JSONドキュメントの中の各サービス・タイプのキーは&quot;label&quot;属性と同じ値になります。</p>
+
+<table><thead>
+<tr>
+<th>属性</th>
+<th>説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>name</td>
+<td>サービスのインスタンスが作られた時にユーザによって割当てられた名前。</td>
+</tr>
+<tr>
+<td>label (v1 API)</td>
+<td>サービスの名前とヴァージョン (ヴァージョンがなければ&quot;n/a&quot;という文字列が使われます)。&quot;-&ldquo;で区切られます。例: &quot;cleardb-n/a&rdquo;</td>
+</tr>
+<tr>
+<td>label (v2 API)</td>
+<td>サービスの名前</td>
+</tr>
+<tr>
+<td>plan</td>
+<td>サービスが作られた時に選択されたサービスのプラン</td>
+</tr>
+<tr>
+<td>credentials</td>
+<td>アクセスに必要となるサービス固有の利用者情報を含むJSONオブジェクト。たとえば、cleardbサービスの場合、次のものを含みます。名前、ホスト名、ポート、ユーザ名、パスワード、URI、jdbcUrl</td>
+</tr>
+</tbody></table>
+
+<p>以下の<a href="/docs/running/architecture/services/writing-service-v1.html">v1</a>の例は<a href="http://run.pivotal.io">Pivotal Web Services</a>マーケット・プレースで利用可能なさまざまなサービスのインスタンスにバインドされたVCAP_SERVICE環境変数についてのJSONを含んでいます。</p>
+<div class="highlight"><pre><span class="nt">VCAP_SERVICES</span><span class="o">=</span>
+<span class="p">{</span>
+  <span class="s2">&quot;elephantsql-dev-n/a&quot;</span><span class="o">:</span> <span class="cp">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;elephantsql-dev-c6c60&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;elephantsql-dev-n/a&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;plan&quot;</span><span class="p">:</span> <span class="s2">&quot;turtle&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;postgres://seilbmbd:PHxTPJSbkcDakfK4cYwXHiIX9Q8p5Bxn@babar.elephantsql.com:5432/seilbmbd&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="cp">]</span><span class="o">,</span>
+  <span class="s2">&quot;sendgrid-n/a&quot;</span><span class="o">:</span> <span class="cp">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;mysendgrid&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;sendgrid-n/a&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;plan&quot;</span><span class="p">:</span> <span class="s2">&quot;free&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;smtp.sendgrid.net&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;QvsXMbJ3rK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;HCHMOYluTv&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="cp">]</span>
+<span class="p">}</span>
+</pre></div>
+<p>The <a href="/docs/running/architecture/services/api-v2.0.html">v2</a> version of the same data would look like this:</p>
+<div class="highlight"><pre><span class="nt">VCAP_SERVICES</span><span class="o">=</span>
+<span class="p">{</span>
+  <span class="s2">&quot;elephantsql-dev&quot;</span><span class="o">:</span> <span class="cp">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;elephantsql-dev-c6c60&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;elephantsql-dev&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;plan&quot;</span><span class="p">:</span> <span class="s2">&quot;turtle&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;postgres://seilbmbd:PHxTPJSbkcDakfK4cYwXHiIX9Q8p5Bxn@babar.elephantsql.com:5432/seilbmbd&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="cp">]</span><span class="o">,</span>
+  <span class="s2">&quot;sendgrid&quot;</span><span class="o">:</span> <span class="cp">[</span>
+    <span class="p">{</span>
+      <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;mysendgrid&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;label&quot;</span><span class="p">:</span> <span class="s2">&quot;sendgrid&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;plan&quot;</span><span class="p">:</span> <span class="s2">&quot;free&quot;</span><span class="p">,</span>
+      <span class="s2">&quot;credentials&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;smtp.sendgrid.net&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;username&quot;</span><span class="p">:</span> <span class="s2">&quot;QvsXMbJ3rK&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;password&quot;</span><span class="p">:</span> <span class="s2">&quot;HCHMOYluTv&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="cp">]</span>
+<span class="p">}</span>
+</pre></div>
+<h2><a id='java-buildpack'></a>Javaビルドパックで設定される変数</h2>
+
+<p>ここではアプリケーションの公開時にJavaビルドパックで設定される環境変数について説明します。</p>
+
+<h3><a id='JAVA_HOME'></a>JAVA_HOME</h3>
+
+<p>アプリケーションが実行されているコンテナでのJAVAの位置。
+The location of JAVA on the container running the application.</p>
+
+<p><code>JAVA_HOME=/home/vcap/app/.jdk</code></p>
+
+<h3><a id='JAVA_OPTS'></a>JAVA_OPTS</h3>
+
+<p>アプリケーション実行時のJavaのオプション。すべての値が、JVMの起動時に変更されることなく使用されます。Javaビルドパックの<code>/config/javaopts.yml</code>ファイルで設定できます。</p>
+
+<p><code>JAVA_OPTS=-Xmx512m -Xms512m -Dhttp.port=61857</code></p>
+
+<h3><a id='JAVA_TOOL_OPTIONS'></a>JAVA_TOOL_OPTIONS</h3>
+
+<p>Liftフレームワークを使用するJavaアプリケーションの自動設定を有効にするのに必要なJavaオプションを設定する環境変数です。</p>
+
+<p><code>JAVA_TOOL_OPTIONS=-Drun.mode=production</code></p>
+
+<h2><a id='ruby-buildpack'></a>Rubyビルドパックで設定される変数</h2>
+
+<p>ここではアプリケーションの公開時にRubyビルドパックで設定される環境変数について説明します。</p>
+
+<h3><a id='BUNDLE_BIN_PATH'></a>BUNDLE_BIN_PATH</h3>
+
+<p>Bundlerがバイナリをインストールした場所。</p>
+
+<p><code>BUNDLE_BIN_PATH:/home/vcap/app/vendor/bundle/ruby/1.9.1/gems/bundler-1.3.2/bin/bundle</code></p>
+
+<h3><a id='BUNDLE_GEMFILE'></a>BUNDLE_GEMFILE</h3>
+
+<p>アプリケーションのgemfileへのパス。</p>
+
+<p><code>BUNDLE_GEMFILE:/home/vcap/app/Gemfile</code></p>
+
+<h3><a id='BUNDLE_WITHOUT'></a>BUNDLE_WITHOUT</h3>
+
+<p><code>BUNDLE_WITHOUT</code>環境変数は、excluded groupsに含まれるgemのインストールをCloud Foundryにスキップさせます。<code>BUNDLE_WITHOUT</code>は特にRailsアプリケーションにとって有用です。なぜなら、productionモードで実行する時には不要なassets”や“development”モード用のgemが含まれているからです。</p>
+
+<p>この変数の使い方については <a href="http://blog.cloudfoundry.com/2012/10/02/polishing-cloud-foundrys-ruby-gem-support">http://blog.cloudfoundry.com/2012/10/02/polishing-cloud-foundrys-ruby-gem-support</a> をご覧ください。</p>
+
+<p><code>BUNDLE_WITHOUT=assets</code></p>
+
+<h3><a id='DATABASE_URL'></a>DATABASE_URL</h3>
+
+<p>Rubyビルドパックはバインドされたサービスが既知のデータベースか確かめます。既知のリレーショナル・データベースがあれば、ビルドパックはリストの先頭にあるものをDATABASE_URL環境変数へ設定します。</p>
+
+<p>あなたのアプリケーションがDATABASE_URLを必要とし、Cloud Foundryが設定しない場合、手動で設定することもできます。</p>
+
+<p><code>$ cf set-env myapp DATABASE_URL mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab</code></p>
+
+<h3><a id='GEM_HOME'></a>GEM_HOME</h3>
+
+<p>gemがインストールされている場所。</p>
+
+<p><code>GEM_HOME:/home/vcap/app/vendor/bundle/ruby/1.9.1</code></p>
+
+<h3><a id='GEM_PATH'></a>GEM_PATH</h3>
+
+<p>gemを見つけることができる場所。</p>
+
+<p><code>GEM_PATH=/home/vcap/app/vendor/bundle/ruby/1.9.1:</code></p>
+
+<h3><a id='RACK_ENV'></a>RACK_ENV</h3>
+
+<p>Rackデプロイ環境で設定される変数。development, deployment, または noneになる。</p>
+
+<p><code>RACK_ENV=production</code></p>
+
+<h3><a id='RAILS_ENV'></a>RAILS_ENV</h3>
+
+<p>Railsデプロイ環境で設定される変数。development, test, または productionになる。アプリケーションがどのように実行されるかを決める環境特有の設定ファイルを制御する。</p>
+
+<p><code>RAILS_ENV=production</code></p>
+
+<h3><a id='RUBYOPT'></a>RUBYOPT</h3>
+
+<p>このRuby環境変数は、Rubyインタープリタに渡されるコマンド・ライン・オプションを保持する。</p>
+
+<p><code>RUBYOPT: -I/home/vcap/app/vendor/bundle/ruby/1.9.1/gems/bundler-1.3.2/lib -rbundler/setup</code></p>
+
+<h2><a id='node-buildpack'></a>Nodeビルドパックで設定される変数</h2>
+
+<h3><a id='BUILD_DIR'></a>BUILD_DIR</h3>
+
+<p>Node.jsアプリケーションが実行される度にNode.jsがコピーされるディレクトリ。</p>
+
+<h3><a id='CACHE_DIR'></a>CACHE_DIR</h3>
+
+<p>Node.jsがキャッシュとして使うディレクトリ。</p>
+
+<h3><a id='PATH'></a>PATH</h3>
+
+<p>Node.jsが使うシステムのパス。</p>
+
+<p><code>PATH=/home/vcap/app/bin:/home/vcap/app/node_modules/.bin:/bin:/usr/bin</code></p>
+
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Troubleshooting Apps</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_running docs_running_troubleshooting docs_running_troubleshooting_troubleshooting-apps">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,86 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Running Cloud Foundry</a></li> <li class=""><a href="./">Troubleshooting</a></li> <li class="active"><span>Troubleshooting Apps</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
+              <div class="quick-links"></div>
 
- <hr>
+              <h1>Troubleshooting Apps</h1>
 
-</div>
+            
+            <h3>Retrieve an example backend (internal DEA network host:port) for a particular URL</h3>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+<p>Send a X-Vcap-Trace header on your request to an app with the appropriate secret key, and the router will add a X-Vcap-Backend response header identifying the DEA that was used to service the request.</p>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+<p>The value of the X-Vcap-Trace needs to correspond to the router configuration &ldquo;trace<em>key&rdquo; as can be seen in the <a href="https://github.com/cloudfoundry/gorouter/blob/58f54267c43eb52e01b531ee51281f7d48408f3e/src/router/config/config_test.go#L101">router config test</a>. If you are using BOSH, that value is set using &ldquo;properties.router.trace</em>key&rdquo;.</p>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>For example, with curl this would be:</p>
+<div class="highlight"><pre><span class="err">$</span> <span class="nt">curl</span> <span class="nt">-H</span> <span class="s1">&#39;X-Vcap-Trace: 222&#39;</span> <span class="nt">http</span><span class="o">://</span><span class="nt">app</span><span class="nc">.example.com</span> <span class="nt">-v</span>
+<span class="o">*</span> <span class="nt">About</span> <span class="nt">to</span> <span class="nt">connect</span><span class="o">()</span> <span class="nt">to</span> <span class="nt">app</span><span class="nc">.example.com</span> <span class="nt">port</span> <span class="nt">80</span> <span class="o">(</span><span class="nf">#0</span><span class="o">)</span>
+<span class="o">*</span>   <span class="nt">Trying</span> <span class="nt">10</span><span class="nc">.242.15.12</span><span class="o">...</span>
+<span class="o">*</span> <span class="nt">connected</span>
+<span class="o">*</span> <span class="nt">Connected</span> <span class="nt">to</span> <span class="nt">app</span><span class="nc">.example.com</span> <span class="o">(</span><span class="nt">10</span><span class="nc">.242.15.12</span><span class="o">)</span> <span class="nt">port</span> <span class="nt">80</span> <span class="o">(</span><span class="nf">#0</span><span class="o">)</span>
+<span class="o">&gt;</span> <span class="nt">GET</span> <span class="o">/</span> <span class="nt">HTTP</span><span class="o">/</span><span class="nt">1</span><span class="nc">.1</span>
+<span class="o">&gt;</span> <span class="nt">User-Agent</span><span class="o">:</span> <span class="nt">curl</span><span class="o">/</span><span class="nt">7</span><span class="nc">.24.0</span> <span class="o">(</span><span class="nt">x86_64-apple-darwin12</span><span class="nc">.0</span><span class="o">)</span> <span class="nt">libcurl</span><span class="o">/</span><span class="nt">7</span><span class="nc">.24.0</span> <span class="nt">OpenSSL</span><span class="o">/</span><span class="nt">0</span><span class="nc">.9.8r</span> <span class="nt">zlib</span><span class="o">/</span><span class="nt">1</span><span class="nc">.2.5</span>
+<span class="o">&gt;</span> <span class="nt">Host</span><span class="o">:</span> <span class="nt">app</span><span class="nc">.example.com</span>
+<span class="o">&gt;</span> <span class="nt">Accept</span><span class="o">:</span> <span class="o">*/*</span>
+<span class="o">&gt;</span> <span class="nt">X-Vcap-Trace</span><span class="o">:</span> <span class="nt">22</span>
+<span class="o">&gt;</span> 
+<span class="o">&lt;</span> <span class="nt">HTTP</span><span class="o">/</span><span class="nt">1</span><span class="nc">.1</span> <span class="nt">200</span> <span class="nt">OK</span>
+<span class="o">&lt;</span> <span class="nt">Content-Length</span><span class="o">:</span> <span class="nt">40</span>
+<span class="o">&lt;</span> <span class="nt">Content-Type</span><span class="o">:</span> <span class="nt">text</span><span class="o">/</span><span class="nt">html</span><span class="o">;</span><span class="nt">charset</span><span class="o">=</span><span class="nt">utf-8</span>
+<span class="o">&lt;</span> <span class="nt">Date</span><span class="o">:</span> <span class="nt">Sat</span><span class="o">,</span> <span class="nt">16</span> <span class="nt">Mar</span> <span class="nt">2013</span> <span class="nt">14</span><span class="nd">:17:21</span> <span class="nt">GMT</span>
+<span class="o">&lt;</span> <span class="nt">Server</span><span class="o">:</span> <span class="nt">WEBrick</span><span class="o">/</span><span class="nt">1</span><span class="nc">.3.1</span> <span class="o">(</span><span class="nt">Ruby</span><span class="o">/</span><span class="nt">1</span><span class="nc">.9.2</span><span class="o">/</span><span class="nt">2012-04-20</span><span class="o">)</span>
+<span class="o">&lt;</span> <span class="nt">X-Content-Type-Options</span><span class="o">:</span> <span class="nt">nosniff</span>
+<span class="o">&lt;</span> <span class="nt">X-Frame-Options</span><span class="o">:</span> <span class="nt">SAMEORIGIN</span>
+<span class="o">&lt;</span> <span class="nt">X-Vcap-Backend</span><span class="o">:</span> <span class="nt">10</span><span class="nc">.242.15.233</span><span class="nd">:61003</span>
+<span class="o">&lt;</span> <span class="nt">X-Vcap-Router</span><span class="o">:</span> <span class="nt">10</span><span class="nc">.242.15.86</span>
+<span class="o">&lt;</span> <span class="nt">X-Xss-Protection</span><span class="o">:</span> <span class="nt">1</span><span class="o">;</span> <span class="nt">mode</span><span class="o">=</span><span class="nt">block</span>
+</pre></div>
+<p>The response shows the IP of the router in the X-Vcap-Router header and the IP:HOST of the backend DEA that responded to this request in the X-Vcap-Backend header.</p>
 
-  <hr>
-  <p>Application Deployment<br>
+<h3>pre-req BOSH setup</h3>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<ul>
+<li>Target a deployment</li>
+<li>bosh target &hellip;</li>
+</ul>
 
-  </p>
-  <hr>
+<h3>instructions for finding out the host:port list for a running app:</h3>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<ul>
+<li>bosh vms and find a router ip</li>
+<li>ssh ip</li>
+<li>curl 127.0.0.1:23456 and you should get the routing table returned, the port could vary by configuration, details in <a href="https://github.com/cloudfoundry/gorouter/commit/b0aad822d2b6c005e249e391e4e0a38497c3e23c">https://github.com/cloudfoundry/gorouter/commit/b0aad822d2b6c005e249e391e4e0a38497c3e23c</a></li>
+</ul>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<h3>instructions for listening to NATS for a new app instance registration:</h3>
 
+<ul>
+<li>set NATS env </li>
+<li>nats-sub &#39;router.register&#39; -s $NATS
+&ndash; has ip, port, name
+&ndash; the ip is the dea ip and port is port app is on</li>
+</ul>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<h3>going to the warden container of an app once you have the ip:port</h3>
 
-</div>
-
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
-
-  <hr>
-
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
-
-  <hr>
-
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
-
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
-
-  </p>
-
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
-
-</div>
-
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<ul>
+<li>ssh ip, (need a tool to parse /var/vcap/data/dea_next/db/instances.json on port or name)
+&ndash; the warden handle in the same json hash as the name/port
+&ndash; construct a bash wsh cli and exec
+&mdash; you&#39;re in the warden</li>
+</ul>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

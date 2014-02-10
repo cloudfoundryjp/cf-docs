@@ -1,0 +1,2278 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>cfコマンド</title>
+
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_using docs_using_managing-apps docs_using_managing-apps_cf docs_using_managing-apps_cf_index">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Cloud Foundryを使用する</a></li> <li class=""><a href="../">アプリ、オーガナイゼーション、スペースの管理</a></li> <li class="active"><span>cfコマンド</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"><ul>
+<li><a href="#commands">機能ごとに分類したコマンド</a></li>
+<li><a href="#installing">cfのインストール</a></li>
+<li><a href="#troubleshooting">cfインストールのトラブル・シューティング</a></li>
+<li><a href="#usage">コマンドの使い方とオプション</a></li>
+<li><a href="#proxy">プロキシを介しての接続</a></li>
+<li><a href="#details">コマンドの詳しい説明</a></li>
+</ul>
+</div>
+
+              <h1>cfコマンド</h1>
+
+            
+            <p>cfはCloud Foundryのコマンドです。cfコマンドを使ってアプリケーションをデプロイしたり管理することができます。CloudFoundry.comを含むCloud Foundryベースの環境で使えます。このページではcf v5について説明します。cf v6については <a href="go-cli.html">Getting Started with cf v6</a>をご覧ください。</p>
+
+<h2><a id='commands'></a>機能ごとに分類したコマンド</h2>
+
+<p>下のテーブルはcfのすべてのサブコマンドを示しています。各コマンドをクリックすると詳細を見ることができます。共通のオプションについては右のページ
+<a href="#usage">コマンドの使い方とオプション</a>を参照してください。</p>
+
+<table><thead>
+<tr>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left"><strong>Basics</strong> <br><a href="#login">login EMAIL</a> <br><a href="#logout">logout</a> <br><a href="#targets">targets</a> <br><a href="#target">target URL</a>  <br> <br> <strong>Manage Users</strong> <br>  <a href="#create-user">create-user EMAIL</a>  <br>   <a href="#passwd">passwd</a> <br> <a href="#register">register EMAIL</a> <br> <a href="#users">users</a><br><br> <strong>Manage Apps</strong> <br><a href="#app">app APP</a> <br> <a href="#apps">apps</a> <br><a href="#bind-service">bind-service SVC APP</a><br> <a href="#console">console APP</a> <br><a href="#delete">delete APP</a> <br><a href="#map">map APP HOST DOMAIN</a> <br><a href="#push">push NAME</a> <br><a href="#rename">rename APP APP</a> <br><a href="#restart">restart APP</a> <br> <a href="#scale">scale APP</a> <br> <a href="#set-env">set-env APP NAME VALUE</a><br><a href="#start">start APPS</a> <br><a href="#stop">stop APPS</a> <br><a href="#unbind-service">unbind-service SVC APP</a>   <br> <a href="#unmap">unmap URL APP</a> <br> <a href="#unset-env">unset-env APP NAME</a>    <br> <br></td>
+<td align="left"><strong>Get Information About Apps</strong>  <br><a href="#crashlogs">crashlogs APP</a>  <br> <a href="#env">env APP</a>  <br> <a href="#events">events APP</a>  <br><a href="#file">file APP PATH</a>  <br> <a href="#file">files APP PATH</a> <br> <a href="#guid">guid TYPE NAME</a> <br><a href="#health">health APP</a> <br><a href="#instances">instances APP</a> <br><a href="#logs">logs APP</a> <br><a href="#stats">stats APP</a> <br><a href="#tail">tail APP PATH</a>        <br> <br>  <strong>Manage Services</strong> <br><a href="#bind-service">bind-service SVC APP</a> <br><a href="#create-service-auth-token">create-service-auth-token LABEL PROVIDER</a><br><a href="#create-service">create-service OFFERING NAME</a> <br><a href="#delete-service-auth-token">delete-service-auth-token TOKEN</a><br><a href="#delete-service">delete-service SVC</a> <br><a href="#rename-service">rename-service SVC SVC</a> <br><a href="#tunnel">tunnel INSTANCE CLIENT</a>  <br><a href="#unbind-service">unbind-service SVC APP</a>  <br><a href="#update-service-auth-token">update-service-auth-token TOKEN</a>   <br> <br><strong>Get Information about Services</strong> <br> <a href="#service-auth-tokens">service-auth-tokens</a> <br><a href="#service">service SERVICE</a> <br><a href="#services">services</a></td>
+<td align="left"><strong>Manage Organizations and Spaces</strong> <br><a href="#create-org">create-org ORG</a> <br><a href="#create-space">create-space NAME ORG</a>  <br>  <a href="#delete-org">delete-org ORG</a> <br><a href="#delete-space">delete-space SPACE</a>   <br><a href="#rename-org">rename-org ORG ORG</a>   <br><a href="#rename-space">rename-space SPACE SPACE</a> <br> <a href="#set-quota">set-quota QUOTA ORG</a> <br><a href="#switch-space">switch-space SPACE</a> <br> <br> <strong>Get Information About Organizations and Spaces</strong> <br> <a href="#guid">guid TYPE NAME</a> <br><a href="#org">org ORG</a>  <br><a href="#orgs">orgs</a>  <br><a href="#space">space SPACE</a>  <br> <a href="#spaces">spaces ORG</a>  <br> <br><strong>Manage Domains and Routes</strong> <br><a href="#delete-route">delete-route SPACE</a> <br> <a href="#domains">domains SPACE</a> <br> <a href="#guid">guid TYPE NAME</a><br><a href="#map-domain">map-domain DOMAIN</a><br><a href="#routes">routes</a> <br><a href="#unmap-domain">unmap-domain DOMAIN</a>  <br></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<h2><a id='installing'></a>cfのインストール</h2>
+
+<p>cfはRubyとRubyGemsを必要とします。Ruby 1.9.3以降が必要です。推奨はRuby 1.9.3です。RubyとRubyGemsについては、右のページを参照してください。<a href="../../../common/install_ruby.html">Installing Ruby</a>.</p>
+
+<p>RubyとRubyGemsをインストールした後、cfの最新版をインストールするには以下のコマンドを実行してください。:</p>
+
+<pre class="terminal">
+$ gem install cf
+</pre>
+
+<p>プレリリース版のcfをインストールするには:</p>
+
+<pre class="terminal">
+$ gem install cf --pre
+</pre>
+
+<h2><a id='troubleshooting'></a>cfインストールのトラブル・シューティング</h2>
+
+<ul>
+<li><p>OS XにはRuby v1.8.7が含まれていて、サポートの対象外です。cfを使うためには、Ruby 1.9.3以降へアップグレードしてください。</p></li>
+<li><p>あなたがRuby 1.9.3とpre-1.9.xのgemsetを使っている場合cfのインストールは以下のメッセージで失敗します:</p></li>
+</ul>
+
+<pre class="terminal">
+$ gem install cf
+...
+...
+ERROR: Error installing cf:
+activesupport requires Ruby version >= 1.9.3.
+</pre>
+
+<h2><a id='usage'></a>コマンドの使い方とオプション</h2>
+
+<p>cfコマンドは、Cloud Foundryのアプリケーション、サービス、オーガナイゼーション、スペース、ドメインなどの参照、作成、変更を行なうことができます。applications,
+services, organisations, spaces, domains, and so on. 各コマンドはcfではじまります。例えば:</p>
+
+<pre class="terminal">
+$ cf push my-new-app
+</pre>
+
+<p>大半のコマンドは振舞を変えたり引数の値を与えたりするためのオプションを供えています。必要な引数の値をコマンドラインで指定しなかった場合、cfは対話的に必要なデータの入力を求めます。cfコマンドをスクリプトの中で使う場合、必要な引数をすべて指定しておく必要があります。コマンドのオプションは任意の順番で指定できます。</p>
+
+<p>このページでは各コマンドのオプションについて記述します。同等の情報を <code>cf help [command]</code> あるいは <code>-h</code> か
+<code>--help</code>オプションで表示できます。</p>
+
+<p><strong>グローバルなオプション</strong></p>
+
+<p>以下のオプションはすべてのcfコマンドに共通です。</p>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;color, &ndash;no-color</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">&ndash;debug</td>
+<td align="left">コマンドが失敗した場合、スタック・トレースを~/.cf/crashへ書く代わりにコンソールへ出力します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;force</td>
+<td align="left">確認をスキップします。<code>--force</code>を指定した場合、必要なオプションすべてを指定してください。 <br>不足している場合はコマンドは失敗します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;http-proxy HTTP_PROXY</td>
+<td align="left">プロキシを使っている場合、このオプションでhttpプロキシを指定します。詳しくは<a href="#proxy">Connecting Through a Proxy Server</a>をご覧ください。</td>
+</tr>
+<tr>
+<td align="left">&ndash;https-proxy HTTP_PROXY</td>
+<td align="left">プロキシを使っている場合、このオプションでhttpsプロキシを指定します。詳しくは<a href="#proxy">Connecting Through a Proxy Server</a>をご覧ください。</td>
+</tr>
+<tr>
+<td align="left">&ndash;manifest FILE, -m</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">&ndash;quiet, &ndash;no-quiet</td>
+<td align="left">Return a minimal response. たとえば、<code>cf apps --quiet</code>は各アプリの<code>name</code>アトリビュートを返します<br><code>status</code>, <code>usage</code>, <code>url</code>は返しません。通常はこれらも表示されます。The <code>--quiet</code> <br>スクリプト内で使う場合に有用です。</td>
+</tr>
+<tr>
+<td align="left">&ndash;script</td>
+<td align="left">コマンドは<code>--force</code>と<code>--quiet</code>付で実行されます。出力をリダイレクトしたりパイプへ向けた場合、cfコマンドは自動的に<code>--script</code> オプションを追加することに注意してください。この機能を抑止するには、<br><code>--no-script</code>オプションを指定してください。</td>
+</tr>
+<tr>
+<td align="left">&ndash;trace, -t</td>
+<td align="left">コマンドとターゲットの間の通信をすべて表示します。デバッグの時に有用です。以下に注意<br><code>--trace</code>は取り扱い注意のデータを返す場合があります。たとえば、あなたのトークンなどです。</td>
+</tr>
+<tr>
+<td align="left">&ndash;verbose, -V</td>
+<td align="left">Return a verbose response, if available. すべてのコマンドが詳細な結果を表示できるわけではありません。</td>
+</tr>
+<tr>
+<td align="left">&ndash;version, -v</td>
+<td align="left">cfのヴァージョンを表示します。</td>
+</tr>
+</tbody></table>
+
+<h2><a id='proxy'></a>プロキシを介しての接続</h2>
+
+<p>この機能はcf v5.2以降で有効です。</p>
+
+<p>プロキシの後ろでcfを実行する場合、プロキシのアドレスを指定する必要があります。グローバルなオプションの<code>--http-proxy</code>か<code>--https-proxy</code>を使ってください。説明は <a href="#usage">コマンドの使い方とオプション</a>にあります。(アプリケーションをプッシュする際、マニフェスト内の環境変数でプロキシを指定することもできます。ただし、この方法は該当するマニフェストを使ったプッシュの時のみ有効であることに注意してください。)</p>
+
+<p>cfコマンドのすべての通信がプロキシを経由するよう、<code>--http-proxy</code>と<code>--https-proxy</code>の両方を指定してください。例として、プロキシを使って<code>cf apps</code>を実行する場合、以下のようにしてください:</p>
+
+<div class="command-doc">
+ <pre class="terminal">
+cf apps --http-proxy myproxy.myproxydomain:8080 --https-proxy myproxy.myproxydomain:443
+</div>
+
+<p>あなたのプロキシがユーザ名とパスワードを必要とするなら、以下のように指定してください:</p>
+
+<div class="command-doc">
+ <pre class="terminal">
+cf apps --http-proxy myusername:mypassword@myproxy.myproxydomain:8080 --https-proxy myusername:mypassword@myproxy.myproxydomain:443
+</div>
+
+<h2><a id='details'></a>コマンドの詳しい説明</h2>
+
+<h4><a id='app'></a> app</h4>
+
+<p>アプリケーションの情報を表示する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf app [application name]</pre>
+</div>
+
+<p>以下のようなデータが返されます:</p>
+
+<ul>
+<li>status &ndash; アプリの状態です。たとえば&quot;running&quot;などです</li>
+<li>usage &ndash; 割り当てられたメモリの量やインスタンスの数です</li>
+<li>urls &ndash; アプリケーションに割り当てられたURLです</li>
+<li>services &mdash; アプリケーションにバインドされたサービスのインスタンスです</li>
+</ul>
+
+<h4><a id='apps'></a> apps</h4>
+
+<p>現在のスペースのアプリケーションの一覧</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf apps</pre>
+</div>
+
+<p>個々のアプリケーションについて、以下のデータが返されます:</p>
+
+<ul>
+<li>name &ndash; 名前</li>
+<li>status &ndash; アプリの状態です。たとえば&quot;running&quot;などです</li>
+<li>usage &ndash; 割り当てられたメモリの量やインスタンスの数です</li>
+<li>url &ndash; アプリケーションのURLです</li>
+</ul>
+
+<p>以下のテーブルにコマンドのオプションを示します</p>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left"></th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;full</td>
+<td align="left">n</td>
+<td align="left">より詳細な出力</td>
+</tr>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left">n</td>
+<td align="left">正規表現で指定した名前に一致するアプリケーションの一覧</td>
+</tr>
+<tr>
+<td align="left">&ndash;space SPACE</td>
+<td align="left">n</td>
+<td align="left">指定されたスペースに属するアプリケーションの一覧</td>
+</tr>
+<tr>
+<td align="left">&ndash;url URL</td>
+<td align="left">n</td>
+<td align="left">正規表現で指定したURLに一致するアプリケーションの一覧</td>
+</tr>
+</tbody></table>
+
+<h4><a id='bind-service'></a> bind-service</h4>
+
+<p>サービスをアプリケーションにバインドするバインドできるサービスとできないサービスがあります。バインドをサポートしているサービスについて、アプリケーションにバインドすると資格情報が環境変数<code>VCAP_SERVICES</code>へ追加されます。バインドが使えるようにするためにはアプリケーションの再起動が必要です。</p>
+
+<p><a href="#create-service">サービスの作成</a>にあるように、サービスの作成と同時にアプリケーションへバインドできることに注意してください。サービスのインスタンスの作成とバインドについて、詳細は<a href="../../../dotcom/adding-a-service.html">サービスの追加をするには</a>をご覧ください</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf bind-service [instance name] [application name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;app</td>
+<td align="left">y</td>
+<td align="left">サービスにバインドされるアプリケーションの名前</td>
+</tr>
+<tr>
+<td align="left">&ndash;service</td>
+<td align="left">y</td>
+<td align="left">アプリケーションにバインドされるサービス</td>
+</tr>
+</tbody></table>
+
+<h4><a id='console'></a> console</h4>
+
+<p>Railsのコンソールを開き、アプリケーションへ接続する。Railsコンソールの詳細については、&quot;Deploying Rails Apps&quot;の<a href="../../deploying-apps/ruby/rails-using-the-console.html">Rails 3, コンソールを使う</a>をご覧ください。**</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf console  [application name] [port}</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;app</td>
+<td align="left">y</td>
+<td align="left">アプリケーションの名前</td>
+</tr>
+<tr>
+<td align="left">&ndash;port</td>
+<td align="left">y</td>
+<td align="left">アプリケーションが実行されているポート</td>
+</tr>
+</tbody></table>
+
+<h4><a id='crashlogs'></a> crashlogs</h4>
+
+<p>反応のないアプリケーションの標準出力と標準エラー出力を表示します。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf crashlogs [application name]</pre>
+  <div class="break"></div>
+</div>
+
+<h4><a id='create-org'></a> create-org</h4>
+
+<p>オーガナイゼーションを作る。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf create-org [organisation name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]add-self</td>
+<td align="left">n</td>
+<td align="left">このオプションは、あなたをオーガナイゼーションへ所属させたい、あるいはさせたくないということを指定するのに使います。</td>
+</tr>
+<tr>
+<td align="left">&ndash;name</td>
+<td align="left">y</td>
+<td align="left">オーガナイゼーションに割当てられた名前</td>
+</tr>
+<tr>
+<td align="left">-t, &ndash;[no-]target</td>
+<td align="left">n</td>
+<td align="left">このオプションは、オーガナイゼーションの作成後に、そのオーガナイゼーションへスイッチするかどうかを指定するのに使います。</td>
+</tr>
+</tbody></table>
+
+<h4><a id='create-service'></a> create-service</h4>
+
+<p>サービスのインスタンスを作ります。アプリケーションへバインドすることもできます。サービスを作成した時にバインドしなかった場合、後で<a href="#bind-service">bind-service</a>コマンドを使ってバインドすることもできます。サービスのインスタンスの作成とバインドについて、詳細は
+<a href="../../../dotcom/adding-a-service.html">サービスの追加をするには</a>をご覧ください</p>
+
+<p>既存のサービスのインスタンスの一覧を表示するには、<a href="#services">services</a>コマンドを使います。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf create-service [service type] [instance name]</pre>
+  <div class="break"></div>
+</div>
+
+<p>以下のテーブルにコマンドのオプションを示しますcfコマンドは、オプションで指定されなかった必要な情報の入力を求めます。</p>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;app, &ndash;bind APP</td>
+<td align="left">n</td>
+<td align="left">サービスをバインドするアプリケーション</td>
+</tr>
+<tr>
+<td align="left">&ndash;name</td>
+<td align="left">y</td>
+<td align="left">サービスの名前<code>create-service</code>を対話的に実行した場合、cfはデフォルトのインスタンス名を表示します。上書きしてかまいません。名前として、英文字、数字、([a-z], [A-Z], [0-9]), ハイフン (-), アンダースコア (_)が使えます。</td>
+</tr>
+<tr>
+<td align="left">&ndash;offering</td>
+<td align="left">y</td>
+<td align="left">作成するサービスのタイプ。たとえば、 &ldquo;rediscloud&rdquo;, &ldquo;mongolab&rdquo;, など<code>create-service</code>を対話的に実行した場合、cfコマンドはサービスのタイプとヴァージョンとプロヴァイダを含む一覧を表示します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;plan</td>
+<td align="left">y</td>
+<td align="left">サービスのプランサービス・プランはサービスのフィーチャーとリソースの組合せを定義します。<code>create-service</code>を対話的に実行した場合、cfコマンドはプロヴァイダーが提供するプランの一覧を表示します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;provider</td>
+<td align="left">n</td>
+<td align="left">サービスのプロヴァイダー</td>
+</tr>
+<tr>
+<td align="left">&ndash;version</td>
+<td align="left">n</td>
+<td align="left">サービスのヴァージョン</td>
+</tr>
+</tbody></table>
+
+<h4><a id='create-service-auth-token'></a> create-service-auth-token</h4>
+
+<p>サービスの認証トークンを作成する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf create-service-auth-token [label] [provider]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;label</td>
+<td align="left"></td>
+<td align="left">トークンのラベル</td>
+</tr>
+<tr>
+<td align="left">&ndash;provider</td>
+<td align="left"></td>
+<td align="left">トークンのプロヴァイダー</td>
+</tr>
+<tr>
+<td align="left">&ndash;token TOKEN</td>
+<td align="left"></td>
+<td align="left">トークンの値</td>
+</tr>
+</tbody></table>
+
+<h4><a id='create-space'></a> create-space</h4>
+
+<p>オーガナイゼーションの中にスペースを作成する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf create-space [space name] [organization name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left"></th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]developer</td>
+<td align="left"></td>
+<td align="left">あなたをスペースへ開発者として追加するかどうかを指定します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;[no-]manager</td>
+<td align="left"></td>
+<td align="left">あなたをスペースへ管理者として追加するかどうかを指定します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;auditor</td>
+<td align="left"></td>
+<td align="left">あなたをスペースへ監査者として追加するかどうかを指定します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left"></td>
+<td align="left">新しいスペースの名前</td>
+</tr>
+<tr>
+<td align="left">-o, &ndash;organization, &ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left">スペースを追加するオーガナイゼーションの名前</td>
+</tr>
+<tr>
+<td align="left">-t, &ndash;target</td>
+<td align="left"></td>
+<td align="left">スペースの作成後、そのスペースへスイッチするかどうかを指定する。</td>
+</tr>
+</tbody></table>
+
+<h4><a id='create-user'></a> create-user</h4>
+
+<p>ユーザ・アカウントを作成するコマンド・ラインで必要なオプションを指定しなかった場合、cfは入力を求めてきます。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf create-user [email]</pre>
+  <div></div>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;email EMAIL</td>
+<td align="left">y</td>
+<td align="left">Email of the new user.</td>
+</tr>
+<tr>
+<td align="left">&ndash;password PASSWORD</td>
+<td align="left">y</td>
+<td align="left">新規ユーザのパスワード</td>
+</tr>
+<tr>
+<td align="left">&ndash;verify VERIFY</td>
+<td align="left">y</td>
+<td align="left">もう一度パスワードを指定する</td>
+</tr>
+<tr>
+<td align="left">-o, &ndash;organization, &ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left">新規ユーザの割当てられるオーガナイゼーション。</td>
+</tr>
+</tbody></table>
+
+<h4><a id='delete'></a> delete</h4>
+
+<p>アプリケーションを削除するcfはアプリケーションとバインドされたサービスを削除してよいか、確認を求めてきます。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf delete [list of application names]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;all</td>
+<td align="left">n</td>
+<td align="left">現在のスペースのアプリケーションすべてを削除する。</td>
+</tr>
+<tr>
+<td align="left">&ndash;apps, &ndash;app APPS</td>
+<td align="left">y</td>
+<td align="left">削除されるアプリケーションの名前</td>
+</tr>
+<tr>
+<td align="left">&ndash;routes</td>
+<td align="left">n</td>
+<td align="left">削除されるアプリケーションに対応づけられたルートを削除するか</td>
+</tr>
+<tr>
+<td align="left">-o, &ndash;delete-orphaned DELETE_ORPHANED</td>
+<td align="left">n</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<h4><a id='delete-org'></a> delete-org</h4>
+
+<p>オーガナイゼーションを削除する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf delete-org [organisation name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]warn</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-o, &ndash;organization, &ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">-r, &ndash;recursive</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<h4><a id='delete-route'></a> delete-route</h4>
+
+<p>ルートを削除する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf delete-route [route]</pre>
+  <div class="break"></div>
+</div>
+
+<h4><a id='delete-service-auth-token'></a> delete-service-auth-token</h4>
+
+<p>サービスの認証トークンを削除する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf delete-service-auth-token [service auth token]</pre>
+  <div class="break"></div>
+</div>
+
+<h4><a id='delete-service'></a> サービスの削除</h4>
+
+<p>サービスを削除する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf delete-service [instance name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]unbind</td>
+<td align="left"></td>
+<td align="left">削除する前にアプリケーションとのバインドを解消するか?</td>
+</tr>
+<tr>
+<td align="left">&ndash;all</td>
+<td align="left"></td>
+<td align="left">すべてのサービスを削除する</td>
+</tr>
+<tr>
+<td align="left">&ndash;service SERVICE</td>
+<td align="left"></td>
+<td align="left">削除するサービス</td>
+</tr>
+</tbody></table>
+
+<h4><a id='delete-space'></a> delete-space</h4>
+
+<p>スペースとその内容を削除する</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf delete-space [list of space names]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]warn</td>
+<td align="left"></td>
+<td align="left">削除しようとしているスペースがオーガナイゼーション内で最後の一つの場合に警告するかどうか。</td>
+</tr>
+<tr>
+<td align="left">&ndash;space SPACE</td>
+<td align="left"></td>
+<td align="left">削除するスペース</td>
+</tr>
+<tr>
+<td align="left">-o, &ndash;organization, &ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left">削除するスペースを含んでいるオーガナイゼーション</td>
+</tr>
+<tr>
+<td align="left">-r, &ndash;recursive</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<h4><a id='delete-user'></a> delete-user</h4>
+
+<p>ユーザ・アカウントの削除</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf delete-user [email]</pre>
+  <div class="break"></div>
+</div>
+
+<h4><a id='domain'></a> domains</h4>
+
+<p>ドメインの一覧を表示する</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf domains [space]</pre>
+  <div class="break"></div>
+</div>
+
+<p>ドメインそれぞれに対して、以下のデータが返される:</p>
+
+<ul>
+<li>name &ndash; ドメインの名前</li>
+<li>owner &ndash; ドメインの所有者</li>
+</ul>
+
+<h4><a id='env'></a> env</h4>
+
+<p>アプリケーションの環境変数すべてを表示します。Amazon S3のAPIキーのような知られたくないデータを格納する際、ソース・コードの中ではなく環境変数を使うのはよい方法です。</p>
+
+<p>アプリケーションのために環境変数をセットすることができます:</p>
+
+<ul>
+<li><a href="../../deploying-apps/manifest.html#var">Set Environment Variable in a Manifest</a>にあるように、デプロイする時のマニフェストの中でセットできます。または</li>
+<li>アプリケーションをプッシュした後、<a href="#set-env">set-env</a>コマンドでセットすることもできます。</li>
+</ul>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf env [application name]</pre>
+</div>
+
+<h4><a id='events'></a> イベント</h4>
+
+<p>アプリケーションのイベントを表示します。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf events [application name]</pre>
+</div>
+
+<p>出力の例:</p>
+
+<div class="command-doc">
+  <pre class="terminal">
+
+time                        instance index   description                 exit status
+2013-08-07 16:31:47 +0000   0                out of memory               Failure (255)
+2013-08-07 16:31:48 +0000   0                Hostname not supplied: ''   Failure (-1)
+</pre>
+</div>
+
+<h4><a id='file'></a> file</h4>
+
+<p>指定されたアプリケーションに属する、パスで指定されたファイルの内容を表示する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf file [application name] [path]</pre>
+</div>
+
+<h5>出力の例</h5>
+
+<div class="command-doc">
+  <pre class="terminal">
+cf file rabbitmq-node staging_info.yml
+Getting file contents... OK
+
+---
+detected_buildpack: Node.js
+start_command: node app.js
+</pre>
+</div>
+
+<h4><a id='files'></a> files</h4>
+
+<p>アプリケーションに属するファイルの一覧を表示する。</p>
+
+<h5>出力の例</h5>
+
+<div class="command-doc">
+  <pre class="terminal">
+cf file rabbitmq-node
+Getting file contents... OK
+
+.bash_logout                              220B
+.bashrc                                   3.0K
+.profile                                  675B
+app/                                         -
+logs/                                        -
+nodejs-0.10.15.tgz                        5.3M
+nodejs-0.4.7.tgz                          3.1M
+npm-1.2.30.tgz                            2.2M
+run.pid                                     3B
+scons-1.2.0.tgz                         382.1K
+staging_info.yml                           59B
+tmp/                                         -
+</pre>
+</div>
+
+<h4><a id='guid'></a> guid</h4>
+
+<p>オブジェクトとタイプ(アプリ、オーガナイゼーション、スペース、ドメインなど)のGUIDを得ます。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf guid type [name]</pre>
+  <div></div>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left">n</td>
+<td align="left">オブジェクトの名前</td>
+</tr>
+<tr>
+<td align="left">&ndash;type TYPE</td>
+<td align="left">y</td>
+<td align="left">オプジェクトのタイプ: &ldquo;app&rdquo;, &ldquo;org&rdquo;, &ldquo;space&rdquo;, &ldquo;domain&rdquo;.</td>
+</tr>
+</tbody></table>
+
+<h4><a id='health'></a> health</h4>
+
+<p>指定されたアプリケーションの状態を表示します。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf health [list of application names]</pre>
+  <div class="break"></div>
+</div>
+
+<p>アプリケーションの状態(&ldquo;running&rdquo;, &ldquo;flapping&rdquo;,
+&ldquo;stopped&rdquo;)を返します。アプリケーションのインスタンスの一部だけが実行されている場合、そのパーセンテージを表示します。</p>
+
+<h4><a id='instances'></a>インスタンス #### インスタンスの一覧を表示する。</h4>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf instances [list of application names]</pre>
+  <div class="break"></div>
+</div>
+
+<p>実行中のインスタンスについて、以下のデータが返されます:</p>
+
+<ul>
+<li>started &ndash; インスタンスが起動した時刻</li>
+<li>console &ndash; インスタンスが実行中のポートとIPアドレス</li>
+</ul>
+
+<h4><a id='login'></a> login</h4>
+
+<p>ターゲットに対して認証する。コマンド・ラインで必要なオプションを指定しなかった場合、cfは入力を求めてきます。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf login [email]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;password PASSWORD</td>
+<td align="left">y</td>
+<td align="left">認証用パスワード</td>
+</tr>
+<tr>
+<td align="left">&ndash;username, &ndash;email EMAIL</td>
+<td align="left">y</td>
+<td align="left">ユーザ・アカウントを識別するためのユーザ名またはメールアドレス</td>
+</tr>
+<tr>
+<td align="left">-o, &ndash;organization, &ndash;org ORGANIZATION</td>
+<td align="left">n</td>
+<td align="left">ログインした時にスイッチするオーガナイゼーションを指定する。</td>
+</tr>
+<tr>
+<td align="left">-s, &ndash;space SPACE</td>
+<td align="left">n</td>
+<td align="left">ログインした時にスイッチするスペースを指定する。</td>
+</tr>
+</tbody></table>
+
+<h4><a id='logout'></a> ログアウト</h4>
+
+<p>ターゲットからログアウトする。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf logout</pre>
+  <div class="break"></div>
+</div>
+
+<h4><a id='logs'></a> logs</h4>
+
+<p>ステージング、標準出力、標準エラー出力などのログを表示します。ログ・ファイルはいくつかの種類がありえます。</p>
+
+<p>アプリケーションのディレクトリにあるファイルの内容を見たい場合は、&#39;cf file&#39;コマンドを実行してください。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf logs [application name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;all</td>
+<td align="left">n</td>
+<td align="left">アプリケーションのすべてのインスタンスのログの一覧を表示する</td>
+</tr>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left">y</td>
+<td align="left">アプリケーションの名前</td>
+</tr>
+<tr>
+<td align="left">&ndash;instance INSTANCE</td>
+<td align="left">n</td>
+<td align="left">ログを見たいアプリケーションのインスタンスを指定する。たとえば、&quot;2&quot;。<br>指定がなければ、最初のインスタンス(&ldquo;0&rdquo;)が表示される。</td>
+</tr>
+</tbody></table>
+
+<h5>Sample Results</h5>
+
+<div class="command-doc">
+  <pre class="terminal">cf logs rabbitmq-node
+
+Using manifest file manifest.yml
+
+Getting logs for rabbitmq-node #0... OK
+
+Reading logs/env.log... OK
+TMPDIR=/home/vcap/tmp
+VCAP_CONSOLE_IP=0.0.0.0
+VCAP_APP_PORT=61749
+USER=vcap
+VCAP_APPLICATION={"instance_id":"633be93bac16a403721cef6adb8f48f0","instance_index":0,"host":"0.0.0.0","port":61749,"started_at":"2013-08-20 22:32:39 +0000","started_at_timestamp":1377037959,"start":"2013-08-20 22:32:39 +0000","state_timestamp":1377037959,"limits":{"mem":256,"disk":1024,"fds":16384},"application_version":"230091c5-b14b-41d2-94c0-c0149a8ba4b7","application_name":"rabbitmq-node","application_uris":[],"version":"230091c5-b14b-41d2-94c0-c0149a8ba4b7","name":"rabbitmq-node","uris":[],"users":null}
+PATH=/home/vcap/app/bin:/home/vcap/app/node_modules/.bin:/bin:/usr/bin
+PWD=/home/vcap
+VCAP_SERVICES={"cloudamqp-n/a":[{"name":"rabbit-sample","label":"cloudamqp-n/a","tags":[],"plan":"lemur","credentials":{"uri":"amqp://urhyfncz:CvvtPhOUHdk_CFQiUruW6sQDTFBd61Sv@lemur.cloudamqp.com/urhyfncz"}}]}
+SHLVL=1
+HOME=/home/vcap/app
+PORT=61749
+VCAP_APP_HOST=0.0.0.0
+DATABASE_URL=
+MEMORY_LIMIT=256m
+VCAP_CONSOLE_PORT=61750
+_=/usr/bin/env
+
+
+
+Reading logs/staging_task.log... OK
+-----> Downloaded app package (4.0K)
+-----> Resolving engine versions
+
+       WARNING: No version of Node.js specified in package.json, see:
+       https://devcenter.heroku.com/articles/nodejs-versions
+
+       Using Node.js version: 0.10.15
+       Using npm version: 1.2.30
+-----> Fetching Node.js binaries
+-----> Vendoring node into slug
+-----> Installing dependencies with npm
+       npm WARN package.json rabbitmq-node@0.0.2 No repository field.
+       npm http GET https://registry.npmjs.org/amqp
+       npm http GET https://registry.npmjs.org/sanitizer
+       npm http 200 https://registry.npmjs.org/sanitizer
+       npm http GET https://registry.npmjs.org/sanitizer/-/sanitizer-0.0.15.tgz
+       npm http 200 https://registry.npmjs.org/amqp
+       npm http GET https://registry.npmjs.org/amqp/-/amqp-0.1.7.tgz
+       npm http 200 https://registry.npmjs.org/sanitizer/-/sanitizer-0.0.15.tgz
+       npm http 200 https://registry.npmjs.org/amqp/-/amqp-0.1.7.tgz
+       sanitizer@0.0.15 node_modules/sanitizer
+       
+       amqp@0.1.7 node_modules/amqp
+       npm WARN package.json rabbitmq-node@0.0.2 No repository field.
+       amqp@0.1.7 /tmp/staged/app/node_modules/amqp
+       sanitizer@0.0.15 /tmp/staged/app/node_modules/sanitizer
+       Dependencies installed
+-----> Building runtime environment
+
+
+
+Reading logs/stderr.log... OK
+
+
+Reading logs/stdout.log... OK
+Starting ... AMQP URL: amqp://urhyfncz:CvvtPhOUHdk_CFQiUruW6sQDTFBd61Sv@lemur.cloudamqp.com/urhyfncz
+
+  <div class="break"></div>
+</div>
+
+<h4><a id='map'></a> マップ</h4>
+
+<p>URLとアプリケーションを関連づけます。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf map [application name] [url]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left"></td>
+<td align="left">URLと関連づけたいアプリケーション</td>
+</tr>
+<tr>
+<td align="left">&ndash;domain DOMAIN</td>
+<td align="left"></td>
+<td align="left">トップ・レベルのドメイン</td>
+</tr>
+<tr>
+<td align="left">&ndash;host HOST</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<h4><a id='map-domain'></a> map-domain</h4>
+
+<p>ドメインを追加し、スペースへ割当てます。
+<div class="command-doc">
+  <pre class="terminal">$ cf map-domain [domain]</pre>
+  <div class="break"></div>
+</div></p>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left"></td>
+<td align="left">ドメイン名トップからのドメインを指定します。たとえば<code>mydomain.com</code>などです。</td>
+</tr>
+<tr>
+<td align="left">&ndash;shared</td>
+<td align="left"></td>
+<td align="left">ドメインを共有します</td>
+</tr>
+<tr>
+<td align="left">&ndash;space SPACE</td>
+<td align="left"></td>
+<td align="left">ドメインがマップされるスペース指定されなかった場合、現在のスペースが使われます。</td>
+</tr>
+<tr>
+<td align="left">-o, &ndash;organization, &ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left">ドメインがマップされるオーガナイゼーション指定がない場合、ドメインはオーガナイゼーションに関連づけられます。</td>
+</tr>
+</tbody></table>
+
+<h4><a id='org'></a> オーガナイゼーション</h4>
+
+<p>オーガナイゼーションの情報の表示</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf org [organisation name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;full</td>
+<td align="left"></td>
+<td align="left">オーガナイゼーション内のスペースの情報を帰す</td>
+</tr>
+<tr>
+<td align="left">&ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left">データ表示の対象となるオーガナイゼーション指定されなければ、現在のオーガナイゼーションの情報が返されます。</td>
+</tr>
+</tbody></table>
+
+<p>以下のようなデータが返されます:</p>
+
+<ul>
+<li>domains &ndash; オーガナイゼーションへマップされたドメイン</li>
+<li>spaces &ndash; オーガナイゼーション内のスペース</li>
+<li><code>--full</code>オプションが指定されていれば、オーガナイゼーション内の各スペースについて以下のデータが返されます:
+
+<ul>
+<li>apps &ndash; スペースへデプロイされたアプリケーション</li>
+<li>services &ndash; スペースの中のサービス</li>
+</ul></li>
+</ul>
+
+<h4><a id='orgs'></a> オーガナイゼーション</h4>
+
+<p>オーガナイゼーションの一覧</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf orgs</pre>
+  <div class="break"></div>
+</div>
+
+<p>以下のようなデータが返されます:</p>
+
+<ul>
+<li>domains &ndash; オーガナイゼーションへマップされたドメイン</li>
+<li>spaces &ndash; オーガナイゼーション内のスペース</li>
+<li><code>--full</code>オプションが指定されていれば、オーガナイゼーション内の各スペースについて以下のデータが返されます:
+
+<ul>
+<li>apps &ndash; スペースへデプロイされたアプリケーション</li>
+<li>services &ndash; スペースの中のサービス</li>
+</ul></li>
+</ul>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;full</td>
+<td align="left">n</td>
+<td align="left">オーガナイゼーション内のスペースの情報を返す</td>
+</tr>
+</tbody></table>
+
+<h4><a id='passwd'></a> passwd</h4>
+
+<p>ユーザのパスワードを設定する。<div class="command-doc">
+  <pre class="terminal">$ cf passwd [email]</pre>
+  <div class="break"></div>
+</div></p>
+
+<h4><a id='push'></a> push</h4>
+
+<p>アプリケーションを新たにデプロイしてください。あるいは、既にあるなら、最後にプッシュしてからの変更分をアップロードしてください。</p>
+
+<p>デプロイのオプションは、コマンドラインか対話的にかマニフェスト・ファイルで指定できます。<code>cf
+push</code>を最初に実行した時、コマンド・ラインで指定しないかぎり、cfはカレント・ディレクトリで<code>manifest.yml</code>を探します。見つからない場合、cfは対話的に設定するよう求めます。必要な情報を入力した後、cfは設定を保存するかきいてきます。肯定すると、カレント・ディレクトリに<code>manifest.yml</code>として保存されます。</p>
+
+<p>アプリケーションを更新する場合、cfは<code>manifest.yml</code>を参照しないことに注意してください。その代わりに、cfはその時点で有効な設定を使用します。二回目以降にマニフェストを適用させるには、<code>--reset</code>オプションを指定する必要があります。詳細については<a href="../../deploying-apps/manifest.html">アプリケーションのマニフェスト</a>ページの<a href="../../deploying-apps/manifest.html#push-and-manifest">cf pushとマニフェスト</a>をご覧ください。</p>
+
+<p>cfはアプリケーションのファイルをすべてアップロードしますが、ヴァージョン・コントロール・システム<code>.svn</code>, <code>.git</code>, and <code>.darcs</code>は除外します。他にも除外したいファイルがあれば、プッシュする時のディレクトリの<code>.cfcignore</code>に記述してください。<code>.cfignore</code>は<code>.gitignore</code>と同様にふるまいます。詳しくは <a href="../../deploying-apps/">Key Facts About Application Deployment</a>の<a href="../../deploying-apps/#exclude">Exclude Unnecessary Files with cfignore</a>をご覧ください。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf push [APP]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]bind-services</td>
+<td align="left"></td>
+<td align="left">バインドするサービスを指定するかどうか<br>バインドしたいと指定すれば、どのタイプのサービスをバインドするかの入力を求められます。</td>
+</tr>
+<tr>
+<td align="left">&ndash;[no-]create-services</td>
+<td align="left"></td>
+<td align="left">サービスを作成したいかどうかを指定します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;[no-]restart</td>
+<td align="left"></td>
+<td align="left">更新後にアプリを再起動したいかどうかを指定します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;[no-]start</td>
+<td align="left"></td>
+<td align="left">デプロイ後にアプリケーションを起動したいかどうかを指定します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;buildpack BUILDPACK</td>
+<td align="left"></td>
+<td align="left">使用したいビルドパックのURLを指定します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;command COMMAND</td>
+<td align="left"></td>
+<td align="left">アプリケーションを起動するためのコマンド <br><br>起動コマンドを含むスクリプトを指定するのに使っているのなら、スクリプト内が相対パスになっているようにしてください。たとえば、起動スクリプト<code>start.sh</code>がアプリケーションのルート・ディレクトリの<code>\bin</code>ディレクトリにある場合、<code>--command &#39;./bin.start.sh&#39;</code>と指定してください。<br><br>詳しくは<a href="../../deploying-apps/">Key Facts About Application Deployment</a>の<a href="../../deploying-apps/#start-command">The Application Start Command</a>をご覧ください。</td>
+</tr>
+<tr>
+<td align="left">&ndash;domain DOMAIN</td>
+<td align="left"></td>
+<td align="left">アプリケーションのトップ・レベル・ドメイン</td>
+</tr>
+<tr>
+<td align="left">&ndash;host HOST</td>
+<td align="left"></td>
+<td align="left">サブドメイン。独自のドメインを使う場合は指定しないでください。</td>
+</tr>
+<tr>
+<td align="left">&ndash;instances INSTANCES</td>
+<td align="left"></td>
+<td align="left">アプリケーションのインスタンスの数</td>
+</tr>
+<tr>
+<td align="left">&ndash;memory MEMORY</td>
+<td align="left"></td>
+<td align="left">各インスタンスのメモリの最大値</td>
+</tr>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left"></td>
+<td align="left">プッシュするアプリケーションの名前</td>
+</tr>
+<tr>
+<td align="left">-m &ndash;marketplace</td>
+<td align="left">n</td>
+<td align="left">サービス・マーケットプレースで利用可能なサービス・タイプの一覧を表示します。</td>
+</tr>
+<tr>
+<td align="left">&ndash;plan PLAN</td>
+<td align="left"></td>
+<td align="left">使いたいサービスのプラン(プランによってサービスの価格と利用できるリソースが決まります)</td>
+</tr>
+<tr>
+<td align="left">&ndash;path</td>
+<td align="left"></td>
+<td align="left">プッシュするアプリケーションへのパス</td>
+</tr>
+<tr>
+<td align="left">&ndash;reset</td>
+<td align="left"></td>
+<td align="left"><code>push</code> のオプションの値を指定し、以前の値を上書きする場合に使います。</td>
+</tr>
+<tr>
+<td align="left">&ndash;stack STACK</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<p><code>--marketplace</code>オプションが指定されている場合、サービス・マーケットプレースで利用可能な各サービスについて、以下の情報が返されます。</p>
+
+<ul>
+<li>service &ndash; サービスのタイプ。たとえば、 &ldquo;cleardb&quot;や&quot;rediscloud&quot;。</li>
+<li>version &ndash; サービスのヴァージョン。</li>
+<li>provider &ndash; サービスのヴェンダーまたは提供者</li>
+<li>plan &ndash; サービスのプラン</li>
+<li>description &ndash; サービスの説明</li>
+</ul>
+
+<p><code>--marketplace</code>以外のオプションが指定されている場合、各サービス・インスタンスについて、以下の情報が返されます。</p>
+
+<ul>
+<li>name &ndash; サービスのインスタンスが作られた時に割当てられた名前。</li>
+<li>service &ndash; サービスのタイプ。たとえば、 &quot;cleardb&quot;や&quot;rediscloud&quot;。</li>
+</ul>
+
+<h4><a id='register'></a> register</h4>
+
+<p>ユーザーを作り、ログインします。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf register [email]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]login</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">&ndash;email EMAIL</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">&ndash;password PASSWORD</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">&ndash;verify VERIFY</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<h4><a id='rename'></a> リネーム</h4>
+
+<p>アプリケーションの名前を変更します。コマンド・ラインで必要なオプションを指定しなかった場合、cfは入力を求めてきます。</p>
+
+<p>アプリケーションの名前を変更すると、cfは以前の名前を認識できなくなることに注意してください。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf rename [current application name] [new application name]</pre>
+</div>
+
+<h4><a id='rename-org'></a> rename-org</h4>
+
+<p>オーガナイゼーションの名前を変更します。
+<div class="command-doc">
+  <pre class="terminal">$ cf rename-org [organization name] [new organization name]</pre>
+  <div class="break"></div>
+</div></p>
+
+<h4><a id='rename-service'></a> rename-service</h4>
+
+<p>サービスの名前を変更します。<div class="command-doc">
+  <pre class="terminal">$ cf rename-service [instance name] [new instance name]</pre>
+  <div class="break"></div>
+</div></p>
+
+<h4><a id='rename-space'></a> スペースのリネーム</h4>
+
+<p>Rename a space.</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf rename-space [space name] [new space name]</pre>
+  <div class="break"></div>
+</div>
+
+<h4><a id='restart'></a> 再起動</h4>
+
+<p>アプリケーションを停止し、その後起動します。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf restart [APP]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;all</td>
+<td align="left"></td>
+<td align="left">現在のスペースのアプリケーションすべてを削除する。</td>
+</tr>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left"></td>
+<td align="left">削除されるアプリケーションの名前</td>
+</tr>
+<tr>
+<td align="left">-d, &ndash;debug-mode DEBUG_MODE</td>
+<td align="left"></td>
+<td align="left">デバッグ・モードに設定し、アプリケーションを再起動します。</td>
+</tr>
+</tbody></table>
+
+<h4><a id='routes'></a>ルート</h4>
+
+<p>スペース内のルートの一覧表示</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf routes</pre>
+  <div></div>
+  <div class="break"></div>
+</div>
+
+<h4><a id='scale'></a> scale</h4>
+
+<p>インスタンスの数を指定し、各インスタンスへ割当てられるメモリの量を指定します。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf scale [application name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]restart</td>
+<td align="left"></td>
+<td align="left">アプリケーションを更新した後に再起動したいかどうかを指定する。</td>
+</tr>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left"></td>
+<td align="left">更新するアプリケーション</td>
+</tr>
+<tr>
+<td align="left">&ndash;disk DISK</td>
+<td align="left"></td>
+<td align="left">アプリケーションへ割当てるディスク容量</td>
+</tr>
+<tr>
+<td align="left">&ndash;instances INSTANCES</td>
+<td align="left"></td>
+<td align="left">実行するインスタンスの数</td>
+</tr>
+<tr>
+<td align="left">&ndash;memory MEMORY</td>
+<td align="left"></td>
+<td align="left">アプリケーションへ割当てるメモリ容量</td>
+</tr>
+<tr>
+<td align="left">&ndash;plan PLAN</td>
+<td align="left"></td>
+<td align="left">アプリケーションのプラン</td>
+</tr>
+</tbody></table>
+
+<h4><a id='service-auth-token'></a> 認証用トークン</h4>
+
+<p>認証用トークンの一覧</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf service-auth-token</pre>
+  <div class="break"></div>
+</div>
+
+<p>トークンごとに以下のデータが返されます:</p>
+
+<ul>
+<li>guid &ndash; サービスのタイプのGUID</li>
+<li>provider &ndash; サービスの提供者</li>
+</ul>
+
+<h4><a id='service'></a> service</h4>
+
+<p>サービスのインスタンスの情報の表示</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf service [instance name]</pre>
+  <div class="break"></div>
+</div>
+
+<h4><a id='services'></a> services</h4>
+
+<p>現在のスペース内のサービスのインスタンの情報の表示</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf services</pre>
+  <div class="break"></div>
+</div>
+
+<p>以下のテーブルにコマンドのオプションを示します。</p>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left">n</td>
+<td align="left">指定したアプリケーションへバインドされたサービスのインスタンスの一覧.</td>
+</tr>
+<tr>
+<td align="left">&ndash;full</td>
+<td align="left">n</td>
+<td align="left">より詳細な出力</td>
+</tr>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left">n</td>
+<td align="left">指定した名前と一致するサービスのインスタンスのみ表示</td>
+</tr>
+<tr>
+<td align="left">&ndash;plan PLAN</td>
+<td align="left">n</td>
+<td align="left">指定したプランで提供されているサービスのインスタンスの一覧</td>
+</tr>
+<tr>
+<td align="left">&ndash;provider PROVIDER</td>
+<td align="left">n</td>
+<td align="left">指定した提供者からのサービスのインスタンスの一覧</td>
+</tr>
+<tr>
+<td align="left">&ndash;service SERVICE</td>
+<td align="left">n</td>
+<td align="left">指定した文字列に一致するサービスのインスタンスの一覧</td>
+</tr>
+<tr>
+<td align="left">&ndash;space SPACE</td>
+<td align="left"></td>
+<td align="left">指定したスペース内のサービスのインスタンスの一覧</td>
+</tr>
+<tr>
+<td align="left">&ndash;version VERSION</td>
+<td align="left"></td>
+<td align="left">指定したヴァージョンのサービスのインスタンスの一覧</td>
+</tr>
+</tbody></table>
+
+<p>インスタンスごとに以下のデータが返されます:</p>
+
+<ul>
+<li>name &ndash; サービスのインスタンスが作られた時につけられた名前</li>
+<li>service &ndash; サービスのタイプ。たとえば、&quot;cleardb&quot;や&quot;rediscloudなど。</li>
+<li>provider &ndash; サービスの提供者</li>
+<li>version &ndash; サービスのヴァージョン</li>
+<li>plan &ndash; 提供されたサービスのプラン</li>
+<li>description &ndash; <code>--full</code>オプションを指定した場合に返される、プランの説明</li>
+<li>bound apps &ndash; サービスがバインドされているアプリケーション</li>
+</ul>
+
+<h4><a id='set-env'></a> set-env</h4>
+
+<p>環境変数の設定。環境変数の削除については<a href="#set-env">set-env</a>をご覧ください。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf set-env [App] [Variable] [Value]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]restart</td>
+<td align="left">n</td>
+<td align="left">アプリケーションの更新後に再起動したいかどうかを指定する</td>
+</tr>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left">y</td>
+<td align="left">環境変数の設定の対象となるアプリケーション</td>
+</tr>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left">y</td>
+<td align="left">環境変数の名前</td>
+</tr>
+<tr>
+<td align="left">&ndash;value VALUE</td>
+<td align="left">y</td>
+<td align="left">環境変数の値</td>
+</tr>
+</tbody></table>
+
+<h4><a id='set-quota'></a> set-quota</h4>
+
+<p>アプリケーションのクォータの設定</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf set-quota [QUOTA_DEFINITION] [ORGANIZATION]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">Qualifier</th>
+<th align="left">Required</th>
+<th align="left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;quota-definition QUOTA-DEFINITION</td>
+<td align="left">y</td>
+<td align="left">設定できる値は &quot;free&rdquo;, &ldquo;paid&rdquo;, &ldquo;runaway&rdquo;, &ldquo;trial&rdquo;</td>
+</tr>
+<tr>
+<td align="left">&ndash;organization ORG</td>
+<td align="left">y</td>
+<td align="left">クォータの対象となるオーガナイゼーション</td>
+</tr>
+</tbody></table>
+
+<h4><a id='space'></a> space</h4>
+
+<p>スペースの情報の表示</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf space [space name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;full</td>
+<td align="left"></td>
+<td align="left">スペース内のアプリケーションの情報を含める</td>
+</tr>
+<tr>
+<td align="left">&ndash;space SPACE</td>
+<td align="left"></td>
+<td align="left">情報を見たいスペース指定がなければ、現在のスペースの情報が返される。</td>
+</tr>
+<tr>
+<td align="left">&ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left">データ表示の対象となるオーガナイゼーション指定がなければ、現在のオーガナイゼーションの情報が返される。</td>
+</tr>
+</tbody></table>
+
+<p>以下のようなデータが返されます:</p>
+
+<ul>
+<li>organization &ndash; スペースを含むオーガナイゼーション</li>
+<li>apps &ndash; スペースへデプロイされたアプリケーション</li>
+<li>services &ndash; スペース内のサービス</li>
+<li>domains &ndash; ドメイン内のサービス</li>
+<li><code>full</code>オプションが指定されていれば、スペース内のアプリケーションについて、以下のような情報が返されます:
+
+<ul>
+<li>status &ndash; アプリケーションの状態。たとえば、&quot;stopped&quot;, running&quot;, &ldquo;flapping&quot;など。</li>
+</ul></li>
+</ul>
+
+<h4><a id='spaces'></a> spaces</h4>
+
+<p>オーガナイゼーション内のスペース</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf spaces [organization name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">Qualifier</th>
+<th align="left">Required</th>
+<th align="left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;full</td>
+<td align="left"></td>
+<td align="left">各スペースのアプリケーションとサービスの情報を含める</td>
+</tr>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left"></td>
+<td align="left">名前でフィルター指定がなければ、指定のオーガナイゼーション内のすべてのスペースの情報になる。</td>
+</tr>
+<tr>
+<td align="left">&ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left">オーガナイゼーションの指定指定がなければ、現在のオーガナイゼーション内のスペースが対象。</td>
+</tr>
+</tbody></table>
+
+<h4><a id='start'></a> start</h4>
+
+<p>アプリケーションの起動</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf start [APP]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;all</td>
+<td align="left"></td>
+<td align="left">スペース内のすべてのアプリケーションを起動する</td>
+</tr>
+<tr>
+<td align="left">&ndash;apps, &ndash;app APPS</td>
+<td align="left"></td>
+<td align="left">起動するアプリケーションを指定する</td>
+</tr>
+<tr>
+<td align="left">-d, &ndash;debug-mode DEBUG_MODE</td>
+<td align="left"></td>
+<td align="left">アプリケーションをデバッグ・モードで起動する</td>
+</tr>
+</tbody></table>
+
+<h4><a id='stats'></a> stats</h4>
+
+<p>アプリケーションの各インスタンスの情報(CPU、メモリ、ディスク容量など)を表示</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf stats [application name]</pre>
+  <div class="break"></div>
+</div>
+
+<p>各インスタンスについて、以下の情報が返される:</p>
+
+<ul>
+<li>instance &ndash; インスタンスの数</li>
+<li>cpu &ndash; CPU使用率</li>
+<li>memory &ndash; メモリ使用率</li>
+<li>disk &ndash; ディスク利用率</li>
+</ul>
+
+<h4><a id='stop'></a> stop</h4>
+
+<p>すでに&quot;Stopped&quot;になっていないアプリケーションを停止する</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf stop [list of application names]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;all</td>
+<td align="left"></td>
+<td align="left">スペース内のすべてのアプリケーションの停止</td>
+</tr>
+<tr>
+<td align="left">&ndash;apps, &ndash;app APPS</td>
+<td align="left"></td>
+<td align="left">停止するアプリケーションの指定</td>
+</tr>
+</tbody></table>
+
+<h4><a id='switch-space'></a> switch-space</h4>
+
+<p>別のスペースへの切り替え</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf switch-space [space name]</pre>
+</div>
+
+<h4><a id='tail'></a> tail</h4>
+
+<p>アプリケーションとパスが指定されたファイルを監視し、更新されるごとに表示する。(*nixの&#39;tail&#39;コマンドと同様)</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf tail [application name] [path]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">&ndash;path PATH</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<h4><a id='target'></a> target</h4>
+
+<p>ターゲット、オーガナイゼーション、スペースの指定cfを実行してアプリケーションやサービスのインスタンスの情報を読み書きする場合、デフォルトではその時点で指定されているターゲット、オーガナイゼーション、スペースが用いられます。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf target [URL]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;url URL</td>
+<td align="left">n</td>
+<td align="left">別のCloud Foundryインスタンスを指定する時に使う</td>
+</tr>
+<tr>
+<td align="left">&ndash;org ORGANIZATION</td>
+<td align="left">n</td>
+<td align="left">別のオーガナイゼーションを指定する時に使う</td>
+</tr>
+<tr>
+<td align="left">&ndash;space SPACE</td>
+<td align="left">n</td>
+<td align="left">別のスペースを指定する時に使う</td>
+</tr>
+</tbody></table>
+
+<p>コマンド・ラインでオプションが指定されなかった場合、以下のデータが返されます:</p>
+
+<ul>
+<li>target &ndash; ターゲットとなっているCloud Foundryのインスタンス</li>
+<li>organization &ndash; 現在のオーガナイゼーション</li>
+<li>space &ndash; 現在のスペース</li>
+</ul>
+
+<h4><a id='targets'></a> targets</h4>
+
+<p>ターゲットの一覧</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf targets</pre>
+  <div class="break"></div>
+</div>
+
+<p>各Cloud FoundryインスタンスのURLが返される。</p>
+
+<h4><a id='tunnel'></a> tunnel</h4>
+
+<p>サービスのインスタンスへのトンネルトンネルを開く、あるいは自動的にクライアントを起動してサービスへ接続することができます。トンネルについては、<a href="../../services/tunnelling-with-services.html">Tunneling
+to Services</a>をご覧ください。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf tunnel [instance name] [application name]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;client CLIENT</td>
+<td align="left"></td>
+<td align="left">起動したいクライアント</td>
+</tr>
+<tr>
+<td align="left">&ndash;instance INSTANCE</td>
+<td align="left"></td>
+<td align="left">トンネルを接続したいサービスのインスタンス</td>
+</tr>
+<tr>
+<td align="left">&ndash;port PORT</td>
+<td align="left"></td>
+<td align="left">トンネルをバインドするポート</td>
+</tr>
+</tbody></table>
+
+<h4><a id='unbind-service'></a> unbind-service</h4>
+
+<p>アプリケーションからバインドされていたサービスを切り離す。cfコマンドは、コマンド・ラインで指定されなかった必要なオプションの入力を求めます。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf unbind-service [instance name] [application name]</pre>
+  <div class="break"></div>
+</div>
+
+<h4><a id='unmap-domain'></a> unmap-domain</h4>
+
+<p>現在のスペースからドメインを切り離す。削除もできる。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf unmap-domain [domain] [--delete]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;delete</td>
+<td align="left"></td>
+<td align="left">ドメインの切り離し、または削除を指定する</td>
+</tr>
+<tr>
+<td align="left">&ndash;space SPACE</td>
+<td align="left"></td>
+<td align="left">ドメインを切り離すスペース</td>
+</tr>
+<tr>
+<td align="left">&ndash;org ORGANIZATION</td>
+<td align="left"></td>
+<td align="left">ドメインを切り離すオーガナイゼーション</td>
+</tr>
+</tbody></table>
+
+<h4><a id='unmap'></a> unmap</h4>
+
+<p>URLとアプリケーションの関連を断ちきる。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf unmap [application name] [url]</pre>
+  <div class="break"></div>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;all</td>
+<td align="left"></td>
+<td align="left">すべてのルートについて動作する</td>
+</tr>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left"></td>
+<td align="left">URLを切り離すアプリケーション</td>
+</tr>
+<tr>
+<td align="left">&ndash;url URL</td>
+<td align="left"></td>
+<td align="left">切り離すURL</td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+<h4><a id='unset-env'></a> unset-env</h4>
+
+<p>Remove an environment variable. 環境変数については、<a href="#set-env">set-env</a>をご覧ください。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf unset-env [application name] [variable name]</pre>
+</div>
+
+<table><thead>
+<tr>
+<th align="left">オプション</th>
+<th align="left">必須</th>
+<th align="left">説明</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">&ndash;[no-]restart</td>
+<td align="left">n</td>
+<td align="left">アプリケーションの更新後に再起動したいかどうかを指定する</td>
+</tr>
+<tr>
+<td align="left">&ndash;app APP</td>
+<td align="left">y</td>
+<td align="left">環境変数の設定の対象となるアプリケーション</td>
+</tr>
+<tr>
+<td align="left">&ndash;name NAME</td>
+<td align="left">y</td>
+<td align="left">環境変数の名前</td>
+</tr>
+</tbody></table>
+
+<h4><a id='update-service-auth-token'></a> update-service-auth-token</h4>
+
+<p>サービスの認証トークンを更新する。</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf update-service-auth-token [SERVICE_AUTH_TOKEN]</pre>
+</div>
+
+<h4><a id='users'></a> users</h4>
+
+<p>ユーザの一覧</p>
+
+<div class="command-doc">
+  <pre class="terminal">$ cf users</pre>
+</div>
+
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

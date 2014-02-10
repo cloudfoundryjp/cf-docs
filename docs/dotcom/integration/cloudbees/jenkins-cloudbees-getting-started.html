@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Getting Started with Jenkins on CloudBees DEV@cloud</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_dotcom docs_dotcom_integration docs_dotcom_integration_cloudbees docs_dotcom_integration_cloudbees_jenkins-cloudbees-getting-started">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,93 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Cloud Foundry Hosted Developer Edition</a></li> <li class=""><a href="../">Technical Integration</a></li> <li class=""><a href="./">CloudBees DEV@cloud</a></li> <li class="active"><span>Getting Started with Jenkins on CloudBees DEV@cloud</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
-
- <hr>
-
+              <div class="quick-links"><ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#authorizing">Authorizing Access</a></li>
+<li><a href="#revoking">Revoking Access</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>Getting Started with Jenkins on CloudBees DEV@cloud</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#authorizing">Authorizing Access</a></li>
+<li><a href="#revoking">Revoking Access</a></li>
+</ul>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<h2><a id='intro'></a>Introduction</h2>
 
-  <hr>
-  <p>Application Deployment<br>
+<p>Before you can use Jenkins to push applications to Cloud Foundry, you need to have accounts on CloudFoundry.com and on CloudBees.com, and Jenkins must be authorized to push applications to your Cloud Foundry account on your behalf. These steps will guide you through the process of creating and linking those accounts.</p>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<p>If you do not have a CloudFoundry.com account, you can sign up for a free account <a href="https://www.cloudfoundry.com/signup">here</a>. </p>
 
-  </p>
-  <hr>
+<h2><a id='authorizing'></a>Authorizing Access</h2>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<p>The following steps will walk you through the process of linking a CloudBees and CloudFoundry.com account together so Jenkins on CloudBees DEV@cloud has the ability to push applications to CloudFoundry.com. </p>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<p>You should only need to follow these steps once to set up Jenkins. </p>
 
+<h3>CloudBees Cloud Foundry launch page</h3>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<p>To start, open a browser and go to the CloudBees Cloud Foundry launch page at <a href="http://cloudfoundry.cloudbees.com">http://cloudfoundry.cloudbees.com</a>. You should see a page similar to this one: </p>
 
-</div>
+<p><img alt="CloudBees Cloud Foundry launch page" src="../../../../images/dotcom/integration/cloudbees/cloudbees-page1.png" /></p>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+<p>Click on the &ldquo;Sign in with Cloud Foundry&rdquo; button, which will send you to the CloudFoundry.com authorization page. </p>
 
-  <hr>
+<h3>Cloud Foundry sign in</h3>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<p>If you have not already logged into CloudFoundry.com in the current browser session, you will be prompted to log in with the e-mail address you provided at registration and the password you set up after your account was created. If you are already signed in to CloudFoundry.com, this page will be skipped: </p>
 
-  <hr>
+<p><img alt="Cloud Foundry login page" src="../../../../images/dotcom/integration/cloudbees/cloudbees-page2.png" /></p>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<h3>Cloud Foundry authorization</h3>
 
-  </p>
+<p>After sucessfully signing in, you will be asked to authorize CloudBees to access your CloudFoundry.com account:</p>
 
-  <hr>
+<p><img alt="Cloud Foundry authorize page" src="../../../../images/dotcom/integration/cloudbees/cloudbees-page3.png" /></p>
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+<p>Click the &ldquo;Authorize&rdquo; button to allow this access. After clicking the &ldquo;Authorize&rdquo; button, you will be returned to the CloudBees site to finish setting up your CloudBees account. </p>
 
-  </p>
+<h3>CloudBees account setup</h3>
 
-  <hr>
+<p>If you do not already have a CloudBees account, you will be asked to sign up. If you already have a CloudBees account set up with the same e-mail address used to sign in to Cloud Foundry, then this page will be skipped:</p>
 
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
+<p><img alt="CloudBees signup page" src="../../../../images/dotcom/integration/cloudbees/cloudbees-page4.png" /></p>
 
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+<h3>CloudBees Jenkins provisioning</h3>
 
-  </p>
+<p>CloudBees will now provision and configure your Jenkins account to use the Cloud Foundry Jenkins integration. This may take a few minutes, and the page will update with the current status of this process. After the Jenkins configuration is complete, you should see a page like this one: </p>
 
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
+<p><img alt="CloudBees configure page" src="../../../../images/dotcom/integration/cloudbees/cloudbees-page5.png" /></p>
 
-</div>
+<p>At this point, you can click on the &ldquo;To Jenkins!&rdquo; button to start <a href="jenkins-cloudbees-using.html">configuring Jenkins jobs</a>. </p>
 
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<h2><a id='revoking'></a>Revoking Access</h2>
+
+<p>If at some time in the future you decide you do not want Jenkins have the ability to push applications to your CloudFoundry.com account, you can revoke access. To revoke access from CloudBees, go to the CloudBees Cloud Foundry launch page at <a href="http://cloudfoundry.cloudbees.com">http://cloudfoundry.cloudbees.com</a> and click on the &ldquo;Sign in to Cloud Foundry&rdquo; button. After signing into Cloud Foundry, you will see the Jenkins provisioning page like this: </p>
+
+<p><img alt="CloudBees configure page" src="../../../../images/dotcom/integration/cloudbees/cloudbees-page5.png" /></p>
+
+<p>Click on the &ldquo;X&rdquo; in the corner of the box in the middle of the page to disable the CloudBees and Cloud Foundry integration. After the integration is disabled, you should see a screen like this:</p>
+
+<p><img alt="CloudBees configure page" src="../../../../images/dotcom/integration/cloudbees/cloudbees-revoke.png" /></p>
+
+<p>You can easily re-enable the integration by clicking on the &ldquo;Enable&rdquo; button. </p>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

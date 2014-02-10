@@ -1,0 +1,1214 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Cloud Foundry Example Manifest</title>
+
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_running docs_running_deploying-cf docs_running_deploying-cf_vsphere docs_running_deploying-cf_vsphere_cloud-foundry-example-manifest">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Running Cloud Foundry</a></li> <li class=""><a href="../">Deploying Cloud Foundry with BOSH</a></li> <li class=""><a href="./">Deploying Cloud Foundry on vSphere</a></li> <li class="active"><span>Cloud Foundry Example Manifest</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"></div>
+
+              <h1>Cloud Foundry Example Manifest</h1>
+
+            
+            <div class="highlight"><pre><span class="nn">---</span>
+<span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-deploymnet</span>
+<span class="l-Scalar-Plain">director_uuid</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3350612f-f0e4-41b3-b1b2-3d730f9011a7</span> <span class="c1"># get this from bosh status</span>
+
+<span class="l-Scalar-Plain">releases</span><span class="p-Indicator">:</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">latest</span>
+
+<span class="l-Scalar-Plain">compilation</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">workers</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8</span>
+  <span class="l-Scalar-Plain">network</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">cloud_properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">ram</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2048</span>
+    <span class="l-Scalar-Plain">disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8096</span>
+    <span class="l-Scalar-Plain">cpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4</span>
+
+<span class="l-Scalar-Plain">update</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">canaries</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">canary_watch_time</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3000-90000</span>
+  <span class="l-Scalar-Plain">update_watch_time</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3000-90000</span>
+  <span class="l-Scalar-Plain">max_in_flight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4</span>
+  <span class="l-Scalar-Plain">max_errors</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+
+<span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">subnets</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">range</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.0/23</span>
+    <span class="l-Scalar-Plain">reserved</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.2 - 172.16.214.9</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.215.245 - 172.16.215.254</span>
+    <span class="l-Scalar-Plain">static</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.10 - 172.16.214.140</span>
+    <span class="l-Scalar-Plain">gateway</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.1</span>
+    <span class="l-Scalar-Plain">dns</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">8.8.8.8</span>
+    <span class="l-Scalar-Plain">cloud_properties</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default_vlan</span>
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">lb</span>
+  <span class="l-Scalar-Plain">subnets</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">range</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.8.1/28</span>
+    <span class="l-Scalar-Plain">static</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.8.1 - 172.16.8.2</span>
+    <span class="l-Scalar-Plain">dns</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">8.8.8.8</span>
+    <span class="l-Scalar-Plain">cloud_properties</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">lb_vlan</span>
+
+<span class="l-Scalar-Plain">resource_pools</span><span class="p-Indicator">:</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">network</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">28</span>
+  <span class="l-Scalar-Plain">stemcell</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bosh-stemcell</span>
+    <span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.6.7</span>
+  <span class="l-Scalar-Plain">cloud_properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">ram</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4096</span>
+    <span class="l-Scalar-Plain">disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8192</span>
+    <span class="l-Scalar-Plain">cpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">bosh</span><span class="p-Indicator">:</span>
+      <span class="c1"># password generated using mkpasswd -m sha-512</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">$6$leYJSesP$fPm2lwx4Pw/5ZmafFH3h0sMjnMhdH02uC4K7Te0Bu48YhS7o3PFxfsv.V/is.Ty29Ol1j2lvWLcMiE99AvoMy/</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">deas</span>
+  <span class="l-Scalar-Plain">network</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">stemcell</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bosh-stemcell</span>
+    <span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.6.7</span>
+  <span class="l-Scalar-Plain">cloud_properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">ram</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8192</span>
+    <span class="l-Scalar-Plain">disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">16384</span>
+    <span class="l-Scalar-Plain">cpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4</span>
+  <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">bosh</span><span class="p-Indicator">:</span>
+      <span class="c1"># password generated using mkpasswd -m sha-512</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">$6$leYJSesP$fPm2lwx4Pw/5ZmafFH3h0sMjnMhdH02uC4K7Te0Bu48YhS7o3PFxfsv.V/is.Ty29Ol1j2lvWLcMiE99AvoMy/</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_3gb</span>
+  <span class="l-Scalar-Plain">network</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+  <span class="l-Scalar-Plain">stemcell</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bosh-stemcell</span>
+    <span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.6.7</span>
+  <span class="l-Scalar-Plain">cloud_properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">ram</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3072</span>
+    <span class="l-Scalar-Plain">disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8192</span>
+    <span class="l-Scalar-Plain">cpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8</span>
+  <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">bosh</span><span class="p-Indicator">:</span>
+      <span class="c1"># password generated using mkpasswd -m sha-512</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">$6$leYJSesP$fPm2lwx4Pw/5ZmafFH3h0sMjnMhdH02uC4K7Te0Bu48YhS7o3PFxfsv.V/is.Ty29Ol1j2lvWLcMiE99AvoMy/</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_13gb</span>
+  <span class="l-Scalar-Plain">network</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">stemcell</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bosh-stemcell</span>
+    <span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.6.7</span>
+  <span class="l-Scalar-Plain">cloud_properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">ram</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">13312</span>
+    <span class="l-Scalar-Plain">disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8192</span>
+    <span class="l-Scalar-Plain">cpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8</span>
+  <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">bosh</span><span class="p-Indicator">:</span>
+      <span class="c1"># password generated using mkpasswd -m sha-512</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">$6$leYJSesP$fPm2lwx4Pw/5ZmafFH3h0sMjnMhdH02uC4K7Te0Bu48YhS7o3PFxfsv.V/is.Ty29Ol1j2lvWLcMiE99AvoMy/</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_21gb</span>
+  <span class="l-Scalar-Plain">network</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2</span>
+  <span class="l-Scalar-Plain">stemcell</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">bosh-stemcell</span>
+    <span class="l-Scalar-Plain">version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.6.7</span>
+  <span class="l-Scalar-Plain">cloud_properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">ram</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">21504</span>
+    <span class="l-Scalar-Plain">disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8192</span>
+    <span class="l-Scalar-Plain">cpu</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8</span>
+  <span class="l-Scalar-Plain">env</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">bosh</span><span class="p-Indicator">:</span>
+      <span class="c1"># password generated using mkpasswd -m sha-512</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">$6$leYJSesP$fPm2lwx4Pw/5ZmafFH3h0sMjnMhdH02uC4K7Te0Bu48YhS7o3PFxfsv.V/is.Ty29Ol1j2lvWLcMiE99AvoMy/</span>
+
+<span class="l-Scalar-Plain">jobs</span><span class="p-Indicator">:</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">debian_nfs_server</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">debian_nfs_server</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8192</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.10</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_nfs</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">debian_nfs_server</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10240</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">debian_nfs_server</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">no_root_squash</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.20</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">syslog_aggregator</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">syslog_aggregator</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100000</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.13</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">nats</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">nats</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.11</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">hbase_slave</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">hbase_slave</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2048</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.22 - 172.16.214.24</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">hbase_master</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">hbase_master</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2048</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.25</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">opentsdb</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">opentsdb</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.14</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">collector</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">collector</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dashboard</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dashboard</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ccdb_ng</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgres</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2048</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.19</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">db</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ccdb_ng</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uaadb</span>
+  <span class="l-Scalar-Plain">db_scheme</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgres</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2048</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.15</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">db</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uaadb</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vcap_redis</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vcap_redis</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.16</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_redis</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">vcap_redis</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2048</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.82</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">vcap_redis</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3456</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">fksaefblsdf9</span>
+      <span class="l-Scalar-Plain">maxmemory</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2000000000</span>
+      <span class="l-Scalar-Plain">persistence</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/vcap/store/vcap_redis</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uaa</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uaa</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">login</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">login</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cloud_controller_ng</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cloud_controller_ng</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">router</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">gorouter</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">default</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="nv">dns</span><span class="p-Indicator">,</span> <span class="nv">gateway</span><span class="p-Indicator">]</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">lb</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.8.1</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">health_manager_next</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">health_manager_next</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.110</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">cc_props</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ccng</span>
+    <span class="l-Scalar-Plain">hm_props</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">health_manager_ccng</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dea_next</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dea_next</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">deas</span>
+  <span class="l-Scalar-Plain">update</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">max_in_flight</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">dea_next</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">stacks</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">lucid64</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql_node_100</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql_node_ng</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_3gb</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">12058</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.40</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql_gateway</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mysql_gateway</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">uaa_client_id</span><span class="p-Indicator">:</span> <span class="s">&quot;vmc&quot;</span>
+    <span class="l-Scalar-Plain">uaa_endpoint</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://uaa.your.domain.org</span>
+    <span class="l-Scalar-Plain">uaa_client_auth_credentials</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-admin@your-org.com</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-admin-password</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mongodb_node_100</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mongodb_node_ng</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_21gb</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">63729</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.50</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mongodb_gateway</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">mongodb_gateway</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">uaa_client_id</span><span class="p-Indicator">:</span> <span class="s">&quot;vmc&quot;</span>
+    <span class="l-Scalar-Plain">uaa_endpoint</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://uaa.your.domain.org</span>
+    <span class="l-Scalar-Plain">uaa_client_auth_credentials</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-admin@your-org.com</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-admin-password</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">redis_node_100</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">redis_node_ng</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_13gb</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">7168</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.60</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">redis_gateway</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">redis_gateway</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">uaa_client_id</span><span class="p-Indicator">:</span> <span class="s">&quot;vmc&quot;</span>
+    <span class="l-Scalar-Plain">uaa_endpoint</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://uaa.your.domain.org</span>
+    <span class="l-Scalar-Plain">uaa_client_auth_credentials</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-admin@your-org.com</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-admin-password</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rabbit_node_100</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rabbit_node_ng</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_21gb</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3072</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.70</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rabbit_gateway</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">rabbit_gateway</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">uaa_client_id</span><span class="p-Indicator">:</span> <span class="s">&quot;vmc&quot;</span>
+    <span class="l-Scalar-Plain">uaa_endpoint</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://uaa.your.domain.org</span>
+    <span class="l-Scalar-Plain">uaa_client_auth_credentials</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-admin@your-org.com</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">the_admin_pw</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql_node_100</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql_node_ng</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">services_3gb</span>
+  <span class="l-Scalar-Plain">persistent_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">15861</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.80</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql_gateway</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">postgresql_gateway</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+  <span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">uaa_client_id</span><span class="p-Indicator">:</span> <span class="s">&quot;vmc&quot;</span>
+    <span class="l-Scalar-Plain">uaa_endpoint</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">https://uaa.your.domain.org</span>
+    <span class="l-Scalar-Plain">uaa_client_auth_credentials</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">your-admin@your-org.com</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">the_admin_pw</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">backup_manager</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">backup_manager</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.90</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">service_utilities</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">service_utilities</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.91</span>
+
+<span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">serialization_data_server</span>
+  <span class="l-Scalar-Plain">release</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+  <span class="l-Scalar-Plain">template</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">serialization_data_server</span>
+  <span class="l-Scalar-Plain">instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+  <span class="l-Scalar-Plain">resource_pool</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">infrastructure</span>
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+  <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">static_ips</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.92</span>
+
+<span class="l-Scalar-Plain">properties</span><span class="p-Indicator">:</span>
+  <span class="l-Scalar-Plain">domain</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cf.your.domain.org</span>
+
+  <span class="l-Scalar-Plain">networks</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">apps</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+    <span class="l-Scalar-Plain">management</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">default</span>
+
+  <span class="l-Scalar-Plain">nats</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">nats</span>
+    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfasdfasdf</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.11</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4222</span>
+
+<span class="c1">#required for uaa batch until it is removed</span>
+  <span class="l-Scalar-Plain">ccdb</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">127.0.0.1</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">12345</span>
+    <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tag</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">admin</span>
+      <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">a-ccdb-user-name</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">a-ccdb-password</span>
+    <span class="l-Scalar-Plain">databases</span><span class="p-Indicator">:</span> 
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tag</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cc</span>
+      <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foobar</span>
+
+  <span class="l-Scalar-Plain">ccdb_ng</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.19</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5524</span>
+    <span class="l-Scalar-Plain">pool_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+    <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tag</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">admin</span>
+      <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ccadmin</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfasdf80456</span>
+    <span class="l-Scalar-Plain">databases</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tag</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cc</span>
+      <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">appcloud</span>
+      <span class="l-Scalar-Plain">citext</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+  <span class="l-Scalar-Plain">health_manager_ccng</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">shadow_mode</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">disable</span>
+    <span class="l-Scalar-Plain">cc_partition</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ng</span>
+
+  <span class="l-Scalar-Plain">uaadb</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.15</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2544</span>
+    <span class="l-Scalar-Plain">roles</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tag</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">admin</span>
+      <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">root</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfsadf9089089345</span>
+    <span class="l-Scalar-Plain">databases</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">tag</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uaa</span>
+      <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uaa</span>
+
+  <span class="l-Scalar-Plain">cc</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">srv_api_uri</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://ccng.your.domain.com</span>
+
+  <span class="l-Scalar-Plain">ccng</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">srv_api_uri</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://ccng.your.domain.com</span>
+    <span class="l-Scalar-Plain">external_host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ccng</span>
+    <span class="l-Scalar-Plain">logging_level</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">debug</span>
+    <span class="l-Scalar-Plain">bulk_api_password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfjklhsadfhljkfas</span>
+    <span class="l-Scalar-Plain">uaa_resource_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cloud_controller</span>
+    <span class="l-Scalar-Plain">staging_upload_user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">jkfgjkfg</span>
+    <span class="l-Scalar-Plain">staging_upload_password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">lfgklfgfg</span>
+
+  <span class="l-Scalar-Plain">vcap_redis</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.16</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5454</span>
+    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">jkfgkjfgjkfgjkfgjk</span>
+    <span class="l-Scalar-Plain">maxmemory</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2000000000</span> <span class="c1"># 2GB</span>
+
+  <span class="l-Scalar-Plain">router</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">status</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8080</span>
+      <span class="l-Scalar-Plain">user</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0dfg0dfg0dfg</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">kdfgkdfgkdfgdfg4</span>
+
+  <span class="l-Scalar-Plain">dashboard</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">uaa</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">client_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">dashboard</span>
+      <span class="l-Scalar-Plain">client_secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0dfgmsfgngrioger</span>
+    <span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="p-Indicator">[</span><span class="nv">dash-user</span><span class="p-Indicator">,</span> <span class="nv">dash-password</span><span class="p-Indicator">]</span>
+
+  <span class="l-Scalar-Plain">dea</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">max_memory</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8192</span>
+
+  <span class="l-Scalar-Plain">dea_next</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">memory_mb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8192</span>
+    <span class="l-Scalar-Plain">memory_overcommit_factor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4</span>
+    <span class="l-Scalar-Plain">disk_mb</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">16384</span>
+    <span class="l-Scalar-Plain">disk_overcommit_factor</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4</span>
+    <span class="l-Scalar-Plain">num_instances</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">256</span>
+
+  <span class="l-Scalar-Plain">nfs_server</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.10</span>
+    <span class="l-Scalar-Plain">network</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.0/23</span>
+
+  <span class="l-Scalar-Plain">hbase_master</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.25</span>
+    <span class="l-Scalar-Plain">hbase_master</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60000</span>
+      <span class="l-Scalar-Plain">webui_port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60010</span>
+      <span class="l-Scalar-Plain">heap_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1024</span>
+    <span class="l-Scalar-Plain">hbase_zookeeper</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">heap_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1024</span>
+    <span class="l-Scalar-Plain">hadoop_namenode</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">9000</span>
+
+  <span class="l-Scalar-Plain">opentsdb</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.14</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4242</span>
+
+  <span class="l-Scalar-Plain">hbase_slave</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">hbase_regionserver</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">60020</span>
+      <span class="l-Scalar-Plain">heap_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1024</span>
+    <span class="l-Scalar-Plain">addresses</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.22</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.23</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.24</span>
+
+  <span class="l-Scalar-Plain">service_plans</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">mysql</span><span class="p-Indicator">:</span>
+      <span class="s">&quot;100&quot;</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Shared</span><span class="nv"> </span><span class="s">server,</span><span class="nv"> </span><span class="s">shared</span><span class="nv"> </span><span class="s">VM,</span><span class="nv"> </span><span class="s">1MB</span><span class="nv"> </span><span class="s">memory,</span><span class="nv"> </span><span class="s">10MB</span><span class="nv"> </span><span class="s">storage,</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">connections&quot;</span>
+        <span class="l-Scalar-Plain">free</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">job_management</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">high_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">900</span>
+          <span class="l-Scalar-Plain">low_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100</span>
+        <span class="l-Scalar-Plain">configuration</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">capacity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">500</span>
+          <span class="l-Scalar-Plain">max_db_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">key_buffer</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">512</span>
+          <span class="l-Scalar-Plain">innodb_buffer_pool_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">512</span>
+          <span class="l-Scalar-Plain">max_allowed_packet</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">16</span>
+          <span class="l-Scalar-Plain">thread_cache_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">128</span>
+          <span class="l-Scalar-Plain">query_cache_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">128</span>
+          <span class="l-Scalar-Plain">max_long_query</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
+          <span class="l-Scalar-Plain">max_long_tx</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+          <span class="l-Scalar-Plain">max_clients</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">max_connections</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1000</span>
+          <span class="l-Scalar-Plain">table_open_cache</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">2000</span>
+          <span class="l-Scalar-Plain">innodb_tables_per_database</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+          <span class="l-Scalar-Plain">connection_pool_size</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">min</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">5</span>
+            <span class="l-Scalar-Plain">max</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">backup</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+          <span class="l-Scalar-Plain">lifecycle</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">serialization</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">enable</span>
+            <span class="l-Scalar-Plain">snapshot</span><span class="p-Indicator">:</span>
+              <span class="l-Scalar-Plain">quota</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+          <span class="l-Scalar-Plain">warden</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+    <span class="l-Scalar-Plain">postgresql</span><span class="p-Indicator">:</span>
+      <span class="s">&quot;100&quot;</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Shared</span><span class="nv"> </span><span class="s">server,</span><span class="nv"> </span><span class="s">shared</span><span class="nv"> </span><span class="s">VM,</span><span class="nv"> </span><span class="s">1MB</span><span class="nv"> </span><span class="s">memory,</span><span class="nv"> </span><span class="s">10MB</span><span class="nv"> </span><span class="s">storage,</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">connections&quot;</span>
+        <span class="l-Scalar-Plain">free</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">job_management</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">high_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">900</span>
+          <span class="l-Scalar-Plain">low_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">100</span>
+        <span class="l-Scalar-Plain">configuration</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">capacity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">500</span>
+          <span class="l-Scalar-Plain">max_db_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">max_long_query</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3</span>
+          <span class="l-Scalar-Plain">max_long_tx</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">max_clients</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">max_connections</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1000</span>
+          <span class="l-Scalar-Plain">shared_buffers</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">320</span>
+          <span class="l-Scalar-Plain">effective_cache_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1142</span>
+          <span class="l-Scalar-Plain">shmmax</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">397410304</span>
+          <span class="l-Scalar-Plain">checkpoint_segments</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">16</span>
+          <span class="l-Scalar-Plain">checkpoint_segments_max</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+          <span class="l-Scalar-Plain">maintenance_work_mem</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+          <span class="l-Scalar-Plain">backup</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+          <span class="l-Scalar-Plain">lifecycle</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">serialization</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">enable</span>
+            <span class="l-Scalar-Plain">snapshot</span><span class="p-Indicator">:</span>
+              <span class="l-Scalar-Plain">quota</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+          <span class="l-Scalar-Plain">warden</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">false</span>
+    <span class="l-Scalar-Plain">mongodb</span><span class="p-Indicator">:</span>
+      <span class="s">&quot;100&quot;</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Dedicated</span><span class="nv"> </span><span class="s">server,</span><span class="nv"> </span><span class="s">shared</span><span class="nv"> </span><span class="s">VM,</span><span class="nv"> </span><span class="s">250MB</span><span class="nv"> </span><span class="s">storage,</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">connections&quot;</span>
+        <span class="l-Scalar-Plain">free</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">job_management</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">high_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">230</span>
+          <span class="l-Scalar-Plain">low_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20</span>
+        <span class="l-Scalar-Plain">configuration</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">capacity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">125</span>
+          <span class="l-Scalar-Plain">max_clients</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">quota_files</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">4</span>
+          <span class="l-Scalar-Plain">quota_data_size</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">240</span>
+          <span class="l-Scalar-Plain">enable_journaling</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+          <span class="l-Scalar-Plain">backup</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+          <span class="l-Scalar-Plain">lifecycle</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">serialization</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">enable</span>
+            <span class="l-Scalar-Plain">snapshot</span><span class="p-Indicator">:</span>
+              <span class="l-Scalar-Plain">quota</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+    <span class="l-Scalar-Plain">redis</span><span class="p-Indicator">:</span>
+      <span class="s">&quot;100&quot;</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Dedicated</span><span class="nv"> </span><span class="s">server,</span><span class="nv"> </span><span class="s">shared</span><span class="nv"> </span><span class="s">VM,</span><span class="nv"> </span><span class="s">20MB</span><span class="nv"> </span><span class="s">memory,</span><span class="nv"> </span><span class="s">50</span><span class="nv"> </span><span class="s">connections&quot;</span>
+        <span class="l-Scalar-Plain">free</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">job_management</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">high_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">410</span>
+          <span class="l-Scalar-Plain">low_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">40</span>
+        <span class="l-Scalar-Plain">configuration</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">capacity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">220</span>
+          <span class="l-Scalar-Plain">max_memory</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20</span>
+          <span class="l-Scalar-Plain">memory_overhead</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20</span>
+          <span class="l-Scalar-Plain">max_clients</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">50</span>
+          <span class="l-Scalar-Plain">persistent</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+          <span class="l-Scalar-Plain">backup</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+          <span class="l-Scalar-Plain">lifecycle</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+            <span class="l-Scalar-Plain">serialization</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">enable</span>
+            <span class="l-Scalar-Plain">snapshot</span><span class="p-Indicator">:</span>
+              <span class="l-Scalar-Plain">quota</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+    <span class="l-Scalar-Plain">rabbit</span><span class="p-Indicator">:</span>
+      <span class="s">&quot;100&quot;</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">description</span><span class="p-Indicator">:</span> <span class="s">&quot;Dedicated</span><span class="nv"> </span><span class="s">server,</span><span class="nv"> </span><span class="s">shared</span><span class="nv"> </span><span class="s">VM,</span><span class="nv"> </span><span class="s">1MB</span><span class="nv"> </span><span class="s">messages/day,</span><span class="nv"> </span><span class="s">10</span><span class="nv"> </span><span class="s">connections&quot;</span>
+        <span class="l-Scalar-Plain">free</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">job_management</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">high_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">280</span>
+          <span class="l-Scalar-Plain">low_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">20</span>
+        <span class="l-Scalar-Plain">configuration</span><span class="p-Indicator">:</span>
+          <span class="l-Scalar-Plain">capacity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">150</span>
+          <span class="l-Scalar-Plain">max_disk</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">max_clients</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+          <span class="l-Scalar-Plain">vm_memory_high_watermark</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.00587</span>
+          <span class="l-Scalar-Plain">free_disk_low_water</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.01832</span>
+          <span class="l-Scalar-Plain">bandwidth_quotas</span><span class="p-Indicator">:</span>
+            <span class="l-Scalar-Plain">per_day</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1</span>
+            <span class="l-Scalar-Plain">per_second</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">0.01</span>
+          <span class="l-Scalar-Plain">filesystem_quota</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+  <span class="l-Scalar-Plain">serialization_data_server</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">upload_token</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdf9asd9asd9ad9ads9ads</span>
+    <span class="l-Scalar-Plain">use_nginx</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+    <span class="l-Scalar-Plain">upload_timeout</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">10</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">8080</span>
+    <span class="l-Scalar-Plain">upload_file_expire_time</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">600</span>
+    <span class="l-Scalar-Plain">purge_expired_interval</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">30</span>
+
+  <span class="l-Scalar-Plain">service_backup</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">nfs_server</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.20</span>
+      <span class="l-Scalar-Plain">export_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/vcap/store/shared</span>
+
+  <span class="l-Scalar-Plain">service_migration</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">nfs_server</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.20</span>
+      <span class="l-Scalar-Plain">export_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/vcap/store/shared</span>
+
+  <span class="l-Scalar-Plain">service_backup_manager</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+  <span class="l-Scalar-Plain">service_snapshot_manager</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">enable</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+
+  <span class="l-Scalar-Plain">service_job_manager</span><span class="p-Indicator">:</span>
+    <span class="c1"># enable: true</span>
+
+  <span class="l-Scalar-Plain">service_lifecycle</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">download_url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">service-serialization.cf.your.domain.com</span>
+    <span class="l-Scalar-Plain">mount_point</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/vcap/service_lifecycle</span>
+    <span class="l-Scalar-Plain">tmp_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/vcap/service_lifecycle/tmp_dir</span>
+    <span class="l-Scalar-Plain">resque</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">host</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.82</span>
+      <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">3456</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sfgasdgfasdfg</span>
+    <span class="l-Scalar-Plain">nfs_server</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.20</span>
+      <span class="l-Scalar-Plain">export_dir</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">/var/vcap/store/shared</span>
+    <span class="l-Scalar-Plain">serialization_data_server</span><span class="p-Indicator">:</span>
+    <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">172.16.214.92</span>
+
+  <span class="l-Scalar-Plain">mysql_gateway</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">token</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uiasdfkasdfophasdfkjadsf</span>
+    <span class="l-Scalar-Plain">default_plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;5.5&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">version_aliases</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">current</span><span class="p-Indicator">:</span> <span class="s">&quot;5.5&quot;</span>
+    <span class="l-Scalar-Plain">cc_api_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">v2</span>
+  <span class="l-Scalar-Plain">mysql_node</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">adfsadfsadsv</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;5.5&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">default_version</span><span class="p-Indicator">:</span> <span class="s">&quot;5.5&quot;</span>
+    <span class="l-Scalar-Plain">max_tmp</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1024</span>
+
+  <span class="l-Scalar-Plain">redis_gateway</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">token</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">u9sadfy9adfspsadonjasdfhjopadfs</span>
+    <span class="l-Scalar-Plain">default_plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;2.6&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">version_aliases</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">current</span><span class="p-Indicator">:</span> <span class="s">&quot;2.6&quot;</span>
+    <span class="l-Scalar-Plain">cc_api_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">v2</span>
+  <span class="l-Scalar-Plain">redis_node</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">command_rename_prefix</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">foobar</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;2.6&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">default_version</span><span class="p-Indicator">:</span> <span class="s">&quot;2.6&quot;</span>
+
+  <span class="l-Scalar-Plain">mongodb_gateway</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">token</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfasdfadfs090uadsf9fsrg</span>
+    <span class="l-Scalar-Plain">default_plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;2.2&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">version_aliases</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">current</span><span class="p-Indicator">:</span> <span class="s">&quot;2.2&quot;</span>
+    <span class="l-Scalar-Plain">cc_api_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">v2</span>
+  <span class="l-Scalar-Plain">mongodb_node</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;2.2&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">default_version</span><span class="p-Indicator">:</span> <span class="s">&quot;2.2&quot;</span>
+    <span class="l-Scalar-Plain">max_tmp</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">900</span>
+
+  <span class="l-Scalar-Plain">rabbit_gateway</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">token</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfuiasdfojiasdfjosadfjks</span>
+    <span class="l-Scalar-Plain">default_plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;2.8&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">version_aliases</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">current</span><span class="p-Indicator">:</span> <span class="s">&quot;2.8&quot;</span>
+    <span class="l-Scalar-Plain">cc_api_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">v2</span>
+  <span class="l-Scalar-Plain">rabbit_node</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;2.8&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">default_version</span><span class="p-Indicator">:</span> <span class="s">&quot;2.8&quot;</span>
+
+  <span class="l-Scalar-Plain">postgresql_gateway</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">token</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfg0uadsfophiasdfhophoads</span>
+    <span class="l-Scalar-Plain">supported_plan</span><span class="p-Indicator">:</span> <span class="s">&quot;100&quot;</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;9.1&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">version_aliases</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">current</span><span class="p-Indicator">:</span> <span class="s">&quot;9.1&quot;</span>
+    <span class="l-Scalar-Plain">cc_api_version</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">v2</span>
+  <span class="l-Scalar-Plain">postgresql_node</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">supported_versions</span><span class="p-Indicator">:</span> <span class="p-Indicator">[</span><span class="s">&quot;9.1&quot;</span><span class="p-Indicator">]</span>
+    <span class="l-Scalar-Plain">default_version</span><span class="p-Indicator">:</span> <span class="s">&quot;9.1&quot;</span>
+    <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">puafsp0uadfsophdsafjoidfs</span>
+
+  <span class="l-Scalar-Plain">syslog_aggregator</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">address</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">172.16.214.13</span>
+    <span class="l-Scalar-Plain">port</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">54321</span>
+
+  <span class="l-Scalar-Plain">uaa</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">catalina_opts</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">-Xmx768m -XX:MaxPermSize=256m</span>
+    <span class="l-Scalar-Plain">url</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://uaa.cf.your.domain.com</span>
+    <span class="l-Scalar-Plain">resource_id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">account_manager</span>
+    <span class="l-Scalar-Plain">client_secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">somesecret</span>
+    <span class="l-Scalar-Plain">token_secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">tokensecret</span>
+    <span class="l-Scalar-Plain">cc</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">token_secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfasdfasdfadfs</span>
+      <span class="l-Scalar-Plain">client_secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">asdfasdfasdffth</span>
+    <span class="l-Scalar-Plain">admin</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">client_secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">erthth45ydbgaerg</span>
+    <span class="l-Scalar-Plain">login</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">client_secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">457dgnsrgw457sdg</span>
+    <span class="l-Scalar-Plain">batch</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">username</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">sdfgjwetrysdgf</span>
+      <span class="l-Scalar-Plain">password</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">235dshsbsdgssd</span>
+    <span class="l-Scalar-Plain">client</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">override</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+      <span class="l-Scalar-Plain">autoapprove</span><span class="p-Indicator">:</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">vmc</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">my</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">portal</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">micro</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">support-signon</span>
+        <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">login</span>
+    <span class="l-Scalar-Plain">clients</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">dashboard</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">w4ydbsbJUetdrgdsg</span>
+        <span class="l-Scalar-Plain">scope</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">openid,dashboard.user</span>
+        <span class="l-Scalar-Plain">authorities</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uaa.admin,uaa.resource,tokens.read,scim.read,scim.write</span>
+        <span class="l-Scalar-Plain">authorized-grant-types</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">client_credentials,authorization_code,refresh_token</span>
+      <span class="l-Scalar-Plain">portal</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">override</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">portal</span>
+        <span class="l-Scalar-Plain">scope</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">scim.write,scim.read,openid,cloud_controller.read,cloud_controller.write</span>
+        <span class="l-Scalar-Plain">authorities</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">scim.write,scim.read,openid,cloud_controller.read,cloud_controller.write,password.write,uaa.admin</span>
+        <span class="l-Scalar-Plain">secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">portalsecret</span>
+        <span class="l-Scalar-Plain">authorized-grant-types</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">authorization_code,client_credentials,password,implicit</span>
+        <span class="l-Scalar-Plain">access-token-validity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1209600</span>
+        <span class="l-Scalar-Plain">refresh-token-validity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1209600</span>
+      <span class="l-Scalar-Plain">support-services</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">scope</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">scim.write,scim.read,openid,cloud_controller.read,cloud_controller.write</span>
+        <span class="l-Scalar-Plain">secret</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">ssosecretsso</span>
+        <span class="l-Scalar-Plain">id</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">support-services</span>
+        <span class="l-Scalar-Plain">authorized-grant-types</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">authorization_code,client_credentials</span>
+        <span class="l-Scalar-Plain">redirect-uri</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://support-signon.cf.your.domain.com</span>
+        <span class="l-Scalar-Plain">authorities</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">portal.users.read</span>
+        <span class="l-Scalar-Plain">access-token-validity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1209600</span>
+        <span class="l-Scalar-Plain">refresh-token-validity</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">1209600</span>
+      <span class="l-Scalar-Plain">vmc</span><span class="p-Indicator">:</span>
+        <span class="l-Scalar-Plain">override</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">true</span>
+        <span class="l-Scalar-Plain">authorized-grant-types</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">implicit</span>
+        <span class="l-Scalar-Plain">authorities</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">uaa.none</span>
+        <span class="l-Scalar-Plain">redirect-uri</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">http://uaa.cloudfoundry.com/redirect/vmc,https://uaa.cloudfoundry.com/redirect/vmc</span>
+        <span class="l-Scalar-Plain">scope</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">cloud_controller.read,cloud_controller.write,openid,password.write,cloud_controller.admin,scim.read,scim.write</span>
+    <span class="l-Scalar-Plain">scim</span><span class="p-Indicator">:</span>
+      <span class="l-Scalar-Plain">users</span><span class="p-Indicator">:</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">your-admin@your-org.com|your-admin-password|scim.write,scim.read,openid,cloud_controller.admin</span>
+      <span class="p-Indicator">-</span> <span class="l-Scalar-Plain">dash-user|dash-password|openid,dashboard.user</span>
+</pre></div>
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

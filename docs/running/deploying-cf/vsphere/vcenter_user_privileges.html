@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Privileges for a vCenter User</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_running docs_running_deploying-cf docs_running_deploying-cf_vsphere docs_running_deploying-cf_vsphere_vcenter_user_privileges">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,686 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Running Cloud Foundry</a></li> <li class=""><a href="../">Deploying Cloud Foundry with BOSH</a></li> <li class=""><a href="./">Deploying Cloud Foundry on vSphere</a></li> <li class="active"><span>Privileges for a vCenter User</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
+              <div class="quick-links"></div>
 
- <hr>
+              <h1>Privileges for a vCenter User</h1>
 
-</div>
-
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
-
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
-
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
-
-  <hr>
-  <p>Application Deployment<br>
-
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
-
-  </p>
-  <hr>
-
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
-
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
-
-
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
-
-</div>
-
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
-
-  <hr>
-
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
-
-  <hr>
-
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
-
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
-
-  </p>
-
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
-
-</div>
-
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+            
+            <table><thead>
+<tr>
+<th>Object</th>
+<th>Permission</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Datastore</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>allocate space</td>
+</tr>
+<tr>
+<td></td>
+<td>browse datastore</td>
+</tr>
+<tr>
+<td></td>
+<td>low-level file operations</td>
+</tr>
+<tr>
+<td></td>
+<td>remove file</td>
+</tr>
+<tr>
+<td></td>
+<td>update virtual machine files</td>
+</tr>
+<tr>
+<td>Folder (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>create folder</td>
+</tr>
+<tr>
+<td></td>
+<td>delete folder</td>
+</tr>
+<tr>
+<td></td>
+<td>move folder</td>
+</tr>
+<tr>
+<td></td>
+<td>rename folder</td>
+</tr>
+<tr>
+<td>Global</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>cancel task</td>
+</tr>
+<tr>
+<td></td>
+<td>diagnostics</td>
+</tr>
+<tr>
+<td>Host / Configuration (All)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>advanced setting</td>
+</tr>
+<tr>
+<td></td>
+<td>authentication store</td>
+</tr>
+<tr>
+<td></td>
+<td>change date &amp; time settings</td>
+</tr>
+<tr>
+<td></td>
+<td>change PCIPassthru settings</td>
+</tr>
+<tr>
+<td></td>
+<td>change SNMP settings</td>
+</tr>
+<tr>
+<td></td>
+<td>connection</td>
+</tr>
+<tr>
+<td></td>
+<td>firmware</td>
+</tr>
+<tr>
+<td></td>
+<td>hyperthreading</td>
+</tr>
+<tr>
+<td></td>
+<td>maintenance</td>
+</tr>
+<tr>
+<td></td>
+<td>memory configuration</td>
+</tr>
+<tr>
+<td></td>
+<td>network configuration</td>
+</tr>
+<tr>
+<td></td>
+<td>power</td>
+</tr>
+<tr>
+<td></td>
+<td>query patch</td>
+</tr>
+<tr>
+<td></td>
+<td>security profile and firewall</td>
+</tr>
+<tr>
+<td></td>
+<td>storage partition configuration</td>
+</tr>
+<tr>
+<td></td>
+<td>system management</td>
+</tr>
+<tr>
+<td></td>
+<td>system resources</td>
+</tr>
+<tr>
+<td></td>
+<td>virtual machine auto-start configuration</td>
+</tr>
+<tr>
+<td>Host / Inventory (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>add host to cluster</td>
+</tr>
+<tr>
+<td></td>
+<td>add stand-alone host</td>
+</tr>
+<tr>
+<td></td>
+<td>create cluster</td>
+</tr>
+<tr>
+<td></td>
+<td>modify cluster</td>
+</tr>
+<tr>
+<td></td>
+<td>move cluster or stand-alone host</td>
+</tr>
+<tr>
+<td></td>
+<td>move host</td>
+</tr>
+<tr>
+<td></td>
+<td>remove cluster</td>
+</tr>
+<tr>
+<td></td>
+<td>remove host</td>
+</tr>
+<tr>
+<td></td>
+<td>rename cluster</td>
+</tr>
+<tr>
+<td>Host / Local Operations</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>create virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>delete virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>reconfigure vitrual machine</td>
+</tr>
+<tr>
+<td>Network</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>assign network</td>
+</tr>
+<tr>
+<td>Resource (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>apply recommendation</td>
+</tr>
+<tr>
+<td></td>
+<td>assign vApp to resource pool</td>
+</tr>
+<tr>
+<td></td>
+<td>assign vitrual machine to resource pool</td>
+</tr>
+<tr>
+<td></td>
+<td>create resource pool</td>
+</tr>
+<tr>
+<td></td>
+<td>migrate</td>
+</tr>
+<tr>
+<td></td>
+<td>modify resource pool</td>
+</tr>
+<tr>
+<td></td>
+<td>move resource pool</td>
+</tr>
+<tr>
+<td></td>
+<td>query vmotion</td>
+</tr>
+<tr>
+<td></td>
+<td>relocate</td>
+</tr>
+<tr>
+<td></td>
+<td>remove resource pool</td>
+</tr>
+<tr>
+<td></td>
+<td>rename resouce pool</td>
+</tr>
+<tr>
+<td>Scheduled Task (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>create tasks</td>
+</tr>
+<tr>
+<td></td>
+<td>modify tasks</td>
+</tr>
+<tr>
+<td></td>
+<td>remove tasks</td>
+</tr>
+<tr>
+<td></td>
+<td>run task</td>
+</tr>
+<tr>
+<td>Sessions</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>view and stop sessions</td>
+</tr>
+<tr>
+<td>Tasks (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>create tasks</td>
+</tr>
+<tr>
+<td></td>
+<td>update tasks</td>
+</tr>
+<tr>
+<td>vApp (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>add virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>assign resource pool</td>
+</tr>
+<tr>
+<td></td>
+<td>assign vApp</td>
+</tr>
+<tr>
+<td></td>
+<td>clone</td>
+</tr>
+<tr>
+<td></td>
+<td>create</td>
+</tr>
+<tr>
+<td></td>
+<td>delete</td>
+</tr>
+<tr>
+<td></td>
+<td>export</td>
+</tr>
+<tr>
+<td></td>
+<td>import</td>
+</tr>
+<tr>
+<td></td>
+<td>move</td>
+</tr>
+<tr>
+<td></td>
+<td>power off</td>
+</tr>
+<tr>
+<td></td>
+<td>power on</td>
+</tr>
+<tr>
+<td></td>
+<td>rename</td>
+</tr>
+<tr>
+<td></td>
+<td>suspend</td>
+</tr>
+<tr>
+<td></td>
+<td>unregister</td>
+</tr>
+<tr>
+<td></td>
+<td>vApp application configuration</td>
+</tr>
+<tr>
+<td></td>
+<td>vApp instance configruation</td>
+</tr>
+<tr>
+<td></td>
+<td>vApp resouce configuration</td>
+</tr>
+<tr>
+<td></td>
+<td>view OVF environment</td>
+</tr>
+<tr>
+<td>Virtual Machine (ALL) / Configuration (All)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>add existing disk</td>
+</tr>
+<tr>
+<td></td>
+<td>add new disk</td>
+</tr>
+<tr>
+<td></td>
+<td>add or remove device</td>
+</tr>
+<tr>
+<td></td>
+<td>advanced</td>
+</tr>
+<tr>
+<td></td>
+<td>change CPU count</td>
+</tr>
+<tr>
+<td></td>
+<td>change resouce</td>
+</tr>
+<tr>
+<td></td>
+<td>disk change tracking</td>
+</tr>
+<tr>
+<td></td>
+<td>disk lease</td>
+</tr>
+<tr>
+<td></td>
+<td>extend virtul disk</td>
+</tr>
+<tr>
+<td></td>
+<td>host USB device</td>
+</tr>
+<tr>
+<td></td>
+<td>memory</td>
+</tr>
+<tr>
+<td></td>
+<td>modify device settings</td>
+</tr>
+<tr>
+<td></td>
+<td>query fault tolerance compatability</td>
+</tr>
+<tr>
+<td></td>
+<td>query unowned files</td>
+</tr>
+<tr>
+<td></td>
+<td>raw device</td>
+</tr>
+<tr>
+<td></td>
+<td>reload from path</td>
+</tr>
+<tr>
+<td></td>
+<td>remove disk</td>
+</tr>
+<tr>
+<td></td>
+<td>rename</td>
+</tr>
+<tr>
+<td></td>
+<td>reset guest information</td>
+</tr>
+<tr>
+<td></td>
+<td>settings</td>
+</tr>
+<tr>
+<td></td>
+<td>swap file placement</td>
+</tr>
+<tr>
+<td></td>
+<td>unlock virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>upgrade virtual hardware</td>
+</tr>
+<tr>
+<td>Virtual Machine (ALL) / Interaction (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>acquire guest control ticket</td>
+</tr>
+<tr>
+<td></td>
+<td>answer question</td>
+</tr>
+<tr>
+<td></td>
+<td>backup operation on virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>configure CD media</td>
+</tr>
+<tr>
+<td></td>
+<td>configure floppy media</td>
+</tr>
+<tr>
+<td></td>
+<td>console interaction</td>
+</tr>
+<tr>
+<td></td>
+<td>create screenshot</td>
+</tr>
+<tr>
+<td></td>
+<td>defragment all disks</td>
+</tr>
+<tr>
+<td></td>
+<td>device connection</td>
+</tr>
+<tr>
+<td></td>
+<td>disable fault tolerance</td>
+</tr>
+<tr>
+<td></td>
+<td>enable fault tolerance</td>
+</tr>
+<tr>
+<td></td>
+<td>power off</td>
+</tr>
+<tr>
+<td></td>
+<td>power on</td>
+</tr>
+<tr>
+<td></td>
+<td>record session on virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>replay session on virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>reset</td>
+</tr>
+<tr>
+<td></td>
+<td>suspend</td>
+</tr>
+<tr>
+<td></td>
+<td>test failover</td>
+</tr>
+<tr>
+<td></td>
+<td>test restart secondary VM</td>
+</tr>
+<tr>
+<td></td>
+<td>turn off fault tolerance</td>
+</tr>
+<tr>
+<td></td>
+<td>turn on fault tolerance</td>
+</tr>
+<tr>
+<td></td>
+<td>VMware Tools install</td>
+</tr>
+<tr>
+<td>Virtual Machine (ALL) / Inventory (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>create from existing</td>
+</tr>
+<tr>
+<td></td>
+<td>create new</td>
+</tr>
+<tr>
+<td></td>
+<td>move</td>
+</tr>
+<tr>
+<td></td>
+<td>register</td>
+</tr>
+<tr>
+<td></td>
+<td>remove</td>
+</tr>
+<tr>
+<td></td>
+<td>unregister</td>
+</tr>
+<tr>
+<td>Virtual Machine (ALL) / Provisioning (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>allow disk access</td>
+</tr>
+<tr>
+<td></td>
+<td>allow read-only disk access</td>
+</tr>
+<tr>
+<td></td>
+<td>allow virtual machine download</td>
+</tr>
+<tr>
+<td></td>
+<td>allow virtual machine files upload</td>
+</tr>
+<tr>
+<td></td>
+<td>clone template</td>
+</tr>
+<tr>
+<td></td>
+<td>clone virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>create templace from virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>customize</td>
+</tr>
+<tr>
+<td></td>
+<td>deploy template</td>
+</tr>
+<tr>
+<td></td>
+<td>mark as template</td>
+</tr>
+<tr>
+<td></td>
+<td>mark as virtual machine</td>
+</tr>
+<tr>
+<td></td>
+<td>modify customization specification</td>
+</tr>
+<tr>
+<td></td>
+<td>promote disks</td>
+</tr>
+<tr>
+<td></td>
+<td>read customization specifications</td>
+</tr>
+<tr>
+<td>Virtual Machine (ALL) / State (ALL)</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td>create snapshot</td>
+</tr>
+<tr>
+<td></td>
+<td>remove snapshot</td>
+</tr>
+<tr>
+<td></td>
+<td>rename snapshot</td>
+</tr>
+<tr>
+<td></td>
+<td>revert to snapshot</td>
+</tr>
+</tbody></table>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

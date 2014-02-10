@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>How to locate and watch logs on Job VMs</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_running docs_running_bosh docs_running_bosh_troubleshooting docs_running_bosh_troubleshooting_job-logs">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,98 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class="active"><span>How to locate and watch logs on Job VMs</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
+              <div class="quick-links"></div>
 
- <hr>
+              <h1>How to locate and watch logs on Job VMs</h1>
 
-</div>
+            
+            <p>When deploying a bosh release, such as the Cloud Foundry cf-release, you might have a job fail to run.</p>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+<pre>
+Updating job common4
+  core/0 (canary) (00:12:55)
+Done                    1/1 00:12:55
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+Error 400007: `core/0' is not running after update
+</pre>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>To diagnose the cause of the failure, you will need to look at various log files on the failing instance. Hopefully the answer to your issue will become apparent and you can make corrections.</p>
 
-  <hr>
-  <p>Application Deployment<br>
+<h2>Access a job VM</h2>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<p>In the example above, the job VM is called <code>core/0</code>. You can get a terminal session to this job VM via the <code>bosh ssh</code> command. Run either of the following commands:</p>
 
-  </p>
-  <hr>
+<pre class="terminal">
+$ bosh ssh core/0
+$ bosh ssh core 0
+</pre>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<h2>Log files of interest</h2>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<p>There are four places to look for log files:</p>
 
+<ul>
+<li>job template log folders</li>
+<li>bosh agent log file</li>
+<li>bosh monit log file</li>
+<li>default locations that services might output logs</li>
+</ul>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<h3>Job template log folders</h3>
 
-</div>
+<p>The first place to look for problems is the log files of the processes running within the job VM.</p>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+<p>By convention, <code>/var/vcap/sys/log/*/*</code> is where all bosh releases are configured to place log files.</p>
 
-  <hr>
+<pre class="terminal">
+$ sudo tail -f -n 200 /var/vcap/sys/log/*/*
+</pre>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<p>ProTip: when writing a bosh release please configure all services to place their logs in <code>/var/vcap/sys/log/JOB_NAME</code>.</p>
 
-  <hr>
+<h3>Bosh agent log file</h3>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<p>If the job(s) within a VM have not yet started, then look in the bosh agent&#39;s log file for possible errors or aberrations:</p>
 
-  </p>
+<pre class="terminal">
+$ sudo tail -f -n 200 /var/vcap/bosh/log/current
+</pre>
 
-  <hr>
+<h3>Bosh monit log file</h3>
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+<p>Monit is used by the bosh agent to start, restart and stop services included in each job template.</p>
 
-  </p>
+<p>Rarely, but occasionally, will monit know about an error and output useful information to its log file. But it does have one, and gold might be hidden there:</p>
 
-  <hr>
+<pre class="terminal">
+$ sudo tail -f -n 200 /var/vcap/monit/monit.log
+</pre>
 
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
+<p>ProTip: when writing a bosh release, consider using a <a title="shell - Debugging monit - Stack Overflow" href="http://stackoverflow.com/questions/3356476/debugging-monit/4439403#4439403">monit wrapper</a> around your job&#39;s start &amp; stop scripts to aide future debugging.</p>
 
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+<h3>Default locations that services might output logs</h3>
 
-  </p>
+<p>Finally, it is possible that the services being run within a job, such as PostgreSQL, can output logs into its own default locations. You will need to be familiar with these services to know where to look to find any logs that aren&#39;t in the conventional location above.</p>
 
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
+<p>For example, if your bosh release has a <code>postgres</code> job, the startup log may be at <code>/var/vcap/store/postgres/pg_log/startup.log</code>.</p>
 
-</div>
+<p>Perhaps the following command might uncover additional logs:</p>
 
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<pre class="terminal">
+$ sudo tail -n 200 -f /var/vcap/store/postgres/*/*.log
+</pre>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

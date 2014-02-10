@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Provider Documentation</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_dotcom docs_dotcom_marketplace docs_dotcom_marketplace_provider docs_dotcom_marketplace_provider_index">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,144 +178,156 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Cloud Foundry Hosted Developer Edition</a></li> <li class=""><a href="../">Marketplace</a></li> <li class="active"><span>Provider Documentation</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
-
- <hr>
-
+              <div class="quick-links"><ul>
+<li><a href="#integration">Integrating With Cloud Foundry</a></li>
+<li><a href="#google-group">Google Group</a></li>
+<li><a href="#docs">Documentation</a></li>
+<li><a href="#sample-apps">Sample Apps</a></li>
+<li><a href="#binding-credentials">Binding Credentials</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>Provider Documentation</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <h2><a id='integration'></a>Integrating With Cloud Foundry</h2>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>Cloud Foundry has partnered with AppDirect for services integration with our public PaaS. Service providers interested in adding their service to the Cloud Foundry Marketplace should contact <a href="mailto:nbadiey@gopivotal.com">Nima Badiey</a> for more information. </p>
 
-  <hr>
-  <p>Application Deployment<br>
+<p>Documentation on AppDirect&#39;s API for Cloud Foundry can be found here:
+<a href="http://info.appdirect.com/developer/docs/cloud-foundry/">http://info.appdirect.com/developer/docs/cloud-foundry/</a></p>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<h2><a id='google-group'></a>Google Group</h2>
 
-  </p>
-  <hr>
+<p>Join our Google Group to receive announcements regarding integration with Cloud Foundry.
+<a href="https://groups.google.com/forum/?hl=en&amp;fromgroups#!forum/cloud-foundry-partners">https://groups.google.com/forum/?hl=en&amp;fromgroups#!forum/cloud-foundry-partners</a></p>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<h2><a id='docs'></a>Documentation</h2>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<p>Service providers should feel enabled to manage their own documentation. Clone the <a href="https://github.com/cloudfoundry/cf-docs">cf-docs repo</a> and issue pull requests to update your Marketplace Services documentation page. </p>
 
+<p>Your documentation page should reside in <code>source/docs/dotcom/services-marketplace</code>.</p>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<p>We&#39;ve provided a template to get you started. Please include the Managing Services and Support sections with links we&#39;ve included; feel free to add additional information as appropriate. If your service is bindable, you&#39;ll want to include the section on Environment Variables. </p>
 
-</div>
+<p><a href="provider-template.html">Provider Documentation Template</a></p>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+<h2><a id='sample-apps'></a>Sample Apps</h2>
 
-  <hr>
+<p>Providing a sample application that works out of the box provides an excellent user experience. Developers can validate that your service works as expected, and the sample app should provide a code example for how to integrate an application with your service. There are two ways we recommend publishing your sample application:</p>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<ol>
+<li>You can host your sample app in your own repo, and we can fork it into <a href="https://github.com/cloudfoundry-samples">https://github.com/cloudfoundry-samples</a></li>
+<li>You can send us the code for your app and we can add a new repo to <a href="https://github.com/cloudfoundry-samples">https://github.com/cloudfoundry-samples</a></li>
+</ol>
 
-  <hr>
+<h2><a id='binding-credentials'></a>Binding Credentials</h2>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<p>If your service is bindable, it means that in response to the bind API call, you will return credentials which can be consumed by an application. We write these credentials to the environment variable <a href="../../../using/services/environment-variable.html">VCAP_SERVICES</a>. In some cases buildpacks will write a subset of these credentials to other environment variables that frameworks may expect. </p>
 
-  </p>
+<p>Please choose from the following list of credential fields if possible. You can provide additionals fields as needed, but if any of these meet your needs you should use them. This convention allows us to provide end user developers with libraries which parse VCAP_SERVICES and deliver useful objects to applications, and other libraries which actually configure applications themselves with a service connection.  </p>
 
-  <hr>
+<p><strong>Important: if you provide a service which supports a connection string, you must provide at least the <code>uri</code> key; as mentioned you may provide discrete credential fields in addition. The aforementioned libraries use the <code>uri</code> key.</strong> </p>
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+<table><thead>
+<tr>
+<th>credentials</th>
+<th>description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>uri</td>
+<td>Connection string of the form <code>dbtype://username:password@hostname:port/name</code>, where <code>dbtype</code> is mysql, postgres, mongodb, amqp, etc.</td>
+</tr>
+<tr>
+<td>hostname</td>
+<td>The FQDN of the server host</td>
+</tr>
+<tr>
+<td>port</td>
+<td>The port of the server host</td>
+</tr>
+<tr>
+<td>name</td>
+<td>Name of the service instance; database name</td>
+</tr>
+<tr>
+<td>vhost</td>
+<td>Name of the messaging server virtual host (replacement for <code>name</code> specific to AMQP providers)</td>
+</tr>
+<tr>
+<td>username</td>
+<td>Server user</td>
+</tr>
+<tr>
+<td>password</td>
+<td>Server password</td>
+</tr>
+</tbody></table>
 
-  </p>
-
-  <hr>
-
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
-
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
-
-  </p>
-
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
-
-</div>
-
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
-
+<p>Here&#39;s an example output of <code>ENV[&#39;VCAP_SERVICES&#39;]</code>. Note that ClearDB chooses to return both discrete credentials, a uri, as well as another field. CloudAMQP chooses to return just the uri, and RedisCloud returns only discrete credentials.</p>
+<div class="highlight"><pre><span class="nt">VCAP_SERVICES</span><span class="o">=</span>
+<span class="p">{</span>
+  <span class="n">cleardb</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">n</span><span class="o">/</span><span class="n">a</span><span class="o">:</span> <span class="cp">[</span>
+    <span class="p">{</span>
+      <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;cleardb-dev-1&quot;</span><span class="p">,</span>
+      <span class="nb">label</span><span class="p">:</span> <span class="s2">&quot;cleardb-dev-n/a&quot;</span><span class="p">,</span>
+      <span class="nx">plan</span><span class="p">:</span> <span class="s2">&quot;spark&quot;</span><span class="p">,</span>
+      <span class="nx">credentials</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;ad_c6f4446532610ab&quot;</span><span class="p">,</span>
+        <span class="nb">hostname</span><span class="p">:</span> <span class="s2">&quot;us-cdbr-east-03.cleardb.com&quot;</span><span class="p">,</span>
+        <span class="nb">port</span><span class="p">:</span> <span class="s2">&quot;3306&quot;</span><span class="p">,</span>
+        <span class="nx">username</span><span class="p">:</span> <span class="s2">&quot;b5d435f40dd2b2&quot;</span><span class="p">,</span>
+        <span class="nx">password</span><span class="p">:</span> <span class="s2">&quot;ebfc00ac&quot;</span><span class="p">,</span>
+        <span class="nx">uri</span><span class="p">:</span> <span class="s2">&quot;mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab&quot;</span><span class="p">,</span>
+        <span class="nx">jdbcUrl</span><span class="p">:</span> <span class="s2">&quot;jdbc:mysql://b5d435f40dd2b2:ebfc00ac@us-cdbr-east-03.cleardb.com:3306/ad_c6f4446532610ab&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="cp">]</span><span class="o">,</span>
+  <span class="n">cloudamqp</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">n</span><span class="o">/</span><span class="n">a</span><span class="o">:</span> <span class="cp">[</span>
+    <span class="p">{</span>
+      <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;cloudamqp-dev-6&quot;</span><span class="p">,</span>
+      <span class="nb">label</span><span class="p">:</span> <span class="s2">&quot;cloudamqp-dev-n/a&quot;</span><span class="p">,</span>
+      <span class="nx">plan</span><span class="p">:</span> <span class="s2">&quot;lemur&quot;</span><span class="p">,</span>
+      <span class="nx">credentials</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">uri</span><span class="p">:</span> <span class="s2">&quot;amqp://ksvyjmiv:IwN6dCdZmeQD4O0ZPKpu1YOaLx1he8wo@lemur.cloudamqp.com/ksvyjmiv&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+    <span class="p">{</span>
+      <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;cloudamqp-dev-9dbc6&quot;</span><span class="p">,</span>
+      <span class="nb">label</span><span class="p">:</span> <span class="s2">&quot;cloudamqp-dev-n/a&quot;</span><span class="p">,</span>
+      <span class="nx">plan</span><span class="p">:</span> <span class="s2">&quot;lemur&quot;</span><span class="p">,</span>
+      <span class="nx">credentials</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nx">uri</span><span class="p">:</span> <span class="s2">&quot;amqp://vhuklnxa:9lNFxpTuJsAdTts98vQIdKHW3MojyMyV@lemur.cloudamqp.com/vhuklnxa&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="cp">]</span><span class="o">,</span>
+  <span class="n">rediscloud</span><span class="o">-</span><span class="n">dev</span><span class="o">-</span><span class="n">n</span><span class="o">/</span><span class="n">a</span><span class="o">:</span> <span class="cp">[</span>
+    <span class="p">{</span>
+      <span class="nb">name</span><span class="p">:</span> <span class="s2">&quot;rediscloud-dev-1&quot;</span><span class="p">,</span>
+      <span class="nb">label</span><span class="p">:</span> <span class="s2">&quot;rediscloud-dev-n/a&quot;</span><span class="p">,</span>
+      <span class="nx">plan</span><span class="p">:</span> <span class="s2">&quot;20mb&quot;</span><span class="p">,</span>
+      <span class="nx">credentials</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nb">port</span><span class="p">:</span> <span class="s2">&quot;17546&quot;</span><span class="p">,</span>
+        <span class="nb">host</span><span class="p">:</span> <span class="s2">&quot;pub-redis-17546.MatanCluster.ec2.garantiadata.com&quot;</span><span class="p">,</span>
+        <span class="nx">password</span><span class="p">:</span> <span class="s2">&quot;1M5zd3QfWi9nUyya&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+  <span class="cp">]</span><span class="o">,</span>
+<span class="p">}</span>
+</pre></div>
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->
       </div><!-- End of content -->

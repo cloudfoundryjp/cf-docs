@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>カスタム・ビルドパック</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_using docs_using_deploying-apps docs_using_deploying-apps_custom-buildpacks">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,120 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Cloud Foundryを使用する</a></li> <li class=""><a href="./">アプリケーションのデプロイについての重要事項</a></li> <li class="active"><span>カスタム・ビルドパック</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
+              <div class="quick-links"><ul>
+<li><a href="#custom-buildpacks">カスタム・ビルドパック</a>
 
- <hr>
-
+<ul>
+<li><a href="#detect-script">bin/detect</a></li>
+<li><a href="#detect-script">bin/compile</a></li>
+<li><a href="#detect-script">bin/release</a></li>
+</ul></li>
+<li><a href="#deploying-with-custom-buildpacks">カスタム・ビルドパックを使ってのデプロイ</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>カスタム・ビルドパック</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <p>ビルドパックは、フレームワークとランタイムをまとめる便利な方法です。たとえば、Cloud FoundryはDjangoやPythonをサポートしていません。ビルドパックを使えば、PythonやDjangoのサポートをデプロイする段階で追加することができます。</p>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>これらの言語やフレームワークで書かれたアプリケーションがプッシュされる時、必要なビルドパックが自動的にDEA(Droplet Execution Agentの略。アプリはここで実行される)へインストールされます。</p>
 
-  <hr>
-  <p>Application Deployment<br>
+<h2><a id='custom-buildpacks'></a>カスタム・ビルドパック</h2>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<p>ビルドパックの構造は簡単明瞭です。ビルドパックのリポジトリは三つの主なスクリプトを含み、&#39;bin&#39;フォルダに置きます。</p>
 
-  </p>
-  <hr>
+<h3><a id='detect-script'></a>bin/detect</h3>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<p>このスクリプトはビルドパックをアプリケーションに適用するかどうかを決めるために使われます。このスクリプトは、引数としてアプリケーションをビルドしたディレクトリを必要とします。ビルドパックがアプリケーションをサポートしている場合、exitコードとして0を返します。スクリプトが0を返した時、フレームワークの名前を標準出力へ出力します。</p>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<p>以下に&#39;Gemfile&#39;を元にしたRubyアプリケーションを検知するRubyスクリプトの例を示します。</p>
+<div class="highlight"><pre><span class="c1">#!/usr/bin/env ruby</span>
 
+<span class="n">gemfile_path</span> <span class="o">=</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span> <span class="no">ARGV</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span><span class="p">,</span> <span class="s2">&quot;Gemfile&quot;</span>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<span class="k">if</span> <span class="no">File</span><span class="o">.</span><span class="n">exist?</span><span class="p">(</span><span class="n">gemfile_path</span><span class="p">)</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Ruby&quot;</span>
+  <span class="nb">exit</span> <span class="mi">0</span>
+<span class="k">else</span>
+  <span class="nb">exit</span> <span class="mi">1</span>
+<span class="k">end</span>
+</pre></div>
+<h3><a id='detect-script'></a>bin/compile</h3>
 
-</div>
+<p>コンパイル・スクリプトはDEA上で実行されるドロップレットのビルドに責任を持ちます。ドロップレットはアプリケーションを実行するのに必要なすべてのコンポーネントを含んでいます。</p>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+<p>このスクリプトの引数は二つあります。アプリケーションをビルドしたディレクトリと、キャッシュ・ディレクトリです。後者は、ビルド時にアセットを格納する場所です。</p>
 
-  <hr>
+<p>このスクリプトの実行時、標準出力はCFコマンドを通じてエンド・ユーザへ渡されます。一般的な考え方は、&#39;language_pack&#39;で分割することです。右のページに例があります。<a href="https://github.com/cloudfoundry/cloudfoundry-buildpack-java/blob/master/lib/language_pack/java.rb">https://github.com/cloudfoundry/cloudfoundry-buildpack-java/blob/master/lib/language_pack/java.rb</a></p>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<p>簡単な例を以下に示します;</p>
+<div class="highlight"><pre><span class="c1">#!/usr/bin/env ruby</span>
 
-  <hr>
+<span class="c1">#sync output</span>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<span class="vg">$stdout</span><span class="o">.</span><span class="n">sync</span> <span class="o">=</span> <span class="kp">true</span>
 
-  </p>
+<span class="n">build_path</span> <span class="o">=</span> <span class="no">ARGV</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span>
+<span class="n">cache_path</span> <span class="o">=</span> <span class="no">ARGV</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span>
 
-  <hr>
+<span class="n">install_ruby</span>
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+<span class="kp">private</span>
 
-  </p>
+<span class="k">def</span> <span class="nf">install_ruby</span>
+  <span class="nb">puts</span> <span class="s2">&quot;Installing Ruby&quot;</span>
 
-  <hr>
+  <span class="c1"># !!!build tasks go here !!!</span>
+  <span class="c1"># download ruby to cache_path</span>
+  <span class="c1"># install ruby</span>
+<span class="k">end</span>
+</pre></div>
+<h3><a id='detect-script'></a>bin/release</h3>
 
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
+<p>リリース・スクリプトがCloud Foundryへフィードバック・メタデータを提供し、どのように実行されるべきか指示します。アプリケーションのビルド・ロケーションを引数で指定してこのスクリプトを実行します。このスクリプトは以下の形式のYAMLスクリプトを生成しなければなりません。</p>
+<div class="highlight"><pre>  <span class="l-Scalar-Plain">config_vars</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">name</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">value</span>
+  <span class="l-Scalar-Plain">default_process_types</span><span class="p-Indicator">:</span>
+    <span class="l-Scalar-Plain">web</span><span class="p-Indicator">:</span> <span class="l-Scalar-Plain">commandLine</span>
+</pre></div>
+<p><code>config_vars</code>がアプリケーションの実行環境の環境変数とします。<code>default_process_types</code>は実行されるアプリケーションのタイプと起動コマンドを示します。現時点では<code>web</code>タイプのみがサポートされています。</p>
 
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+<p>以下の例はRackアプリケーションの<code>release</code>スクリプトの返り値を示しています。</p>
+<div class="highlight"><pre><span class="n">config_vars</span><span class="p">:</span>
+  <span class="no">RACK_ENV</span><span class="p">:</span> <span class="n">production</span>
+<span class="n">default_process_type</span><span class="p">:</span>
+  <span class="ss">web</span><span class="p">:</span> <span class="n">bundle</span> <span class="nb">exec</span> <span class="n">rackup</span> <span class="n">config</span><span class="o">.</span><span class="n">ru</span> <span class="o">-</span><span class="nb">p</span> <span class="vg">$PORT</span>
+</pre></div>
+<h2><a id='deploying-with-custom-buildpacks'></a>カスタム・ビルドパックを使ってのデプロイ</h2>
 
-  </p>
+<p>カスタム・ビルドパックがパブリックなgitリポジトリに置かれていると、アプリケーションをプッシュする時にそのgit URLを使うことができます。</p>
 
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
+<p>以下にGithubにプッシュされたビルドパックの例を示します;</p>
 
-</div>
+<pre class="terminal">
+$ cf push my-new-app --buildpack=git://github.com/johndoe/my-buildpack.git
+</pre>
 
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<p>あるいは、以下のようにプライベートなgitリポジトリを(httpsとユーザ名/パスワード認証とともに)使うことができます。</p>
+
+<pre class="terminal">
+$ cf push my-new-app --buildpack=https://username:password@github.com/johndoe/my-buildpack.git
+</pre>
+
+<p>アプリケーションがCloud Foundryへデプロイされ、ビルドパックが複製されてアプリケーションへ適用されます。(<code>detect</code>スクリプトが0を返すものとします)</p>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

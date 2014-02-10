@@ -1,0 +1,545 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>CFoundry Ruby Gem</title>
+
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_using docs_using_managing-apps docs_using_managing-apps_libs docs_using_managing-apps_libs_ruby-cfoundry">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Cloud Foundryを使用する</a></li> <li class=""><a href="../">アプリ、オーガナイゼーション、スペースの管理</a></li> <li class=""><a href="./">APIとライブラリ</a></li> <li class="active"><span>CFoundry Ruby Gem</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"><ul>
+<li><a href="#intro">紹介</a></li>
+<li><a href="#connecting">Cloud Foundryへの接続</a></li>
+<li><a href="#persist-authentication">認証の要求 (cfトークンを使う)</a></li>
+<li><a href="#organizations">オーガナイゼーション</a></li>
+<li><a href="#spaces">スペース</a></li>
+<li><a href="#services">サービス、インスタンス、サービスのプラン</a></li>
+<li><a href="#runtimes-and-frameworks">ランタイムとフレームワーク</a></li>
+<li><a href="#applications">アプリケーション</a></li>
+<li><a href="#env-vars">環境変数</a></li>
+<li><a href="#domains">ドメイン</a></li>
+</ul>
+</div>
+
+              <h1>CFoundry Ruby Gem</h1>
+
+            
+            <h2><a id='intro'></a>紹介</h2>
+
+<p>本ガイドはCFoundry Ruby GemでCloud Foundryインスタンスのアカウントを管理するやり方を説明します。</p>
+
+<h2><a id='connecting'></a>Cloud Foundryへの接続</h2>
+
+<p>まず、<code>cfoundry</code> gemがアプリケーションに含まれていることを確認してください。
+Bundlerを使っている場合、<code>Gemfile</code>へアプリケーションを追加してください;</p>
+<div class="highlight"><pre><span class="n">source</span> <span class="s1">&#39;https://rubygems.org&#39;</span>
+<span class="n">gem</span> <span class="s1">&#39;cfoundry&#39;</span>
+</pre></div>
+<p>cfoundryの最初のステップは、クライアントのインスタンスを作りログインすることです:</p>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;cfoundry&#39;</span>
+
+<span class="n">endpoint</span> <span class="o">=</span> <span class="s1">&#39;http://api.cloudfoundry.com&#39;</span>
+<span class="n">username</span> <span class="o">=</span> <span class="s1">&#39;my_cf_user&#39;</span>
+<span class="n">password</span> <span class="o">=</span> <span class="s1">&#39;my_cf_password&#39;</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">CFoundry</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span> <span class="n">endpoint</span>
+<span class="n">client</span><span class="o">.</span><span class="n">login</span> <span class="n">username</span><span class="p">,</span> <span class="n">password</span>
+</pre></div>
+<p>試しに、利用可能なサービスへの接続を表示してみます:</p>
+<div class="highlight"><pre><span class="n">client</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">description</span> <span class="p">}</span>
+</pre></div>
+<h2><a id='persist-authentication'></a>認証の要求 (cfトークンを使う)</h2>
+
+<p>あなたの資格情報を公開することなくcfoundryクライアントのオブジェクトを作る安全な方法は、cfでログインして生成されたauthトークンを使うことです。
+authトークンはcfによって~/.cf/tokens.ymlに保存されます。
+以下のrubyコードの断片は、このファイルを開き、適切なauthトークンを選択し、それを使ってCloud Foundryへログインします。</p>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;cfoundry&#39;</span>
+<span class="nb">require</span> <span class="s1">&#39;yaml&#39;</span>
+
+<span class="n">home</span> <span class="o">=</span> <span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;HOME&#39;</span><span class="o">]</span>
+<span class="n">endpoint</span> <span class="o">=</span> <span class="s1">&#39;https://api.cloudfoundry.com&#39;</span>
+
+<span class="n">config</span> <span class="o">=</span> <span class="no">YAML</span><span class="o">.</span><span class="n">load</span> <span class="no">File</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s2">&quot;</span><span class="si">#{</span><span class="n">home</span><span class="si">}</span><span class="s2">/.cf/tokens.yml&quot;</span><span class="p">)</span> 
+<span class="n">token</span> <span class="o">=</span> <span class="ss">CFoundry</span><span class="p">:</span><span class="ss">:AuthToken</span><span class="o">.</span><span class="n">from_hash</span> <span class="n">config</span><span class="o">[</span><span class="n">endpoint</span><span class="o">]</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">CFoundry</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span> <span class="n">endpoint</span><span class="p">,</span> <span class="n">token</span>
+</pre></div>
+<p>クライアントのオブジェクトができれば、以前と同様のやり方で扱えます。</p>
+
+<h2><a id='organizations'></a>オーガナイゼーション</h2>
+
+<p>アカウントは一つ以上のオーガナイゼーションに属している必要があります。
+clientクラスを使って、オーガナイゼーションを確認します;</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;</span> <span class="n">client</span><span class="o">.</span><span class="n">organizations</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;CFoundry::V2::Organization &#39;1e3ce9fb-50ac-4d2a-9506-f4d671c00f50&#39;&gt;, #&lt;CFoundry::V2::Organization &#39;77ab28ea-2b6e-4a7f-86c8-2c2df2714535&#39;&gt;]</span>
+</pre></div>
+<h2><a id='spaces'></a>スペース</h2>
+
+<p>Cloud Foundry上のオーガナイゼーションは、複数のスペースへ分割することができます。clientクラスで簡単に確認できます:</p>
+<div class="highlight"><pre><span class="o">&gt;&gt;</span> <span class="n">client</span><span class="o">.</span><span class="n">spaces</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;development&quot;</span><span class="p">,</span> <span class="s2">&quot;staging&quot;</span><span class="p">,</span> <span class="s2">&quot;production&quot;</span><span class="o">]</span>
+</pre></div>
+<p>スペースを作ったり削除したりする:</p>
+<div class="highlight"><pre><span class="c1"># create a space</span>
+<span class="n">new_space</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">space</span>
+<span class="n">new_space</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;New Space&#39;</span>
+<span class="n">new_space</span><span class="o">.</span><span class="n">organization</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">organizations</span><span class="o">.</span><span class="n">first</span>
+<span class="n">new_space</span><span class="o">.</span><span class="n">create!</span>
+
+<span class="c1"># then, delete it</span>
+<span class="n">new_space</span><span class="o">.</span><span class="n">delete!</span>
+</pre></div>
+<p>スペースを参照するメソッドがいろいろあります:</p>
+<div class="highlight"><pre><span class="c1"># find space by name</span>
+<span class="n">client</span><span class="o">.</span><span class="n">space_by_name</span> <span class="s1">&#39;development&#39;</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;CFoundry::V2::Space &#39;07b7271f-bcfa-47df-aa9b-3911c60a0d65&#39;&gt;</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">methods</span><span class="o">.</span><span class="n">grep</span> <span class="sr">/space_by/</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="ss">:spaces_by_name</span><span class="p">,</span> <span class="ss">:spaces_by_organization_guid</span><span class="p">,</span> <span class="ss">:spaces_by_developer_guid</span><span class="p">,</span> <span class="ss">:spaces_by_app_guid</span><span class="o">]</span>
+</pre></div>
+<h2><a id='services'></a>サービス、インスタンス、サービスのプラン</h2>
+
+<p>Cloud Foundryではサービスはたくさんのサービス・プランを持っています。
+この文書では、それぞれのサービスの一番目のサービス・プランを使うことにします。</p>
+
+<p>クライアントのクラスは四つのサービスを含んでいます; services, service_instances, service_instance_by_name, service_instanceの四つです。</p>
+
+<p>一番目のメソッド&#39;services&#39;は、使用可能なすべてのサービスのハッシュを返します:</p>
+<div class="highlight"><pre><span class="n">client</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">description</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;MySQL database&quot;</span><span class="p">,</span> <span class="s2">&quot;MongoDB NoSQL database&quot;</span><span class="p">,</span> <span class="s2">&quot;Redis key-value store&quot;</span><span class="p">,</span> <span class="s2">&quot;RabbitMQ message queue&quot;</span><span class="p">,</span> <span class="s2">&quot;PostgreSQL database (vFabric)&quot;</span><span class="o">]</span>
+</pre></div>
+<p>&#39;service_instances&#39;は実際に割り当てられているサービスのインスタンスを返します:</p>
+<div class="highlight"><pre><span class="n">pp</span> <span class="n">client</span><span class="o">.</span><span class="n">service_instances</span>
+<span class="o">[</span><span class="c1">#&lt;CFoundry::V1::ServiceInstance &#39;mysql-7327e&#39;&gt;,</span>
+ <span class="c1">#&lt;CFoundry::V1::ServiceInstance &#39;redis-6b10d&#39;&gt;,</span>
+ <span class="c1">#&lt;CFoundry::V1::ServiceInstance &#39;mongodb-3894a&#39;&gt;,</span>
+ <span class="c1">#&lt;CFoundry::V1::ServiceInstance &#39;postgresql-e7870&#39;&gt;,</span>
+ <span class="c1">#&lt;CFoundry::V1::ServiceInstance &#39;mysql-adeb7&#39;&gt;,</span>
+ <span class="o">.</span><span class="n">.</span><span class="o">.</span>
+ <span class="c1">#&lt;CFoundry::V1::ServiceInstance &#39;mysql-13e8f&#39;&gt;,</span>
+ <span class="c1">#&lt;CFoundry::V1::ServiceInstance &#39;mongodb-220c4&#39;&gt;]</span>
+</pre></div>
+<p>&#39;service_instance_by_name&#39; メソッドはサービスのインスタンスの一覧を返します:</p>
+<div class="highlight"><pre><span class="n">client</span><span class="o">.</span><span class="n">service_instance_by_name</span> <span class="s1">&#39;mysql-7327e&#39;</span>
+<span class="o">=&gt;</span> <span class="c1">#&lt;CFoundry::V1::ServiceInstance &#39;mysql-7327e&#39;&gt;</span>
+</pre></div>
+<p>サービスのインスタンスを作るには、service_instanceメソッドを使用します:</p>
+<div class="highlight"><pre><span class="n">service</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">services</span><span class="o">.</span><span class="n">select</span><span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">label</span> <span class="o">==</span> <span class="s1">&#39;redis&#39;</span> <span class="p">}</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- find</span>
+<span class="n">the</span> <span class="n">service</span> <span class="n">we</span> <span class="n">wish</span> <span class="n">to</span> <span class="n">deploy</span>
+<span class="n">service_plan</span> <span class="o">=</span>
+<span class="n">client</span><span class="o">.</span><span class="n">service_plans_by_service_guid</span><span class="p">(</span><span class="n">service</span><span class="o">.</span><span class="n">guid</span><span class="p">)</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- find the services first service plan</span>
+
+<span class="n">service_instance</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">service_instance</span> <span class="c1"># &lt;- prepare a new instance</span>
+<span class="n">service_instance</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;my_new_redis_service&#39;</span> <span class="c1"># &lt;- give it a name</span>
+
+<span class="n">service_instance</span><span class="o">.</span><span class="n">service_plan</span> <span class="o">=</span> <span class="n">service_plan</span> <span class="c1"># &lt;- assign the plan</span>
+<span class="n">service_instance</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">spaces</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- assign the space the service instance will belong to</span>
+
+<span class="n">service_instance</span><span class="o">.</span><span class="n">create!</span> <span class="c1"># &lt;- send the request to create it</span>
+
+<span class="c1"># if the create was successful, it should return true.</span>
+</pre></div>
+<h2><a id='runtimes-and-frameworks'></a>ランタイムとフレームワーク</h2>
+
+<p>ランタイムとフレームワークは、その両方を参照するのに使えるコレクションを持っています:</p>
+<div class="highlight"><pre><span class="n">client</span><span class="o">.</span><span class="n">frameworks</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;play&quot;</span><span class="p">,</span> <span class="s2">&quot;java_web&quot;</span><span class="p">,</span> <span class="s2">&quot;buildpack&quot;</span><span class="p">,</span> <span class="s2">&quot;lift&quot;</span><span class="p">,</span> <span class="s2">&quot;rails3&quot;</span><span class="p">,</span> <span class="s2">&quot;spring&quot;</span><span class="p">,</span> <span class="s2">&quot;grails&quot;</span><span class="p">,</span> <span class="s2">&quot;sinatra&quot;</span><span class="p">,</span> <span class="s2">&quot;rack&quot;</span><span class="p">,</span> <span class="s2">&quot;node&quot;</span><span class="p">,</span> <span class="s2">&quot;standalone&quot;</span><span class="o">]</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">runtimes</span><span class="o">.</span><span class="n">collect</span> <span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="p">}</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="s2">&quot;java&quot;</span><span class="p">,</span> <span class="s2">&quot;java7&quot;</span><span class="p">,</span> <span class="s2">&quot;node&quot;</span><span class="p">,</span> <span class="s2">&quot;node06&quot;</span><span class="p">,</span> <span class="s2">&quot;node08&quot;</span><span class="p">,</span> <span class="s2">&quot;ruby18&quot;</span><span class="p">,</span> <span class="s2">&quot;ruby19&quot;</span><span class="o">]</span>
+</pre></div>
+<h2><a id='applications'></a>アプリケーション</h2>
+
+<p>Clientクラスは三つのアプリケーション・メソッドを持っています; apps, app, app_by_nameの三つです</p>
+
+<p>&#39;apps&#39;メソッドはデプロイしたアプリケーションの一覧を返します:</p>
+<div class="highlight"><pre><span class="n">client</span><span class="o">.</span><span class="n">apps</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;CFoundry::V2::App &#39;27edfb92-b0f4-47ad-acd6-cb911eb88096&#39;&gt;]</span>
+</pre></div>
+<p>&#39;app_by_name&#39;メソッドは、名前を指定してアプリケーションを検索します:</p>
+<div class="highlight"><pre><span class="n">client</span><span class="o">.</span><span class="n">apps_by_name</span> <span class="s2">&quot;node_app&quot;</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;CFoundry::V2::App &#39;27edfb92-b0f4-47ad-acd6-cb911eb88096&#39;&gt;]</span>
+</pre></div>
+<p>アプリケーションのユーザを作るには、app methodメソッドを使います:</p>
+<div class="highlight"><pre><span class="n">app</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">app</span>
+<span class="n">app</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;my_new_app&#39;</span>
+<span class="n">app</span><span class="o">.</span><span class="n">total_instances</span> <span class="o">=</span> <span class="mi">2</span> <span class="c1"># &lt;- set the number of instances you want</span>
+<span class="n">app</span><span class="o">.</span><span class="n">memory</span> <span class="o">=</span> <span class="mi">512</span> <span class="c1"># &lt;- set the allocated amount of memory</span>
+<span class="n">app</span><span class="o">.</span><span class="n">production</span> <span class="o">=</span> <span class="kp">true</span> <span class="c1"># &lt;- should the application run in production mode</span>
+<span class="n">app</span><span class="o">.</span><span class="n">framework</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">frameworks</span><span class="o">.</span><span class="n">select</span><span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;rails3&#39;</span> <span class="p">}</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- set the framework</span>
+<span class="n">app</span><span class="o">.</span><span class="n">runtime</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">runtimes</span><span class="o">.</span><span class="n">select</span><span class="p">{</span> <span class="o">|</span><span class="n">x</span><span class="o">|</span> <span class="n">x</span><span class="o">.</span><span class="n">name</span> <span class="o">==</span> <span class="s1">&#39;ruby19&#39;</span> <span class="p">}</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- set the runtime</span>
+<span class="n">app</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">spaces</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- assign the application to a space</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">create!</span>
+
+<span class="c1"># we may also want to bind a service</span>
+<span class="n">app</span><span class="o">.</span><span class="n">bind</span> <span class="n">client</span><span class="o">.</span><span class="n">service_instance_by_name</span><span class="p">(</span><span class="s1">&#39;my_new_redis_service&#39;</span><span class="p">)</span>
+</pre></div>
+<p>httpでアプリケーションへアクセスできるよう、ドメイン上のルートが割り当てられている必要があります:</p>
+<div class="highlight"><pre><span class="n">route</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">route</span>
+<span class="n">route</span><span class="o">.</span><span class="n">domain</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">domains</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- pick the first / default route</span>
+<span class="n">route</span><span class="o">.</span><span class="n">space</span> <span class="o">=</span> <span class="n">space</span> <span class="c1"># &lt;- assign the route to a space</span>
+<span class="n">route</span><span class="o">.</span><span class="n">host</span> <span class="o">=</span> <span class="s1">&#39;my-rails-app&#39;</span> <span class="c1"># &lt;- this is the part of the url that is prepended to the domain</span>
+<span class="n">route</span><span class="o">.</span><span class="n">create!</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">add_route</span> <span class="n">route</span> <span class="c1"># &lt;- add the route to the domain</span>
+</pre></div>
+<p>&#39;stub&#39;というアプリケーションが作られるだけで、実際のコードがCloud Foundryへアップロードされるわでも起動されるわけでもありません。
+アプリケーションへ実際に実行するするものを提供するために、ソース、バイト・コード、バイナリなどの適切なもの(ランタイムやフレームワークに依存します)をzipファイルへアーカイブしてください。
+uploadコマンドを使ってzipファイルをアップロードしてください;</p>
+<div class="highlight"><pre><span class="nb">require</span> <span class="s1">&#39;zip/zip&#39;</span>
+
+<span class="c1"># create an archive of the current folder</span>
+
+<span class="ss">Zip</span><span class="p">:</span><span class="ss">:ZipFile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s1">&#39;app.zip&#39;</span><span class="p">,</span> <span class="ss">Zip</span><span class="p">:</span><span class="ss">:ZipFile</span><span class="o">::</span><span class="no">CREATE</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">zipfile</span><span class="o">|</span>
+  <span class="no">Dir</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s1">&#39;**/*&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">each</span> <span class="k">do</span> <span class="o">|</span><span class="n">filename</span><span class="o">|</span>
+    <span class="n">zipfile</span><span class="o">.</span><span class="n">add</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="no">File</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">filename</span><span class="p">))</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">upload</span> <span class="s1">&#39;app.zip&#39;</span>
+</pre></div>
+<p>アプリケーションはCloud Foundryへアップロードされ、残るは起動のみです:</p>
+<div class="highlight"><pre><span class="n">app</span><span class="o">.</span><span class="n">start!</span>
+</pre></div>
+<p>startの呼び出しは非同期で、ブロックが渡された場合はURLをともなってそのブロックが呼び出されます。
+urlはログの置き場所で、HTTPでリクエストすることができます。
+CFoundry::Clientにはstream_urlというメソッドがあり、サーバーからデータのかたまりを転送します:</p>
+<div class="highlight"><pre><span class="n">app</span><span class="o">.</span><span class="n">start!</span><span class="p">(</span><span class="kp">true</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">url</span><span class="o">|</span>
+  <span class="k">begin</span>
+    <span class="n">offset</span> <span class="o">=</span> <span class="mi">0</span>
+
+    <span class="k">while</span> <span class="kp">true</span>
+      <span class="k">begin</span>
+        <span class="n">client</span><span class="o">.</span><span class="n">stream_url</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="s2">&quot;&amp;tail&amp;tail_offset=</span><span class="si">#{</span><span class="n">offset</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span> <span class="k">do</span> <span class="o">|</span><span class="n">out</span><span class="o">|</span>
+          <span class="n">offset</span> <span class="o">+=</span> <span class="n">out</span><span class="o">.</span><span class="n">size</span>
+          <span class="nb">print</span> <span class="n">out</span>
+        <span class="k">end</span>
+      <span class="k">rescue</span> <span class="ss">Timeout</span><span class="p">:</span><span class="ss">:Error</span>
+      <span class="k">end</span>
+    <span class="k">end</span>
+
+  <span class="k">rescue</span> <span class="ss">CFoundry</span><span class="p">:</span><span class="ss">:APIError</span>
+  <span class="k">end</span>
+<span class="k">end</span>
+</pre></div>
+<h2><a id='env-vars'></a>環境変数</h2>
+
+<p>環境変数は以下のように簡単に変更できます:</p>
+<div class="highlight"><pre><span class="n">app</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">apps</span><span class="o">.</span><span class="n">first</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="o">[</span><span class="s1">&#39;my_env_var&#39;</span><span class="o">]</span> <span class="o">=</span> <span class="s1">&#39;env_value&#39;</span> <span class="c1"># &lt;- set the environment variable</span>
+<span class="n">app</span><span class="o">.</span><span class="n">update!</span> <span class="c1"># &lt;- commit the change to the application =&gt; true</span>
+
+<span class="n">app</span><span class="o">.</span><span class="n">env</span><span class="o">[</span><span class="s1">&#39;my_env_var&#39;</span><span class="o">]</span> <span class="c1"># &lt;- retrieve the variable =&gt; &quot;env_value&quot;</span>
+</pre></div>
+<h2><a id='domains'></a>ドメイン</h2>
+
+<p>ドメインはルートの元になっています。
+Cloud Foundryのドメインのデフォルトは、Cloud Foundryインスタンスが実行されているドメインです。</p>
+
+<p>新しいドメインを作るには、クライアントのクラスの&#39;domain&#39;メソッドを使います:</p>
+<div class="highlight"><pre><span class="n">domain</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">domain</span>
+<span class="n">domain</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">&#39;mydomain.com&#39;</span> <span class="c1"># &lt;- the name of the domain</span>
+<span class="n">domain</span><span class="o">.</span><span class="n">wildcard</span> <span class="o">=</span> <span class="kp">true</span>
+<span class="n">domain</span><span class="o">.</span><span class="n">owning_organization</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">organizations</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- set the owning organization</span>
+<span class="n">domain</span><span class="o">.</span><span class="n">create!</span> <span class="c1"># &lt;- commit</span>
+</pre></div>
+<p>すでに存在しているドメインを取り出すには:</p>
+<div class="highlight"><pre><span class="n">client</span><span class="o">.</span><span class="n">domains</span> <span class="c1"># &lt;- all domains =&gt; [#&lt;CFoundry::V2::Domain &#39;665b1cf3-e736-42cb-b7fe-bae8362fc30d&#39;&gt;]</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">domains_by_owning_organization_guid</span> <span class="n">client</span><span class="o">.</span><span class="n">organizations</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- domains belonging to an organization</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;CFoundry::V2::Domain &#39;665b1cf3-e736-42cb-b7fe-bae8362fc30d&#39;&gt;]</span>
+
+<span class="n">client</span><span class="o">.</span><span class="n">domains_by_space_guid</span> <span class="n">client</span><span class="o">.</span><span class="n">spaces</span><span class="o">.</span><span class="n">first</span> <span class="c1"># &lt;- domains assigned to a</span>
+<span class="n">space</span>
+<span class="o">=&gt;</span> <span class="o">[</span><span class="c1">#&lt;CFoundry::V2::Domain &#39;665b1cf3-e736-42cb-b7fe-bae8362fc30d&#39;&gt;]</span>
+</pre></div>
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

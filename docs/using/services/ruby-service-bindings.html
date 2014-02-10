@@ -1,0 +1,426 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Rubyのためのサービス接続設定</title>
+
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_using docs_using_services docs_using_services_ruby-service-bindings">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Cloud Foundryを使用する</a></li> <li class=""><a href="./">サービスを利用する</a></li> <li class="active"><span>Rubyのためのサービス接続設定</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"><ul>
+<li><a href="#cf-app-utils">cf-app-utilsを使ったVCAP_SERVICESへのアクセス</a></li>
+<li><a href="#auto-config">Auto-configuration for Rails</a></li>
+<li><a href="#config-file">設定ファイルでコネクションを定義する</a></li>
+<li><a href="#migrate">データベースのシードまたはマイグレート</a></li>
+<li><a href="#troubleshooting">トラブルシューティング</a></li>
+</ul>
+</div>
+
+              <h1>Rubyのためのサービス接続設定</h1>
+
+            
+            <p>サービスのインスタンスを作ってバインドした後、アプリケーションをサービスへ接続するよう設定する必要があります。</p>
+
+<h2><a id='cf-app-utils'></a>cf-app-utilsを使ったVCAP_SERVICESへのアクセス</h2>
+
+<p>アプリケーションからVCAP_SERVICES内の利用者情報を名前やタグやラベルで検索するためのgemが提供されています。</p>
+
+<ul>
+<li><a href="https://github.com/cloudfoundry/cf-app-utils-ruby">cf-app-utils-ruby</a></li>
+</ul>
+
+<h2><a id='auto-config'></a>Auto-configuration for Rails</h2>
+
+<p>Ruby on Railsアプリケーションは、環境変数<code>DATABASE_URL</code>内にリレーショナル・データベースの接続情報が格納されていることを期待している場合があります。これにはサービス・インスタンスの利用者情報のJSONオブジェクトの<code>uri</code>キーが含まれ、その値はスキームを示す<code>mysql</code>か<code>postgres</code>になります。ビルドパックは最初に見つけたものを使用します。</p>
+
+<h2><a id='config-file'></a>設定ファイルでコネクションを定義する</h2>
+
+<p>データベースを使うRubyアプリケーションでは、データベースへの接続は<code>database.yml</code>ファイルで設定します。サービスをアプリケーションへバインドする際、接続情報を環境変数<code>VCAP_SERVICES</code>へ書き込まれます。<code>VCAP_SERVICES</code>にはJSONフォーマットでバインドされているサービスの一覧と利用者情報が書きこまれています。</p>
+
+<p>Rubyでは、<code>VCAP_SERVICES</code>の内容に<code>ENV</code>でアクセスできます。 例:</p>
+<div class="highlight"><pre><span class="n">my_services</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;VCAP_SERVICES&#39;</span><span class="o">]</span><span class="p">)</span>
+</pre></div>
+<p><code>VCAP_SERVICES</code> JSONから資格情報を得るには、ハッシュのキーを必要とします。
+<code>cf services</code>でサービスの一覧とキーを見ることができます。</p>
+
+<p>例:</p>
+
+<pre class="terminal">
+  cf services
+  Getting services in production... OK
+
+  name           service           provider      version   plan     bound apps
+  myservice      elephantsql       elephantsql   n/a       turtle   myapp
+
+</pre>
+
+<p>ハッシュ・キーはサービス・プロヴァイダーとヴァージョンから作られます &mdash; 上で挙げた例では、プロヴァイダーが&quot;elephantsql&quot;でヴァージョンが&quot;n/a&quot;で、結果としてハッシュ・キーは&quot;elephantsql-n/a&quot;になります。</p>
+
+<p>資格情報を得るには以下のようにします:</p>
+<div class="highlight"><pre>  <span class="n">db</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;VCAP_SERVICES&#39;</span><span class="o">]</span><span class="p">)</span><span class="o">[</span><span class="s2">&quot;elephantsql-n/a&quot;</span><span class="o">]</span>
+  <span class="n">credentials</span> <span class="o">=</span> <span class="n">db</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s2">&quot;credentials&quot;</span><span class="o">]</span>
+  <span class="n">host</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;host&quot;</span><span class="o">]</span>
+  <span class="n">username</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;username&quot;</span><span class="o">]</span>
+  <span class="n">password</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;password&quot;</span><span class="o">]</span>
+  <span class="n">database</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;database&quot;</span><span class="o">]</span>
+  <span class="n">port</span> <span class="o">=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;port&quot;</span><span class="o">]</span>
+</pre></div>
+<p>Railsアプリケーションを設定するために、<code>database.yml</code>を変更することになります。VCAP_SERVICESからの資格情報を使って接続の設定をerbで記述すると以下のようにやります:</p>
+<div class="highlight"><pre><span class="cp">&lt;%</span>
+  <span class="n">mydb</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;VCAP_SERVICES&#39;</span><span class="o">]</span><span class="p">)</span><span class="o">[</span><span class="s2">&quot;elephantsql-n/a&quot;</span><span class="o">]</span>
+  <span class="n">credentials</span> <span class="o">=</span> <span class="n">mydb</span><span class="o">.</span><span class="n">first</span><span class="o">[</span><span class="s2">&quot;credentials&quot;</span><span class="o">]</span>
+<span class="cp">%&gt;</span><span class="x"></span>
+
+<span class="x">production:</span>
+<span class="x">  adapter: pg</span>
+<span class="x">  encoding: utf8</span>
+<span class="x">  reconnect: false</span>
+<span class="x">  pool: 5</span>
+<span class="x">  host: </span><span class="cp">&lt;%=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;host&quot;</span><span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  username: </span><span class="cp">&lt;%=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;username&quot;</span><span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  password: </span><span class="cp">&lt;%=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;password&quot;</span><span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  database: </span><span class="cp">&lt;%=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;database&quot;</span><span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
+<span class="x">  port: </span><span class="cp">&lt;%=</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;port&quot;</span><span class="o">]</span> <span class="cp">%&gt;</span><span class="x"></span>
+</pre></div>
+<p>Active Recordまたは他のORMを使わず、アダプタを直接記述する場合、コードは以下のようになります:</p>
+<div class="highlight"><pre><span class="n">mysqldb</span> <span class="o">=</span> <span class="no">JSON</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="no">ENV</span><span class="o">[</span><span class="s1">&#39;VCAP_SERVICES&#39;</span><span class="o">]</span><span class="p">)</span><span class="o">[</span><span class="s2">&quot;cleardb-n/a&quot;</span><span class="o">]</span>
+<span class="n">credentials</span> <span class="o">=</span> <span class="p">{</span>
+  <span class="ss">:host</span> <span class="o">=&gt;</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;host&quot;</span><span class="o">]</span><span class="p">,</span>
+  <span class="ss">:username</span> <span class="o">=&gt;</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;username&quot;</span><span class="o">]</span><span class="p">,</span>
+  <span class="ss">:password</span> <span class="o">=&gt;</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;password&quot;</span><span class="o">]</span><span class="p">,</span>
+  <span class="ss">:database</span> <span class="o">=&gt;</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;name&quot;</span><span class="o">]</span><span class="p">,</span>
+  <span class="ss">:port</span> <span class="o">=&gt;</span> <span class="n">credentials</span><span class="o">[</span><span class="s2">&quot;port&quot;</span><span class="o">]</span>
+<span class="p">}</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="ss">Mysql2</span><span class="p">:</span><span class="ss">:Client</span><span class="o">.</span><span class="n">new</span> <span class="n">credentials</span>
+</pre></div>
+<p>サービスのハッシュ・キーとデータベース・アダプタのシンタックスに応じて、コードは上の例から変わり得ます。</p>
+
+<h2><a id='migrate'></a>データベースのシードまたはマイグレート</h2>
+
+<p>データベースを使いはじめる前に、クリエイト、ポピュレート、マイグレートのどれかが必要です。詳しくは <a href="../deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a>をご覧ください。</p>
+
+<h2><a id='troubleshooting'></a>トラブルシューティング</h2>
+
+<p>サービスとの接続に問題がある場合、 <code>cf logs</code>コマンドでログ・メッセージとアプリケーションの環境変数を調べてください。<code>cf logs</code>コマンドの出力には環境変数VCAP_SERVICESの内容も含まれます。以下に例を示します:</p>
+
+<pre class="terminal">
+  $ cf logs myapp
+  Reading logs/console.log... OK
+  Starting console on port 64868...
+
+  Reading logs/env.log... OK
+  VCAP_SERVICES={
+    "elephantsql-n/a":[{
+      "name":"elephant-postgres",
+      "label":"elephantsql-n/a",
+      "plan":"turtle",
+      "credentials":{"uri":"postgres://username:password@server.example.com:5432/uniqid"}}]
+  }
+  ...more environment variables and values will show here...
+
+  Reading logs/staging_task.log... OK
+  ...output from the staging process displayed here...
+
+  Reading logs/console.log
+  ...output from running the application displayed here...
+  --
+</pre>
+
+<p>&ldquo;a fatal error has occurred. Please see the Bundler troubleshooting
+documentation&quot;が出力される場合、bundlerをヴァージョン・アップして<code>bundle install</code>を実行してください。</p>
+
+<pre class="terminal">
+  $ gem update bundler
+  $ gem update --system
+  $ bundle install
+</pre>
+
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

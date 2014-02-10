@@ -1,0 +1,513 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>BOSH Example Manifest</title>
+
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_running docs_running_deploying-cf docs_running_deploying-cf_vsphere docs_running_deploying-cf_vsphere_bosh-example-manifest">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Running Cloud Foundry</a></li> <li class=""><a href="../">Deploying Cloud Foundry with BOSH</a></li> <li class=""><a href="./">Deploying Cloud Foundry on vSphere</a></li> <li class="active"><span>BOSH Example Manifest</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"></div>
+
+              <h1>BOSH Example Manifest</h1>
+
+            
+            <p>This is an example manifest for deploying BOSH via Micro BOSH. The next step would be to deploy Cloud Foundry, which uses the <a href="cloud-foundry-example-manifest.html">Cloud Foundry Example Manifest</a>.</p>
+<div class="highlight"><pre><span class="o">---</span>
+<span class="n">name</span><span class="p">:</span> <span class="n">example1</span>
+<span class="n">director_uuid</span><span class="p">:</span> <span class="mi">729</span><span class="n">b6100</span><span class="o">-</span><span class="mi">4035</span><span class="o">-</span><span class="mi">4</span><span class="n">b35</span><span class="o">-</span><span class="n">ab9a</span><span class="o">-</span><span class="n">cf8299719fe3</span>
+<span class="n">release</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">bosh</span>
+  <span class="n">version</span><span class="p">:</span> <span class="mi">11</span> # <span class="n">change</span> <span class="n">this</span> <span class="n">when</span> <span class="n">the</span> <span class="n">version</span> <span class="n">of</span> <span class="n">BOSH</span> <span class="n">changes</span>
+
+<span class="n">networks</span><span class="p">:</span>
+# <span class="n">all</span> <span class="n">of</span> <span class="n">these</span> <span class="n">settings</span> <span class="n">depend</span> <span class="n">on</span> <span class="n">your</span> <span class="n">own</span> <span class="n">infrastructure</span> <span class="n">setup</span>
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">default</span>
+  <span class="n">subnets</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">range</span><span class="p">:</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">128.0</span><span class="o">/</span><span class="mi">21</span>
+    <span class="n">reserved</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">128.2</span> <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.47</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.64</span> <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">135.254</span>
+    <span class="n">static</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.48</span> <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.56</span>
+    <span class="n">gateway</span><span class="p">:</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">128.1</span>
+    <span class="n">dns</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.22</span><span class="p">.</span><span class="mf">22.153</span> # <span class="n">use</span> <span class="n">your</span> <span class="n">own</span> <span class="n">DNS</span> <span class="n">server</span> <span class="n">IP</span>
+    <span class="o">-</span> <span class="mf">172.22</span><span class="p">.</span><span class="mf">22.154</span> # <span class="n">here</span> <span class="n">too</span> <span class="p">:)</span>
+    <span class="n">cloud_properties</span><span class="p">:</span>
+      <span class="n">name</span><span class="p">:</span> <span class="n">VLAN1234</span> #<span class="n">the</span> <span class="n">VLAN</span> <span class="n">that</span> <span class="n">you</span> <span class="n">are</span> <span class="n">deploying</span> <span class="n">BOSH</span> <span class="n">to</span> <span class="o">-</span> <span class="n">provisioned</span> <span class="n">on</span> <span class="n">your</span> <span class="n">vCenter</span>
+
+<span class="n">resource_pools</span><span class="p">:</span>
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">small</span>
+  <span class="n">stemcell</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">bosh</span><span class="o">-</span><span class="n">stemcell</span>
+    <span class="n">version</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">.</span><span class="mi">7</span>
+  <span class="n">network</span><span class="p">:</span> <span class="n">default</span>
+  <span class="nb">size</span><span class="p">:</span> <span class="mi">5</span>
+  <span class="n">cloud_properties</span><span class="p">:</span>
+    <span class="n">ram</span><span class="p">:</span> <span class="mi">512</span>
+    <span class="n">disk</span><span class="p">:</span> <span class="mi">2048</span>
+    <span class="n">cpu</span><span class="p">:</span> <span class="mi">1</span>
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">director</span>
+  <span class="n">stemcell</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">bosh</span><span class="o">-</span><span class="n">stemcell</span>
+    <span class="n">version</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">.</span><span class="mi">7</span>
+  <span class="n">network</span><span class="p">:</span> <span class="n">default</span>
+  <span class="nb">size</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">cloud_properties</span><span class="p">:</span>
+    <span class="n">ram</span><span class="p">:</span> <span class="mi">2048</span>
+    <span class="n">disk</span><span class="p">:</span> <span class="mi">8192</span>
+    <span class="n">cpu</span><span class="p">:</span> <span class="mi">2</span>
+
+<span class="n">compilation</span><span class="p">:</span>
+  <span class="n">workers</span><span class="p">:</span> <span class="mi">6</span>
+  <span class="n">network</span><span class="p">:</span> <span class="n">default</span>
+  <span class="n">cloud_properties</span><span class="p">:</span>
+    <span class="n">ram</span><span class="p">:</span> <span class="mi">2048</span>
+    <span class="n">disk</span><span class="p">:</span> <span class="mi">4048</span>
+    <span class="n">cpu</span><span class="p">:</span> <span class="mi">4</span>
+
+<span class="n">update</span><span class="p">:</span>
+  <span class="n">canaries</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">canary_watch_time</span><span class="p">:</span> <span class="mi">60000</span>
+  <span class="n">update_watch_time</span><span class="p">:</span> <span class="mi">60000</span>
+  <span class="n">max_in_flight</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">max_errors</span><span class="p">:</span> <span class="mi">1</span>
+
+<span class="n">jobs</span><span class="p">:</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">nats</span>
+  <span class="n">template</span><span class="p">:</span> <span class="n">nats</span>
+  <span class="n">instances</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">resource_pool</span><span class="p">:</span> <span class="n">small</span>
+  <span class="n">networks</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">static_ips</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.49</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">postgres</span>
+  <span class="n">template</span><span class="p">:</span> <span class="n">postgres</span>
+  <span class="n">instances</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">resource_pool</span><span class="p">:</span> <span class="n">small</span>
+  <span class="n">persistent_disk</span><span class="p">:</span> <span class="mi">2048</span>
+  <span class="n">networks</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">static_ips</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.50</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">redis</span>
+  <span class="n">template</span><span class="p">:</span> <span class="n">redis</span>
+  <span class="n">instances</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">resource_pool</span><span class="p">:</span> <span class="n">small</span>
+  <span class="n">networks</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">static_ips</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.51</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">director</span>
+  <span class="n">template</span><span class="p">:</span> <span class="n">director</span>
+  <span class="n">instances</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">resource_pool</span><span class="p">:</span> <span class="n">director</span>
+  <span class="n">persistent_disk</span><span class="p">:</span> <span class="mi">2048</span>
+  <span class="n">networks</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">static_ips</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.52</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">blobstore</span>
+  <span class="n">template</span><span class="p">:</span> <span class="n">blobstore</span>
+  <span class="n">instances</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">resource_pool</span><span class="p">:</span> <span class="n">small</span>
+  <span class="n">persistent_disk</span><span class="p">:</span> <span class="mi">20480</span>
+  <span class="n">networks</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">static_ips</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.53</span>
+
+<span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">health_monitor</span>
+  <span class="n">template</span><span class="p">:</span> <span class="n">health_monitor</span>
+  <span class="n">instances</span><span class="p">:</span> <span class="mi">1</span>
+  <span class="n">resource_pool</span><span class="p">:</span> <span class="n">small</span>
+  <span class="n">networks</span><span class="p">:</span>
+  <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">static_ips</span><span class="p">:</span>
+    <span class="o">-</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.48</span>
+
+<span class="k">properties</span><span class="p">:</span>
+  <span class="n">env</span><span class="p">:</span>
+
+  <span class="n">blobstore</span><span class="p">:</span>
+    <span class="n">address</span><span class="p">:</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.53</span>
+    <span class="n">port</span><span class="p">:</span> <span class="mi">25251</span>
+    <span class="n">backend_port</span><span class="p">:</span> <span class="mi">25552</span>
+    <span class="n">agent</span><span class="p">:</span>
+      <span class="n">user</span><span class="p">:</span> <span class="n">agent</span> # <span class="n">this</span> <span class="n">creates</span> <span class="n">a</span> <span class="n">read</span> <span class="n">only</span> <span class="n">user</span> <span class="k">for</span> <span class="n">BOSH</span> <span class="n">agents</span>
+      <span class="n">password</span><span class="p">:</span> <span class="n">AgenT</span> # <span class="n">this</span> <span class="n">creates</span> <span class="n">a</span> <span class="n">password</span> <span class="k">for</span> <span class="n">BOSH</span> <span class="n">agents</span>
+    <span class="n">director</span><span class="p">:</span>
+      <span class="n">user</span><span class="p">:</span> <span class="n">director</span> # <span class="n">this</span> <span class="n">creates</span> <span class="n">a</span> <span class="n">read</span> <span class="o">/</span> <span class="n">write</span> <span class="n">user</span> <span class="k">for</span> <span class="n">the</span> <span class="n">BOSH</span> <span class="n">Director</span>
+      <span class="n">password</span><span class="p">:</span> <span class="n">DirectoR</span> # <span class="n">this</span> <span class="n">creates</span> <span class="n">a</span> <span class="n">password</span> <span class="n">BOSH</span> <span class="n">Director</span>
+
+  <span class="n">networks</span><span class="p">:</span>
+    <span class="n">apps</span><span class="p">:</span> <span class="n">default</span>
+    <span class="n">management</span><span class="p">:</span> <span class="n">default</span>
+
+  <span class="n">nats</span><span class="p">:</span>
+    <span class="n">user</span><span class="p">:</span> <span class="n">nats</span>
+    <span class="n">password</span><span class="p">:</span> <span class="n">your</span><span class="o">-</span><span class="n">nats</span><span class="o">-</span><span class="n">password</span>
+    <span class="n">address</span><span class="p">:</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.49</span>
+    <span class="n">port</span><span class="p">:</span> <span class="mi">4222</span>
+
+  <span class="n">postgres</span><span class="p">:</span>
+    <span class="n">user</span><span class="p">:</span> <span class="n">bosh</span>
+    <span class="n">password</span><span class="p">:</span> <span class="n">your</span><span class="o">-</span><span class="n">postgres</span><span class="o">-</span><span class="n">password</span>
+    <span class="n">address</span><span class="p">:</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.50</span>
+    <span class="n">port</span><span class="p">:</span> <span class="mi">5432</span>
+    <span class="n">database</span><span class="p">:</span> <span class="n">bosh</span>
+
+  <span class="n">redis</span><span class="p">:</span>
+    <span class="n">address</span><span class="p">:</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.51</span>
+    <span class="n">port</span><span class="p">:</span> <span class="mi">25255</span>
+    <span class="n">password</span><span class="p">:</span> <span class="n">your</span><span class="o">-</span><span class="n">redis</span><span class="o">-</span><span class="n">password</span>
+
+  <span class="n">director</span><span class="p">:</span>
+    <span class="n">name</span><span class="p">:</span> <span class="n">your</span><span class="o">-</span><span class="n">director</span>
+    <span class="n">address</span><span class="p">:</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">134.52</span>
+    <span class="n">port</span><span class="p">:</span> <span class="mi">25555</span>
+    <span class="n">encryption</span><span class="p">:</span> <span class="n">false</span>
+
+  <span class="n">hm</span><span class="p">:</span>
+    <span class="n">http</span><span class="p">:</span>
+      <span class="n">port</span><span class="p">:</span> <span class="mi">25923</span>
+      <span class="n">user</span><span class="p">:</span> <span class="n">admin</span> #<span class="n">can</span> <span class="n">be</span> <span class="n">whatever</span>
+      <span class="n">password</span><span class="p">:</span> <span class="n">admin</span> # <span class="n">can</span> <span class="n">be</span> <span class="n">whatever</span>
+    <span class="n">director_account</span><span class="p">:</span>
+      <span class="n">user</span><span class="p">:</span> <span class="n">admin</span> # <span class="n">can</span> <span class="n">be</span> <span class="n">whatever</span>
+      <span class="n">password</span><span class="p">:</span> <span class="n">admin</span> # <span class="n">can</span> <span class="n">be</span> <span class="n">whatever</span>
+    <span class="n">intervals</span><span class="p">:</span>
+      <span class="n">poll_director</span><span class="p">:</span> <span class="mi">60</span>
+      <span class="n">poll_grace_period</span><span class="p">:</span> <span class="mi">30</span>
+      <span class="n">log_stats</span><span class="p">:</span> <span class="mi">300</span>
+      <span class="n">analyze_agents</span><span class="p">:</span> <span class="mi">60</span>
+      <span class="n">agent_timeout</span><span class="p">:</span> <span class="mi">180</span>
+      <span class="n">rogue_agent_alert</span><span class="p">:</span> <span class="mi">180</span>
+    <span class="n">loglevel</span><span class="p">:</span> <span class="n">info</span>
+    <span class="n">email_notifications</span><span class="p">:</span> <span class="n">false</span> # <span class="k">if</span> <span class="n">this</span> <span class="n">is</span> <span class="n">false</span> <span class="n">you</span> <span class="n">don</span><span class="o">&#39;</span><span class="n">t</span> <span class="n">need</span> <span class="n">to</span> <span class="n">worry</span> <span class="n">about</span> <span class="n">the</span> <span class="n">smtp</span> <span class="n">section</span> <span class="n">below</span>
+    <span class="n">email_recipients</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">your</span><span class="o">-</span><span class="n">operations</span><span class="o">-</span><span class="n">team</span><span class="p">@</span><span class="n">your</span><span class="o">-</span><span class="n">company</span><span class="p">.</span><span class="n">com</span>
+    <span class="n">smtp</span><span class="p">:</span>
+      <span class="n">from</span><span class="p">:</span> <span class="n">bhm</span><span class="p">@</span><span class="n">yourdomain</span>
+      <span class="n">host</span><span class="p">:</span> <span class="n">smtp</span><span class="p">.</span><span class="n">your</span><span class="p">.</span><span class="n">domain</span>
+      <span class="n">port</span><span class="p">:</span> <span class="mi">25</span>
+      <span class="n">auth</span><span class="p">:</span> <span class="n">plain</span>
+      <span class="n">user</span><span class="p">:</span> <span class="n">your</span><span class="o">-</span><span class="n">smtp</span><span class="o">-</span><span class="n">user</span>
+      <span class="n">password</span><span class="p">:</span> <span class="n">your</span><span class="o">-</span><span class="n">smtp</span><span class="o">-</span><span class="n">password</span>
+      <span class="n">domain</span><span class="p">:</span> <span class="n">localdomain</span>
+    <span class="n">tsdb_enabled</span><span class="p">:</span> <span class="n">false</span> # <span class="n">it</span> <span class="n">this</span> <span class="n">is</span> <span class="n">false</span> <span class="n">you</span> <span class="n">don</span><span class="o">&#39;</span><span class="n">t</span> <span class="n">have</span> <span class="n">to</span> <span class="n">worry</span> <span class="n">about</span> <span class="n">the</span> <span class="n">tsdb</span> <span class="n">settings</span><span class="p">.</span> <span class="n">Plus</span> <span class="n">you</span> <span class="n">can</span><span class="o">&#39;</span><span class="n">t</span> <span class="n">set</span> <span class="n">it</span> <span class="n">to</span> <span class="n">true</span> <span class="n">until</span> <span class="n">you</span> <span class="n">have</span> <span class="n">a</span> <span class="n">complete</span> <span class="n">Cloud</span> <span class="n">Foundry</span> <span class="n">running</span><span class="p">.</span>
+    <span class="n">tsdb</span><span class="p">:</span>
+      <span class="n">address</span><span class="p">:</span> <span class="mf">172.20</span><span class="p">.</span><span class="mf">218.14</span> # <span class="n">opentsdb</span> <span class="n">static</span> <span class="n">IP</span> <span class="n">from</span> <span class="n">your</span> <span class="n">Cloud</span> <span class="n">Foundry</span> <span class="n">deploy</span> <span class="p">(</span><span class="n">optional</span><span class="p">)</span>
+      <span class="n">port</span><span class="p">:</span> <span class="mi">4242</span>
+
+  <span class="n">vcenter</span><span class="p">:</span> # <span class="n">must</span> <span class="n">match</span> <span class="n">your</span> <span class="n">vCenter</span> <span class="n">info</span>
+    <span class="n">address</span><span class="p">:</span> <span class="n">vcenter</span><span class="p">.</span><span class="n">your</span><span class="p">.</span><span class="n">domain</span> # <span class="n">IP</span> <span class="n">or</span> <span class="n">FQDN</span> <span class="n">of</span> <span class="n">vCenter</span>
+    <span class="n">user</span><span class="p">:</span> <span class="n">domain</span><span class="o">\</span><span class="n">bosh</span><span class="o">-</span><span class="n">user</span> # <span class="n">user</span> <span class="n">name</span> <span class="n">provisioned</span> <span class="k">for</span> <span class="n">BOSH</span>
+    <span class="n">password</span><span class="p">:</span> <span class="n">bosh</span><span class="o">-</span><span class="n">password</span> # <span class="n">passowrd</span> <span class="k">for</span> <span class="n">BOSH</span>
+    <span class="n">datacenters</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">CF</span>
+        <span class="n">vm_folder</span><span class="p">:</span> <span class="n">CF_VMs</span>
+        <span class="n">template_folder</span><span class="p">:</span> <span class="n">CF_Templates</span>
+        <span class="n">disk_path</span><span class="p">:</span> <span class="n">CF_Disks</span>
+        <span class="n">datastore_pattern</span><span class="p">:</span> <span class="n">datastore</span><span class="o">.*</span>
+        <span class="n">persistent_datastore_pattern</span><span class="p">:</span> <span class="n">datastore</span><span class="o">.*</span>
+        <span class="n">allow_mixed_datastores</span><span class="p">:</span> <span class="n">true</span>
+        <span class="n">clusters</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">BOSH_Cluster</span><span class="p">:</span>
+            <span class="n">resource_pool</span><span class="p">:</span> <span class="n">CloudFoundry</span>
+</pre></div>
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

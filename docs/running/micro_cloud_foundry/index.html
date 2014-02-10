@@ -1,0 +1,737 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Micro Cloud Foundry</title>
+
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_running docs_running_micro_cloud_foundry docs_running_micro_cloud_foundry_index">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Running Cloud Foundry</a></li> <li class="active"><span>Micro Cloud Foundry</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"><ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#installation">Installation</a></li>
+<li><a href="#using-mcf">Using Micro Cloud Foundry</a></li>
+<li><a href="#mcf-default-config">Micro Cloud Foundry Default Configuration</a>
+
+<ul>
+<li><a href="#vm-config">Virtual Machine Configuration</a></li>
+<li><a href="#service-limits">Service Limits</a></li>
+<li><a href="#runtime-versions">Runtime Versions</a></li>
+<li><a href="#frameworks">Frameworks</a></li>
+<li><a href="#service-versions">Service Versions</a></li>
+</ul></li>
+<li><a href="#using-mcf-console">Using the Micro Cloud Foundry Console</a></li>
+<li><a href="#mcf-resource-limits">Micro Cloud Foundry Resource Limits</a></li>
+<li><a href="#increasing-vm-memory">Increasing Micro Cloud Foundry Virtual Machine Memory</a></li>
+<li><a href="#switching-networks">Switching between Networks</a></li>
+<li><a href="#logging-in-to-mcf">Logging in to Micro Cloud Foundry</a></li>
+<li><a href="#working-offline">Working Offline With Micro Cloud Foundry</a>
+
+<ul>
+<li><a href="#configuring-for-offline">Configuring Micro Cloud Foundry for Offline Mode</a></li>
+<li><a href="#offline-linux">Linux</a></li>
+<li><a href="#offline-osx">Mac OS X</a></li>
+<li><a href="#offline-windows">Windows</a></li>
+</ul></li>
+<li><a href="#using-the-cf-micro-command">Using the CF Micro Commands</a></li>
+<li><a href="#troubleshooting">Troubleshooting Micro Cloud Foundry</a>
+
+<ul>
+<li><a href="#gathering-dubug-info">Gathering Debugging Info</a></li>
+<li><a href="#proxy-problems">Proxy Problems</a></li>
+<li><a href="#access-problems">Problems Accessing Your Instance</a></li>
+</ul></li>
+</ul>
+</div>
+
+              <h1>Micro Cloud Foundry</h1>
+
+            
+            <p><strong>Note: Micro Cloud Foundry is currently only available on Cloud Foundry v1. If you are using v2, try Altoros vagrant or Nise BOSH.</strong></p>
+
+<ul>
+<li><a href="developing_cf.html">Developing Cloud Foundry with Micro Cloud Foundry</a></li>
+</ul>
+
+<h2><a id='intro'></a>Introduction</h2>
+
+<p>Micro Cloud Foundry is your own portable instance of Cloud Foundry, delivered as a virtual machine image for use with VMWare Workstation, Player or Fusion.</p>
+
+<h2><a id='installation'></a>Installation</h2>
+
+<p>A prerequisite to running Micro Cloud Foundry is either VMWare Workstation, VMWare Player or VMWare Fusion, make sure you have one of these installed. Log in to <a href="https://micro.cloudfoundry.com/">https://micro.cloudfoundry.com/</a> with your Cloud Foundry credentials, after clicking the &ldquo;Get Micro Cloud Foundry&rdquo; button. If you don&#39;t have an account yet, sign up <a href="https://my.cloudfoundry.com/signup">here</a>.</p>
+
+<p>Generate a domain token and then download the latest version of MCF. The download should be a zip file, decompress the archive to your prefered location and then open the .vmx file in your chosen virtual machine client. Start the virtual machine, once you have agreed to the terms of service select option one to configure.</p>
+
+<p>The first thing to configure is the &#39;vcap&#39; user password, this is the account used to run all the services on the VM. Next, select the network configuration type; DHCP or static. In most cases, DHCP is most appropriate, although you may wish to configure a static IP address in the absence of a DHCP service on your network. If an http proxy is also in use on the network, configure it at this point also.</p>
+
+<p>At this point, MCF will ask for a domain configuration token. You can generate these at the <a href="https://micro.cloudfoundry.com/dns">MCF DNS configuration</a> page, once you have one for your desired domain name, enter it at the prompt. MCF should then proceed through the configuration stage, this can take up to five minutes.</p>
+
+<h2><a id='using-mcf'></a>Using Micro Cloud Foundry</h2>
+
+<p>Once this is installed the VM should display the main menu for MCF, note the &ldquo;Current Configuration&rdquo; section at the top. With CF installed, target the MCF installation using the address displayed in the VM console;</p>
+
+<pre class="terminal">
+$ cf target http://api.<mcf domain name>.cloudfoundry.me
+Setting target to http://api.<mcf domain name>.cloudfoundry.me... OK
+</pre>
+
+<p>Now register the admin account, the email address assigned as the admin account should also be displayed in the &ldquo;Current Configuration&rdquo; section;</p>
+
+<pre class="terminal">
+$ cf register <admin email>
+
+Password> ********
+
+Confirm Password> ********
+
+Your password strength is: good
+Creating user... OK
+
+</pre>
+
+<p>Creating this user first ensures an account with administrative priveleges on this instance of Micro Cloud Foundry. That account can proxy as other users and also manage users too.</p>
+
+<h2><a id='mcf-default-config'></a>Micro Cloud Foundry Default Configuration</h2>
+
+<p>This section describes the default configuration of the latest Micro Cloud Foundry.</p>
+
+<h3><a id='vm-config'></a>Virtual Machine Configuration</h3>
+
+<table>
+  <tr><th>RAM</th><th>Disk</th><th>vCPUs</th></tr>
+  <tr><td>2Gb</td><td>16Gb</td><td>2</td></tr>
+</table>
+
+<h3><a id='service-limits'></a>Service Limits</h3>
+
+<table>
+  <tr><th>MySQL</th><th>Postgres</th><th>Mongo</th><th>Redis</th></tr>
+  <tr><td>2Gb storage, 256Mb max per instance</td>
+    <td>2Gb storage, 256Mb max per instance</td>
+    <td>256Mb max per instance</td><td>256Mb max per instance</td></tr>
+</table>
+
+<h3><a id='runtime-versions'></a>Runtime Versions</h3>
+
+<table>
+  <tr><th>Runtime</th><th>Version</th></tr>
+  <tr><td>java</td><td>1.6.0_24</td></tr>
+  <tr><td>java7</td><td>1.7.0_04</td></tr>
+  <tr><td>node</td><td>0.4.12</td></tr>
+  <tr><td>node06</td><td>0.6.8</td></tr>
+  <tr><td>node08</td><td>0.8.2</td></tr>
+  <tr><td>ruby18</td><td>1.8.7p357</td></tr>
+  <tr><td>ruby19</td><td>1.9.2p180</td></tr>
+</table>
+
+<h3><a id='frameworks'></a>Frameworks</h3>
+
+<table>
+  <tr><th>Framework</th></tr>
+  <tr><td>grails</td></tr>
+  <tr><td>java_web</td></tr>
+  <tr><td>lift</td></tr>
+  <tr><td>node</td></tr>
+  <tr><td>play</td></tr>
+  <tr><td>rack</td></tr>
+  <tr><td>rails3</td></tr>
+  <tr><td>sinatra</td></tr>
+  <tr><td>spring</td></tr>
+  <tr><td>standalone</td></tr>
+</table>
+
+<h3><a id='service-versions'></a>Service Versions</h3>
+
+<table>
+  <tr><th>Service</th><th>Version</th></tr>
+  <tr><td>mongodb</td><td>2.0</td></tr>
+  <tr><td>mysql</td><td>5.1</td></tr>
+  <tr><td>postgresql</td><td>9.0</td></tr>
+  <tr><td>rabbitmq</td><td>2.4</td></tr>
+  <tr><td>redis</td><td>2.2</td></tr>
+</table>
+
+<h2><a id='using-mcf-console'></a>Using the Micro Cloud Foundry Console</h2>
+
+<p>When you power on the Micro Cloud Foundry virtual machine, Linux boots and the
+console text menu displays. The console menu is the primary administrative
+interface for the micro cloud.</p>
+
+<p>The console displays status information at the top, including the Micro Cloud
+Foundry version, the host name (Identity), Cloud Foundry account email address (Admin),
+and the IP address assigned to the virtual machine.</p>
+
+<p>Choose options from the menu by entering the number and pressing <Enter>. The
+console prompts for any information required to perform the task.</p>
+
+<ol>
+<li><p><strong>refresh console</strong>. Choose this option to redraw the console display, for
+example when messages cause the menu to scroll off the display.</p></li>
+<li><p><strong>refresh DNS</strong>. Update the Micro Cloud Foundry IP address in the DNS
+records.</p></li>
+<li><p><strong>reconfigure vcap password</strong>. Choose this option to change the password for the <code>root</code> and <code>vcap</code> users.</p></li>
+<li><p><strong>reconfigure domain</strong>. Choose this option when you create a new domain or
+generate a new token for your Micro Cloud Foundry domain. Log in to the <a href="https://my.cloudfoundry.com/micro">Micro
+Cloud Foundry website</a> to manage domains and
+retrieve a token to enter at the prompt.</p></li>
+<li><p><strong>reconfigure network</strong>. Use this option to choose between DHCP and static
+network configurations. If you choose <strong>static</strong>, the console prompts for an IP
+address, gateway, network mask, and DNS servers.</p></li>
+<li><p><strong>enable offline mode</strong>. Choose this option to toggle the virtual machine between online and offline modes.</p></li>
+<li><p><strong>reconfigure proxy</strong>. If you are on a network that requires a proxy, choose
+this option and enter the address and port of the proxy, for example: <code>192.168.1.128:4000</code>.</p></li>
+<li><p><strong>services</strong>. Displays the status of the services on the micro cloud.</p></li>
+<li><p><strong>restart network</strong>. Restart network services on the virtual machine.</p></li>
+<li><p><strong>restore defaults</strong>.</p></li>
+<li><p><strong>expert menu</strong>. Displays the Expert menu, where you can set the debug level, display logs, and perform other advanced configurations on your Micro Cloud Foundry.</p></li>
+<li><p><strong>Help</strong>. Displays a URL for online installation and setup documentation and
+the default configuration limits for the virtual machine and services.</p></li>
+<li><p><strong>shutdown VM</strong>. Shut down the Micro Cloud Foundry virtual machine.</p></li>
+</ol>
+
+<h2><a id='mcf-resource-limits'></a>Micro Cloud Foundry Resource Limits</h2>
+
+<p>Micro Cloud Foundry has the following default resource limits:</p>
+
+<ul>
+<li>VM: 2 GB RAM, 16 GB disk</li>
+<li>MySQL: 2 GB disk, max 256 MB per instance</li>
+<li>MongoDB: 256 MB per instance</li>
+<li>Redis: 256 MB per instance</li>
+</ul>
+
+<p>The admin user has the following limits:</p>
+
+<ul>
+<li>2 GB memory</li>
+<li>Up to 16 provisioned services</li>
+<li>Up to 16 applications</li>
+</ul>
+
+<h2><a id='increasing-vm-memory'></a>Increasing Micro Cloud Foundry Virtual Machine Memory</h2>
+
+<p>The Micro Cloud Foundry virtual machine is initially configured with 2GB memory.
+If you need more memory for your applications, follow these steps:</p>
+
+<ol>
+<li><p>Shut down the Micro Cloud Foundry virtual machine.</p></li>
+<li><p>In VMware Workstation for VMware Player, right-click the Micro Cloud Foundry virtual machine, and choose Settings.</p></li>
+<li><p>Click Memory and specify the new memory size in the right panel.</p></li>
+<li><p>Click OK.</p></li>
+<li><p>Start the virtual machine.</p></li>
+<li><p>Select the new highlighted item, <strong>reconfigure memory</strong> from the console menu.</p></li>
+</ol>
+
+<p>The Micro Cloud Foundry reconfigures the virtual machine and services for the new memory size.</p>
+
+<h2><a id='switching-networks'></a>Switching between Networks</h2>
+
+<p>If you switch between networks often and do not need to make your Micro Cloud Foundry VM available to other users, it is easier to configure the VM networking to use NAT instead of the bridged mode. Beginning with version 1.2, NAT is the default mode for the Micro Cloud Foundry VM. If you want to share your cloud with others, you will have to enable bridged mode.</p>
+
+<h2><a id='logging-in-to-mcf'></a>Logging in to Micro Cloud Foundry</h2>
+
+<p>Micro Cloud Foundry is a virtual machine with an Ubuntu Linux operating system
+and the Cloud Foundry software layer and application services. There is no
+graphical desktop environment installed, but you can log in to the virtual
+machine and get a bash shell using <code>ssh</code>.</p>
+
+<p>It is not a good idea to customize the Cloud Foundry services in any way, since
+this introduces a dependency that may not be satisfied when you move
+applications to another Cloud Foundry instance.</p>
+
+<p>Some reasons you might log in to Micro Cloud Foundry are:</p>
+
+<ul>
+<li>  View server log files</li>
+<li>  Check process status or loads, for example, using <code>top</code></li>
+<li>  Troubleshoot DNS problems on your local network</li>
+</ul>
+
+<p>You can log in as <code>root</code> or <code>vcap</code> using the password you set when you initially
+start and configure the Micro Cloud Foundry virtual machine.</p>
+
+<p>From a computer with <code>ssh</code> installed, log in to Micro Cloud foundry using a
+command like the following:</p>
+
+<pre class="terminal">
+$ssh vcap@domain.cloudfoundry.me
+</pre>
+
+<p>where <em>domain</em> is the domain name you registered for the Micro Cloud Foundry.
+You can also use the IP address assigned to the virtual machine, which is
+displayed on the console. The password for the vcap user is the one that was set during the configuration procedure.</p>
+
+<h2>Configuring Micro Cloud Foundry Networking</h2>
+
+<p>Micro Cloud Foundry provides a network environment similar to Cloud Foundry.
+URLs are resolved using DNS to locate the host computer running
+your application, the Micro Cloud Foundry virtual machine. The application
+processes the request, including parsing the remainder of the URL and the HTTP
+request and returning a response to the client. The client browser and
+application interact with the network in exactly the same way they do in
+production, except the cloud is running on the same host.</p>
+
+<p>Development and deployment tools - <code>cf</code> and STS - also work with Micro Cloud
+Foundry just as they work with CloudFoundry.com or any local or hosted Cloud
+Foundry instance.</p>
+
+<p>To provide a production-like network environment, Micro Cloud Foundry associates
+the virtual machine&#39;s IP address with <em>domain</em>.cloudfoundry.me in DNS. This
+requires an Internet connection so that Micro Cloud Foundry can update its
+address at <code>cloudfoundry.me</code> and so that the URL can be resolved when you access
+the application with your browser. When the virtual machine is assigned a new IP
+address, for example if you move to a different location, it updates the DNS
+records.</p>
+
+<p>If your browser uses a proxy and the DNS lookup is not working, you may have to
+exclude <code>.cloudfoundry.me</code> from the proxy.</p>
+
+<p>The way you configure the network adaptor in the Micro Cloud Foundry virtual
+machine determines who can reach your micro cloud:</p>
+
+<ul>
+<li><p>If you choose the Bridged network connection option, your micro cloud gets an
+address on the LAN from a DHCP server on the LAN. It can be accessed from other
+hosts on the LAN.</p></li>
+<li><p>If you choose the NAT network connection option, your micro cloud gets an
+address on a network that exists only on the host running the virtual machine.
+Your cloud can only be accessed from a browser on the host running the virtual
+machine.</p></li>
+</ul>
+
+<p>Unlike the Bridged network option, with the NAT connection option, you do not
+get a new address when you change locations. If you are not sharing your micro
+cloud with others and you move around frequently, use the NAT option to avoid
+the possibility of lagging DNS updates.</p>
+
+<h2><a id='working-offline'></a>Working Offline With Micro Cloud Foundry</h2>
+
+<p>When you install Micro Cloud Foundry using a token from the Cloud Foundry website, it uses dynamic DNS functionality to allow any Internet-connected computer that is on the same network with the VM to connect to it. That is, to get the local network address for the VM requires Internet access, even if you are accessing the VM from the same computer on which it is running. This is called online mode and it requires Internet access.</p>
+
+<p>If you have to work without an Internet connection, you must put Micro Cloud Foundry into offline mode and configure your host to route DNS requests to your Micro Cloud Foundry VM. Also, if you initially configure Micro Cloud Foundry with a domain name instead of a configuration token, you must <em>always</em> use offline mode.</p>
+
+<p>Offline mode is only supported with the VM network adapter set to NAT. This means it can only be accessed from the host it is running on. To share your Micro Cloud Foundry with others, you must set the network adapter to Bridged mode and run Micro Cloud Foundry in online mode.</p>
+
+<p>If you use Micro Cloud Foundry in offline mode and still have an active Internet connection, you may experience problems accessing sites on the Internet.</p>
+
+<h3><a id='configuring-for-offline'></a>Configuring Micro Cloud Foundry for Offline Mode</h3>
+
+<p>You can configure offline mode manually or use the <code>cf micro-offline /home/mcf/micro.vmx</code> command. See <a href="#using-the-cf-micro-command">Using the CF micro Commands</a> for instructions.</p>
+
+<p>The remainder of this section describes how to configure offline mode manually.</p>
+
+<p>There are three tasks to complete to put Cloud Foundry in offline mode.</p>
+
+<p><strong>Step 1</strong>. In the VM&#39;s Virtual Machine Settings, select Network Adapter and make sure that NAT is selected. If you have to change the setting, restart the virtual machine.</p>
+
+<p><strong>Step 2</strong>. In the Micro Cloud Foundry console menu, select option 6 to toggle to offline mode.</p>
+
+<p><strong>Step 3</strong>. Configure your host computer to route DNS requests to the Micro Cloud Foundry VM. This is accomplished in differing ways depending on the OS and whether you use DHCP or a static IP address.  In the instructions that follow, replace the IP number 172.16.52.136 with the IP number shown on the Micro Cloud Foundry console. Replace mydomain.micro with your offline domain name.</p>
+
+<h3><a id='offline-linux'></a>Linux</h3>
+
+<p>If you are using DHCP, edit the file <code>/etc/dhcp3/dhclient.conf</code> and add this line:</p>
+<div class="highlight"><pre>prepend domain-name-servers 172.16.52.136
+</pre></div>
+<p>If the VM is configured with a static IP, edit the file <code>/etc/resolv.conf</code> and add the following line before the rest of the name servers:</p>
+<div class="highlight"><pre>nameserver 172.16.52.136
+</pre></div>
+<h3><a id='offline-osx'></a>Mac OS X</h3>
+
+<p>If you are using DHCP, create the directory <code>/etc/resolver</code>, and then create a file with your offline domain name, for example <code>mydomain.micro</code>. Add the following line to this file:</p>
+<div class="highlight"><pre>nameserver 172.16.52.136
+</pre></div>
+<p>If you configured the Micro Cloud Foundry with a static IP, open the Network Preferences and add 172.16.52.136 first in the list of DNS servers.</p>
+
+<h3><a id='offline-windows'></a>Windows</h3>
+
+<p>Follow these steps  whether you configured Micro Cloud Foundry with DHCP or a static IP address:</p>
+
+<ul>
+<li>Open the Network and Sharing control panel.</li>
+<li>Choose Change adapter settings.</li>
+<li>Right-click VMware Virtual Ethernet Adapter for VMnet8, and choose Properties.</li>
+<li>Set the preferred DNS server to 172.16.52.136.</li>
+</ul>
+
+<h2><a id='using-the-cf-micro-command'></a>Using the CF Micro Commands</h2>
+
+<p>The <code>cf micro-status</code>, <code>cf micro-online</code> and <code>cf micro-offline</code> commands automate the steps described in the previous section. Review that section to understand how the command changes your configuration.</p>
+
+<p>Install the cf gem, or upgrade it if needed. See <a href="/docs/using/managing-apps/cf/">CF Installation</a> for instructions.</p>
+<div class="highlight"><pre>Usage: 
+
+micro-status  VMX <span class="o">[</span>PASSWORD<span class="o">]</span>   Display Micro Cloud Foundry VM status
+micro-offline VMX <span class="o">[</span>PASSWORD<span class="o">]</span>   Micro Cloud Foundry offline mode
+micro-online  VMX <span class="o">[</span>PASSWORD<span class="o">]</span>   Micro Cloud Foundry online mode
+
+Options:
+      --password PASSWORD    Cleartext password <span class="k">for </span>guest VM vcap user
+      --vmx VMX              Path to micro.vmx
+</pre></div>
+<p>To reconfigure and control the virtual machine, cf needs paths to the .vmx file.</p>
+
+<p>In the following example, the path to the micro.vmx file is specified. <code>cf</code> discovers that the VM is not running and offers to start it.</p>
+<div class="highlight"><pre><span class="nv">$ </span>cf micro-status micro.vmx
+Please enter your MCF VM password <span class="o">(</span>vcap user<span class="o">)</span> password&gt; *************
+MCF VM is not running. Do you want to start it?&gt; yes
+Starting MCF VM... OK
+Micro Cloud Foundry VM currently in offline mode
+VMX Path: /home/mcf/micro.vmx
+Domain: mydomain.cloudfoundry.me
+IP Address: 192.168.255.134
+</pre></div>
+<p>Execute <code>cf micro-offline</code> to work offline.</p>
+<div class="highlight"><pre><span class="nv">$ </span>cf micro-offline /home/mcf/micro.vmx
+</pre></div>
+<p>This puts the VM in offline mode (the same as selecting option 6 from the menu) and sets the DNS on your host to query the VM. For actions that require administrative or root privilege, you may be prompted to authenticate.</p>
+
+<p>Execute <code>cf micro-online</code> to work online.</p>
+<div class="highlight"><pre><span class="nv">$ </span>cf micro-online /home/mcf/micro.vmx
+</pre></div>
+<p>This puts the VM in online mode and reverses the DNS configuration change on your host computer. For actions that require administrative or root privilege, you may be prompted to authenticate.</p>
+
+<h2><a id='troubleshooting'></a>Troubleshooting Micro Cloud Foundry</h2>
+
+<h3><a id='gathering-dubug-info'></a>Gathering Debugging Info</h3>
+
+<p>If you encounter problems and need help debugging, please do the following:</p>
+
+<ol>
+<li><p>In the Micro Cloud Foundry console menu, enter 11 to display the Expert menu.</p></li>
+<li><p>Enter 1 to set the debug level to DEBUG.</p></li>
+<li><p>Retrieve the <code>/var/vcap/sys/log/micro/micro.log</code> file from the VM and attach it to the support ticket. To retrieve the file, log into the VM as vcap, using the password set when the VM was configured. For example, using scp and the IP address shown on the console:</p></li>
+</ol>
+<div class="highlight"><pre><span class="nv">$ </span>scp vcap@92.168.1.215:/var/vcap/sys/log/micro/micro.log .
+</pre></div>
+<h3><a id='proxy-problems'></a>Proxy Problems</h3>
+
+<p>If you use a proxy, keep in mind that the proxy may not be able to access your Micro Cloud Foundry VM. For example, if you set the VM&#39;s network adaptor to use NAT, there is no way for the proxy to find the VM, so you must exclude your domain system&#39;s proxy settings.</p>
+
+<p>Another proxy related problem occurs when the VM&#39;s network adaptor uses bridged mode and you have a VPN on your host. The Micro Cloud Foundry VM traffic won&#39;t enter the tunnel, and thus cannot reach the proxy.</p>
+
+<h3><a id='access-problems'></a>Problems Accessing Your Instance</h3>
+
+<p>If the DNS entry for your Micro Cloud Foundry VM is not up-to-date, accessing your instance can fail. For example:</p>
+<div class="highlight"><pre><span class="nv">$ </span>cf target api.martin.cloudfoundry.me
+Host is not valid: <span class="s1">&#39;http://api.martin.cloudfoundry.me&#39;</span>
+Would you like see the response <span class="o">[</span>yN<span class="o">]</span>? y
+HTTP exception: Errno::ETIMEDOUT:Operation timed out - connect<span class="o">(</span>2<span class="o">)</span>
+</pre></div>
+<p>Check the Micro Cloud Foundry console. Choose &ldquo;1&rdquo; to refresh the screen. If you see a &ldquo;DNS out of sync&rdquo; message like the following:</p>
+<div class="highlight"><pre>Current Configuration:
+ Identity:   martin.cloudfoundry.me <span class="o">(</span>DNS out of sync<span class="o">)</span>
+ Admin:      martin@englund.nu
+ IP Address: 10.21.164.29 <span class="o">(</span>network up<span class="o">)</span>
+</pre></div>
+<p>choose &ldquo;2&rdquo; to force a DNS update.</p>
+
+<p>If the console DNS status is &ldquo;ok&rdquo;, then the IP address of the VM matches the IP in DNS. Validate that you do not have a cached entry on your local system with the host command:</p>
+<div class="highlight"><pre><span class="nv">$ </span>host api.martin.cloudfoundry.me
+api.martin.cloudfoundry.me is an <span class="nb">alias </span><span class="k">for </span>martin.cloudfoundry.me.
+martin.cloudfoundry.me has address 10.21.165.53
+</pre></div>
+<p>If the two differ, then you need to flush the DNS cache:</p>
+
+<p><strong>Mac OS X</strong></p>
+<div class="highlight"><pre>dscacheutil -flushcache
+</pre></div>
+<p><strong>Linux (Ubuntu)</strong></p>
+<div class="highlight"><pre>sudo /etc/init.d/nscd restart
+</pre></div>
+<p><strong>Windows</strong></p>
+<div class="highlight"><pre>ipconfig /flushdns
+</pre></div>
+<h3><a id='cannot-connect'></a>&ldquo;Cannot connect to cloudfoundry.com&rdquo; Message When Configuring Micro Cloud VM</h3>
+
+<p>When you configure the Micro Cloud VM to use DHCP it is assigned an address from the network&#39;s DHCP pool. If you continuously create/destroy VMs, for example in a testing environment, and your DHCP addresses have a lease life of 12 to 24 hours, it is possible to exhaust the DHCP pool. You will see a message during the configuration process that you cannot connect to cloudfoundry.com, although you are able to reach cloudfoundry.com with a browser. Restarting your DHCP server should return unused leases to the pool so they can be reused before the lease life expires.</p>
+
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

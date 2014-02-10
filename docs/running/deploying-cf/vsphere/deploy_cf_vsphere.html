@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Deploying Cloud Foundry with BOSH</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_running docs_running_deploying-cf docs_running_deploying-cf_vsphere docs_running_deploying-cf_vsphere_deploy_cf_vsphere">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,228 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../../">Running Cloud Foundry</a></li> <li class=""><a href="../">Deploying Cloud Foundry with BOSH</a></li> <li class=""><a href="./">Deploying Cloud Foundry on vSphere</a></li> <li class="active"><span>Deploying Cloud Foundry with BOSH</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
-
- <hr>
-
+              <div class="quick-links"><ul>
+<li><a href="#prerequisites">Prerequisites</a></li>
+<li><a href="#target">Target New BOSH Director</a></li>
+<li><a href="#upload-stemcell">Upload a Stemcell</a></li>
+<li><a href="#get-release">Get a Cloud Release</a></li>
+<li><a href="#create-manifest">Create a Cloud Deployment Manifest</a></li>
+<li><a href="#deploy">Deploy Cloud Foundry</a></li>
+<li><a href="#verfy">Verify the Deployment</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>Deploying Cloud Foundry with BOSH</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <p>This guide describes the process for deploying Cloud Foundry to a vSphere environment using BOSH.</p>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<h2><a id="prerequisites"></a>Prerequisites</h2>
 
-  <hr>
-  <p>Application Deployment<br>
+<ul>
+<li>BOSH should be deployed. See the steps in the <a href="deploying_bosh_with_micro_bosh.html">previous section</a>.</li>
+</ul>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<h2><a id="target"></a>Target New BOSH Director</h2>
 
-  </p>
-  <hr>
+<p>Target the Director of the deployed BOSH using <code>bosh target</code> and the IP address of the Director.</p>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<pre class='terminal'>
+$ bosh target 172.20.134.52
+$ bosh status
+Updating director data... done
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+Director
+  Name      your-director
+  URL       http://172.20.134.52:25555
+  Version   0.7 (release:fb1aebb0 bosh:20f2ca20)
+  User      admin
+  UUID      2250612f-f0e4-41b3-b1b2-3d730e9011a7
+  CPI       vsphere
+  dns       disabled
+
+Deployment
+  not set
+</pre>
+
+<h2><a id="upload-stemcell"></a>Upload a Stemcell</h2>
+
+<p>The Director needs a stemcell in order to deploy Cloud Foundry. Use the existing public stemcell in your <code>~/stemcells</code> directory. Do not use the Micro BOSH stemcell.</p>
+
+<pre class="terminal">
+$ bosh upload stemcell ~/stemcells/bosh-stemcell-vsphere-0.6.7.tgz
+Verifying stemcell...
+File exists and readable                                     OK
+Using cached manifest...
+Stemcell properties                                          OK
+
+Stemcell info
+-------------
+Name:    bosh-stemcell
+Version: 0.6.7
+
+Checking if stemcell already exists...
+No
+
+Uploading stemcell...
+bosh-stemcell: 100% |ooooooooooooooooooooooooooooooooooooooo| 277.1MB  78.8MB/s         Time: 00:00:03
+
+Director task 1
+
+Update stemcell
+extracting stemcell archive (00:00:06)
+verifying stemcell manifest (00:00:00)
+checking if this stemcell already exists (00:00:00)
+uploading stemcell bosh-stemcell/0.6.4 to the cloud (00:01:08)
+save stemcell: bosh-stemcell/0.6.4 (sc-a85ab3dc-8d3d-4228-83d0-5be2436a1886) (00:00:00)
+Done                    5/5 00:01:14
+Task 1 done
+Started     2012-09-26 10:14:26 UTC
+Finished    2012-09-26 10:15:40 UTC
+Duration    00:01:14
+
+Stemcell uploaded and created
+</pre>
+
+<h2><a id="get-release"></a>Get a Cloud Release</h2>
+
+<p>For this exercise, we&#39;ll use a release from the public repository:</p>
+
+<pre class="terminal">
+$ git clone git@github.com:cloudfoundry/cf-release.git
+$ cd cf-release
+$ bosh upload release releases/appcloud-129.yml # use the highest number available - inspecting the files in this directory
+</pre>
+
+<p>You&#39;ll see a flurry of output as BOSH configures and uploads release components.</p>
+
+<!---  Gabi and Matt stopped here until Monday :) -->
+
+<h2><a id="create-manifest"></a>Create a Cloud Deployment Manifest</h2>
+
+<p>For the purpose of this tutorial, we&#39;ll use a sample <a href="https://github.com/cloudfoundry/oss-docs/blob/master/bosh/samples/cloudfoundry.yml">deployment manifest</a>.</p>
+
+<p>Keep in mind that a manifest of this size requires significant virtual hardware resources to run. According to the manifest file, you ideally need 72 vCPUs, 200GB of RAM, and 1 TB of storage. The more IOPS you can throw at the deployment, the better.</p>
+
+<p>Use the BOSH CLI to set your current deployment. This example assumes your deployment manifest file is in <code>~/deployments</code>.</p>
+
+<pre class="terminal">
+$ bosh deployment ~/deployments/cloudfoundry.yml
+Deployment set to '/home/user/deployments/cloudfoundry.yml'
+</pre>
+
+<h2><a id="deploy"></a>Deploy Cloud Foundry</h2>
+
+<p>Now deploy Cloud Foundry using <code>bosh deploy</code>. This example shows only part of the expected output:</p>
+
+<pre class="terminal">
+$ bosh deploy
+    Getting deployment properties from director...
+    Unable to get properties list from director, trying without it...
+    Compiling deployment manifest...
+    Cannot get current deployment information from director, possibly a new deployment
+    Please review all changes carefully
+      Deploying <filename>.yml' to dev124'(type 'yes' to continue): yes
+    Director task 31
+    Preparing deployment
+        binding deployment (00:00:00)
+        binding releases (00:00:00)
+        binding existing deployment (00:00:00)
+        binding resource pools (00:00:00)
+    binding stemcells (00:00:00)
+    binding templates (00:00:00)
+    binding unallocated VMs (00:00:01)
+    binding instance networks (00:00:00)
+    Done                    8/8 00:00:01        Preparing package compilation
+    finding packages to compile (00:00:00)
+    Done                    1/1 00:00:00
+</pre>
+
+<h2><a id="verfy"></a>Verify the Deployment</h2>
+
+<p>Execute the <code>bosh vms</code> command to see all the vas deployed.</p>
+
+<p>Output of this command will similar to the listing below. Make sure the &ldquo;State&rdquo; of all the jobs is &ldquo;running&rdquo;.</p>
+
+<pre class="terminal">
+$ bosh vms
+Deployment `cloudfoundry'
+
+Director task 30
 
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+Task 30 done
 
-</div>
++-----------------------------+---------+----------------+---------------+
+| Job/index                   | State   | Resource Pool  | IPs           |
++-----------------------------+---------+----------------+---------------+
+| acm/0                       | running | infrastructure | 192.168.9.38  |
+| acmdb/0                     | running | infrastructure | 192.168.9.37  |
+| backup_manager/0            | running | infrastructure | 192.168.9.120 |
+| ccdb_postgres/0             | running | infrastructure | 192.168.9.32  |
+| cloud_controller/0          | running | infrastructure | 192.168.9.213 |
+| cloud_controller/1          | running | infrastructure | 192.168.9.214 |
+| collector/0                 | running | infrastructure | 192.168.9.210 |
+| dashboard/0                 | running | infrastructure | 192.168.9.211 |
+| dea/0                       | running | deas           | 192.168.9.186 |
+| dea/1                       | running | deas           | 192.168.9.187 |
+| dea/2                       | running | deas           | 192.168.9.188 |
+| dea/3                       | running | deas           | 192.168.9.189 |
+| debian_nfs_server/0         | running | infrastructure | 192.168.9.30  |
+| hbase_master/0              | running | infrastructure | 192.168.9.44  |
+| hbase_slave/0               | running | infrastructure | 192.168.9.41  |
+| hbase_slave/1               | running | infrastructure | 192.168.9.42  |
+| hbase_slave/2               | running | infrastructure | 192.168.9.43  |
+| health_manager/0            | running | infrastructure | 192.168.9.163 |
+| login/0                     | running | infrastructure | 192.168.9.162 |
+| mongodb_gateway/0           | running | infrastructure | 192.168.9.222 |
+| mongodb_node/0              | running | infrastructure | 192.168.9.60  |
+| mongodb_node/1              | running | infrastructure | 192.168.9.61  |
+| mysql_gateway/0             | running | infrastructure | 192.168.9.221 |
+| mysql_node/0                | running | infrastructure | 192.168.9.51  |
+| mysql_node/1                | running | infrastructure | 192.168.9.52  |
+| nats/0                      | running | infrastructure | 192.168.9.31  |
+| opentsdb/0                  | running | infrastructure | 192.168.9.34  |
+| postgresql_gateway/0        | running | infrastructure | 192.168.9.192 |
+| postgresql_node/0           | running | infrastructure | 192.168.9.90  |
+| postgresql_node/1           | running | infrastructure | 192.168.9.91  |
+| rabbit_gateway/0            | running | infrastructure | 192.168.9.191 |
+| rabbit_node/0               | running | infrastructure | 192.168.9.80  |
+| rabbit_node/1               | running | infrastructure | 192.168.9.81  |
+| redis_gateway/0             | running | infrastructure | 192.168.9.190 |
+| redis_node/0                | running | infrastructure | 192.168.9.70  |
+| redis_node/1                | running | infrastructure | 192.168.9.71  |
+| router/0                    | running | infrastructure | 192.168.9.101 |
+| router/1                    | running | infrastructure | 192.168.9.102 |
+| serialization_data_server/0 | running | infrastructure | 192.168.9.123 |
+| service_utilities/0         | running | infrastructure | 192.168.9.121 |
+| services_nfs/0              | running | infrastructure | 192.168.9.50  |
+| services_redis/0            | running | infrastructure | 192.168.9.72  |
+| stager/0                    | running | infrastructure | 192.168.9.215 |
+| stager/1                    | running | infrastructure | 192.168.9.216 |
+| syslog_aggregator/0         | running | infrastructure | 192.168.9.33  |
+| uaa/0                       | running | infrastructure | 192.168.9.212 |
+| uaadb/0                     | running | infrastructure | 192.168.9.35  |
+| vblob_gateway/0             | running | infrastructure | 192.168.9.193 |
+| vblob_node/0                | running | infrastructure | 192.168.9.110 |
+| vcap_redis/0                | running | infrastructure | 192.168.9.36  |
++-----------------------------+---------+----------------+---------------+
+VMs total: 50
+</pre>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
-
-  <hr>
-
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
-
-  <hr>
-
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
-
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
-
-  </p>
-
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
-
-</div>
-
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<p>The Cloud Foundry deployment should now be ready to use. You can now follow the instructions in the <a href="/docs/using">Using</a> section of these docs to install the <a href="/docs/using/managing-apps/cf">cf</a> command-line tool and push an application.</p>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Getting Started - Adding a Service</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_dotcom docs_dotcom_adding-a-service">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,167 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="./">Cloud Foundry Hosted Developer Edition</a></li> <li class="active"><span>Getting Started - Adding a Service</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
-
- <hr>
-
+              <div class="quick-links"><ul>
+<li><a href="#intro">Intro to Services</a></li>
+<li><a href="#create">Creating Service Instances</a></li>
+<li><a href="#binding">Binding a Service Instance to your Application</a></li>
+<li><a href="#using">Using Service Instances with your Application</a></li>
+<li><a href="#configuring">Configuring Connections for Different Frameworks</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>Getting Started - Adding a Service</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <p>Cloud Foundry allows you to deploy applications without worrying about configuration headaches, making it faster and easier to build, test, deploy and scale your app.</p>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>This guide walks you through binding and using services at run.pivotal.io. It assumes you have pushed an application to run.pivotal.io. If you haven&#39;t done, that, you might consider going through our guide, <a href="getting-started.html">Getting Started</a>. </p>
 
-  <hr>
-  <p>Application Deployment<br>
+<h2><a id='intro'></a>Intro to Services</h2>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<p>Cloud Foundry Services are add-ons that can be provisioned alongside your application. Learn all about Services at <a href="../using/services/">Using Services</a>.</p>
 
-  </p>
-  <hr>
+<p>In order to use services with your application you will need to:</p>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<ol>
+<li><a href="#create">Create a service instance</a></li>
+<li><a href="#binding">Bind a service instance to your application</a></li>
+<li><a href="#using">Update your application to use the service</a></li>
+</ol>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<h3>Services vs. Service Instances</h3>
 
+<p>Services provision services instances. As an example, ClearDB is a service which provisions MySQL databases. Depending on the plan you select, you might get a database in a multi-tenant server, or a dedicated server. But not all services provide databases; a service may simply provision an account on their system for you. Whatever is provisioned for you we refer to as a service instance.  </p>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<h2><a id='create'></a>Creating Service Instances</h2>
 
-</div>
+<p>You can create a service instance with the command, <code>cf create-service</code>.</p>
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+<pre class="terminal">
+$ cf create-service
+1: cleardb n/a, via cleardb
+2: cloudamqp n/a, via cloudamqp
+3: elephantsql n/a, via elephantsql
+4: mongolab n/a, via mongolab
+5: rediscloud n/a, via garantiadata
+6: treasuredata n/a, via treasuredata
+What kind?> 1
+</pre>
 
-  <hr>
+<p>After you choose a service, <code>cf</code> will ask you to provide a name for your service instance. This is an alias for the instance which is meaningful to you. <code>cf</code> will provide a default for you, or you can enter any series of alpha-numeric characters ([a-z], [A-Z], [0-9]) plus hyphens (-) or underscores (_). You can rename the instance later at any time.</p>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<pre class="terminal">
+Name?> cleardb-e2006
+</pre>
 
-  <hr>
+<p>Next you will be asked to select a plan. Service plans are a way for providers to offer varying levels of resources or features for the same service.</p>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<pre class="terminal">
+1: amp: For apps with moderate data requirements
+2: boost: Best for light production or staging your applications
+3: shock: Designed for apps where you need real MySQL reliability, power and throughput.
+4: spark: Great for getting started and developing your apps.
+Which plan?> 
+</pre>
 
-  </p>
+<p>Following this step, your service instance will be provisioned.</p>
 
-  <hr>
+<pre class="terminal">
+Creating service cleardb-e2006... OK
+</pre>
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+<h2><a id='binding'></a>Binding a Service Instance to your Application</h2>
 
-  </p>
+<p>Not all services provide bindable service instances. Binding requires an additional level of integration with a provider, and it doesn&#39;t make sense in all cases for the provider to return any credentials for an application&#39;s use.</p>
 
-  <hr>
+<p>For services that offer bindable service instances, the binding operation puts credentiels for the service instance in the environment variable VCAP_SERVICES, where your application can consume them. For more information, see <a href="../using/services/environment-variable.html">VCAP_SERVICES Environment Variable</a>.</p>
 
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
+<p>You can bind a service to an application with the command <code>cf bind-service</code>. You will first be asked for the application to bind the service to.</p>
 
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+<pre class="terminal">
+$ cf bind-service
+1: myapp
+Which application?> 1
+</pre>
 
-  </p>
+<p>Next you will be asked for the service instance you want to bind.</p>
 
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
+<pre class="terminal">
+1: cleardb-e2006
+Which service?> 1
+</pre>
 
-</div>
+<p>If the service supports binding, your service instance will then be bound to your app.</p>
 
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<pre class="terminal">
+Binding cleardb-e2006 to myapp... OK
+</pre>
+
+<h2><a id='using'></a>Using Service Instances with your Application</h2>
+
+<p>Once you have a service instance created and bound to your app, you will need to configure your application to use the correct credentials for your service.</p>
+
+<p>There are three ways of consuming service instance credentials within your application.</p>
+
+<table><thead>
+<tr>
+<th align="left">Binding Strategy</th>
+<th align="left">Description</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Auto-configuration</td>
+<td align="left">For databases only. Cloud Foundry creates a service connection for you.</td>
+</tr>
+<tr>
+<td align="left">cfruntime</td>
+<td align="left">Creates an object with the location and settings of your services. Set your service connections based on the values in that object.</td>
+</tr>
+<tr>
+<td align="left">Manual</td>
+<td align="left">Parse the JSON credentials object yourself from the <a href="../using/services/environment-variable.html">VCAP_SERVICES Environment Variable</a>.</td>
+</tr>
+</tbody></table>
+
+<h2><a id='configuring'></a>Configuring Connections for Different Frameworks</h2>
+
+<p>The procedure for configuring an application to connect to a service varies by framework. Note that auto-configuration is not supported for all frameworks. The table below has links to instructions for configuring service connections in different environments.  </p>
+
+<table><thead>
+<tr>
+<th align="left">Runtime</th>
+<th align="left">Framework</th>
+<th align="left">Auto-Configuration Support</th>
+</tr>
+</thead><tbody>
+<tr>
+<td align="left">Java / JVM</td>
+<td align="left"><li><a href="../using/services/spring-service-bindings.html">Spring</a> <li><a href="../using/services/grails-service-bindings.html">Grails</a> <li><a href="../using/services/lift-service-bindings.html">Lift</a></td>
+<td align="left">Supported.</td>
+</tr>
+<tr>
+<td align="left">Ruby</td>
+<td align="left"><li><a href="../using/services/ruby-service-bindings.html">Rack, Rails, or Sinatra</a></td>
+<td align="left">Supported only for Rails, with some limitations. For more information, <br> see <a href="../using/services/ruby-service-bindings.html#options">Options for Configuring Ruby Apps for Services</a>.</td>
+</tr>
+<tr>
+<td align="left">Javascript</td>
+<td align="left"><li><a href="../using/services/node-service-bindings.html">Node.js</a></td>
+<td align="left">Not yet available in Cloud Foundry v2.</td>
+</tr>
+</tbody></table>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

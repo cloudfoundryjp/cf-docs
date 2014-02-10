@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Using the latest CF-Release</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_running docs_running_deploying-cf docs_running_deploying-cf_common docs_running_deploying-cf_common_cf-release">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,161 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class="active"><span>Using the latest CF-Release</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
-
- <hr>
-
+              <div class="quick-links"><ul>
+<li><a href="#intro">Introduction</a></li>
+<li><a href="#clone">Clone CF-Release</a></li>
+<li><a href="#update">Update the release</a></li>
+<li><a href="#build-the-release">Build the release</a></li>
+<li><a href="#upload-the-release">Upload the release</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>Using the latest CF-Release</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <h2><a id='intro'></a> Introduction</h2>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p><a href="https://github.com/cloudfoundry/cf-release">CF-Release</a> is the BOSH <a href="/docs/running/bosh/reference#bosh-release">release</a> repository for Cloud Foundry. Use this with a custom manifest for your environment to deploy Cloud Foundry. </p>
 
-  <hr>
-  <p>Application Deployment<br>
+<p>This short guide shows how to, after <a href="/docs/running/deploying-cf/">bootstrapping Bosh</a>, create a Cloud Foundry release ready to deploy to your environment. </p>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<h2><a id='clone'></a> Clone CF-Release</h2>
 
-  </p>
-  <hr>
+<p>Create / find a folder to keep your clone of the CF-Release repository and clone it from Github;</p>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<pre class="terminal">
+$ mkdir -p ~/src/cloudfoundry && cd ~/src/cloudfoundry
+$ git clone -b release-candidate git://github.com/cloudfoundry/cf-release.git && cd cf-release
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+</pre>
 
+<h2><a id='update'></a> Update the release</h2>
 
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
+<p>Run the included update script, ~/src/cloudfoundry/cf-release/update;</p>
 
-</div>
+<pre class="terminal">
+$ ./update
++ git pull
+remote: Counting objects: 96, done.
+remote: Compressing objects: 100% (42/42), done.
+remote: Total 67 (delta 43), reused 45 (delta 25)
+Unpacking objects: 100% (67/67), done.
+From http://github.com/cloudfoundry/cf-release
+   abd53f7..3be3d09  master     -> origin/master
+Fetching submodule src/dea_next
+remote: Counting objects: 61, done.
+remote: Compressing objects: 100% (20/20), done.
+remote: Total 40 (delta 22), reused 36 (delta 18)
+Unpacking objects: 100% (40/40), done.
+From https://github.com/cloudfoundry/dea_ng
+   aa33fd9..2ca4fcd  master     -> origin/master
+Fetching submodule src/dea_next/buildpacks/vendor/java
+remote: Counting objects: 73, done.
+remote: Compressing objects: 100% (21/21), done.
+remote: Total 65 (delta 9), reused 62 (delta 6)
+Unpacking objects: 100% (65/65), done.
+From https://github.com/cloudfoundry/cloudfoundry-buildpack-java
+   663e463..09875f7  master     -> origin/master
+Updating abd53f7..3be3d09
+warning: unable to rmdir src/logplex: Directory not empty
+Fast-forward
+ config/blobs.yml                                   |   16 +-
+ jobs/dea_next/templates/drain.rb                   |    2 +-
+ jobs/log_server/monit                              |    5 -
 
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
+...
 
-  <hr>
+Submodule path 'src/services': checked out '106ad12b8d21b72ae46379608df2efc8c43f3563'
+Submodule 'govendor' (https://github.com/cloudfoundry/vcap-services.git) registered for path 'govendor'
+Submodule 'assets' (https://github.com/cloudfoundry/vcap-yeti.git) registered for path 'assets'
+</pre>
 
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
+<p>This is a very simple script that just runs a &#39;git pull&#39; on the repository and then updates all the submodules. CF-Release is a combination of various other repositories.</p>
 
-  <hr>
+<h2><a id='build-the-release'></a> Build the release</h2>
 
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
+<p>At this point if the Bosh CLI is not installed on the local system and targeted at a BOSH / MicroBOSH instance, do so, 
+if necessary use this install <a href="/docs/running/bosh/setup/">guide</a>.</p>
 
-  </p>
+<p>When prompted, name your release <code>appcloud</code>:</p>
 
-  <hr>
+<pre class="terminal">
+$ bosh create release --force
+Syncing blobs...
 
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
+Please enter development release name: appcloud
 
-  </p>
+Building DEV release
+---------------------------------
 
-  <hr>
+Building packages
+-----------------
+Building backup_manager...
+  Final version:   NOT FOUND
+  Dev version:     FOUND LOCAL
 
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
+Building bandwidth_proxy...
+  Final version:   FOUND LOCAL
 
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
+Building buildpack_cache...
+  Final version:   NOT FOUND
+  Dev version:     FOUND LOCAL
 
-  </p>
+...
 
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
+Release version: 131.1-dev
+Release manifest: /private/tmp/cf-release/dev_releases/appcloud-131.1-dev.yml
+</pre>
 
-</div>
+<h2><a id='upload-the-release'></a> Upload the release</h2>
 
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<p>Once the build is complete, the latest development release (that was just generated), can be uploaded to the BOSH / MicroBOSH instance;</p>
+
+<pre class="terminal">
+$ bosh upload release
+
+...
+
+Uploading release
+
+...
+
+Task 11 done
+Started   2013-03-22 23:07:16 UTC
+Finished  2013-03-22 23:07:23 UTC
+Duration  00:00:07
+
+Release uploaded
+</pre>
+
+<p>Check the release has been added successfully by issuing the follow command;</p>
+
+<pre class="terminal">
+$ bosh releases
+
++----------+------------+-------------+
+| Name     | Versions   | Commit Hash |
++----------+------------+-------------+
+| appcloud | 131.1-dev  | de134222+   |
++----------+------------+-------------+
+(*) Currently deployed
+
+Releases total: 1
+</pre>
+
+<p>This release is now ready to deploy using a custom manifest.</p>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->

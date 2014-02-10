@@ -1,0 +1,703 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+
+    <!-- Always force latest IE rendering engine or request Chrome Frame -->
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+
+    <!-- Use title if it's in the page YAML frontmatter -->
+    <title>Cloud Foundry Glindex (用語集 + 索引)</title>
+
+    <link href="../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../javascripts/all.js" type="text/javascript"></script>
+    <link href='/images/favicon.ico' rel='shortcut icon'>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('a#search').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 20px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2').css("padding","11px 10px 8px");
+          $('#search-on').show();
+          $('#search-off').hide();
+        });
+        $('.cancel-x').click(function () {
+          $('#organization_bar .navbar .nav>li a').css("padding","11px 63px 8px");
+          $('#organization_bar .navbar .nav>li a#docs').css("padding","14px 20px");
+          $('#organization_bar .navbar .nav>li a#search2, #organization_bar .navbar .nav>li a#search').css("padding","16px 20px 15px");
+          $('#organization_bar .navbar .nav>li a#getinvolved').css("padding","11px 92px 8px");
+          $('#organization_bar .navbar .nav>li#docs-off .docs-list-list a').css("padding","0");
+          $('#search-on').hide();
+          $('#search-off').show();
+        });f
+        $(".togglebutton").click(function () {
+        var divname= this.value;
+          $("#"+divname).show("slow").siblings().hide("slow");
+        });
+      });
+    </script>
+
+    <!--[if lt IE 9]>
+    <style>
+        #content .container-full {background:  #ebf0fa;}
+        .call-to-contribute-box, .column-left, .column-middle, .column-right {background:#e3e8f2}
+        #footer {background:#000;}
+    </style>
+    <![endif]-->
+    <script type="text/javascript">
+      var _gaq = _gaq || [];
+      _gaq.push(['_setAccount', 'UA-22181585-1']);
+      _gaq.push(['_setDomainName', 'cloudfoundry.com']);
+      _gaq.push(['_trackPageview']);
+
+      (function() {
+        var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+        ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+        var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+      })();
+    </script>
+  </head>
+
+  <body class="docs docs_using docs_using_terms">
+    <img id="bg" src="/images/bg-plain-x.jpg">
+    <div id='non_footer'>
+      <div id='header'>
+        <div class='container_wide'>
+          <ul class='actions'>
+            <li class='last'>
+              <a href="http://www.cloudfoundry.com/contact">Contact Us</a>
+            </li>
+            <li>
+              <a class='register_link' href='http://login.run.pivotal.io/login'>My Account</a>            
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div id='content'>
+        <div class='logo-main'>
+          <div class='logo'>
+            <a href='http://www.cloudfoundry.com'>
+            <img src='/images/logo-cloudfoundry.png'>
+            </a>
+            <a href='http://www.gopivotal.com' target="_blank">
+            <img id="pivotal-logo" src='/images/logo-pivotal.png'>
+            </a>
+          </div>
+          <div class='cta'>
+            <a href='https://console.run.pivotal.io'>
+            <img src='/images/signup_freetrial.png'>
+            </a>
+          </div>
+        </div><!-- End of logo-main-->
+        <div class='container-full'>
+          <div id='organization_bar'>
+            <div class='navbar'>
+              <ul class='nav'>
+                <li>
+                <a href='http://www.cloudfoundry.com/use' id='use'>Using Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/run' id='run'>Running Cloud Foundry</a>
+                </li>
+                <li>
+                <a href='http://www.cloudfoundry.com/getinvolved' id='getinvolved'>Get Involved</a>
+                </li>
+                <li id='docs-off'>
+                  <a href='/' id='docs'>
+                    <div id='icon-docs'></div>
+                  </a>
+                  <div id='docs-list'>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/using/app-arch/'>Using Cloud Foundry</a>
+                      <br>
+                      <a href="/docs/using/app-arch/">Application Architecture Considerations</a>
+                      <br>
+                      <a href='/docs/using/deploying-apps/'>Deploying Apps</a>
+                      <br>
+                      <a href='/docs/using/managing-apps/'>Managing Apps</a>
+                      <br>
+                      <a href='/docs/using/services.html'>Using Services</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/using/">See all</a>
+                    </div><!-- End of 1st column docs-list-list-->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/running/'>Running Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/architecture/'>Architecture</a>
+                      <br>
+                      <a href='/docs/running/bosh/'>BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf/'>Deploying with BOSH</a>
+                      <br>
+                      <a href='/docs/running/deploying-cf-with-chef/'>Deploying with Chef</a>
+                      <br>
+                      <a href='/docs/running/micro_cloud_foundry/'>Micro Cloud Foundry</a>
+                      <br>
+                      <a href='/docs/running/managing-cf/index.html'>Managing Cloud Foundry</a>
+                      <br>
+                      <a class="docs-list-see-all" href="/docs/running/">See all</a>
+                    </div><!-- End of column 2 docs-list-list -->
+                    <div class="hr-vertical"></div>
+                    <div class="docs-list-list">
+                      <a class="docs-list-th" href='/docs/reference/'>Reference</a>
+                      <br>
+                      <a href='/docs/reference/cc-api.html'>Cloud Foundry REST API</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/dotcom/'>CloudFoundry.com</a>
+                      <br>
+                      <a href='/docs/dotcom/integration/'>Technical Integration</a>
+                      <br>
+                      <a class="docs-list-th" href='/docs/community/'>Community</a>
+                    </div><!-- End of column 3 docs-list-list -->
+                  </div><!-- End of docs-list -->
+                </li>
+                <li id='search-off'>
+                  <a id='search'>
+                    <div class='icon-search'></div>
+                  </a>
+                </li>
+                <li id='search-on'>
+                  <a id='search2'>
+                    <form action='http://www.cloudfoundry.com/search' class='search-form' method='get' onsubmit='return submitQuery()'>
+                      <input autocomplete='off' class='search-input' id='search-query' name='q' onfocus="this.placeholder = ''" placeholder='' type='search' value=''>
+                    </form>
+                    <div class="cancel-x"></div>
+                  </a>
+                </li>
+              </ul>
+            </div><!-- End of navbar -->
+          </div><!-- End of organization_bar -->
+          <div class='content_inner'>
+            <a class="forkme" href="http://github.com/cloudfoundry/cf-docs" target="_blank">
+              <img alt="Fork me on GitHub" src="/images/ribbon_forkme.png">
+            </a>
+            <form action='http://www.cloudfoundry.com/search' class='search-docs-form' method='get' onsubmit='return submitQuery()'>
+              <input autocomplete='off' class='search-docs-input' id='search-query' name='q' onfocus="this.placeholder = 'more:docs '" placeholder='' type='search-docs' value='more:docs '>
+            </form>
+            <br clear="left">
+            
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="./">Cloud Foundryを使用する</a></li> <li class="active"><span>Cloud Foundry Glindex (用語集 + 索引)</span></li>
+                </ul>
+              </div>
+              <br clear="left">
+
+			
+
+              <div class="quick-links"><ul>
+<li><a href="#application-manifest">アプリケーションのマニフェスト</a></li>
+<li><a href="#autoconfig">自動設定</a></li>
+<li><a href="#autoreconfig">自動再設定</a></li>
+<li><a href="#bosh-agent">BOSHエージェント</a></li>
+<li><a href="#bosh-blobstore">BOSH Blobstore</a></li>
+<li><a href="#bosh-cli">BOSH CLI</a></li>
+<li><a href="#bosh-director">BOSHダイレクター</a></li>
+<li><a href="#bosh-health-monitor">BOSH Health Monitor</a></li>
+<li><a href="#bosh">BOSH</a></li>
+<li><a href="#bosh-manifest">BOSH manifest</a></li>
+<li><a href="#buildpack">ビルドパック</a></li>
+<li><a href="#cc">CC</a></li>
+<li><a href="#ccng">CCNG</a></li>
+<li><a href="#cf">cf</a></li>
+<li><a href="#cf-release">CF-Release</a></li>
+<li><a href="#cloud-controller">Cloud Controller</a></li>
+<li><a href="#cpi">Cloud Provider Interface</a></li>
+<li><a href="#cloud-provider-interface">CPI</a></li>
+<li><a href="#droplet-execution-agent">DEA</a></li>
+<li><a href="#dea">Droplet Execution Agent</a></li>
+<li><a href="#droplet">droplet</a></li>
+<li><a href="#">flapping</a></li>
+<li><a href="#health-manager">Health Manager</a></li>
+<li><a href="#health-monitor"></a></li>
+<li><a href="#job">job</a></li>
+<li><a href="#job-spec">job specification</a></li>
+<li><a href="#job-template">ジョブのテンプレート</a></li>
+<li><a href="#manifest">manifest</a></li>
+<li><a href="#micro-bosh">Micro BOSH</a></li>
+<li><a href="#nats">NATS</a></li>
+<li><a href="#org">オーガナイゼーション</a></li>
+<li><a href="#package">パッケージ</a></li>
+<li><a href="#package-spec">package spec</a></li>
+<li><a href="#release">release</a></li>
+<li><a href="#resource%20pool">リソース・プール</a></li>
+<li><a href="#router">Router</a></li>
+<li><a href="#space">Space</a></li>
+<li><a href="#staging">ステージング</a></li>
+<li><a href="#stemcell"></a></li>
+<li><a href="#steno">Steno</a></li>
+<li><a href="#STS">STS</a></li>
+<li><a href="#uaa">UAA</a></li>
+<li><a href="#uaa">User Account and Authentication Service (UAA)</a></li>
+<li><a href="#vcap-services">VCAP_SERVICES</a></li>
+<li><a href="#vmc">VMC</a></li>
+<li><a href="#warden">Warden</a></li>
+<li><a href="#yaml">YAML</a></li>
+<li><a href="#yml">yml</a></li>
+</ul>
+</div>
+
+              <h1>Cloud Foundry Glindex (用語集 + 索引)</h1>
+
+            
+            <p>このページではCloud Foundryの文書で使われる用語について簡単に説明しています。いくつかの用語については関連項目へのクロス・リファレンスがついています。</p>
+
+<h2><a id='application-manifest'></a>アプリケーションのマニフェスト</h2>
+
+<blockquote>
+<p>マニフェストはデプロイの設定を定義します。アプリケーションの名前やインスタンスの数や使用できるメモリ量の上限や使用するサービスなどです。マニフェストの名前のデフォルトはmanifest.ymlです。マニフェストを使えばデプロイを自動化できます。コマンド・ラインでいろいろ設定する必要はありません。<br>
+<br>
+詳しくは<a href="../../using/deploying-apps/manifest.html">アプリケーションのマニフェスト</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='autoconfig'></a>自動設定</h2>
+
+<blockquote>
+<p>Cloud Foundryにおいて、オート・コンフィギュレーションとはバインドされたサービスとの接続を自動的に設定するプロセスのことです。フレームワークに応じてCloud Foundryはサーバーとサービスの接続パラメータを検出し、適切な設定ファイルをそれに応じて更新します。アプリケーションからCloud Foundryのサービスへ接続する際、開発者が設定しなくても、オート・コンフィギュレーションが接続できるようにしてくれます。</p>
+
+<p>Cloud Foundryにおいて、自動設定とはバインドされたサービスとの接続を自動的に設定するプロセスのことです。フレームワークに応じてCloud Foundryはサーバーとサービスの接続パラメータを検出し、適切な設定ファイルをそれに応じて更新します。アプリケーションからCloud Foundryのサービスへ接続する際、開発者が設定しなくても、自動設定が接続できるようにしてくれます。</p>
+</blockquote>
+
+<h2><a id='autoreconfig'></a>自動再設定</h2>
+
+<p><a href="#auto-config">自動再設定</a>をご覧ください。</p>
+
+<h2><a id='bosh-agent'></a>BOSHエージェント</h2>
+
+<blockquote>
+<p>BOSHエージェントはBOSHに管理されているVMで動作しているプロセスで、<a href="#bosh-director">BOSHダイレクター</a>からの指示を待っています。ダイレクターが<a href="#job">job</a>をエージェントへアサインすると、エージェントは適切なパッケージをblobstoreからダウンロードし、実行し、設定します。エージェントは<code>monit</code>を使ってジョブの起動や停止を実行します。</p>
+</blockquote>
+
+<h2><a id='bosh-blobstore'></a> BOSH Blobstore</h2>
+
+<blockquote>
+<p>BOSH Blobstoreはオブジェクトに基づいたcloud storage platformで、リリースごとのコンテントを格納します。(ジョブ、パッケージ・ソース、コンパイルされたパッケージなど) BOSHダイレクターは、blobstoreを読み書きするコンポーネントです。</p>
+</blockquote>
+
+<h2><a id='bosh-cli'></a>BOSH CLI</h2>
+
+<blockquote>
+<p><a href="#bosh-director">BOSHダイレクター</a>と相互作用するコマンドBOSH CLIはreleaseとartifactsの作成と管理を行なうコマンドの集りです。
+<br><br>
+詳しくは<a href="../bosh/reference/bosh-cli.html">BOSHコマンド・ライン・インターフェース</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='bosh-director'></a>BOSHダイレクター</h2>
+
+<blockquote>
+<p>BOSHダイレクターは、VMの作成、パッケージのコンパイル、Cloud Foundryインスタンスのデプロイ、パッケージの保存、ドロップレットのブロブストアへの保存などを統合的に実行します。</p>
+</blockquote>
+
+<h2><a id='bosh-health-monitor'></a>BOSH Health Monitor</h2>
+
+<blockquote>
+<p>ヘルス・ステータスをBOSH Agentから受け取り、メールなどのプラグインを通じて警告を送ります。</p>
+</blockquote>
+
+<h2><a id='bosh'></a>BOSH</h2>
+
+<blockquote>
+<p>BOSHは、大規模分散サービスのリリース・エンジニアリングやデプロイやライフサイクル・マネージメントのためのオープン・ソース・ツールです。BOSHはIaaS上でのCloud Foundryや他の分散サービスのデプロイに使えます。IaaSとしてはvSphere, vCloud Director, Amazon Web Services EC2, OpenStackなどが挙げられます。</p>
+</blockquote>
+
+<h2><a id='bosh-manifest'></a> BOSH manifest</h2>
+
+<blockquote>
+<p>BOSHのマニフェストはYAMLファイルで、デプロイの設定を定義します。 Cloud Foundry向けには以下を含みます:
+<br> <br></p>
+
+<ul>
+<li><p>作成するVM</p></li>
+<li><p>VMが使う永続性のディスク</p></li>
+<li><p>VMに割り当てるネットワークとIPアドレス</p></li>
+<li><p>VMに適用するBOSHリリース</p></li>
+<li><p><a href="#job-template">ジョブ・テンプレート</a>ごとの、設定ファイルやスクリプトへ適用される独自の設定</p></li>
+</ul>
+</blockquote>
+
+<h2><a id='buildpack'></a>ビルドパック</h2>
+
+<blockquote>
+<p>ビルドパックとは、<a href="#droplet">ドロップレット</a>を作成するためにアプリケーション<a href="#package">パッケージ</a>に対して実行されるスクリプトの集りです。アプリケーションの実行に必要なすべてを含みます(このプロセスを<a href="#staging">ステージング</a>と呼びます)。ビルドパックはフレームワークやランタイムそれぞれに特有です。Cloud FoundryはRuby, Java, Node.js向けのビルドパックを含んでいます; アプリケーションをアップロードすると、Cloud Foundryはアプリケーションを調べて適用するビルドパックを決めます。Cloud Foundryはリモートのビルドパックも使えます; <code>cf push</code> コマンドを実行する際、使いたいビルドパックのURLを指定します。
+<br><br>
+詳しくは、<a href="../../using/deploying-apps/buildpacks.html">独自のビルドパックの紹介</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='cc'></a>CC</h2>
+
+<blockquote>
+<p><a href="#cloud-controller">Cloud Controller</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='ccng'></a>CCNG</h2>
+
+<blockquote>
+<p>次世代あるいはv2のCloud Controller<a href="#cloud-controller">Cloud Controller</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='cf'></a> cf</h2>
+
+<blockquote>
+<p>cfはCloud Controller用のコマンドです。ユーザがデプロイやアプリケーションの管理ができるように、Cloud Controller REST APIが使われます; 管理とは、プロヴィジョン、サービスとそのバインド、ユーザやオーガナイゼーションやスペースの管理、などです。
+<br>
+詳しくは、<a href="../../using/managing-apps/cf/index.html">cfコマンド・ライン・インターフェース</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='cf-release'></a>CF-Release</h2>
+
+<blockquote>
+<p><a href="https://github.com/cloudfoundry/cf-release">CF-Release</a>がCloud Foundry用のBOSHリリース・リポジトリですCloud Foundryをデプロイする際、カスタマイズしたマニフェストとCF-Releaseを使うことができます。
+<br><br></p>
+
+<p>詳しくは、<a href="../../running/deploying-cf/common/cf-release.html">最新のCF-Releaseを使う</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='cloud-controller'></a> Cloud Controller</h2>
+
+<blockquote>
+<p>Cloud Controller (CC)はバックエンドの機能を統合するコンポーネントです。それらの機能とは、アプリケーションのステージング、ライフサイクル・マネージメント、プロヴィジョニング、バインドなどです。Cloud Controllerは以下のような機能を持ちます:</p>
+</blockquote>
+
+<p><br> <br></p>
+
+<blockquote>
+<ul>
+<li><p>データベースのメンテナンス。対象は以下のものに関する情報です。アプリケーション、サービス、オーガナイゼーションやスペースやユーザやロールなどです。</p></li>
+<li><p>保存されたアプリケーション・パッケージとブロブストア内のドロップレット</p></li>
+<li><p>NATSを通じて、他のコンポーネントとの相互作用。他のコンポーネントとは、DEA、サービス・ゲートウェイ、ヘルス・マネージャーを含みます。</p></li>
+<li><p>ユーザがバックエンドの機能にアクセスするためのREST API</p></li>
+</ul>
+</blockquote>
+
+<h2><a id='cpi'></a> Cloud Provider Interface</h2>
+
+<blockquote>
+<p>Cloud Provider Interface (CPI)はAPIで、BOSHがIaaSと相互に作用してVMやテンプレートを管理するのに使われます。以下のもの向けのCPIがあります。vSphere, OpenStack, Amazon Web ServicesCPIは仮想環境を抽象化し、アプリケーションのデプロイと実行を複数のクラウドにまたがって実行する基盤となります。</p>
+</blockquote>
+
+<h2><a id='cloud-provider-interface'></a>CPI</h2>
+
+<blockquote>
+<p><a href="#cpi">Cloud Provider Interface</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='droplet-execution-agent'></a>DEA</h2>
+
+<blockquote>
+<p><a href="#dea">Droplet Execution Agent</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='dea'></a> Droplet Execution Agent</h2>
+
+<blockquote>
+<p>Droplet Execution Agent (DEA)はVM上でアプリケーションを実行します。Cloud Controllerはドロップレットを実行する際にメッセージを発行し、DEAがサブスクライブします。DEAの環境がドロップレットのランタイムと必要なメモリ量に合っている場合、DEAはCloud Controllerのリクエストへ応答し、ドロップレットを受け取り、起動します。同様に、Cloud Controllerからリクエストがあれば、DEAはアプリケーションを停止します。DEAは自分が起動したインスタンスを監視し、状態を定期的に<a href="#nats">NATS</a>を通じてブロードキャストします。
+<br><br></p>
+
+<p>詳しくは、<a href="../architecture/execution-agent.html">Droplet Execution Agent</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='droplet'></a> droplet</h2>
+
+<blockquote>
+<p>ドロップレットはアプリケーションの<a href="#staging">staging</a>プロセスの結果で、ビルドパックが適用されアップロードされたアプリケーションです。元のアプリケーションにラッパーをかぶせたもので、HTTPリクエストを待つべきポートを入力として受け取ります。また二つのメソッドstartとstopを持ちます。</p>
+</blockquote>
+
+<h2><a id=' '></a>flapping</h2>
+
+<blockquote>
+<p>繰り返しクラッシュするか、あるいあは起動しないアプリケーションについて、Cloud FoundryはFlappingというヘルス・ステータスを報告します。</p>
+</blockquote>
+
+<h2><a id='health-manager'></a>Health Manager</h2>
+
+<blockquote>
+<p>Health Managerはデーモンの一つで、定期的にCloud Controllerデータベースをスキャンし、デプロイされたアプリケーションの状態とその上で実行されるべきVMを調べます。Health Managerはあるべき状態と実際の状態を比較し、問題を見つけるとCloud Controllerへメッサージを送ります。
+<br> <br>
+詳しくは<a href="health-manager.html">Health Manager</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='health-monitor'></a>Health Monitor</h2>
+
+<blockquote>
+<p><a href="#bosh-health-monitor">BOSH Health Monitor</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='job'></a>job</h2>
+
+<blockquote>
+<p>BOSHにおいて、ジョブとはパッケージの起動と実行のためのデプロイと実行のルールと資源の集合です。ジョブはマニフェストの中で定義されます。 (BOSH用とCloud Foundry 自体用の両方で) ジョブは、明示的あるいは参照 <a href="#resource-pool">resourcepool</a>によって定義されます: <br> <br></p>
+
+<ul>
+<li><p>ネットワークの設定</p></li>
+<li><p>ジョブのテンプレート</p></li>
+<li><p>デプロイするインスタンスの数</p></li>
+<li><p>資源の割当て(メモリ、ディスク、CPU)</p></li>
+</ul>
+
+<p>ジョブはロールからも参照されます。</p>
+</blockquote>
+
+<h2><a id='job-spec'></a>job specification</h2>
+
+<blockquote>
+<p>ジョブの定義はYAMLファイルで、<a href="#job">ジョブ</a>のテンプレート・ファイルやパッケージの依存関係やプロパティを記述しています。</p>
+</blockquote>
+
+<h2><a id='job-template'></a>ジョブのテンプレート</h2>
+
+<blockquote>
+<p><a href="#job">job</a>のための、汎用的な設定ファイルとスクリプトの集りテンプレートが適用される際、ジョブはRuby ERBのテンプレートを使って最終的な設定ファイルとクリプトを生成します。BOSH CLIを使ってジョブのテンプレートを生成できます。
+<br><br></p>
+
+<p>設定ファイルがテンプレートへ変えられる際、インスタンス特有の情報は抽象化され、VM上でジョブが起動される時に与えられます。たとえば、WWWサーバが使うポートや、データベースのユーザ名とパスワードなどです。</p>
+</blockquote>
+
+<h2><a id='manifest'></a>manifest</h2>
+
+<blockquote>
+<p><a href="#application-manifest">application manifest</a>と<a href="#bosh-manifest">BOSH manifest</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='micro-bosh'></a>Micro BOSH</h2>
+
+<blockquote>
+<p>Micro BOSHはBOSHのコンポーネントすべてを含むVMです。MicroBOSHはBOSHをインストールするために使われます。
+<br><br></p>
+
+<p>詳しくは、<a href="../../running/deploying-cf/vsphere/deploying_bosh_with_micro_bosh.html">Deploying BOSH with Micro BOSH</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='nats'></a>NATS</h2>
+
+<blockquote>
+<p>NATSは分散メッセージングのシステムです。Cloud Foundryのコンポーネント間の通信にはNATSが使われています。</p>
+</blockquote>
+
+<h2><a id='org'></a>オーガナイゼーション</h2>
+
+<blockquote>
+<p>Cloud Foundryでは、オーガナイゼーションはユーザの集りで、関連するアプリケーションとサービスのために使われます。ユーザはオーガナイゼーションに応じて、資源に対してさまざまな権限を持ちます。オーガナイゼーションは<a href="#space">スペース</a>を含みます。<br><br></p>
+
+<p>詳しくは<a href="managing-apps/orgs-and-spaces.html">オーガナイゼーションとスペース</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='package'></a>パッケージ</h2>
+
+<blockquote>
+<p>BOSHでは、パッケージはコンパイルとインストールのためのソース・コードとスクリプトの集りです。必要に応じて、パッケージはデプロイの際にコンパイルされます。ダイレクターはテンプレート向けにデプロイされるパッケージのコンパイル済のヴァージョンがあるかチェックします。存在しなければ、同じテンプレートを使ってコンパイル用VMを起動します。これにより、パッケージのソースがブロブストアから取り出され、コンパイルされ、パッケージのバイナリが作られてブロブストアに格納されます。ソース・コードをバイナリへ変換するには、コンパイルを担当するパッケージング・スクリプトが各パッケージに存在し、コンパイルVM上で実行されます。</p>
+</blockquote>
+
+<h2><a id='package-spec'></a>package spec</h2>
+
+<blockquote>
+<p>このファイルは、パッケージの名前、依存するパッケージ、含まれるファイルを定義しています。</p>
+</blockquote>
+
+<h2><a id='release'></a> release</h2>
+
+<blockquote>
+<p>BOSHにおいて、リリースはテンプレートから作られたVMへインストールされるソフトウェアと設定ファイルのひな形の集りです。</p>
+</blockquote>
+
+<h2><a id='resource pool'></a>リソース・プール</h2>
+
+<blockquote>
+<p>BOSHのマニフェストでは、リソース・プールが作成されるVMの特性を定義します。これらのVMへは、一つまたは複数の<a href="#job">jobs</a>をアサインすることができます。アトリビュートはリソース・プールを定義します。これには、作成されるVMの数、VMのテンプレート、CPUの数、メモリの量、各VMのディスク容量、などが含まれます。
+<br><br></p>
+
+<p>リソース・プールの内容、マニフェスト内のジョブがどのように割当てられるかなどについては、<a href="../../running/deploying-cf/vsphere/cloud-foundry-example-manifest.html">Cloud Foundryのマニフェストの例</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='router'></a>Router</h2>
+
+<blockquote>
+<p>ルータはCloud Foundryへのトラフィックを適切なコンポーネントへ届くようにします。 &ndash; たいていは Cloud ControllerかDEA上のアプリケーションが行き先です。ルータはGo言語で記述されています。ルータはDEAからのアプリケーションがオンラインになったまたはオフラインになったというメッセージを受信し、メモリ上のルーティング・テーブルを更新します。外部からのリクエストは、ルータのプール内で負荷分散されます。
+<br><br></p>
+
+<p>詳しくは、<a href="router.html">Router</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='space'></a> Space</h2>
+
+<blockquote>
+<p>Cloud Foundryにおいて、スペースは<a href="#org">オーガナイゼーション</a>内のアプリケーションとサービスのグループです。例として、いろいろなOSのホーム・ディレクトリに相当する個人用スペースや &ldquo;Development&rdquo;, &ldquo;Staging&rdquo;, &ldquo;Production&quot;のような共有スペースを含みえます。あるオーガナイゼーションにアクセスするには、ユーザは特定の権限を必要とします。
+<br><br>
+詳しくは、<a href="../../using/managing-apps/orgs-and-spaces.html">オーガナイゼーションとスペース</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='staging'></a>ステージング</h2>
+
+<blockquote>
+<p>ステージングとは、アップロードされたアプリケーションとCloud Foundryかユーザが指定したビルドパックを使ってDEAが実行するプロセスを意味します。ステージングの結果が<a href="#droplet">ドロップレット</a>です。</p>
+</blockquote>
+
+<h2><a id='stemcell'></a>stemcell</h2>
+
+<blockquote>
+<p>stemcellはLinuxやBOSHエージェント向けのVMのテンプレートです。BOSHははstemcellをCloud Foundry <a href="#release">リリース</a>がデプロイされるVM群をクローンするために使います。</p>
+</blockquote>
+
+<h2><a id='steno'></a>Steno</h2>
+
+<blockquote>
+<p>Cloud Foundryをサポートするために作られた、軽量でモジュール化されたロギング・ライブラリです。</p>
+</blockquote>
+
+<h2><a id='STS'></a>STS</h2>
+
+<p>Spring Tool SuiteはEclipseを元にしたIDEです。STSはJavaアプリケーションをCloud Foundryへデプロイするプラグインをサポートしています。</p>
+
+<h2><a id='uaa'></a> UAA</h2>
+
+<blockquote>
+<p><a href="#uaa">User Account and Authentication Service</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='uaa'></a>User Account and Authentication Service (UAA)</h2>
+
+<blockquote>
+<p>Cloud Foundryにおいて、User Account and Authentication Service (UAA)はアプリケーションとCloud Foundryの資源に関するシングル・サインオンの機能を提供します。UAAはOAuth 2.0認証サーバとして動作します。クライアント・アプリケーションに対して、Cloud Controllerを含むリソース・サーバへのアクセス・トークンを与えます。 <br><br>詳しくは<a href="../architecture/uaa.html">User Account and Authentication Service</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='vcap-services'></a>VCAP_SERVICES</h2>
+
+<blockquote>
+<p>あるアプリケーションにバインドされているサービスの接続情報が格納されている環境変数です。
+<br><br>
+詳しくは<a href="../../using/services/environment-variable.html">VCAP_SERVICES Environment Variable</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='vmc'></a>VMC</h2>
+
+<blockquote>
+<p>VMCはCloud Foundry v1用のコマンドです。<a href="#cf">cf</a>はCloud Foundry v2用のコマンドです。</p>
+</blockquote>
+
+<h2><a id='warden'></a>Warden</h2>
+
+<blockquote>
+<p>Wardenは、Cloud Foundryで用いられている、Unix上で隔離された環境の作成や管理のフレームワークです。WardenはVM内にコンテナを作成し管理するためのAPIとコマンドを提供します。Wardenはコンテナの使うCPUやメモリ量やディスク容量を制限することができます。</p>
+</blockquote>
+
+<h2><a id='yaml'></a> YAML</h2>
+
+<blockquote>
+<p>YAMLはアプリケーションのマニフェストやBOSHのマニフェストで使われているフォーマットです。YAMLの文法については、<a href="www.yaml.org">www.yaml.org</a>をご覧ください。</p>
+</blockquote>
+
+<h2><a id='yml'></a>yml</h2>
+
+<blockquote>
+<p>YAMLファイルに使われる拡張子。<a href="#yaml">YAML</a>をご覧ください。</p>
+</blockquote>
+
+          </div><!-- End of content_inner -->
+        </div><!-- End of container-full -->
+      </div><!-- End of content -->
+    </div><!-- End of non_footer -->
+    <div id='footer'>
+      <div id='container-footer'>
+        <div class='bg_social'>
+          <ul class='social'>
+            <li>
+            <a href='http://twitter.com/cloudfoundry' target='_blank'>
+            <img alt='Twitter' src='/images/twitter_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='https://plus.google.com/114245065906861739918/posts' target='_blank'>
+            <img alt='Google+' src='/images/g+_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://facebook.com/cloudfoundry' target='_blank'>
+            <img alt='Facebook' src='/images/facebook_large.png'>
+            </a>
+            </li>
+            <li>
+            <a href='http://youtube.com/cloudfoundry' target='_blank'>
+            <img alt='Youtube' src='/images/youtube_large.png'>
+            </a>
+            </li>
+          </ul>
+        </div><!-- End of bg_social -->
+        <ul class='links'>
+          <li>
+          <a href='http://www.cloudfoundry.com/about'>About</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://blog.cloudfoundry.com/'>Blog</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/partners'>Partners</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://docs.cloudfoundry.com'>Docs</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/faq'>FAQ</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/getinvolved'>Get Involved</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://status.cloudfoundry.com/'>Status</a>
+          </li>
+          <li class='disc'>•</li>
+          <li>
+          <a href='http://www.cloudfoundry.com/support'>Support</a>
+          </li>
+        </ul>
+        <div class='copyright'>
+          <div class='hr-horizontal-dark'></div>
+          <br>
+          <p>
+            &copy;
+            <script>
+              //<![CDATA[
+                var d = new Date();
+                document.write(d.getFullYear());
+              //]]>
+            </script>
+            GoPivotal, Inc. All rights reserved.
+            <a href='http://www.cloudfoundry.com/terms'>Terms</a>
+            <a href='http://www.gopivotal.com/privacy-policy' target='_blank'>Privacy</a>
+          </p>
+        </div><!-- End of copyright -->
+      </div><!-- End of container-footer -->
+    </div><!-- End of footer -->
+    <script type="text/javascript">
+      (function() {
+        var didInit = false;
+        function initMunchkin() {
+          if(didInit === false) {
+            didInit = true;
+            Munchkin.init('625-IUJ-009');
+          }
+        }
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = document.location.protocol + '//munchkin.marketo.net/munchkin.js';
+        s.onreadystatechange = function() {
+          if (this.readyState == 'complete' || this.readyState == 'loaded') {
+            initMunchkin();
+          }
+        };
+        s.onload = initMunchkin;
+        document.getElementsByTagName('head')[0].appendChild(s);
+      })();
+    </script>
+  </body>
+</html>

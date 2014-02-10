@@ -7,11 +7,11 @@
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
 
     <!-- Use title if it's in the page YAML frontmatter -->
-    <title>Welcome to Cloud Foundry Documentation</title>
+    <title>Javaビルドパックについて</title>
 
-    <link href="stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
-    <link href="stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
-    <script src="javascripts/all.js" type="text/javascript"></script>
+    <link href="../../../stylesheets/master.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href="../../../stylesheets/style.css" media="screen" rel="stylesheet" type="text/css" />
+    <script src="../../../javascripts/all.js" type="text/javascript"></script>
     <link href='/images/favicon.ico' rel='shortcut icon'>
     <script type="text/javascript">
       $(document).ready(function(){
@@ -59,7 +59,7 @@
     </script>
   </head>
 
-  <body class="index">
+  <body class="docs docs_using docs_using_deploying-apps docs_using_deploying-apps_java-buildpack">
     <img id="bg" src="/images/bg-plain-x.jpg">
     <div id='non_footer'>
       <div id='header'>
@@ -178,143 +178,88 @@
             </form>
             <br clear="left">
             
-            <div class="column-left">
-  <div class="column-title">
-  <h4>Pivotal CF Hosted</h4>
-  </div>
-   <p>Available at <a href="http://run.pivotal.io">run.pivotal.io</a></p>
-   <hr>
-  <p><a href="docs/dotcom/getting-started.html">Getting Started</a></p>
-  <p><a href="docs/dotcom/adding-a-service.html">Adding a Service</a></p>
-  </p>
+              <div class="breadcrumbs">
+                <ul>
+                  <li>
+                    <a href="/">Home</a>
+                  </li>
+                  <li class=""><a href="../">Cloud Foundryを使用する</a></li> <li class=""><a href="./">アプリケーションのデプロイについての重要事項</a></li> <li class="active"><span>Javaビルドパックについて</span></li>
+                </ul>
+              </div>
+              <br clear="left">
 
-  <hr>
+			
 
-   <p>
-    <a href="docs/dotcom/marketplace/">Services Marketplace</a>
-  </p>
-
- <hr>
-
+              <div class="quick-links"><ul>
+<li><a href="#design-doc">Javaビルドパックの文書</a></li>
+<li><a href="#software-versions">Javaビルドパックでインストールされたソフトウェア</a></li>
+</ul>
 </div>
 
-<div class="column-middle">
-  <div class="column-title">
-      <h4>Using Cloud Foundry</h4>
-  </div>
-  <p>Push applications to Cloud Foundry.</p>
+              <h1>Javaビルドパックについて</h1>
 
-  <hr>
-    <p><a href="docs/using/terms.html">Cloud Foundry Glossary</a></p>
+            
+            <h2><a id='design-doc'></a>Javaビルドパックの文書</h2>
 
-  <hr>
-  <p><a href="docs/using/app-arch/index.html">App Design for the Cloud</a></p>
+<p>Cloud FoundryのJavaビルドパックの使い方、設定、拡張については、<a href="https://github.com/cloudfoundry/java-buildpack">https://github.com/cloudfoundry/java-buildpack</a>をご覧ください。</p>
 
-  <hr>
-  <p>Application Deployment<br>
+<p>Javaビルドパックでインストールされたソフトウェアについては、このセクションをご覧ください。</p>
 
-  <a href="docs/using/deploying-apps/index.html">About Application Deployment</a><br>
-  <a href="docs/using/deploying-apps/ruby/index.html">Deploy Rack, Rails, or Sinatra Applications</a><br>
-  <a href="docs/using/deploying-apps/javascript/index.html">Deploy Node.js Applications</a><br>
-  <a href="docs/using/deploying-apps/jvm/index.html">Deploy Java, Groovy, or Scala Apps</a><br>
-  <a href="docs/using/deploying-apps/manifest.html">Application Manifests (manifest.yml)</a><br>
-  <a href="docs/using/deploying-apps/buildpacks.html">Buildpacks</a><br>
-  <a href="docs/using/deploying-apps/environment-variable.html">Cloud Foundry Environment Variables</a></br>
-  <a href="docs/using/deploying-apps/migrate-db.html">Migrate a Database on Cloud Foundry</a></br>
+<h2><a id='software-versions'></a>Javaビルドパックでインストールされたソフトウェア</h2>
 
-  </p>
-  <hr>
+<p>下の表には以下が含まれます:</p>
 
-  <p>Client Tools<br>
-  <a href="docs/using/managing-apps/cf/index.html">cf command line v5</a><br>
-  <a href="docs/using/managing-apps/cf/go-cli.html">Getting Started with cf v6</a><br>
-  <a href="docs/using/managing-apps/ide/index.html">IDE Integration</a><br>
-  <a href="docs/using/managing-apps/build-tools/index.html">Build Tool Integration</a>
-  </p>
+<ul>
+<li><strong>Name</strong> &mdash; Javaビルドパックでインストールされたソフトウェアの名前</li>
+<li><strong>Available Versions</strong> &mdash; ビルドパックで利用可能なヴァージョン。利用可能なヴァージョンはビルドパックが動作するプラットフォームに依存することに注意してください。</li>
+<li><p><strong>Installed by Default</strong> &mdash; デフォルトでインストールされるソフトウェアのヴァージョン。 &ldquo;Installed by Default&quot;カラムでのヴァージョンのフォーマットについては、 <a href="https://github.com/cloudfoundry/java-buildpack/blob/master/docs/util-repositories.md#version-wildcards">https://github.com/cloudfoundry/java-buildpack/blob/master/docs/util-repositories.md#version-wildcards</a> をご覧ください。</p>
 
-  <hr>
-  <p>Managing Organizations and Domains<br>
-  <a href="docs/using/managing-apps/orgs-and-spaces.html">Organizations and Spaces</a><br>
-  <a href="docs/using/managing-apps/custom-domains/index.html">About Domains, Subdomains and Routes</a>
-  <br>
-  <a href="docs/using/managing-apps/custom-domains/cloudflare.html">Configure an SSL-Enabled Custom Domain</a></p>
+<p>最終更新 2013年9月19日</p></li>
+</ul>
 
-
-  <hr>
-  <p>Services<br>
-  <a href="docs/using/services/">Using Services</a></br>
-  <a href="/docs/using/services/managing-services.html">Managing Services with CLI</a></br>
-  <a href="/docs/using/services/tunnelling-with-services.html">Tunneling to Services</a>
-  </p>
-    <hr>
-
-</div>
-
-<div class="column-right">
-  <div class="column-title">
-    <a href="docs/running/index.html">
-      <h4>Running Cloud Foundry</h4>
-    </a>
-  </div>
-  <p>Manage your Cloud Foundry deployment.</p>
-
-  <hr>
-
-  <p>
-  Understanding the Architecture<br>
-  <a href="docs/running/architecture/">A Tour of Each Component</a><br>
-  <a href="docs/running/architecture/how-applications-are-staged.html">How Applications Are Staged</a></p>
-
-  <hr>
-
-  <p>BOSH<br>
-  <a href="docs/running/bosh/">Understanding BOSH</a><br>
-  <a href="docs/running/bosh/components/index.html">Components</a><br>
-  <a href="docs/running/bosh/setup/index.html">Local Setup</a><br>
-  <a href="docs/running/bosh/reference/index.html">Reference</a><br>
-  <a href="docs/running/bosh/reference/bosh-cli.html">BOSH CLI</a><br>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Deploy Cloud Foundry<br>
-  <a href="docs/running/bosh/setup/index.html">Set Up BOSH</a><br>
-  <a href="docs/running/deploying-cf/ec2/index.html">Deploy  to AWS</a><br>
-  <a href="docs/running/deploying-cf/openstack/index.html">Deploy to OpenStack</a><br>
-  <a href="docs/running/deploying-cf/vsphere/index.html">Deploy to vSphere</a><br>
-  <a href="docs/running/deploying-cf/vcloud/deploying_to_vcloud_director.html">Deploy to vCloud Director</a><br>
-  <a href="docs/running/deploying-cf/adding-services.html">Deploying Community Services</a><br>
-  <a href="docs/running/deploying-cf-with-chef/index.html">Deploy with Chef</a><br>
-  <a href="docs/running/deploying-cf/run-local.html">Run a Local Cloud Foundry Instance</a>
-
-  </p>
-
-  <hr>
-
-  <p>
-  Managing Cloud Foundry<br>
-  <a href="docs/running/managing-cf/managing-users.html">Users</a><br>
-  <a href="docs/running/managing-cf/logging.html">Logging</a>
-  </p>
-
-  <p>
-  Services<br>
-  <a href="docs/running/architecture/services/">Overview</a><br>
-  <a href="docs/running/architecture/services/api.html">Service Broker API</a><br>
-
-  </p>
-
-  <p>
-  Troubleshooting<br>
-  <a href="docs/running/troubleshooting/troubleshooting-apps.html">Apps</a><br>
-  <a href="docs/running/troubleshooting/troubleshooting-warden-services.html">Warden Services</a>
-  </p>
-
-</div>
-
-<p>For a look at what is planned - look at our <a href="docs/roadmap.html">Roadmap</a>.</p>
+<table><thead>
+<tr>
+<th>Name</th>
+<th>Available Versions</th>
+<th>Installed by Default</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>OpenJDK</td>
+<td>lucid: <a href="http://download.pivotal.io.s3.amazonaws.com/openjdk/lucid/x86_64/index.yml"><code>1.6.0_21 -&gt; 1.8.0_M8</code></a><br>mountainlion: <a href="http://download.pivotal.io.s3.amazonaws.com/openjdk/mountainlion/x86_64/index.yml"><code>1.7.0_04 -&gt; 1.8.0_M8</code></a><br>precise: <a href="http://download.pivotal.io.s3.amazonaws.com/openjdk/precise/x86_64/index.yml"><code>1.7.0_01 -&gt; 1.8.0_M8</code></a></td>
+<td><a href="https://github.com/cloudfoundry/java-buildpack/blob/master/config/openjdk.yml"><code>1.7.0_+</code></a></td>
+</tr>
+<tr>
+<td>Groovy</td>
+<td><a href="http://download.pivotal.io.s3.amazonaws.com/groovy/index.yml"><code>1.5.0 -&gt; 2.1.7</code></a></td>
+<td><a href="https://github.com/cloudfoundry/java-buildpack/blob/master/config/groovy.yml"><code>2.1.+</code></a></td>
+</tr>
+<tr>
+<td>Spring Boot CLI</td>
+<td><a href="http://download.pivotal.io.s3.amazonaws.com/spring-boot-cli/index.yml"><code>0.5.0_M2 -&gt; 0.5.0_M4</code></a></td>
+<td><a href="https://github.com/cloudfoundry/java-buildpack/blob/master/config/springbootcli.yml"><code>0.5.0_+</code></a></td>
+</tr>
+<tr>
+<td>Tomcat</td>
+<td><a href="http://download.pivotal.io.s3.amazonaws.com/tomcat/index.yml"><code>6.0.0 -&gt; 7.0.42</code></a></td>
+<td><a href="https://github.com/cloudfoundry/java-buildpack/blob/master/config/tomcat.yml"><code>7.0.+</code></a></td>
+</tr>
+<tr>
+<td>Auto Reconfiguration</td>
+<td><a href="http://download.pivotal.io.s3.amazonaws.com/auto-reconfiguration/index.yml"><code>0.6.8 -&gt; 0.7.1</code></a></td>
+<td><a href="https://github.com/cloudfoundry/java-buildpack/blob/master/config/springautoreconfiguration.yml"><code>0.+</code></a></td>
+</tr>
+<tr>
+<td>Play JPA Plugin</td>
+<td><a href="http://download.pivotal.io.s3.amazonaws.com/play-jpa-plugin/index.yml"><code>0.7.1</code></a></td>
+<td><a href="https://github.com/cloudfoundry/java-buildpack/blob/master/config/playautoreconfiguration.yml"><code>0.+</code></a></td>
+</tr>
+<tr>
+<td>New Relic</td>
+<td><a href="http://download.pivotal.io.s3.amazonaws.com/new-relic/index.yml"><code>2.11.0 -&gt; 2.21.4</code></a></td>
+<td><a href="https://github.com/cloudfoundry/java-buildpack/blob/master/config/newrelic.yml"><code>2.21.+</code></a></td>
+</tr>
+</tbody></table>
 
           </div><!-- End of content_inner -->
         </div><!-- End of container-full -->
